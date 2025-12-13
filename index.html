@@ -1,50 +1,40 @@
 <!doctype html>
 <html lang="en">
 <head>
-  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Automtas | Industrial Consulting</title>
   <meta name="description" content="Automtas is an industrial consulting partner helping operations teams improve performance, quality, and execution across sites." />
   <script src="https://cdn.tailwindcss.com"></script>
-  <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Automtas | Industrial Consulting</title>
-  <meta name="description" content="Automtas is an industrial consulting partner
-
 
   <style>
     html { scroll-behavior: smooth; }
     body{
       background:
-        radial-gradient(1200px 600px at 14% 10%, rgba(99,102,241,.20), transparent 60%),
-        radial-gradient(1100px 560px at 86% 18%, rgba(16,185,129,.16), transparent 55%),
-        radial-gradient(900px 500px at 50% 92%, rgba(255,255,255,.06), transparent 62%),
+        radial-gradient(1200px 600px at 14% 10%, rgba(99,102,241,.18), transparent 60%),
+        radial-gradient(1100px 560px at 86% 18%, rgba(16,185,129,.14), transparent 55%),
+        radial-gradient(900px 500px at 50% 92%, rgba(255,255,255,.05), transparent 62%),
         #020617;
-      animation: drift 14s ease-in-out infinite alternate;
       position: relative;
       overflow-x: hidden;
     }
-    @keyframes drift { 0%{ filter:hue-rotate(0deg); transform:translateY(0);} 100%{ filter:hue-rotate(10deg); transform:translateY(-8px);} }
 
-    /* Industrial background overlay (subtle) */
+    /* Industrial background photo (subtle) */
     body::before{
       content:"";
       position: fixed;
       inset: 0;
       z-index: 0;
-      background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Trains_no6-32905_Irvington_Factory_Interior_82.JPG?width=2200");
+      background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Trains_no6-32905_Irvington_Factory_Interior_82.JPG?width=2400");
       background-size: cover;
       background-position: center;
       opacity: 0.06;
-      filter: grayscale(1) blur(2px) contrast(1.05);
+      filter: grayscale(1) blur(2px) contrast(1.08);
       transform: scale(1.02);
       pointer-events: none;
     }
-    /* faint grid */
+
+    /* Soft grid overlay */
     body::after{
       content:"";
       position: fixed;
@@ -53,13 +43,13 @@
       background:
         linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
-      background-size: 70px 70px;
+      background-size: 72px 72px;
       opacity: 0.08;
       pointer-events: none;
       mix-blend-mode: overlay;
     }
 
-    main, header, footer { position: relative; z-index: 1; }
+    header, main, footer { position: relative; z-index: 1; }
 
     .reveal{ opacity:0; transform: translateY(10px) scale(.99); }
     .reveal.show{ opacity:1; transform: translateY(0) scale(1); transition: all .7s cubic-bezier(.2,.8,.2,1); }
@@ -86,9 +76,6 @@
     .scanLine{ animation: scan 2.6s linear infinite; }
     @keyframes scan{ 0%{ transform:translateX(-40px);} 100%{ transform:translateX(760px);} }
 
-    .gear{ animation: gearSpin 7s linear infinite; transform-origin: 50% 50%; }
-    @keyframes gearSpin{ to{ transform:rotate(360deg);} }
-
     .floatPic{ animation: floatPic 6s ease-in-out infinite; }
     @keyframes floatPic{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
 
@@ -96,7 +83,7 @@
     @keyframes slowZoom { from{ transform:scale(1);} to{ transform:scale(1.05);} }
 
     @media (prefers-reduced-motion: reduce){
-      body,.shine:after,.pulseDot,.scanLine,.gear,.floatPic,.slowZoom{ animation:none!important; }
+      .shine:after,.pulseDot,.scanLine,.floatPic,.slowZoom{ animation:none!important; }
       .reveal,.reveal.show{ transition:none!important; }
       html { scroll-behavior:auto; }
     }
@@ -122,62 +109,38 @@
 
       <nav class="hidden md:flex items-center gap-5 text-sm text-slate-200">
         <a href="#intro" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/></svg>
           Intro
         </a>
         <a href="#industries" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M3 20h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M7 20V9l5-4 5 4v11" stroke="currentColor" stroke-width="2"/>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 20h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 20V9l5-4 5 4v11" stroke="currentColor" stroke-width="2"/></svg>
           Industries
         </a>
         <a href="#services" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/></svg>
           Services
         </a>
         <a href="#process" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/>
-            <path d="M9 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/><path d="M9 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           Process
         </a>
         <a href="#testimonials" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/>
-            <path d="M9 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/></svg>
           Proof
         </a>
         <a href="#contact" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/>
-            <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Contact
         </a>
         <a href="services.html" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           More
         </a>
       </nav>
 
       <a href="#contact" class="shine inline-flex items-center justify-center rounded-xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200">
         <span class="mr-2 inline-flex">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/>
-            <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
         Talk to us
       </a>
@@ -189,7 +152,6 @@
     <section id="intro" class="relative overflow-hidden">
       <div class="mx-auto max-w-6xl px-4 pt-14 pb-10 md:pt-20 md:pb-14">
         <div class="grid gap-8 md:grid-cols-2 md:items-center">
-
           <!-- Left -->
           <div class="reveal">
             <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">
@@ -199,14 +161,9 @@
 
             <h1 class="mt-4 text-4xl font-semibold tracking-tight md:text-5xl flex items-start gap-3">
               <span class="hidden sm:flex iconBox mt-1">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/>
-                  <path d="M8 20v-6h8v6" stroke="currentColor" stroke-width="2"/>
-                </svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/><path d="M8 20v-6h8v6" stroke="currentColor" stroke-width="2"/></svg>
               </span>
-              <span>
-                A consulting partner for <span class="text-indigo-300">industrial operations</span>.
-              </span>
+              <span>A consulting partner for <span class="text-indigo-300">industrial operations</span>.</span>
             </h1>
 
             <p class="mt-4 text-slate-200">
@@ -216,51 +173,37 @@
             <div class="mt-7 flex flex-col gap-3 sm:flex-row">
               <a href="services.html" class="shine inline-flex items-center justify-center rounded-xl bg-indigo-400 text-slate-950 px-5 py-3 text-sm font-semibold hover:bg-indigo-300">
                 <span class="mr-2 inline-flex">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
                 Explore services
               </a>
               <a href="#industries" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold hover:bg-white/10">
                 <span class="mr-2 inline-flex">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M18 13l-6 6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 13l-6 6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
                 Industries
               </a>
             </div>
 
-            <!-- Micro Infographics -->
+            <!-- Micro numbers -->
             <div class="mt-8 grid grid-cols-3 gap-3">
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <div class="text-[11px] text-slate-300 inline-flex items-center gap-2">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                    <path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/>
-                  </svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/></svg>
                   Process
                 </div>
                 <div class="mt-1 text-2xl font-semibold">85%</div>
               </div>
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <div class="text-[11px] text-slate-300 inline-flex items-center gap-2">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2l7 4v6c0 5-3 9-7 10C8 21 5 17 5 12V6l7-4z" stroke="currentColor" stroke-width="2"/>
-                    <path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 4v6c0 5-3 9-7 10C8 21 5 17 5 12V6l7-4z" stroke="currentColor" stroke-width="2"/><path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   Quality
                 </div>
                 <div class="mt-1 text-2xl font-semibold">92%</div>
               </div>
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <div class="text-[11px] text-slate-300 inline-flex items-center gap-2">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-                    <path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                   Reliability
                 </div>
                 <div class="mt-1 text-2xl font-semibold">96%</div>
@@ -275,10 +218,7 @@
               <div class="flex items-center justify-between">
                 <div>
                   <div class="text-xs text-slate-300 inline-flex items-center gap-2">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                      <path d="M4 4h16v16H4V4z" stroke="currentColor" stroke-width="2"/>
-                      <path d="M7 8h10M7 12h10M7 16h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4V4z" stroke="currentColor" stroke-width="2"/><path d="M7 8h10M7 12h10M7 16h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                     How we deliver
                   </div>
                   <div class="text-lg font-semibold">Delivery Blueprint</div>
@@ -290,23 +230,17 @@
 
               <div class="mt-5 grid gap-3 sm:grid-cols-2">
                 <div class="rounded-2xl border border-white/10 bg-slate-950/40 overflow-hidden">
-                  <img
-                    class="w-full h-44 object-cover slowZoom"
-                    alt="Consultant portrait"
-                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Clement%20Dos%20Santos%20portrait%202025.jpg?width=900">
-                  <div class="p-3 text-[11px] text-slate-300 border-t border-white/10">
-                    Consulting partner (illustrative)
-                  </div>
+                  <img class="w-full h-44 object-cover slowZoom"
+                       alt="Consultant portrait"
+                       src="https://commons.wikimedia.org/wiki/Special:FilePath/Clement%20Dos%20Santos%20portrait%202025.jpg?width=900">
+                  <div class="p-3 text-[11px] text-slate-300 border-t border-white/10">Consulting partner (illustrative)</div>
                 </div>
 
                 <div class="rounded-2xl border border-white/10 bg-slate-950/40 overflow-hidden">
-                  <img
-                    class="w-full h-44 object-cover slowZoom"
-                    alt="Factory interior"
-                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Trains_no6-32905_Irvington_Factory_Interior_82.JPG?width=1200">
-                  <div class="p-3 text-[11px] text-slate-300 border-t border-white/10">
-                    Industrial floor view (illustrative)
-                  </div>
+                  <img class="w-full h-44 object-cover slowZoom"
+                       alt="Factory interior"
+                       src="https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Trains_no6-32905_Irvington_Factory_Interior_82.JPG?width=1200">
+                  <div class="p-3 text-[11px] text-slate-300 border-t border-white/10">Industrial floor view (illustrative)</div>
                 </div>
               </div>
 
@@ -350,7 +284,6 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>
@@ -358,50 +291,30 @@
     <!-- Industries -->
     <section id="industries" class="border-t border-white/10">
       <div class="mx-auto max-w-6xl px-4 py-14">
-        <div class="reveal flex items-end justify-between gap-4 flex-wrap">
-          <div>
-            <h2 class="text-2xl font-semibold tracking-tight inline-flex items-center gap-3">
-              <span class="iconBox">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M3 20h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M7 20V9l5-4 5 4v11" stroke="currentColor" stroke-width="2"/>
-                </svg>
-              </span>
-              Industries
-            </h2>
-            <p class="mt-3 text-slate-200 max-w-2xl">One playbook, adapted to each operation.</p>
-          </div>
-          <a href="#services" class="text-sm font-semibold text-indigo-300 hover:text-indigo-200 inline-flex items-center gap-2">
-            Services
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
+        <div class="reveal">
+          <h2 class="text-2xl font-semibold tracking-tight inline-flex items-center gap-3">
+            <span class="iconBox">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 20h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 20V9l5-4 5 4v11" stroke="currentColor" stroke-width="2"/></svg>
+            </span>
+            Industries
+          </h2>
+          <p class="mt-3 text-slate-200 max-w-2xl">One playbook, adapted to each operation.</p>
         </div>
 
         <div class="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <!-- 12 tiles -->
-          <!-- (same as before; unchanged for brevity) -->
-          <!-- You can keep your existing 12 tiles here -->
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
-            <div class="flex items-center gap-3">
-              <div class="iconBox">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/><path d="M8 20v-6h8v6" stroke="currentColor" stroke-width="2"/></svg>
-              </div>
-              <div class="font-semibold">Manufacturing</div>
-            </div>
-          </div>
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/><path d="M8 20v-6h8v6" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Manufacturing</div></div></div>
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 21V8a5 5 0 0110 0v13" stroke="currentColor" stroke-width="2"/><path d="M6 21h12" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Pharma & GMP</div></div></div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M8 3h8v6l3 3v9H5v-9l3-3V3z" stroke="currentColor" stroke-width="2"/><path d="M9 14h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div class="font-semibold">Oil & Gas</div></div></div>
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M8 3h8v6l3 3v9H5v-9l3-3V3z" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Oil & Gas</div></div></div>
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2v6" stroke="currentColor" stroke-width="2"/><path d="M6 8h12l-2 14H8L6 8z" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Utilities</div></div></div>
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 20h18" stroke="currentColor" stroke-width="2"/><path d="M7 20V9l5-4 5 4v11" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Construction</div></div></div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 18l8-14 8 14H4z" stroke="currentColor" stroke-width="2"/><path d="M10 18v-4h4v4" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Mining</div></div></div>
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 18l8-14 8 14H4z" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Mining</div></div></div>
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 17h18" stroke="currentColor" stroke-width="2"/><path d="M6 17V7h12v10" stroke="currentColor" stroke-width="2"/><path d="M8 7l4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div class="font-semibold">Ports & Terminals</div></div></div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 18h18" stroke="currentColor" stroke-width="2"/><path d="M6 18V8h12v10" stroke="currentColor" stroke-width="2"/><path d="M9 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div class="font-semibold">Warehousing</div></div></div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 21V7l7-4 7 4v14H5z" stroke="currentColor" stroke-width="2"/><path d="M9 21v-7h6v7" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Food & Beverage</div></div></div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 16c4-6 12-6 16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6 20h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="2" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Field Ops</div></div></div>
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 18h18" stroke="currentColor" stroke-width="2"/><path d="M6 18V8h12v10" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Warehousing</div></div></div>
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 21V7l7-4 7 4v14H5z" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Food & Beverage</div></div></div>
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 16c4-6 12-6 16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6 20h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div class="font-semibold">Field Ops</div></div></div>
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Maintenance</div></div></div>
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Compliance</div></div></div>
         </div>
       </div>
     </section>
@@ -412,27 +325,18 @@
         <div class="reveal">
           <h2 class="text-2xl font-semibold tracking-tight inline-flex items-center gap-3">
             <span class="iconBox">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/></svg>
             </span>
             Services
           </h2>
-          <p class="mt-3 text-slate-200 max-w-2xl">
-            Designed to work on real shop floors—simple, repeatable, measurable.
-          </p>
+          <p class="mt-3 text-slate-200 max-w-2xl">Designed to work on real shop floors—simple, repeatable, measurable.</p>
         </div>
 
         <div class="mt-7 grid gap-4 md:grid-cols-3">
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
             <div class="flex items-center gap-3">
               <span class="iconBox">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/>
-                  <path d="M8 20v-6h8v6" stroke="currentColor" stroke-width="2"/>
-                </svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/><path d="M8 20v-6h8v6" stroke="currentColor" stroke-width="2"/></svg>
               </span>
               <div class="text-sm font-semibold">Operations improvement</div>
             </div>
@@ -442,10 +346,7 @@
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
             <div class="flex items-center gap-3">
               <span class="iconBox">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2l7 4v6c0 5-3 9-7 10C8 21 5 17 5 12V6l7-4z" stroke="currentColor" stroke-width="2"/>
-                  <path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 4v6c0 5-3 9-7 10C8 21 5 17 5 12V6l7-4z" stroke="currentColor" stroke-width="2"/><path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
               <div class="text-sm font-semibold">Quality systems</div>
             </div>
@@ -455,10 +356,7 @@
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
             <div class="flex items-center gap-3">
               <span class="iconBox">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/>
-                  <path d="M9 10h6M9 14h6M9 18h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/><path d="M9 10h6M9 14h6M9 18h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
               </span>
               <div class="text-sm font-semibold">Execution rollout</div>
             </div>
@@ -468,16 +366,13 @@
       </div>
     </section>
 
-    <!-- Processes We Revamp -->
+    <!-- Processes -->
     <section id="process" class="border-t border-white/10">
       <div class="mx-auto max-w-6xl px-4 py-14">
         <div class="reveal">
           <h2 class="text-2xl font-semibold tracking-tight inline-flex items-center gap-3">
             <span class="iconBox">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/>
-                <path d="M9 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/><path d="M9 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
             </span>
             Processes we can revamp
           </h2>
@@ -485,78 +380,14 @@
         </div>
 
         <div class="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <!-- tiles -->
-          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
-            <div class="flex items-center gap-3">
-              <span class="iconBox">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/><path d="M9 10h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              </span>
-              <div class="font-semibold">SOP & Standard Work</div>
-            </div>
-          </div>
-
-          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
-            <div class="flex items-center gap-3">
-              <span class="iconBox">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              </span>
-              <div class="font-semibold">Shift Handover</div>
-            </div>
-          </div>
-
-          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
-            <div class="flex items-center gap-3">
-              <span class="iconBox">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 4v6c0 5-3 9-7 10C8 21 5 17 5 12V6l7-4z" stroke="currentColor" stroke-width="2"/></svg>
-              </span>
-              <div class="font-semibold">Quality Gates</div>
-            </div>
-          </div>
-
-          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
-            <div class="flex items-center gap-3">
-              <span class="iconBox">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 18h18" stroke="currentColor" stroke-width="2"/><path d="M6 18V8h12v10" stroke="currentColor" stroke-width="2"/></svg>
-              </span>
-              <div class="font-semibold">Pick/Pack Flow</div>
-            </div>
-          </div>
-
-          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
-            <div class="flex items-center gap-3">
-              <span class="iconBox">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              </span>
-              <div class="font-semibold">Maintenance Triage</div>
-            </div>
-          </div>
-
-          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
-            <div class="flex items-center gap-3">
-              <span class="iconBox">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2"/></svg>
-              </span>
-              <div class="font-semibold">Escalation Rules</div>
-            </div>
-          </div>
-
-          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
-            <div class="flex items-center gap-3">
-              <span class="iconBox">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/></svg>
-              </span>
-              <div class="font-semibold">Audit Readiness</div>
-            </div>
-          </div>
-
-          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
-            <div class="flex items-center gap-3">
-              <span class="iconBox">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/></svg>
-              </span>
-              <div class="font-semibold">Training & Onboarding</div>
-            </div>
-          </div>
+          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><span class="iconBox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/></svg></span><div class="font-semibold">SOP & Standard Work</div></div></div>
+          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><span class="iconBox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><div class="font-semibold">Shift Handover</div></div></div>
+          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><span class="iconBox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 4v6c0 5-3 9-7 10C8 21 5 17 5 12V6l7-4z" stroke="currentColor" stroke-width="2"/></svg></span><div class="font-semibold">Quality Gates</div></div></div>
+          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><span class="iconBox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 18h18" stroke="currentColor" stroke-width="2"/><path d="M6 18V8h12v10" stroke="currentColor" stroke-width="2"/></svg></span><div class="font-semibold">Pick/Pack Flow</div></div></div>
+          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><span class="iconBox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/></svg></span><div class="font-semibold">Maintenance Triage</div></div></div>
+          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><span class="iconBox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/></svg></span><div class="font-semibold">Escalation Rules</div></div></div>
+          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><span class="iconBox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/></svg></span><div class="font-semibold">Audit Readiness</div></div></div>
+          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><span class="iconBox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/></svg></span><div class="font-semibold">Training & Onboarding</div></div></div>
         </div>
       </div>
     </section>
@@ -567,24 +398,17 @@
         <div class="reveal">
           <h2 class="text-2xl font-semibold tracking-tight inline-flex items-center gap-3">
             <span class="iconBox">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/>
-                <path d="M9 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/></svg>
             </span>
-            Testimonials
+            Proof
           </h2>
-          <p class="mt-3 text-slate-200 max-w-2xl">
-            Short quotes (replace with real client quotes where available).
-          </p>
+          <p class="mt-3 text-slate-200 max-w-2xl">Representative examples and profile reference.</p>
         </div>
 
         <div class="mt-7 grid gap-4 md:grid-cols-3">
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
             <div class="text-xs text-slate-300 inline-flex items-center gap-2">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                <path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/></svg>
               Site director
             </div>
             <p class="mt-3 text-slate-100">“We standardized execution without slowing the floor down.”</p>
@@ -592,37 +416,40 @@
 
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
             <div class="text-xs text-slate-300 inline-flex items-center gap-2">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l7 4v6c0 5-3 9-7 10C8 21 5 17 5 12V6l7-4z" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 4v6c0 5-3 9-7 10C8 21 5 17 5 12V6l7-4z" stroke="currentColor" stroke-width="2"/></svg>
               Quality manager
             </div>
             <p class="mt-3 text-slate-100">“Checkpoints and ownership reduced defects and simplified audits.”</p>
           </div>
 
-          <!-- LinkedIn placeholder block -->
+          <!-- LinkedIn: Name + designation only (NO testimonial text) -->
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
             <div class="text-xs text-slate-300 inline-flex items-center gap-2">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                 <path d="M4 4h16v16H4V4z" stroke="currentColor" stroke-width="2"/>
                 <path d="M8 10v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 <path d="M8 7.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <path d="M12 18v-4.5c0-1.4.8-2.3 2.1-2.3 1.2 0 1.9.8 1.9 2.3V18"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              Aprampar Singh • LinkedIn (replace text)
+              Profile
             </div>
-            <p class="mt-3 text-slate-100">
-              “(Paste your real LinkedIn recommendation here.)”
-            </p>
+
+            <div class="mt-3">
+              <div class="text-lg font-semibold tracking-tight">Aprampar Singh</div>
+              <div class="mt-1 text-sm text-slate-300">Industrial Consulting Partner • Automtas</div>
+            </div>
+
             <a class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-indigo-300 hover:text-indigo-200"
                href="https://www.linkedin.com/in/apramaparsingh" target="_blank" rel="noopener">
-              View profile →
+              LinkedIn →
             </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Contact -->
+    <!-- Contact (FULL WIDTH ONLY - no right infographic) -->
     <section id="contact" class="border-t border-white/10">
       <div class="mx-auto max-w-6xl px-4 py-14">
         <div class="reveal rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent p-8">
@@ -630,48 +457,31 @@
             <div>
               <h2 class="text-2xl font-semibold tracking-tight flex items-center gap-3">
                 <span class="iconBox">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/>
-                    <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
                 Contact
               </h2>
-              <p class="mt-3 text-slate-200 max-w-xl">
-                Send your industry, site count, and outcome. We’ll reply with a simple plan and timeline.
-              </p>
+              <p class="mt-3 text-slate-200 max-w-xl">Send your industry, site count, and outcome. We’ll reply with a plan and timeline.</p>
             </div>
             <a href="services.html" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold hover:bg-white/10">
-              <span class="mr-2 inline-flex">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                  <path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
               More →
             </a>
           </div>
 
-          <!-- Right-side block REMOVED. Cards are now full width. -->
           <div class="mt-7 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-            <!-- Email (smaller) -->
+            <!-- Email smaller -->
             <div class="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
               <div class="flex items-center gap-3">
                 <span class="iconBox" style="height:40px;width:40px;border-radius:14px;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/>
-                    <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
                 <div>
                   <div class="text-[11px] text-slate-300">Email</div>
                   <a class="mt-1 block text-base font-semibold tracking-tight hover:text-indigo-200"
-                     href="mailto:apramparsingh@automatas.store">
-                    apramparsingh@automatas.store
-                  </a>
+                     href="mailto:apramparsingh@automatas.store">apramparsingh@automatas.store</a>
                 </div>
               </div>
-              <div class="mt-3 text-[11px] text-slate-400">Best for proposals & scope.</div>
+              <div class="mt-3 text-[11px] text-slate-400">Best for scope & proposals.</div>
             </div>
 
             <!-- Phone -->
@@ -707,8 +517,7 @@
                 <div>
                   <div class="text-xs text-slate-300">LinkedIn</div>
                   <a class="mt-1 block text-lg font-semibold tracking-tight hover:text-indigo-200"
-                     href="https://www.linkedin.com/in/apramaparsingh"
-                     target="_blank" rel="noopener">
+                     href="https://www.linkedin.com/in/apramaparsingh" target="_blank" rel="noopener">
                     Aprampar Singh
                   </a>
                 </div>
@@ -716,15 +525,12 @@
               <div class="mt-4 text-[11px] text-slate-400">Quick message or background.</div>
             </div>
 
-            <!-- Email template -->
+            <!-- Email Template (full width) -->
             <div class="rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition md:col-span-3">
               <div class="flex items-center justify-between flex-wrap gap-3">
                 <div class="flex items-center gap-3">
                   <span class="iconBox">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                      <path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/>
-                      <path d="M9 10h6M9 14h6M9 18h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/><path d="M9 10h6M9 14h6M9 18h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                   </span>
                   <div>
                     <div class="text-xs text-slate-300">Send a brief</div>
@@ -759,10 +565,12 @@
     const io = new IntersectionObserver((entries)=> {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("show"); });
     }, { threshold: 0.12 });
+
     els.forEach(el => io.observe(el));
   </script>
 </body>
 </html>
+
 
 
 
