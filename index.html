@@ -3,342 +3,359 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Automata | Industrial Consulting & Automation</title>
-  <meta name="description" content="Automata builds KPI-led industrial operations: standardize, digitize, automate." />
+  <title>Automtas | Industrial Consulting</title>
+  <meta name="description" content="Automtas partners with industrial teams to standardize work, strengthen quality gates, and ship practical automation." />
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     html { scroll-behavior: smooth; }
-    .bg-anim{
+    body {
       background:
-        radial-gradient(1200px 600px at 15% 10%, rgba(99,102,241,.22), transparent 60%),
-        radial-gradient(1100px 560px at 85% 20%, rgba(16,185,129,.18), transparent 55%),
-        radial-gradient(900px 500px at 40% 92%, rgba(255,255,255,.06), transparent 60%),
+        radial-gradient(1200px 600px at 14% 10%, rgba(99,102,241,.20), transparent 60%),
+        radial-gradient(1100px 560px at 86% 18%, rgba(16,185,129,.16), transparent 55%),
+        radial-gradient(900px 500px at 50% 92%, rgba(255,255,255,.06), transparent 62%),
         #020617;
-      animation: drift 12s ease-in-out infinite alternate;
+      animation: drift 14s ease-in-out infinite alternate;
     }
     @keyframes drift { 0%{ filter:hue-rotate(0deg); transform:translateY(0);} 100%{ filter:hue-rotate(10deg); transform:translateY(-8px);} }
 
-    .reveal{ opacity:0; transform: translateY(10px) scale(.99); }
-    .reveal.show{ opacity:1; transform: translateY(0) scale(1); transition: all .7s cubic-bezier(.2,.8,.2,1); }
+    .reveal { opacity:0; transform: translateY(10px) scale(.99); }
+    .reveal.show { opacity:1; transform: translateY(0) scale(1); transition: all .7s cubic-bezier(.2,.8,.2,1); }
 
-    .shine{ position:relative; overflow:hidden; }
+    .shine { position:relative; overflow:hidden; }
     .shine:after{
       content:""; position:absolute; inset:-120%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
       transform: rotate(18deg);
-      animation: shine 3.1s ease-in-out infinite;
+      animation: shine 3.2s ease-in-out infinite;
     }
-    @keyframes shine{ 0%{ left:-140%; } 100%{ left:140%; } }
+    @keyframes shine { 0% { left:-140%; } 100% { left:140%; } }
 
-    .ticker { overflow:hidden; }
-    .ticker-track { display:flex; gap:12px; width:max-content; animation: ticker 26s linear infinite; }
-    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .marquee { overflow:hidden; }
+    .marquee-track { display:flex; width:max-content; gap:12px; animation: marquee 22s linear infinite; }
+    @keyframes marquee { from { transform: translateX(0);} to { transform: translateX(-50%);} }
+
+    .float { animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-10px);} }
 
     @media (prefers-reduced-motion: reduce){
-      .bg-anim, .ticker-track, .shine:after { animation:none!important; }
-      .reveal, .reveal.show{ transition:none!important; }
+      body, .marquee-track, .shine:after, .float { animation:none!important; }
+      .reveal, .reveal.show { transition:none!important; }
     }
   </style>
 </head>
 
-<body class="bg-anim text-slate-100">
+<body class="text-slate-100">
   <!-- Header -->
   <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
     <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-      <a href="#top" class="flex items-center gap-2">
-        <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 border border-white/10">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="opacity-90">
+      <a href="#top" class="flex items-center gap-3">
+        <!-- Logo -->
+        <div class="h-10 w-10 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" class="opacity-90">
             <path d="M7 17l5-10 5 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             <path d="M9.2 13h5.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
-        </span>
+        </div>
         <div class="leading-tight">
-          <div class="font-semibold tracking-tight">Automata</div>
-          <div class="text-xs text-slate-300">Industrial</div>
+          <div class="font-semibold tracking-tight">Automtas</div>
+          <div class="text-xs text-slate-300">Industrial Consulting</div>
         </div>
       </a>
 
       <nav class="hidden md:flex items-center gap-6 text-sm text-slate-200">
-        <a class="hover:text-white" href="#cases">Cases</a>
-        <a class="hover:text-white" href="#dash">Dash</a>
-        <a class="hover:text-white" href="#proof">Proof</a>
-        <a class="hover:text-white" href="services.html">Services</a>
-        <a class="hover:text-white" href="#contact">Contact</a>
+        <a href="#intro" class="hover:text-white">Intro</a>
+        <a href="#services" class="hover:text-white">Services</a>
+        <a href="#testimonials" class="hover:text-white">Testimonials</a>
+        <a href="#contact" class="hover:text-white">Contact</a>
+        <a href="services.html" class="hover:text-white">More →</a>
       </nav>
 
       <a href="#contact" class="shine inline-flex items-center justify-center rounded-xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200">
-        Get a plan
+        Get in touch
       </a>
     </div>
   </header>
 
   <main id="top">
     <!-- Hero -->
-    <section class="relative overflow-hidden">
+    <section id="intro" class="relative overflow-hidden">
       <div class="mx-auto max-w-6xl px-4 pt-14 pb-10 md:pt-20 md:pb-14">
         <div class="grid gap-8 md:grid-cols-2 md:items-center">
           <div class="reveal">
             <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">
               <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-              Standardize • Digitize • Automate
+              www.automtas
             </div>
 
             <h1 class="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">
-              Industrial ops.<span class="text-indigo-300"> Visible.</span><span class="text-emerald-300"> Controlled.</span>
+              Make operations <span class="text-indigo-300">repeatable</span>, <span class="text-emerald-300">audit-ready</span>, and <span class="text-slate-200">faster</span>.
             </h1>
 
-            <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+            <p class="mt-4 text-slate-200">
+              We partner with industrial teams to tighten process, strengthen quality gates, and ship practical automation.
+            </p>
+
+            <div class="mt-7 flex flex-col gap-3 sm:flex-row">
               <a href="services.html" class="shine inline-flex items-center justify-center rounded-xl bg-indigo-400 text-slate-950 px-5 py-3 text-sm font-semibold hover:bg-indigo-300">
-                Services →
+                View services →
               </a>
-              <a href="#cases" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold hover:bg-white/10">
-                Case tiles ↓
+              <a href="#services" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold hover:bg-white/10">
+                What we do ↓
               </a>
             </div>
 
-            <!-- Counter band -->
+            <!-- KPI-style badges (not charts) -->
             <div class="mt-8 grid grid-cols-3 gap-3">
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div class="text-[11px] text-slate-300">Plants</div>
-                <div class="mt-1 text-2xl font-semibold"><span class="count" data-to="18">0</span>+</div>
+                <div class="text-[11px] text-slate-300">SOP coverage</div>
+                <div class="mt-1 text-2xl font-semibold"><span class="count" data-to="85">0</span>%</div>
               </div>
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div class="text-[11px] text-slate-300">Workflows</div>
-                <div class="mt-1 text-2xl font-semibold"><span class="count" data-to="140">0</span>+</div>
+                <div class="text-[11px] text-slate-300">Gate compliance</div>
+                <div class="mt-1 text-2xl font-semibold"><span class="count" data-to="92">0</span>%</div>
               </div>
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div class="text-[11px] text-slate-300">Dashboards</div>
-                <div class="mt-1 text-2xl font-semibold"><span class="count" data-to="32">0</span>+</div>
+                <div class="text-[11px] text-slate-300">OTD target</div>
+                <div class="mt-1 text-2xl font-semibold"><span class="count" data-to="96">0</span>%</div>
               </div>
             </div>
-            <div class="mt-2 text-[11px] text-slate-400">Numbers are illustrative.</div>
+            <div class="mt-2 text-[11px] text-slate-400">Illustrative targets.</div>
           </div>
 
-          <!-- Hero dashboard card -->
+          <!-- Right: “infographic panel” (icons + pipeline map) -->
           <div class="reveal">
-            <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-              <div class="flex items-center justify-between">
+            <div class="float rounded-3xl border border-white/10 bg-white/5 p-6">
+              <div class="flex items-center justify-between gap-3">
                 <div>
-                  <div class="text-xs text-slate-300">Control</div>
-                  <div class="text-lg font-semibold">Shift Snapshot</div>
+                  <div class="text-xs text-slate-300">Blueprint</div>
+                  <div class="text-lg font-semibold">Industrial Delivery System</div>
                 </div>
-                <div class="flex gap-2 text-[11px] text-slate-300">
-                  <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">OEE</span>
-                  <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">Yield</span>
-                  <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">OTD</span>
+                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">2–6 weeks</span>
+              </div>
+
+              <!-- Icon grid -->
+              <div class="mt-5 grid grid-cols-2 gap-3">
+                <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+                  <div class="flex items-center gap-3">
+                    <div class="h-10 w-10 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 20V4m0 16h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M7 15l3-3 3 2 6-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="text-sm font-semibold">Diagnostics</div>
+                      <div class="text-[11px] text-slate-400">map • gaps • KPIs</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+                  <div class="flex items-center gap-3">
+                    <div class="h-10 w-10 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 7h16M7 4v16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M9 12h11M9 16h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="text-sm font-semibold">SOP + RACI</div>
+                      <div class="text-[11px] text-slate-400">standard work</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+                  <div class="flex items-center gap-3">
+                    <div class="h-10 w-10 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M7 15l3-3 2 2 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="text-sm font-semibold">Quality Gates</div>
+                      <div class="text-[11px] text-slate-400">checklists</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+                  <div class="flex items-center gap-3">
+                    <div class="h-10 w-10 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="text-sm font-semibold">Automation</div>
+                      <div class="text-[11px] text-slate-400">scan • route • alert</div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div class="mt-5 grid grid-cols-3 gap-3">
-                <!-- rings -->
-                <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center">
-                  <svg class="mx-auto" width="64" height="64" viewBox="0 0 120 120" data-ring="78">
-                    <circle cx="60" cy="60" r="46" stroke="rgba(255,255,255,.12)" stroke-width="12" fill="none"/>
-                    <circle class="ring" cx="60" cy="60" r="46" stroke="currentColor" stroke-width="12" fill="none"
-                      stroke-linecap="round" transform="rotate(-90 60 60)"/>
-                    <text x="60" y="66" text-anchor="middle" font-size="22" fill="currentColor" class="font-semibold">78</text>
-                  </svg>
-                  <div class="mt-2 text-[11px] text-slate-300">OEE</div>
-                </div>
-
-                <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center">
-                  <svg class="mx-auto" width="64" height="64" viewBox="0 0 120 120" data-ring="64">
-                    <circle cx="60" cy="60" r="46" stroke="rgba(255,255,255,.12)" stroke-width="12" fill="none"/>
-                    <circle class="ring" cx="60" cy="60" r="46" stroke="currentColor" stroke-width="12" fill="none"
-                      stroke-linecap="round" transform="rotate(-90 60 60)"/>
-                    <text x="60" y="66" text-anchor="middle" font-size="22" fill="currentColor" class="font-semibold">64</text>
-                  </svg>
-                  <div class="mt-2 text-[11px] text-slate-300">Yield</div>
-                </div>
-
-                <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center">
-                  <svg class="mx-auto" width="64" height="64" viewBox="0 0 120 120" data-ring="91">
-                    <circle cx="60" cy="60" r="46" stroke="rgba(255,255,255,.12)" stroke-width="12" fill="none"/>
-                    <circle class="ring" cx="60" cy="60" r="46" stroke="currentColor" stroke-width="12" fill="none"
-                      stroke-linecap="round" transform="rotate(-90 60 60)"/>
-                    <text x="60" y="66" text-anchor="middle" font-size="22" fill="currentColor" class="font-semibold">91</text>
-                  </svg>
-                  <div class="mt-2 text-[11px] text-slate-300">OTD</div>
-                </div>
-              </div>
-
+              <!-- Mini process infographic -->
               <div class="mt-4 rounded-2xl border border-white/10 bg-slate-950/40 p-4">
                 <div class="flex items-center justify-between text-xs text-slate-300">
-                  <span>Throughput</span><span class="text-slate-400">units/hr</span>
+                  <span>Delivery</span><span class="text-slate-400">repeatable</span>
                 </div>
-                <svg class="mt-2 w-full" viewBox="0 0 240 60" fill="none">
-                  <path d="M10 48 L40 40 L70 44 L100 30 L130 28 L160 22 L190 26 L220 14"
-                        stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
-                  <path d="M10 48 L40 40 L70 44 L100 30 L130 28 L160 22 L190 26 L220 14 L220 58 L10 58 Z"
-                        fill="currentColor" opacity=".08"/>
-                </svg>
+                <div class="mt-4 grid grid-cols-4 gap-2 text-[11px] text-slate-200">
+                  <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Map</div>
+                  <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Design</div>
+                  <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Gate</div>
+                  <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Ship</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Logo ticker -->
+        <!-- Logo marquee (more logos, no charts) -->
         <div class="mt-10 reveal rounded-3xl border border-white/10 bg-white/5 p-6">
           <div class="flex items-center justify-between gap-4 flex-wrap">
-            <div class="text-sm text-slate-300">Industrial patterns</div>
-            <a href="services.html" class="text-sm font-semibold text-indigo-300 hover:text-indigo-200">Services →</a>
+            <div class="text-sm text-slate-300">Industrial partner patterns</div>
+            <a href="services.html" class="text-sm font-semibold text-indigo-300 hover:text-indigo-200">Details →</a>
           </div>
 
-          <div class="mt-5 ticker">
-            <div class="ticker-track" id="logoTrack">
-              <!-- row -->
-              <div class="badge">AUTOMATA</div>
-              <div class="badge">PLANTOPS</div>
-              <div class="badge">QAGATE</div>
-              <div class="badge">SHIFTLOG</div>
-              <div class="badge">FLOWCTRL</div>
-              <div class="badge">SYNCTRACE</div>
-              <div class="badge">KPIWALL</div>
-              <div class="badge">LINEVIS</div>
+          <div class="mt-5 marquee">
+            <div class="marquee-track" id="logoTrack">
+              <div class="logoBadge">AUTOMTAS</div>
+              <div class="logoBadge">PLANTFLOW</div>
+              <div class="logoBadge">QAGATE</div>
+              <div class="logoBadge">TRACEID</div>
+              <div class="logoBadge">SHIFTNOTE</div>
+              <div class="logoBadge">VENDORLINK</div>
+              <div class="logoBadge">WAREHOUSE</div>
+              <div class="logoBadge">FIELDOPS</div>
             </div>
           </div>
 
-          <div class="mt-3 text-[11px] text-slate-400">Logos are illustrative.</div>
+          <div class="mt-3 text-[11px] text-slate-400">Logo tiles are design elements.</div>
         </div>
       </div>
     </section>
 
-    <!-- Case Studies (3 tiles, very short, industrial style) -->
-    <section id="cases" class="border-t border-white/10">
+    <!-- Services -->
+    <section id="services" class="border-t border-white/10">
       <div class="mx-auto max-w-6xl px-4 py-14">
         <div class="reveal flex items-end justify-between gap-4 flex-wrap">
-          <h2 class="text-2xl font-semibold tracking-tight">Case Studies</h2>
-          <a href="services.html#pricing" class="text-sm font-semibold text-indigo-300 hover:text-indigo-200">Packages →</a>
-        </div>
-
-        <div class="mt-7 grid gap-4 md:grid-cols-3">
-          <!-- Tile 1 -->
-          <a href="services.html#cctv" class="reveal group rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
-            <div class="flex items-center justify-between">
-              <div class="text-sm font-semibold">CCTV Manufacturing</div>
-              <span class="text-[11px] text-slate-400 group-hover:text-slate-300">open →</span>
-            </div>
-            <div class="mt-4 grid grid-cols-3 gap-2 text-[11px] text-slate-300">
-              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">
-                <div class="text-lg font-semibold">92%</div><div class="text-[10px] text-slate-400">yield</div>
-              </div>
-              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">
-                <div class="text-lg font-semibold">18%</div><div class="text-[10px] text-slate-400">rework ↓</div>
-              </div>
-              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">
-                <div class="text-lg font-semibold">6w</div><div class="text-[10px] text-slate-400">sprint</div>
-              </div>
-            </div>
-          </a>
-
-          <!-- Tile 2 -->
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="flex items-center justify-between">
-              <div class="text-sm font-semibold">Supply Chain OTD</div>
-              <span class="text-[11px] text-slate-400">KPI</span>
-            </div>
-            <div class="mt-4">
-              <svg class="w-full" viewBox="0 0 240 60" fill="none">
-                <path d="M10 44 L40 40 L70 46 L100 34 L130 30 L160 26 L190 28 L220 18"
-                      stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
-                <path d="M10 44 L40 40 L70 46 L100 34 L130 30 L160 26 L190 28 L220 18 L220 56 L10 56 Z"
-                      fill="currentColor" opacity=".08"/>
-              </svg>
-              <div class="mt-3 h-2 rounded-full bg-white/10 overflow-hidden">
-                <div class="h-2 w-[86%] bg-white/60"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Tile 3 -->
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="flex items-center justify-between">
-              <div class="text-sm font-semibold">Field Ops SLA</div>
-              <span class="text-[11px] text-slate-400">gates</span>
-            </div>
-            <div class="mt-4 grid grid-cols-3 gap-2 text-[11px] text-slate-300">
-              <div class="rounded-xl border border-white/10 bg-slate-950/40 px-3 py-2 text-center">dispatch</div>
-              <div class="rounded-xl border border-white/10 bg-slate-950/40 px-3 py-2 text-center">scan</div>
-              <div class="rounded-xl border border-white/10 bg-slate-950/40 px-3 py-2 text-center">close</div>
-            </div>
-            <div class="mt-3 rounded-2xl border border-white/10 bg-slate-950/40 p-4">
-              <div class="flex items-center justify-between text-xs text-slate-300">
-                <span>SLA</span><span class="text-slate-400">weekly</span>
-              </div>
-              <div class="mt-3 h-2 rounded-full bg-white/10 overflow-hidden">
-                <div class="h-2 w-[78%] bg-white/60"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-2 text-[11px] text-slate-400">Tiles are illustrative.</div>
-      </div>
-    </section>
-
-    <!-- Dash -->
-    <section id="dash" class="border-t border-white/10">
-      <div class="mx-auto max-w-6xl px-4 py-14">
-        <div class="reveal flex items-end justify-between gap-4 flex-wrap">
-          <h2 class="text-2xl font-semibold tracking-tight">Dash</h2>
-          <div class="flex gap-2 text-[11px] text-slate-300">
-            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">Power BI</span>
-            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">Tableau</span>
-            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">Jira</span>
-          </div>
-        </div>
-
-        <div class="mt-7 grid gap-4 md:grid-cols-2">
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="text-sm font-semibold">Quality</div>
-            <svg class="mt-4 w-full" viewBox="0 0 320 120" fill="none">
-              <rect x="0" y="0" width="320" height="120" rx="18" fill="rgba(2,6,23,.35)" stroke="rgba(255,255,255,.08)"/>
-              <path d="M30 92 L70 82 L110 86 L150 68 L190 62 L230 48 L270 58 L290 40"
-                    stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity=".9"/>
-            </svg>
-          </div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="text-sm font-semibold">Throughput</div>
-            <svg class="mt-4 w-full" viewBox="0 0 320 120" fill="none">
-              <rect x="0" y="0" width="320" height="120" rx="18" fill="rgba(2,6,23,.35)" stroke="rgba(255,255,255,.08)"/>
-              <path d="M30 86 C70 60, 90 88, 130 66 C160 50, 190 60, 220 44 C250 30, 270 44, 290 28"
-                    stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity=".9"/>
-              <path d="M30 100h260" stroke="rgba(255,255,255,.14)" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Proof -->
-    <section id="proof" class="border-t border-white/10">
-      <div class="mx-auto max-w-6xl px-4 py-14">
-        <div class="reveal">
-          <h2 class="text-2xl font-semibold tracking-tight">Proof</h2>
-          <div class="mt-2 flex flex-wrap gap-2 text-[11px] text-slate-300">
-            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">Solution Sync — Partner</span>
-            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">CODEBREW — Partner</span>
-            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">TELUS — Partner</span>
+          <h2 class="text-2xl font-semibold tracking-tight">Services</h2>
+          <div class="flex flex-wrap gap-2 text-[11px] text-slate-300">
+            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">manufacturing</span>
+            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">logistics</span>
+            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">field ops</span>
           </div>
         </div>
 
         <div class="mt-7 grid gap-4 md:grid-cols-3">
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="text-xs text-slate-300">rework ↓</div>
-            <div class="mt-3 text-4xl font-semibold"><span class="count" data-to="20">0</span>%</div>
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+            <div class="flex items-center justify-between">
+              <div class="text-sm font-semibold">Ops Diagnostics</div>
+              <span class="text-[11px] text-slate-400">AS-IS</span>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-2 text-[11px] text-slate-300">
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">process</div>
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">risk</div>
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">KPI</div>
+            </div>
           </div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="text-xs text-slate-300">throughput ↑</div>
-            <div class="mt-3 text-4xl font-semibold"><span class="count" data-to="15">0</span>%</div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+            <div class="flex items-center justify-between">
+              <div class="text-sm font-semibold">SOP + Quality Gates</div>
+              <span class="text-[11px] text-slate-400">TO-BE</span>
+            </div>
+            <div class="mt-4 grid grid-cols-2 gap-2 text-[11px] text-slate-300">
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-4">SOP</div>
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-4">RACI</div>
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-4">checklist</div>
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-4">handoff</div>
+            </div>
           </div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="text-xs text-slate-300">OTD</div>
-            <div class="mt-3 text-4xl font-semibold"><span class="count" data-to="96">0</span>%</div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+            <div class="flex items-center justify-between">
+              <div class="text-sm font-semibold">Automation Enablement</div>
+              <span class="text-[11px] text-slate-400">SHIP</span>
+            </div>
+            <div class="mt-4 rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+              <div class="text-xs text-slate-300 flex items-center justify-between">
+                <span>Workflow</span><span class="text-slate-400">scan → route → alert</span>
+              </div>
+              <div class="mt-4 grid grid-cols-3 gap-2 text-[10px] text-slate-300">
+                <div class="rounded-xl border border-white/10 bg-white/5 px-2 py-1 text-center">capture</div>
+                <div class="rounded-xl border border-white/10 bg-white/5 px-2 py-1 text-center">validate</div>
+                <div class="rounded-xl border border-white/10 bg-white/5 px-2 py-1 text-center">report</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="mt-2 text-[11px] text-slate-400">Proof metrics are illustrative.</div>
+        <div class="mt-8 reveal rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent p-8">
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <div>
+              <div class="text-xs text-slate-300">Next</div>
+              <div class="mt-2 text-xl font-semibold">See industrial case studies</div>
+              <div class="mt-3 flex flex-wrap gap-2 text-[11px] text-slate-300">
+                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">CCTV</span>
+                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">Warehouse</span>
+                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">Maintenance</span>
+              </div>
+            </div>
+            <a href="services.html#cases" class="shine inline-flex items-center justify-center rounded-xl bg-indigo-400 text-slate-950 px-5 py-3 text-sm font-semibold hover:bg-indigo-300">
+              Open cases →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="border-t border-white/10">
+      <div class="mx-auto max-w-6xl px-4 py-14">
+        <div class="reveal flex items-end justify-between gap-4 flex-wrap">
+          <h2 class="text-2xl font-semibold tracking-tight">Testimonials</h2>
+          <div class="text-[11px] text-slate-400">Representative partner feedback</div>
+        </div>
+
+        <div class="mt-7 grid gap-4 md:grid-cols-3">
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
+            <div class="text-xs text-slate-300">Manufacturing Lead</div>
+            <p class="mt-3 text-slate-100">
+              “The SOP + gate rollout made our line predictable within weeks.”
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">gates</span>
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">audit-ready</span>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
+            <div class="text-xs text-slate-300">Ops Manager</div>
+            <p class="mt-3 text-slate-100">
+              “We stopped firefighting—handoffs are clean and visible now.”
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">RACI</span>
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">handoffs</span>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
+            <div class="text-xs text-slate-300">Logistics Supervisor</div>
+            <p class="mt-3 text-slate-100">
+              “The scan-route workflow eliminated delays at the dock.”
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">scan</span>
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">routing</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -346,11 +363,12 @@
     <section id="contact" class="border-t border-white/10">
       <div class="mx-auto max-w-6xl px-4 py-14">
         <div class="reveal rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent p-8">
-          <div class="flex items-start justify-between flex-wrap gap-4">
+          <div class="flex items-start justify-between gap-4 flex-wrap">
             <div>
               <h2 class="text-2xl font-semibold tracking-tight">Contact</h2>
-              <div class="mt-2 flex flex-wrap gap-2 text-[11px] text-slate-300">
+              <div class="mt-3 flex flex-wrap gap-2 text-[11px] text-slate-300">
                 <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">industry</span>
+                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">site</span>
                 <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">KPIs</span>
                 <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">timeline</span>
               </div>
@@ -360,15 +378,24 @@
             </a>
           </div>
 
-          <div class="mt-6 flex flex-col sm:flex-row gap-3">
-            <a class="shine inline-flex items-center justify-center rounded-xl bg-white text-slate-950 px-5 py-3 text-sm font-semibold hover:bg-slate-200"
-               href="mailto:apsj726@gmail.com?subject=Automata%20-%20Industrial%20Inquiry&body=Industry%3A%0AKPIs%3A%0ATimeline%3A%0A">
-              Email
-            </a>
-            <a class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold hover:bg-white/10"
-               href="#top">
-              Top
-            </a>
+          <div class="mt-6 grid gap-3 sm:grid-cols-3">
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div class="text-xs text-slate-300">Email</div>
+              <a class="mt-2 block font-semibold hover:text-indigo-200" href="mailto:hello@automtas.com">hello@automtas.com</a>
+              <div class="mt-1 text-[11px] text-slate-400">Update if needed</div>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div class="text-xs text-slate-300">Location</div>
+              <div class="mt-2 font-semibold">Remote + Onsite</div>
+              <div class="mt-1 text-[11px] text-slate-400">Industrial regions</div>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div class="text-xs text-slate-300">Start</div>
+              <a class="mt-2 inline-flex items-center justify-center rounded-xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200"
+                 href="mailto:hello@automtas.com?subject=Automtas%20-%20Industrial%20Inquiry&body=Industry%3A%0ASite%3A%0AKPIs%3A%0ATimeline%3A%0A">
+                Send brief →
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -377,31 +404,22 @@
 
   <footer class="border-t border-white/10">
     <div class="mx-auto max-w-6xl px-4 py-7 flex flex-col md:flex-row items-center justify-between gap-3">
-      <div class="text-sm text-slate-400">© <span id="year"></span> Automata</div>
-      <div class="text-sm text-slate-400">Static + JS • Cloudflare Pages</div>
+      <div class="text-sm text-slate-400">© <span id="year"></span> Automtas</div>
+      <div class="text-sm text-slate-400">Cloudflare Pages • Static + JS</div>
     </div>
   </footer>
 
   <script>
-    // tiny CSS helper for ticker badges
-    const style = document.createElement("style");
-    style.textContent = `
-      .badge{min-width:150px;display:flex;align-items:center;justify-content:center;
-        padding:12px 16px;border-radius:16px;border:1px solid rgba(255,255,255,.10);
-        background:rgba(2,6,23,.40);font-weight:800;letter-spacing:.08em;font-size:12px;color:rgba(255,255,255,.85);
-      }`;
-    document.head.appendChild(style);
-
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // reveal
+    // reveal on scroll
     const els = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries)=> {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("show"); });
     }, { threshold: 0.12 });
     els.forEach(el => io.observe(el));
 
-    // counters
+    // counter animation (badges only; no charts)
     function animateCounters() {
       document.querySelectorAll(".count").forEach(el => {
         const to = Number(el.getAttribute("data-to") || "0");
@@ -416,38 +434,29 @@
         requestAnimationFrame(tick);
       });
     }
-
-    // ring animation
-    function animateRings(){
-      document.querySelectorAll("svg[data-ring]").forEach(svg => {
-        const pct = Number(svg.getAttribute("data-ring") || "0");
-        const ring = svg.querySelector(".ring");
-        if (!ring) return;
-        const r = 46, C = 2 * Math.PI * r;
-        ring.style.strokeDasharray = `${C}`;
-        ring.style.strokeDashoffset = `${C}`;
-        const target = C * (1 - pct/100);
-        ring.animate([{ strokeDashoffset: C }, { strokeDashoffset: target }], {
-          duration: 900, easing: "cubic-bezier(.2,.8,.2,1)", fill: "forwards"
-        });
-      });
-    }
-
-    // run once near top
     let ran = false;
-    const heroObs = new IntersectionObserver((entries)=>{
+    const obs = new IntersectionObserver((entries)=>{
       if (ran) return;
-      if (entries.some(e => e.isIntersecting)) {
-        ran = true;
-        animateCounters();
-        animateRings();
-      }
+      if (entries.some(e => e.isIntersecting)) { ran = true; animateCounters(); }
     }, { threshold: 0.25 });
-    heroObs.observe(document.querySelector("main"));
+    obs.observe(document.querySelector("main"));
 
-    // ticker duplicate for seamless loop
+    // logo badges style + marquee duplication
+    const style = document.createElement("style");
+    style.textContent = `
+      .logoBadge{
+        min-width:160px; display:flex; align-items:center; justify-content:center;
+        padding:12px 16px; border-radius:16px; font-weight:800;
+        border:1px solid rgba(255,255,255,.10);
+        background:rgba(2,6,23,.40);
+        color:rgba(255,255,255,.82);
+        letter-spacing:.12em; font-size:12px;
+      }`;
+    document.head.appendChild(style);
+
     const track = document.getElementById("logoTrack");
     track.innerHTML = track.innerHTML + track.innerHTML;
   </script>
 </body>
 </html>
+
