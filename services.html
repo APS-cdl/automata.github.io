@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Automtas | Services & Case Studies</title>
-  <meta name="description" content="Automtas services and case studies across industrial operations: process, quality, execution, and ML/AI enablement." />
+  <meta name="description" content="Automtas services and case studies across industrial operations: process, quality, and execution." />
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
@@ -47,8 +47,11 @@
     .wrench{ animation: wrench 2.8s ease-in-out infinite; transform-origin: 50% 50%; }
     @keyframes wrench{ 0%,100%{ transform: rotate(-6deg);} 50%{ transform: rotate(8deg);} }
 
+    .slowZoom { animation: slowZoom 9s ease-in-out infinite alternate; transform-origin:center; }
+    @keyframes slowZoom { from{ transform:scale(1);} to{ transform:scale(1.05);} }
+
     @media (prefers-reduced-motion: reduce){
-      body,.shine:after,.pulseDot,.truck,.wrench{ animation:none!important; }
+      body,.shine:after,.pulseDot,.truck,.wrench,.slowZoom{ animation:none!important; }
       .reveal,.reveal.show{ transition:none!important; }
       html { scroll-behavior:auto; }
     }
@@ -115,13 +118,21 @@
             <span>Services & case studies</span>
           </h1>
           <p class="mt-3 text-slate-200 max-w-2xl">
-            Industrial consulting across process, quality, execution, and ML/AI enablement.
+            Industrial consulting across process, quality, and execution rollout.
           </p>
         </div>
 
         <a href="index.html" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold hover:bg-white/10">
           ← Home
         </a>
+      </div>
+
+      <!-- real industry photo banner -->
+      <div class="reveal mt-8 rounded-3xl border border-white/10 bg-white/5 overflow-hidden">
+        <img
+          class="w-full h-56 md:h-72 object-cover slowZoom"
+          alt="Industrial factory interior"
+          src="https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Trains_no6-32905_Irvington_Factory_Interior_82.JPG?width=1600">
       </div>
     </section>
 
@@ -158,14 +169,13 @@
             <div class="flex items-center gap-3">
               <span class="iconBox">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                  <path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M9 10h6M9 14h6M9 18h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
               </span>
-              <div class="text-sm font-semibold">ML/AI enablement</div>
+              <div class="text-sm font-semibold">Execution rollout</div>
             </div>
-            <p class="mt-3 text-slate-200">Anomaly alerts, forecasting, and decision support dashboards.</p>
+            <p class="mt-3 text-slate-200">Repeatable cadence, scorecards, sustainment across sites.</p>
           </div>
         </div>
       </div>
@@ -188,26 +198,28 @@
         </div>
 
         <div class="mt-7 grid gap-4 md:grid-cols-3">
-          <!-- Manufacturing -->
+          <!-- CCTV manufacturing -->
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
             <div class="flex items-center justify-between">
               <div class="text-sm font-semibold inline-flex items-center gap-2">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M8 8h8l2 4-2 4H8L6 12l2-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
                 </svg>
-                Manufacturing stabilization
+                CCTV manufacturing
               </div>
-              <span class="text-[11px] text-slate-400">production</span>
+              <span class="text-[11px] text-slate-400">electronics</span>
             </div>
-            <p class="mt-3 text-slate-200">Standard work + checkpoints + escalation for defects.</p>
+            <p class="mt-3 text-slate-200">Quality gates + line balance + rework reduction.</p>
 
             <div class="mt-4 rounded-2xl border border-white/10 bg-slate-950/40 p-4 overflow-hidden">
               <svg viewBox="0 0 320 120" class="w-full" fill="none">
                 <rect x="10" y="10" width="300" height="100" rx="16" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.10)"/>
-                <rect x="30" y="72" width="260" height="16" rx="8" fill="rgba(255,255,255,.08)"/>
-                <circle class="pulseDot" cx="90" cy="64" r="4" fill="rgba(16,185,129,.9)"/>
-                <circle class="pulseDot" cx="160" cy="64" r="4" fill="rgba(16,185,129,.9)"/>
-                <circle class="pulseDot" cx="230" cy="64" r="4" fill="rgba(16,185,129,.9)"/>
+                <rect x="30" y="68" width="260" height="18" rx="9" fill="rgba(255,255,255,.08)"/>
+                <circle class="pulseDot" cx="70" cy="62" r="4" fill="rgba(16,185,129,.9)"/>
+                <circle class="pulseDot" cx="150" cy="62" r="4" fill="rgba(16,185,129,.9)"/>
+                <circle class="pulseDot" cx="230" cy="62" r="4" fill="rgba(16,185,129,.9)"/>
+                <text x="32" y="36" font-size="11" fill="rgba(255,255,255,.70)" font-weight="700">Test → Assemble → Pack</text>
               </svg>
             </div>
           </div>
@@ -224,7 +236,7 @@
               </div>
               <span class="text-[11px] text-slate-400">logistics</span>
             </div>
-            <p class="mt-3 text-slate-200">Dock rules + staging ownership + exceptions.</p>
+            <p class="mt-3 text-slate-200">Dock rules + staging ownership + exception handling.</p>
 
             <div class="mt-4 rounded-2xl border border-white/10 bg-slate-950/40 p-4 overflow-hidden">
               <svg viewBox="0 0 320 120" class="w-full" fill="none">
@@ -262,19 +274,6 @@
                 </g>
               </svg>
             </div>
-          </div>
-        </div>
-
-        <div class="mt-8 reveal rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent p-8">
-          <div class="flex items-start justify-between gap-4 flex-wrap">
-            <div>
-              <div class="text-xs text-slate-300">ML/AI note</div>
-              <div class="mt-2 text-xl font-semibold">Use AI where it helps operations</div>
-              <div class="mt-3 text-sm text-slate-200">Alerts, forecasting, and early anomaly signals—no heavy rebuild required.</div>
-            </div>
-            <a href="#contact" class="shine inline-flex items-center justify-center rounded-xl bg-indigo-400 text-slate-950 px-5 py-3 text-sm font-semibold hover:bg-indigo-300">
-              Contact →
-            </a>
           </div>
         </div>
       </div>
@@ -358,7 +357,7 @@
 
           <div class="mt-6">
             <a class="shine inline-flex items-center justify-center rounded-xl bg-white text-slate-950 px-5 py-3 text-sm font-semibold hover:bg-slate-200"
-               href="mailto:apramparsingh@automatas.store?subject=Automtas%20-%20Industrial%20Consulting&body=Industry%3A%0ASites%3A%0AOutcome%3A%0ATimeline%3A%0AConstraints%3A%0A">
+               href="mailto:apramparsingh@automatas.store?subject=Automtas%20%E2%80%93%20Industrial%20Consulting%20Brief&body=Industry%3A%0D%0ASites%20%28count%29%3A%0D%0AOutcome%20you%20want%3A%0D%0ATimeline%3A%0D%0AConstraints%20%28safety%2C%20budget%2C%20headcount%29%3A%0D%0A%0D%0AContext%20%281%E2%80%932%20sentences%29%3A%0D%0A">
               Email template →
             </a>
           </div>
