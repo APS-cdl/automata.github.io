@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automtas | Services & Case Studies</title>
+  <meta name="description" content="Automtas services: diagnostics, SOP + QA gates, and automation enablement. Case studies across manufacturing and logistics." />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body{
+      background:
+        radial-gradient(1200px 600px at 18% 10%, rgba(99,102,241,.18), transparent 60%),
+        radial-gradient(1100px 560px at 82% 22%, rgba(16,185,129,.14), transparent 55%),
+        radial-gradient(900px 500px at 40% 92%, rgba(255,255,255,.06), transparent 62%),
+        #020617;
+      animation: drift 14s ease-in-out infinite alternate;
+    }
+    @keyframes drift { 0%{ filter:hue-rotate(0deg); transform:translateY(0);} 100%{ filter:hue-rotate(10deg); transform:translateY(-8px);} }
+
+    .reveal { opacity:0; transform: translateY(10px) scale(.99); }
+    .reveal.show { opacity:1; transform: translateY(0) scale(1); transition: all .7s cubic-bezier(.2,.8,.2,1); }
+
+    .shine { position:relative; overflow:hidden; }
+    .shine:after{
+      content:""; position:absolute; inset:-120%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
+      transform: rotate(18deg);
+      animation: shine 3.2s ease-in-out infinite;
+    }
+    @keyframes shine { 0% { left:-140%; } 100% { left:140%; } }
+
+    @media (prefers-reduced-motion: reduce){
+      body, .shine:after { animation:none!important; }
+      .reveal, .reveal.show { transition:none!important; }
+    }
+  </style>
+</head>
+
+<body class="text-slate-100">
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
+    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+      <a href="index.html#top" class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" class="opacity-90">
+            <path d="M7 17l5-10 5 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M9.2 13h5.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="leading-tight">
+          <div class="font-semibold tracking-tight">Automtas</div>
+          <div class="text-xs text-slate-300">Services & Cases</div>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm text-slate-200">
+        <a href="#offers" class="hover:text-white">Offers</a>
+        <a href="#method" class="hover:text-white">Method</a>
+        <a href="#cases" class="hover:text-white">Case studies</a>
+        <a href="#contact" class="hover:text-white">Contact</a>
+      </nav>
+
+      <a href="#contact" class="shine inline-flex items-center justify-center rounded-xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200">
+        Start
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Top -->
+    <section class="mx-auto max-w-6xl px-4 pt-14 pb-10">
+      <div class="reveal flex items-end justify-between gap-4 flex-wrap">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-semibold tracking-tight">Services</h1>
+          <div class="mt-3 flex flex-wrap gap-2 text-[11px] text-slate-300">
+            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">repeatable work</span>
+            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">quality gates</span>
+            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">automation</span>
+          </div>
+        </div>
+        <a href="index.html" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold hover:bg-white/10">
+          ← Home
+        </a>
+      </div>
+    </section>
+
+    <!-- Offers -->
+    <section id="offers" class="border-t border-white/10">
+      <div class="mx-auto max-w-6xl px-4 py-14">
+        <div class="reveal flex items-end justify-between gap-4 flex-wrap">
+          <h2 class="text-2xl font-semibold tracking-tight">Offers</h2>
+          <div class="flex flex-wrap gap-2 text-[11px] text-slate-300">
+            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">plant</span>
+            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">warehouse</span>
+            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">field</span>
+          </div>
+        </div>
+
+        <div class="mt-7 grid gap-4 md:grid-cols-3">
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
+            <div class="flex items-center justify-between">
+              <div class="text-sm font-semibold">Ops Diagnostics</div>
+              <span class="text-[11px] text-slate-400">W1–2</span>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-2 text-[11px] text-slate-300">
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">map</div>
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">gaps</div>
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">KPIs</div>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
+            <div class="flex items-center justify-between">
+              <div class="text-sm font-semibold">SOP + QA Gates</div>
+              <span class="text-[11px] text-slate-400">W3–4</span>
+            </div>
+            <div class="mt-4 grid grid-cols-2 gap-2 text-[11px] text-slate-300">
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-4">SOP</div>
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-4">RACI</div>
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-4">gates</div>
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-4">checks</div>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
+            <div class="flex items-center justify-between">
+              <div class="text-sm font-semibold">Automation Enablement</div>
+              <span class="text-[11px] text-slate-400">W5–6</span>
+            </div>
+            <div class="mt-4 rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+              <div class="grid grid-cols-3 gap-2 text-[10px] text-slate-300">
+                <div class="rounded-xl border border-white/10 bg-white/5 px-2 py-1 text-center">scan</div>
+                <div class="rounded-xl border border-white/10 bg-white/5 px-2 py-1 text-center">route</div>
+                <div class="rounded-xl border border-white/10 bg-white/5 px-2 py-1 text-center">alert</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Method infographic (no charts) -->
+    <section id="method" class="border-t border-white/10">
+      <div class="mx-auto max-w-6xl px-4 py-14">
+        <div class="reveal flex items-end justify-between gap-4 flex-wrap">
+          <h2 class="text-2xl font-semibold tracking-tight">Method</h2>
+          <div class="text-[11px] text-slate-400">Simple. Repeatable.</div>
+        </div>
+
+        <div class="mt-7 reveal rounded-3xl border border-white/10 bg-white/5 p-6">
+          <div class="grid gap-4 md:grid-cols-4">
+            <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-5 text-center">
+              <div class="text-xs text-slate-300">01</div>
+              <div class="mt-2 font-semibold">Observe</div>
+              <div class="mt-3 inline-flex gap-2 text-[11px] text-slate-300">
+                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">walk</span>
+                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">listen</span>
+              </div>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-5 text-center">
+              <div class="text-xs text-slate-300">02</div>
+              <div class="mt-2 font-semibold">Define</div>
+              <div class="mt-3 inline-flex gap-2 text-[11px] text-slate-300">
+                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">KPI</span>
+                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">gate</span>
+              </div>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-5 text-center">
+              <div class="text-xs text-slate-300">03</div>
+              <div class="mt-2 font-semibold">Standardize</div>
+              <div class="mt-3 inline-flex gap-2 text-[11px] text-slate-300">
+                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">SOP</span>
+                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">RACI</span>
+              </div>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-5 text-center">
+              <div class="text-xs text-slate-300">04</div>
+              <div class="mt-2 font-semibold">Automate</div>
+              <div class="mt-3 inline-flex gap-2 text-[11px] text-slate-300">
+                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">scan</span>
+                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">alert</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Case studies (3 tiles; fictional) -->
+    <section id="cases" class="border-t border-white/10">
+      <div class="mx-auto max-w-6xl px-4 py-14">
+        <div class="reveal flex items-end justify-between gap-4 flex-wrap">
+          <h2 class="text-2xl font-semibold tracking-tight">Case studies</h2>
+          <div class="text-[11px] text-slate-400">Fictional examples for illustration</div>
+        </div>
+
+        <div class="mt-7 grid gap-4 md:grid-cols-3">
+          <!-- CCTV -->
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
+            <div class="flex items-center justify-between">
+              <div class="text-sm font-semibold">CCTV Manufacturing</div>
+              <span class="text-[11px] text-slate-400">assembly</span>
+            </div>
+            <div class="mt-4 grid grid-cols-4 gap-2 text-[11px] text-slate-300">
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 px-3 py-2 text-center">SMT</div>
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 px-3 py-2 text-center">ASSY</div>
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 px-3 py-2 text-center">QA</div>
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 px-3 py-2 text-center">PACK</div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">trace IDs</span>
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">gate checks</span>
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">rework ↓</span>
+            </div>
+          </div>
+
+          <!-- Warehouse -->
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
+            <div class="flex items-center justify-between">
+              <div class="text-sm font-semibold">Warehouse Dock Flow</div>
+              <span class="text-[11px] text-slate-400">logistics</span>
+            </div>
+            <div class="mt-4 rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+              <div class="grid grid-cols-3 gap-2 text-[10px] text-slate-300">
+                <div class="rounded-xl border border-white/10 bg-white/5 px-2 py-1 text-center">check-in</div>
+                <div class="rounded-xl border border-white/10 bg-white/5 px-2 py-1 text-center">stage</div>
+                <div class="rounded-xl border border-white/10 bg-white/5 px-2 py-1 text-center">load</div>
+              </div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">scan routes</span>
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">SLA ↑</span>
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">handoffs</span>
+            </div>
+          </div>
+
+          <!-- Maintenance -->
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
+            <div class="flex items-center justify-between">
+              <div class="text-sm font-semibold">Plant Maintenance</div>
+              <span class="text-[11px] text-slate-400">reliability</span>
+            </div>
+            <div class="mt-4 grid grid-cols-2 gap-2 text-[11px] text-slate-300">
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-4">work orders</div>
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-4">priority</div>
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-4">parts</div>
+              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-4">closeout</div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">standard steps</span>
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">repeatability</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="border-t border-white/10">
+      <div class="mx-auto max-w-6xl px-4 py-14">
+        <div class="reveal rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent p-8">
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <div>
+              <h2 class="text-2xl font-semibold tracking-tight">Contact</h2>
+              <div class="mt-3 flex flex-wrap gap-2 text-[11px] text-slate-300">
+                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">industry</span>
+                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">KPIs</span>
+                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">timeline</span>
+              </div>
+            </div>
+            <a href="index.html#contact" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold hover:bg-white/10">
+              Home contact →
+            </a>
+          </div>
+
+          <div class="mt-6 flex flex-col sm:flex-row gap-3">
+            <a class="shine inline-flex items-center justify-center rounded-xl bg-white text-slate-950 px-5 py-3 text-sm font-semibold hover:bg-slate-200"
+               href="mailto:hello@automtas.com?subject=Automtas%20-%20Industrial%20Project&body=Industry%3A%0ASite%3A%0AKPIs%3A%0ATimeline%3A%0A">
+              Email brief →
+            </a>
+            <a class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold hover:bg-white/10"
+               href="index.html">
+              Back home
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/10">
+    <div class="mx-auto max-w-6xl px-4 py-7 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div class="text-sm text-slate-400">© <span id="year"></span> Automtas</div>
+      <div class="text-sm text-slate-400">Cloudflare Pages • Static + JS</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const els = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries)=> {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("show"); });
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
