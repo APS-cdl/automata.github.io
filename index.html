@@ -1,576 +1,463 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Automtas | Industrial Consulting</title>
-  <meta name="description" content="Automtas is an industrial consulting partner helping operations teams improve performance, quality, and execution across sites." />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Automatas — Industrial Consulting</title>
+    <meta name="description" content="Automatas: industrial consulting for manufacturing, logistics, and operations. Strategy, PMO, lean ops, procurement, and execution." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%230a0a0a' d='M32 2 60 18v28L32 62 4 46V18z'/%3E%3Cpath fill='%23ffffff' d='M20 22h24v6H20zm0 12h16v6H20z'/%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["ui-sans-serif","system-ui","-apple-system","Segoe UI","Roboto","Helvetica Neue","Arial","Noto Sans","Apple Color Emoji","Segoe UI Emoji"] },
+            boxShadow: { soft: "0 12px 40px rgba(0,0,0,.14)" }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* smooth reveal */
+      .reveal { opacity: 0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease; }
+      .reveal.in { opacity: 1; transform: translateY(0); }
+      /* subtle floating */
+      @keyframes floaty { 0%,100% { transform: translateY(0)} 50% { transform: translateY(-6px)} }
+      .floaty { animation: floaty 4.5s ease-in-out infinite; }
+      /* animated grid background */
+      .gridbg {
+        background-image:
+          linear-gradient(to right, rgba(255,255,255,.08) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255,255,255,.08) 1px, transparent 1px);
+        background-size: 40px 40px;
+        mask-image: radial-gradient(60% 60% at 50% 40%, black 50%, transparent 100%);
+      }
+      /* nice focus */
+      :focus-visible { outline: 3px solid rgba(255,255,255,.65); outline-offset: 3px; border-radius: 14px; }
+    </style>
+  </head>
 
-  <style>
-    html { scroll-behavior: smooth; }
-    body{
-      background:
-        radial-gradient(1200px 600px at 14% 10%, rgba(99,102,241,.18), transparent 60%),
-        radial-gradient(1100px 560px at 86% 18%, rgba(16,185,129,.14), transparent 55%),
-        radial-gradient(900px 500px at 50% 92%, rgba(255,255,255,.05), transparent 62%),
-        #020617;
-      position: relative;
-      overflow-x: hidden;
-    }
+  <body class="bg-zinc-950 text-white antialiased">
+    <!-- Top Bar -->
+    <header class="fixed top-0 inset-x-0 z-50">
+      <div class="bg-zinc-950/70 backdrop-blur border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+          <a href="index.html" class="flex items-center gap-2">
+            <div class="w-9 h-9 rounded-xl bg-white text-zinc-950 grid place-items-center shadow-soft">
+              <span class="font-black tracking-tight">A</span>
+            </div>
+            <div class="leading-tight">
+              <div class="font-semibold tracking-tight">Automatas</div>
+              <div class="text-xs text-white/60">Industrial Consulting</div>
+            </div>
+          </a>
 
-    /* Industrial background photo (subtle) */
-    body::before{
-      content:"";
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Trains_no6-32905_Irvington_Factory_Interior_82.JPG?width=2400");
-      background-size: cover;
-      background-position: center;
-      opacity: 0.06;
-      filter: grayscale(1) blur(2px) contrast(1.08);
-      transform: scale(1.02);
-      pointer-events: none;
-    }
+          <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
+            <a class="hover:text-white transition" href="#services">Services</a>
+            <a class="hover:text-white transition" href="#industries">Industries</a>
+            <a class="hover:text-white transition" href="#testimonials">Testimonials</a>
+            <a class="hover:text-white transition" href="#contact">Contact</a>
+            <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition"
+               href="services.html">
+              <span data-lucide="layout-grid"></span> Case Studies
+            </a>
+          </nav>
 
-    /* Soft grid overlay */
-    body::after{
-      content:"";
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      background:
-        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
-      background-size: 72px 72px;
-      opacity: 0.08;
-      pointer-events: none;
-      mix-blend-mode: overlay;
-    }
-
-    header, main, footer { position: relative; z-index: 1; }
-
-    .reveal{ opacity:0; transform: translateY(10px) scale(.99); }
-    .reveal.show{ opacity:1; transform: translateY(0) scale(1); transition: all .7s cubic-bezier(.2,.8,.2,1); }
-
-    .shine{ position:relative; overflow:hidden; }
-    .shine:after{
-      content:""; position:absolute; inset:-120%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
-      transform: rotate(18deg);
-      animation: shine 3.2s ease-in-out infinite;
-    }
-    @keyframes shine{ 0%{ left:-140%; } 100%{ left:140%; } }
-
-    .iconBox{
-      height:44px; width:44px; border-radius:16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.10);
-      display:flex; align-items:center; justify-content:center;
-    }
-
-    .pulseDot{ animation: pulseDot 1.9s ease-in-out infinite; transform-origin:center; }
-    @keyframes pulseDot{ 0%,100%{ transform:scale(1); opacity:.65;} 50%{ transform:scale(1.25); opacity:1;} }
-
-    .scanLine{ animation: scan 2.6s linear infinite; }
-    @keyframes scan{ 0%{ transform:translateX(-40px);} 100%{ transform:translateX(760px);} }
-
-    .floatPic{ animation: floatPic 6s ease-in-out infinite; }
-    @keyframes floatPic{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
-
-    .slowZoom { animation: slowZoom 9s ease-in-out infinite alternate; transform-origin:center; }
-    @keyframes slowZoom { from{ transform:scale(1);} to{ transform:scale(1.05);} }
-
-    @media (prefers-reduced-motion: reduce){
-      .shine:after,.pulseDot,.scanLine,.floatPic,.slowZoom{ animation:none!important; }
-      .reveal,.reveal.show{ transition:none!important; }
-      html { scroll-behavior:auto; }
-    }
-  </style>
-</head>
-
-<body class="text-slate-100">
-  <!-- Header -->
-  <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
-    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-      <a href="#top" class="flex items-center gap-3">
-        <div class="h-10 w-10 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" class="opacity-90">
-            <path d="M7 17l5-10 5 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M9.2 13h5.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
+          <button id="menuBtn" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl border border-white/15 hover:bg-white/5 transition" aria-label="Open menu">
+            <span data-lucide="menu"></span>
+          </button>
         </div>
-        <div class="leading-tight">
-          <div class="font-semibold tracking-tight">Automtas</div>
-          <div class="text-xs text-slate-300">Industrial Consulting</div>
-        </div>
-      </a>
 
-      <nav class="hidden md:flex items-center gap-5 text-sm text-slate-200">
-        <a href="#intro" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/></svg>
-          Intro
-        </a>
-        <a href="#industries" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 20h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 20V9l5-4 5 4v11" stroke="currentColor" stroke-width="2"/></svg>
-          Industries
-        </a>
-        <a href="#services" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/></svg>
-          Services
-        </a>
-        <a href="#process" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/><path d="M9 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          Process
-        </a>
-        <a href="#testimonials" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/></svg>
-          Proof
-        </a>
-        <a href="#contact" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Contact
-        </a>
-        <a href="services.html" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          More
-        </a>
-      </nav>
-
-      <a href="#contact" class="shine inline-flex items-center justify-center rounded-xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200">
-        <span class="mr-2 inline-flex">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-        Talk to us
-      </a>
-    </div>
-  </header>
-
-  <main id="top">
-    <!-- Intro -->
-    <section id="intro" class="relative overflow-hidden">
-      <div class="mx-auto max-w-6xl px-4 pt-14 pb-10 md:pt-20 md:pb-14">
-        <div class="grid gap-8 md:grid-cols-2 md:items-center">
-          <!-- Left -->
-          <div class="reveal">
-            <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">
-              <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-              www.automtas
-            </div>
-
-            <h1 class="mt-4 text-4xl font-semibold tracking-tight md:text-5xl flex items-start gap-3">
-              <span class="hidden sm:flex iconBox mt-1">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/><path d="M8 20v-6h8v6" stroke="currentColor" stroke-width="2"/></svg>
-              </span>
-              <span>A consulting partner for <span class="text-indigo-300">industrial operations</span>.</span>
-            </h1>
-
-            <p class="mt-4 text-slate-200">
-              We help plants, warehouses, and field teams run smoother—clear processes, strong quality gates, and practical rollout across sites.
-            </p>
-
-            <div class="mt-7 flex flex-col gap-3 sm:flex-row">
-              <a href="services.html" class="shine inline-flex items-center justify-center rounded-xl bg-indigo-400 text-slate-950 px-5 py-3 text-sm font-semibold hover:bg-indigo-300">
-                <span class="mr-2 inline-flex">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-                Explore services
-              </a>
-              <a href="#industries" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold hover:bg-white/10">
-                <span class="mr-2 inline-flex">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 13l-6 6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-                Industries
-              </a>
-            </div>
-
-            <!-- Micro numbers -->
-            <div class="mt-8 grid grid-cols-3 gap-3">
-              <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div class="text-[11px] text-slate-300 inline-flex items-center gap-2">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/></svg>
-                  Process
-                </div>
-                <div class="mt-1 text-2xl font-semibold">85%</div>
-              </div>
-              <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div class="text-[11px] text-slate-300 inline-flex items-center gap-2">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 4v6c0 5-3 9-7 10C8 21 5 17 5 12V6l7-4z" stroke="currentColor" stroke-width="2"/><path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  Quality
-                </div>
-                <div class="mt-1 text-2xl font-semibold">92%</div>
-              </div>
-              <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div class="text-[11px] text-slate-300 inline-flex items-center gap-2">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                  Reliability
-                </div>
-                <div class="mt-1 text-2xl font-semibold">96%</div>
-              </div>
-            </div>
-            <div class="mt-2 text-[11px] text-slate-400">Illustrative targets.</div>
-          </div>
-
-          <!-- Right: Photos + Blueprint (kept) -->
-          <div class="reveal">
-            <div class="floatPic rounded-3xl border border-white/10 bg-white/5 p-6">
-              <div class="flex items-center justify-between">
-                <div>
-                  <div class="text-xs text-slate-300 inline-flex items-center gap-2">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4V4z" stroke="currentColor" stroke-width="2"/><path d="M7 8h10M7 12h10M7 16h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                    How we deliver
-                  </div>
-                  <div class="text-lg font-semibold">Delivery Blueprint</div>
-                </div>
-                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">
-                  diagnose → standardize → control
-                </span>
-              </div>
-
-              <div class="mt-5 grid gap-3 sm:grid-cols-2">
-                <div class="rounded-2xl border border-white/10 bg-slate-950/40 overflow-hidden">
-                  <img class="w-full h-44 object-cover slowZoom"
-                       alt="Consultant portrait"
-                       src="https://commons.wikimedia.org/wiki/Special:FilePath/Clement%20Dos%20Santos%20portrait%202025.jpg?width=900">
-                  <div class="p-3 text-[11px] text-slate-300 border-t border-white/10">Consulting partner (illustrative)</div>
-                </div>
-
-                <div class="rounded-2xl border border-white/10 bg-slate-950/40 overflow-hidden">
-                  <img class="w-full h-44 object-cover slowZoom"
-                       alt="Factory interior"
-                       src="https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Trains_no6-32905_Irvington_Factory_Interior_82.JPG?width=1200">
-                  <div class="p-3 text-[11px] text-slate-300 border-t border-white/10">Industrial floor view (illustrative)</div>
-                </div>
-              </div>
-
-              <div class="mt-4 rounded-2xl border border-white/10 bg-slate-950/40 p-4 overflow-hidden">
-                <svg viewBox="0 0 720 250" class="w-full" fill="none">
-                  <rect x="10" y="10" width="700" height="230" rx="18" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.10)"/>
-                  <rect x="34" y="42" width="652" height="44" rx="14" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)"/>
-                  <rect x="34" y="98" width="652" height="44" rx="14" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.10)"/>
-                  <rect x="34" y="154" width="652" height="44" rx="14" fill="rgba(255,255,255,.045)" stroke="rgba(255,255,255,.10)"/>
-                  <rect x="34" y="206" width="652" height="30" rx="14" fill="rgba(255,255,255,.035)" stroke="rgba(255,255,255,.08)"/>
-
-                  <text x="54" y="70" font-size="13" fill="rgba(255,255,255,.86)" font-weight="800">1) Diagnose</text>
-                  <text x="178" y="70" font-size="12" fill="rgba(255,255,255,.62)">site walk • process map • risk list • baseline</text>
-
-                  <text x="54" y="126" font-size="13" fill="rgba(255,255,255,.86)" font-weight="800">2) Standardize</text>
-                  <text x="200" y="126" font-size="12" fill="rgba(255,255,255,.62)">standard work • ownership • training • SOP visuals</text>
-
-                  <text x="54" y="182" font-size="13" fill="rgba(255,255,255,.86)" font-weight="800">3) Control</text>
-                  <text x="168" y="182" font-size="12" fill="rgba(255,255,255,.62)">quality gates • checklists • escalation • audit ready</text>
-
-                  <text x="54" y="228" font-size="13" fill="rgba(255,255,255,.86)" font-weight="800">4) Rollout</text>
-                  <text x="155" y="228" font-size="12" fill="rgba(255,255,255,.62)">repeatable cadence • site scorecards • sustainment</text>
-
-                  <g class="scanLine" style="opacity:.9">
-                    <rect x="0" y="28" width="100" height="2" fill="rgba(99,102,241,.9)"/>
-                    <rect x="0" y="30" width="100" height="14" rx="7" fill="rgba(99,102,241,.12)"/>
-                  </g>
-
-                  <circle class="pulseDot" cx="650" cy="64" r="6" fill="rgba(16,185,129,.85)"/>
-                  <circle class="pulseDot" cx="620" cy="120" r="6" fill="rgba(16,185,129,.85)"/>
-                  <circle class="pulseDot" cx="640" cy="176" r="6" fill="rgba(16,185,129,.85)"/>
-                  <circle class="pulseDot" cx="600" cy="220" r="6" fill="rgba(16,185,129,.85)"/>
-                </svg>
-              </div>
-
-              <div class="mt-4 grid grid-cols-4 gap-2 text-[11px] text-slate-300">
-                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Roles</div>
-                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Gates</div>
-                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Workflow</div>
-                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">KPIs</div>
-              </div>
-            </div>
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="md:hidden hidden border-t border-white/10">
+          <div class="max-w-6xl mx-auto px-4 py-3 grid gap-2 text-sm text-white/85">
+            <a class="py-2" href="#services">Services</a>
+            <a class="py-2" href="#industries">Industries</a>
+            <a class="py-2" href="#testimonials">Testimonials</a>
+            <a class="py-2" href="#contact">Contact</a>
+            <a class="py-2 font-semibold text-white" href="services.html">Case Studies →</a>
           </div>
         </div>
       </div>
-    </section>
+    </header>
 
-    <!-- Industries -->
-    <section id="industries" class="border-t border-white/10">
-      <div class="mx-auto max-w-6xl px-4 py-14">
-        <div class="reveal">
-          <h2 class="text-2xl font-semibold tracking-tight inline-flex items-center gap-3">
-            <span class="iconBox">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 20h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 20V9l5-4 5 4v11" stroke="currentColor" stroke-width="2"/></svg>
-            </span>
-            Industries
-          </h2>
-          <p class="mt-3 text-slate-200 max-w-2xl">One playbook, adapted to each operation.</p>
-        </div>
+    <!-- Hero -->
+    <section class="relative pt-24">
+      <!-- Background image + overlays -->
+      <div class="absolute inset-0 -z-10">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581091215367-59ab6b405c0b?auto=format&fit=crop&w=2400&q=80')] bg-cover bg-center opacity-25"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-zinc-950 to-zinc-950"></div>
+        <div class="absolute inset-0 gridbg"></div>
+      </div>
 
-        <div class="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <!-- 12 tiles -->
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/><path d="M8 20v-6h8v6" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Manufacturing</div></div></div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 21V8a5 5 0 0110 0v13" stroke="currentColor" stroke-width="2"/><path d="M6 21h12" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Pharma & GMP</div></div></div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M8 3h8v6l3 3v9H5v-9l3-3V3z" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Oil & Gas</div></div></div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2v6" stroke="currentColor" stroke-width="2"/><path d="M6 8h12l-2 14H8L6 8z" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Utilities</div></div></div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 20h18" stroke="currentColor" stroke-width="2"/><path d="M7 20V9l5-4 5 4v11" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Construction</div></div></div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 18l8-14 8 14H4z" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Mining</div></div></div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 17h18" stroke="currentColor" stroke-width="2"/><path d="M6 17V7h12v10" stroke="currentColor" stroke-width="2"/><path d="M8 7l4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div class="font-semibold">Ports & Terminals</div></div></div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 18h18" stroke="currentColor" stroke-width="2"/><path d="M6 18V8h12v10" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Warehousing</div></div></div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 21V7l7-4 7 4v14H5z" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Food & Beverage</div></div></div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 16c4-6 12-6 16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6 20h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div class="font-semibold">Field Ops</div></div></div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Maintenance</div></div></div>
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><div class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/></svg></div><div class="font-semibold">Compliance</div></div></div>
+      <div class="max-w-6xl mx-auto px-4 py-10 md:py-14">
+        <div class="grid md:grid-cols-12 gap-8 items-center">
+          <!-- Left -->
+          <div class="md:col-span-6 reveal">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-xs text-white/80">
+              <span data-lucide="factory" class="w-4 h-4"></span>
+              <span>Operations • Manufacturing • Logistics • Delivery</span>
+            </div>
+
+            <h1 class="mt-5 text-4xl md:text-5xl font-extrabold tracking-tight">
+              Industrial consulting that <span class="text-white/80">moves the floor</span>.
+            </h1>
+
+            <p class="mt-4 text-white/70 max-w-xl">
+              Strategy, execution, and measurable outcomes—built for real plants, real warehouses, real constraints.
+            </p>
+
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="#contact" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition shadow-soft">
+                <span data-lucide="phone-call"></span> Book a call
+              </a>
+              <a href="services.html" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-white/15 hover:bg-white/5 transition font-semibold">
+                <span data-lucide="clipboard-list"></span> View services
+              </a>
+            </div>
+
+            <!-- Mini KPI tiles (numbers not 0%) -->
+            <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="rounded-2xl bg-white/5 border border-white/10 p-4 reveal">
+                <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="clock-3" class="w-4 h-4"></span> Lead time</div>
+                <div class="mt-2 text-2xl font-bold"><span class="count" data-to="18">0</span><span class="text-white/70">%</span></div>
+              </div>
+              <div class="rounded-2xl bg-white/5 border border-white/10 p-4 reveal">
+                <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="shield-check" class="w-4 h-4"></span> Defects</div>
+                <div class="mt-2 text-2xl font-bold"><span class="count" data-to="24">0</span><span class="text-white/70">%</span></div>
+              </div>
+              <div class="rounded-2xl bg-white/5 border border-white/10 p-4 reveal">
+                <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="truck" class="w-4 h-4"></span> OTIF</div>
+                <div class="mt-2 text-2xl font-bold"><span class="count" data-to="12">0</span><span class="text-white/70">%</span></div>
+              </div>
+              <div class="rounded-2xl bg-white/5 border border-white/10 p-4 reveal">
+                <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="coins" class="w-4 h-4"></span> Cost</div>
+                <div class="mt-2 text-2xl font-bold"><span class="count" data-to="9">0</span><span class="text-white/70">%</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Embedded “automation on industry floor” video -->
+          <div class="md:col-span-6 reveal">
+            <div class="relative rounded-3xl overflow-hidden border border-white/10 bg-white/5 shadow-soft">
+              <div class="absolute inset-0 bg-gradient-to-tr from-zinc-950/30 to-transparent pointer-events-none"></div>
+
+              <div class="p-4 md:p-5 flex items-center justify-between gap-3 border-b border-white/10">
+                <div class="flex items-center gap-2 text-sm text-white/80">
+                  <span data-lucide="play-circle"></span>
+                  <span>Factory automation tour</span>
+                </div>
+                <div class="text-xs text-white/60 flex items-center gap-2">
+                  <span data-lucide="sparkles" class="w-4 h-4"></span>
+                  <span>Live-style embed</span>
+                </div>
+              </div>
+
+              <div class="aspect-video">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.youtube-nocookie.com/embed/NAzEUZZODXg?rel=0&modestbranding=1"
+                  title="ABB Robotics Mega Factory video"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                ></iframe>
+              </div>
+
+              <div class="p-4 md:p-5 grid sm:grid-cols-3 gap-3">
+                <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+                  <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="map-pin" class="w-4 h-4"></span> On-site</div>
+                  <div class="mt-1 font-semibold">Plant & Warehouse</div>
+                </div>
+                <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+                  <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="layers" class="w-4 h-4"></span> Workstreams</div>
+                  <div class="mt-1 font-semibold">Ops • PMO • Quality</div>
+                </div>
+                <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+                  <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="target" class="w-4 h-4"></span> Outcomes</div>
+                  <div class="mt-1 font-semibold">Speed • Cost • Risk</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 text-xs text-white/55">
+              Video embed source: ABB Robotics (YouTube). :contentReference[oaicite:1]{index=1}
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Services -->
-    <section id="services" class="border-t border-white/10">
-      <div class="mx-auto max-w-6xl px-4 py-14">
-        <div class="reveal">
-          <h2 class="text-2xl font-semibold tracking-tight inline-flex items-center gap-3">
-            <span class="iconBox">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/></svg>
-            </span>
-            Services
-          </h2>
-          <p class="mt-3 text-slate-200 max-w-2xl">Designed to work on real shop floors—simple, repeatable, measurable.</p>
+    <section id="services" class="py-14">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex items-end justify-between gap-4 reveal">
+          <div>
+            <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Services</h2>
+            <p class="mt-2 text-white/65">Short. Practical. Built for industrial execution.</p>
+          </div>
+          <a href="services.html" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5 transition text-sm font-semibold">
+            <span data-lucide="arrow-right"></span> Case studies
+          </a>
         </div>
 
-        <div class="mt-7 grid gap-4 md:grid-cols-3">
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
-            <div class="flex items-center gap-3">
-              <span class="iconBox">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/><path d="M8 20v-6h8v6" stroke="currentColor" stroke-width="2"/></svg>
-              </span>
-              <div class="text-sm font-semibold">Operations improvement</div>
+        <div class="mt-8 grid md:grid-cols-3 gap-4">
+          <div class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+            <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center">
+              <span data-lucide="workflow"></span>
             </div>
-            <p class="mt-3 text-slate-200">Throughput stability, shift consistency, faster handoffs.</p>
+            <h3 class="mt-4 font-semibold text-lg">Operations + Lean</h3>
+            <p class="mt-2 text-white/65 text-sm">Flow, takt, constraints, standard work.</p>
+            <div class="mt-4 flex flex-wrap gap-2 text-xs">
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Layout</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">OEE</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Kaizen</span>
+            </div>
           </div>
 
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
-            <div class="flex items-center gap-3">
-              <span class="iconBox">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 4v6c0 5-3 9-7 10C8 21 5 17 5 12V6l7-4z" stroke="currentColor" stroke-width="2"/><path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-              <div class="text-sm font-semibold">Quality systems</div>
+          <div class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+            <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center">
+              <span data-lucide="clipboard-check"></span>
             </div>
-            <p class="mt-3 text-slate-200">Control points, ownership, checklists, audit readiness.</p>
+            <h3 class="mt-4 font-semibold text-lg">PMO + Delivery</h3>
+            <p class="mt-2 text-white/65 text-sm">RACI, milestones, risk, vendor control.</p>
+            <div class="mt-4 flex flex-wrap gap-2 text-xs">
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Governance</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">SOPs</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Training</span>
+            </div>
           </div>
 
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
-            <div class="flex items-center gap-3">
-              <span class="iconBox">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/><path d="M9 10h6M9 14h6M9 18h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              </span>
-              <div class="text-sm font-semibold">Execution rollout</div>
+          <div class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+            <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center">
+              <span data-lucide="shield"></span>
             </div>
-            <p class="mt-3 text-slate-200">Repeatable cadence, site scorecards, sustainment plan.</p>
+            <h3 class="mt-4 font-semibold text-lg">Quality + Compliance</h3>
+            <p class="mt-2 text-white/65 text-sm">CAPA, audits, traceability, QC gates.</p>
+            <div class="mt-4 flex flex-wrap gap-2 text-xs">
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Inspection</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Documentation</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Supplier QA</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Processes -->
-    <section id="process" class="border-t border-white/10">
-      <div class="mx-auto max-w-6xl px-4 py-14">
+    <!-- Industries Grid -->
+    <section id="industries" class="py-14 border-t border-white/10">
+      <div class="max-w-6xl mx-auto px-4">
         <div class="reveal">
-          <h2 class="text-2xl font-semibold tracking-tight inline-flex items-center gap-3">
-            <span class="iconBox">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/><path d="M9 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            </span>
-            Processes we can revamp
-          </h2>
-          <p class="mt-3 text-slate-200 max-w-2xl">High-impact workflows that typically unlock speed, stability, and audit readiness.</p>
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Industries</h2>
+          <p class="mt-2 text-white/65">We plug into industrial reality—process, people, equipment, vendors.</p>
         </div>
 
-        <div class="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><span class="iconBox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/></svg></span><div class="font-semibold">SOP & Standard Work</div></div></div>
-          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><span class="iconBox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><div class="font-semibold">Shift Handover</div></div></div>
-          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><span class="iconBox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 4v6c0 5-3 9-7 10C8 21 5 17 5 12V6l7-4z" stroke="currentColor" stroke-width="2"/></svg></span><div class="font-semibold">Quality Gates</div></div></div>
-          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><span class="iconBox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 18h18" stroke="currentColor" stroke-width="2"/><path d="M6 18V8h12v10" stroke="currentColor" stroke-width="2"/></svg></span><div class="font-semibold">Pick/Pack Flow</div></div></div>
-          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><span class="iconBox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/></svg></span><div class="font-semibold">Maintenance Triage</div></div></div>
-          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><span class="iconBox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/></svg></span><div class="font-semibold">Escalation Rules</div></div></div>
-          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><span class="iconBox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/></svg></span><div class="font-semibold">Audit Readiness</div></div></div>
-          <div class="reveal rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"><div class="flex items-center gap-3"><span class="iconBox"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/></svg></span><div class="font-semibold">Training & Onboarding</div></div></div>
+        <div class="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+          <!-- 12 tiles -->
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4 reveal"><div class="flex items-center gap-2"><span data-lucide="factory" class="w-5 h-5"></span><span class="font-semibold">Manufacturing</span></div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4 reveal"><div class="flex items-center gap-2"><span data-lucide="pill" class="w-5 h-5"></span><span class="font-semibold">Pharma</span></div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4 reveal"><div class="flex items-center gap-2"><span data-lucide="flame" class="w-5 h-5"></span><span class="font-semibold">Oil & Gas</span></div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4 reveal"><div class="flex items-center gap-2"><span data-lucide="plug" class="w-5 h-5"></span><span class="font-semibold">Utilities</span></div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4 reveal"><div class="flex items-center gap-2"><span data-lucide="hard-hat" class="w-5 h-5"></span><span class="font-semibold">Construction</span></div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4 reveal"><div class="flex items-center gap-2"><span data-lucide="pickaxe" class="w-5 h-5"></span><span class="font-semibold">Mining</span></div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4 reveal"><div class="flex items-center gap-2"><span data-lucide="anchor" class="w-5 h-5"></span><span class="font-semibold">Ports</span></div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4 reveal"><div class="flex items-center gap-2"><span data-lucide="warehouse" class="w-5 h-5"></span><span class="font-semibold">Warehousing</span></div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4 reveal"><div class="flex items-center gap-2"><span data-lucide="truck" class="w-5 h-5"></span><span class="font-semibold">Logistics</span></div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4 reveal"><div class="flex items-center gap-2"><span data-lucide="camera" class="w-5 h-5"></span><span class="font-semibold">Electronics</span></div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4 reveal"><div class="flex items-center gap-2"><span data-lucide="building-2" class="w-5 h-5"></span><span class="font-semibold">Facilities</span></div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4 reveal"><div class="flex items-center gap-2"><span data-lucide="shield-check" class="w-5 h-5"></span><span class="font-semibold">Security</span></div></div>
         </div>
       </div>
     </section>
 
     <!-- Testimonials -->
-    <section id="testimonials" class="border-t border-white/10">
-      <div class="mx-auto max-w-6xl px-4 py-14">
+    <section id="testimonials" class="py-14 border-t border-white/10">
+      <div class="max-w-6xl mx-auto px-4">
         <div class="reveal">
-          <h2 class="text-2xl font-semibold tracking-tight inline-flex items-center gap-3">
-            <span class="iconBox">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/></svg>
-            </span>
-            Proof
-          </h2>
-          <p class="mt-3 text-slate-200 max-w-2xl">Representative examples and profile reference.</p>
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Testimonials</h2>
+          <p class="mt-2 text-white/65">Short, named, industrial-style.</p>
         </div>
 
-        <div class="mt-7 grid gap-4 md:grid-cols-3">
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="text-xs text-slate-300 inline-flex items-center gap-2">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/></svg>
-              Site director
+        <div class="mt-8 grid md:grid-cols-3 gap-4">
+          <figure class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="user"></span></div>
+              <div>
+                <div class="font-semibold">Maya R.</div>
+                <div class="text-xs text-white/60">Plant Manager, Electronics Assembly</div>
+              </div>
             </div>
-            <p class="mt-3 text-slate-100">“We standardized execution without slowing the floor down.”</p>
-          </div>
+            <blockquote class="mt-4 text-white/75 text-sm">
+              “Automatas cleaned up our line handoffs and gave us a weekly cadence that actually stuck.”
+            </blockquote>
+          </figure>
 
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="text-xs text-slate-300 inline-flex items-center gap-2">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 4v6c0 5-3 9-7 10C8 21 5 17 5 12V6l7-4z" stroke="currentColor" stroke-width="2"/></svg>
-              Quality manager
+          <figure class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="user"></span></div>
+              <div>
+                <div class="font-semibold">Dev K.</div>
+                <div class="text-xs text-white/60">Director, Logistics Ops</div>
+              </div>
             </div>
-            <p class="mt-3 text-slate-100">“Checkpoints and ownership reduced defects and simplified audits.”</p>
-          </div>
+            <blockquote class="mt-4 text-white/75 text-sm">
+              “Clear milestones, fewer surprises. They drove vendors like an internal team.”
+            </blockquote>
+          </figure>
 
-          <!-- LinkedIn: Name + designation only (NO testimonial text) -->
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="text-xs text-slate-300 inline-flex items-center gap-2">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                <path d="M4 4h16v16H4V4z" stroke="currentColor" stroke-width="2"/>
-                <path d="M8 10v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M8 7.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                <path d="M12 18v-4.5c0-1.4.8-2.3 2.1-2.3 1.2 0 1.9.8 1.9 2.3V18"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Profile
+          <figure class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="user"></span></div>
+              <div>
+                <div class="font-semibold">Salma A.</div>
+                <div class="text-xs text-white/60">Quality Lead, Industrial Products</div>
+              </div>
             </div>
-
-            <div class="mt-3">
-              <div class="text-lg font-semibold tracking-tight">Aprampar Singh</div>
-              <div class="mt-1 text-sm text-slate-300">Industrial Consulting Partner • Automtas</div>
-            </div>
-
-            <a class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-indigo-300 hover:text-indigo-200"
-               href="https://www.linkedin.com/in/apramaparsingh" target="_blank" rel="noopener">
-              LinkedIn →
-            </a>
-          </div>
+            <blockquote class="mt-4 text-white/75 text-sm">
+              “Their QC gates and documentation flow reduced rework without slowing throughput.”
+            </blockquote>
+          </figure>
         </div>
       </div>
     </section>
 
-    <!-- Contact (FULL WIDTH ONLY - no right infographic) -->
-    <section id="contact" class="border-t border-white/10">
-      <div class="mx-auto max-w-6xl px-4 py-14">
-        <div class="reveal rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent p-8">
-          <div class="flex items-start justify-between gap-4 flex-wrap">
-            <div>
-              <h2 class="text-2xl font-semibold tracking-tight flex items-center gap-3">
-                <span class="iconBox">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-                Contact
-              </h2>
-              <p class="mt-3 text-slate-200 max-w-xl">Send your industry, site count, and outcome. We’ll reply with a plan and timeline.</p>
-            </div>
-            <a href="services.html" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold hover:bg-white/10">
-              More →
-            </a>
-          </div>
+    <!-- Contact -->
+    <section id="contact" class="py-14 border-t border-white/10">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid lg:grid-cols-12 gap-6 items-start">
+          <div class="lg:col-span-7 reveal">
+            <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Contact</h2>
+            <p class="mt-2 text-white/65">Fast response. Straight answers. Industrial focus.</p>
 
-          <div class="mt-7 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-            <!-- Email smaller -->
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
-              <div class="flex items-center gap-3">
-                <span class="iconBox" style="height:40px;width:40px;border-radius:14px;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-                <div>
-                  <div class="text-[11px] text-slate-300">Email</div>
-                  <a class="mt-1 block text-base font-semibold tracking-tight hover:text-indigo-200"
-                     href="mailto:apramparsingh@automatas.store">apramparsingh@automatas.store</a>
+            <div class="mt-6 grid sm:grid-cols-2 gap-4">
+              <div class="rounded-3xl bg-white/5 border border-white/10 p-5">
+                <div class="flex items-center gap-2 text-sm text-white/70">
+                  <span data-lucide="mail"></span> Email
                 </div>
+                <a class="mt-2 inline-flex items-center gap-2 text-base font-semibold hover:underline break-all"
+                   href="mailto:apramparsingh@automatas.store">
+                  <span data-lucide="send" class="w-4 h-4"></span>
+                  apramparsingh@automatas.store
+                </a>
               </div>
-              <div class="mt-3 text-[11px] text-slate-400">Best for scope & proposals.</div>
-            </div>
 
-            <!-- Phone -->
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
-              <div class="flex items-center gap-3">
-                <span class="iconBox">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M6 3h4l2 5-3 2c1.5 3.2 4.2 5.8 7.4 7.4l2-3 5 2v4c0 1-1 2-2 2C11 22 2 13 2 4c0-1 1-2 2-2h2z"
-                          stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                  </svg>
-                </span>
-                <div>
-                  <div class="text-xs text-slate-300">Phone</div>
-                  <a class="mt-1 block text-lg font-semibold tracking-tight hover:text-indigo-200"
-                     href="tel:+19196509271">9196509271</a>
+              <div class="rounded-3xl bg-white/5 border border-white/10 p-5">
+                <div class="flex items-center gap-2 text-sm text-white/70">
+                  <span data-lucide="phone"></span> Phone
                 </div>
+                <a class="mt-2 inline-flex items-center gap-2 text-base font-semibold hover:underline"
+                   href="tel:+19196509271">
+                  <span data-lucide="phone-call" class="w-4 h-4"></span>
+                  919-650-9271
+                </a>
               </div>
-              <div class="mt-4 text-[11px] text-slate-400">Fast alignment call.</div>
-            </div>
 
-            <!-- LinkedIn -->
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
-              <div class="flex items-center gap-3">
-                <span class="iconBox">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M4 4h16v16H4V4z" stroke="currentColor" stroke-width="2"/>
-                    <path d="M8 10v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M8 7.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M12 18v-4.5c0-1.4.8-2.3 2.1-2.3 1.2 0 1.9.8 1.9 2.3V18"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </span>
-                <div>
-                  <div class="text-xs text-slate-300">LinkedIn</div>
-                  <a class="mt-1 block text-lg font-semibold tracking-tight hover:text-indigo-200"
-                     href="https://www.linkedin.com/in/apramaparsingh" target="_blank" rel="noopener">
-                    Aprampar Singh
-                  </a>
+              <div class="rounded-3xl bg-white/5 border border-white/10 p-5 sm:col-span-2">
+                <div class="flex items-center gap-2 text-sm text-white/70">
+                  <span data-lucide="linkedin"></span> LinkedIn
                 </div>
-              </div>
-              <div class="mt-4 text-[11px] text-slate-400">Quick message or background.</div>
-            </div>
-
-            <!-- Email Template (full width) -->
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition md:col-span-3">
-              <div class="flex items-center justify-between flex-wrap gap-3">
-                <div class="flex items-center gap-3">
-                  <span class="iconBox">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/><path d="M9 10h6M9 14h6M9 18h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                  </span>
-                  <div>
-                    <div class="text-xs text-slate-300">Send a brief</div>
-                    <div class="text-sm text-slate-200">Industry • sites • outcome • timeline</div>
-                  </div>
-                </div>
-
-                <a class="shine inline-flex items-center justify-center rounded-xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200"
-                   href="mailto:apramparsingh@automatas.store?subject=Automtas%20%E2%80%93%20Industrial%20Consulting%20Brief&body=Industry%3A%0D%0ASites%20%28count%29%3A%0D%0AOutcome%20you%20want%3A%0D%0ATimeline%3A%0D%0AConstraints%20%28safety%2C%20budget%2C%20headcount%29%3A%0D%0A%0D%0AContext%20%281%E2%80%932%20sentences%29%3A%0D%0A">
-                  Email template →
+                <a class="mt-2 inline-flex items-center gap-2 text-base font-semibold hover:underline break-all"
+                   href="https://www.linkedin.com/in/apramaparsingh" target="_blank" rel="noreferrer">
+                  <span data-lucide="external-link" class="w-4 h-4"></span>
+                  www.linkedin.com/in/apramaparsingh
                 </a>
               </div>
             </div>
+          </div>
 
+          <!-- compact “contact card” -->
+          <div class="lg:col-span-5 reveal">
+            <div class="rounded-3xl bg-white text-zinc-950 p-6 shadow-soft">
+              <div class="flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                  <span data-lucide="badge-check"></span>
+                  <div class="font-semibold">Automatas</div>
+                </div>
+                <span class="text-xs px-2 py-1 rounded-full bg-zinc-900 text-white">www.automtas</span>
+              </div>
+
+              <div class="mt-4 grid gap-3 text-sm">
+                <div class="flex items-center justify-between">
+                  <span class="text-zinc-600 flex items-center gap-2"><span data-lucide="clipboard-check" class="w-4 h-4"></span> Engagement</span>
+                  <span class="font-semibold">2–6 weeks</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-zinc-600 flex items-center gap-2"><span data-lucide="users" class="w-4 h-4"></span> Mode</span>
+                  <span class="font-semibold">On-site + Remote</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-zinc-600 flex items-center gap-2"><span data-lucide="file-check" class="w-4 h-4"></span> Output</span>
+                  <span class="font-semibold">Plan + Execution</span>
+                </div>
+              </div>
+
+              <a href="services.html" class="mt-5 inline-flex items-center justify-center gap-2 w-full px-4 py-3 rounded-2xl bg-zinc-950 text-white font-semibold hover:bg-zinc-900 transition">
+                <span data-lucide="layout-grid"></span> Explore Case Studies
+              </a>
+            </div>
           </div>
         </div>
+
+        <footer class="mt-12 pt-6 border-t border-white/10 text-sm text-white/55 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="flex items-center gap-2">
+            <span data-lucide="hexagon" class="w-4 h-4"></span>
+            <span>© <span id="year"></span> Automatas. All rights reserved.</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <a class="hover:text-white transition" href="services.html">Services & Case Studies</a>
+            <a class="hover:text-white transition" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to top</a>
+          </div>
+        </footer>
       </div>
     </section>
-  </main>
 
-  <footer class="border-t border-white/10">
-    <div class="mx-auto max-w-6xl px-4 py-7 flex flex-col md:flex-row items-center justify-between gap-3">
-      <div class="text-sm text-slate-400">© <span id="year"></span> Automtas</div>
-      <div class="text-sm text-slate-400">Cloudflare Pages • Static + JS</div>
-    </div>
-  </footer>
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+    <script>
+      // icons
+      lucide.createIcons();
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+      // year
+      document.getElementById("year").textContent = new Date().getFullYear();
 
-    const els = document.querySelectorAll(".reveal");
-    const io = new IntersectionObserver((entries)=> {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("show"); });
-    }, { threshold: 0.12 });
+      // mobile menu
+      const menuBtn = document.getElementById("menuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+      menuBtn.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
 
-    els.forEach(el => io.observe(el));
-  </script>
-</body>
+      // reveal on scroll
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("in"); });
+      }, { threshold: 0.12 });
+      document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+      // count up (non-0 numbers)
+      function animateCount(el, to) {
+        const start = 0;
+        const duration = 900;
+        const t0 = performance.now();
+        const step = (t) => {
+          const p = Math.min(1, (t - t0) / duration);
+          const val = Math.round(start + (to - start) * (1 - Math.pow(1 - p, 3)));
+          el.textContent = String(val);
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+      const countIO = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          const el = e.target;
+          if (el.dataset.done) return;
+          el.dataset.done = "1";
+          animateCount(el, Number(el.dataset.to || "0"));
+        });
+      }, { threshold: 0.6 });
+
+      document.querySelectorAll(".count").forEach(el => countIO.observe(el));
+    </script>
+  </body>
 </html>
-
 
 
 
