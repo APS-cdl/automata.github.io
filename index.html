@@ -31,16 +31,12 @@
     }
     @keyframes shine{ 0%{ left:-140%; } 100%{ left:140%; } }
 
-    .marquee{ overflow:hidden; }
-    .marquee-track{ display:flex; width:max-content; gap:12px; animation: marquee 22s linear infinite; }
-    @keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
-
-    /* Animated “pics” (SVG motion) */
+    /* Animated infographic motion */
     .pulseDot{ animation: pulseDot 1.9s ease-in-out infinite; transform-origin:center; }
     @keyframes pulseDot{ 0%,100%{ transform:scale(1); opacity:.65;} 50%{ transform:scale(1.25); opacity:1;} }
 
     .scanLine{ animation: scan 2.6s linear infinite; }
-    @keyframes scan{ 0%{ transform:translateX(-40px);} 100%{ transform:translateX(520px);} }
+    @keyframes scan{ 0%{ transform:translateX(-40px);} 100%{ transform:translateX(720px);} }
 
     .gear{ animation: gearSpin 7s linear infinite; transform-origin: 50% 50%; }
     @keyframes gearSpin{ to{ transform:rotate(360deg);} }
@@ -49,7 +45,7 @@
     @keyframes floatPic{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
 
     @media (prefers-reduced-motion: reduce){
-      body,.marquee-track,.shine:after,.pulseDot,.scanLine,.gear,.floatPic{ animation:none!important; }
+      body,.shine:after,.pulseDot,.scanLine,.gear,.floatPic{ animation:none!important; }
       .reveal,.reveal.show{ transition:none!important; }
     }
   </style>
@@ -74,6 +70,7 @@
 
       <nav class="hidden md:flex items-center gap-6 text-sm text-slate-200">
         <a href="#intro" class="hover:text-white">Introduction</a>
+        <a href="#industries" class="hover:text-white">Industries</a>
         <a href="#services" class="hover:text-white">Services</a>
         <a href="#testimonials" class="hover:text-white">Testimonials</a>
         <a href="#contact" class="hover:text-white">Contact</a>
@@ -91,6 +88,7 @@
     <section id="intro" class="relative overflow-hidden">
       <div class="mx-auto max-w-6xl px-4 pt-14 pb-10 md:pt-20 md:pb-14">
         <div class="grid gap-8 md:grid-cols-2 md:items-center">
+          <!-- Left copy -->
           <div class="reveal">
             <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">
               <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
@@ -102,19 +100,20 @@
             </h1>
 
             <p class="mt-4 text-slate-200">
-              We improve execution across sites—process clarity, quality discipline, and practical automation—so performance becomes repeatable.
+              We help teams improve execution across sites—process clarity, quality discipline, practical automation,
+              and lightweight ML/AI for visibility and decision support.
             </p>
 
             <div class="mt-7 flex flex-col gap-3 sm:flex-row">
               <a href="services.html" class="shine inline-flex items-center justify-center rounded-xl bg-indigo-400 text-slate-950 px-5 py-3 text-sm font-semibold hover:bg-indigo-300">
                 Explore services →
               </a>
-              <a href="#services" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold hover:bg-white/10">
-                How we help ↓
+              <a href="#industries" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold hover:bg-white/10">
+                Industries we serve ↓
               </a>
             </div>
 
-            <!-- Infographic tiles (broad, not industry-specific) -->
+            <!-- Micro infographics -->
             <div class="mt-8 grid grid-cols-3 gap-3">
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <div class="text-[11px] text-slate-300">Process standardization</div>
@@ -132,88 +131,202 @@
             <div class="mt-2 text-[11px] text-slate-400">Illustrative targets.</div>
           </div>
 
-          <!-- Animated picture: “Operations Control Map” -->
+          <!-- Right: Detailed Industrial Consulting Infographic -->
           <div class="reveal">
             <div class="floatPic rounded-3xl border border-white/10 bg-white/5 p-6">
               <div class="flex items-center justify-between">
                 <div>
-                  <div class="text-xs text-slate-300">Animated overview</div>
-                  <div class="text-lg font-semibold">Operations Control Map</div>
+                  <div class="text-xs text-slate-300">Industrial consulting system</div>
+                  <div class="text-lg font-semibold">Delivery Blueprint</div>
                 </div>
-                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">Multi-site</span>
+                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">process → control → AI</span>
               </div>
 
               <div class="mt-5 rounded-2xl border border-white/10 bg-slate-950/40 p-4 overflow-hidden">
-                <svg viewBox="0 0 560 220" class="w-full" fill="none">
-                  <rect x="10" y="10" width="540" height="200" rx="18" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.10)"/>
+                <svg viewBox="0 0 720 280" class="w-full" fill="none">
+                  <rect x="10" y="10" width="700" height="260" rx="18" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.10)"/>
 
-                  <!-- site nodes -->
-                  <circle cx="110" cy="80" r="22" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)"/>
-                  <circle cx="290" cy="60" r="22" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)"/>
-                  <circle cx="450" cy="95" r="22" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)"/>
-                  <circle cx="210" cy="150" r="22" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)"/>
-                  <circle cx="380" cy="160" r="22" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)"/>
+                  <!-- 4 layers -->
+                  <rect x="34" y="42" width="652" height="44" rx="14" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)"/>
+                  <rect x="34" y="98" width="652" height="44" rx="14" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.10)"/>
+                  <rect x="34" y="154" width="652" height="44" rx="14" fill="rgba(255,255,255,.045)" stroke="rgba(255,255,255,.10)"/>
+                  <rect x="34" y="210" width="652" height="40" rx="14" fill="rgba(255,255,255,.035)" stroke="rgba(255,255,255,.08)"/>
 
-                  <!-- connections -->
-                  <path d="M132 80 L268 60" stroke="rgba(255,255,255,.18)" stroke-width="3" stroke-linecap="round"/>
-                  <path d="M312 60 L428 95" stroke="rgba(255,255,255,.18)" stroke-width="3" stroke-linecap="round"/>
-                  <path d="M110 102 L210 150" stroke="rgba(255,255,255,.18)" stroke-width="3" stroke-linecap="round"/>
-                  <path d="M290 82 L380 160" stroke="rgba(255,255,255,.18)" stroke-width="3" stroke-linecap="round"/>
-                  <path d="M450 117 L380 160" stroke="rgba(255,255,255,.18)" stroke-width="3" stroke-linecap="round"/>
+                  <!-- Labels -->
+                  <text x="54" y="70" font-size="13" fill="rgba(255,255,255,.86)" font-weight="800">1) Diagnose</text>
+                  <text x="178" y="70" font-size="12" fill="rgba(255,255,255,.62)">site walk • process map • risk list • baseline metrics</text>
 
-                  <!-- animated scan line -->
+                  <text x="54" y="126" font-size="13" fill="rgba(255,255,255,.86)" font-weight="800">2) Standardize</text>
+                  <text x="200" y="126" font-size="12" fill="rgba(255,255,255,.62)">standard work • ownership • training packs • SOP visuals</text>
+
+                  <text x="54" y="182" font-size="13" fill="rgba(255,255,255,.86)" font-weight="800">3) Control</text>
+                  <text x="168" y="182" font-size="12" fill="rgba(255,255,255,.62)">quality gates • checklists • escalation • audit readiness</text>
+
+                  <text x="54" y="236" font-size="13" fill="rgba(255,255,255,.86)" font-weight="800">4) Enable (ML/AI)</text>
+                  <text x="220" y="236" font-size="12" fill="rgba(255,255,255,.62)">anomaly detection • forecasting • alerts • decision support</text>
+
+                  <!-- Animated scan -->
                   <g class="scanLine" style="opacity:.9">
-                    <rect x="0" y="22" width="80" height="2" fill="rgba(99,102,241,.9)"/>
-                    <rect x="0" y="24" width="80" height="14" rx="7" fill="rgba(99,102,241,.12)"/>
+                    <rect x="0" y="28" width="100" height="2" fill="rgba(99,102,241,.9)"/>
+                    <rect x="0" y="30" width="100" height="14" rx="7" fill="rgba(99,102,241,.12)"/>
                   </g>
 
-                  <!-- pulsing “health” dots -->
-                  <circle class="pulseDot" cx="110" cy="80" r="6" fill="rgba(16,185,129,.85)"/>
-                  <circle class="pulseDot" cx="290" cy="60" r="6" fill="rgba(16,185,129,.85)"/>
-                  <circle class="pulseDot" cx="450" cy="95" r="6" fill="rgba(16,185,129,.85)"/>
-                  <circle class="pulseDot" cx="210" cy="150" r="6" fill="rgba(16,185,129,.85)"/>
-                  <circle class="pulseDot" cx="380" cy="160" r="6" fill="rgba(16,185,129,.85)"/>
+                  <!-- Control points -->
+                  <circle class="pulseDot" cx="650" cy="64" r="6" fill="rgba(16,185,129,.85)"/>
+                  <circle class="pulseDot" cx="620" cy="120" r="6" fill="rgba(16,185,129,.85)"/>
+                  <circle class="pulseDot" cx="640" cy="176" r="6" fill="rgba(16,185,129,.85)"/>
+                  <circle class="pulseDot" cx="600" cy="230" r="6" fill="rgba(16,185,129,.85)"/>
 
-                  <!-- small gear -->
-                  <g class="gear" transform="translate(502 34)">
+                  <!-- AI node -->
+                  <circle class="pulseDot" cx="540" cy="232" r="10" fill="rgba(99,102,241,.16)" stroke="rgba(99,102,241,.55)" stroke-width="2"/>
+                  <text x="522" y="237" font-size="11" fill="rgba(255,255,255,.80)" font-weight="700">AI</text>
+
+                  <!-- gear -->
+                  <g class="gear" transform="translate(660 24)">
                     <circle cx="18" cy="18" r="8" stroke="rgba(255,255,255,.75)" stroke-width="2"/>
                     <path d="M18 4v4M18 28v4M4 18h4M28 18h4M8 8l3 3M25 25l3 3M28 8l-3 3M8 28l3-3"
                           stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
                   </g>
 
-                  <!-- text -->
-                  <text x="40" y="200" font-size="11" fill="rgba(255,255,255,.60)">
-                    One model • multiple sites • repeatable execution
+                  <text x="40" y="266" font-size="11" fill="rgba(255,255,255,.55)">
+                    Built for industrial reality: simple, repeatable, and scalable across sites.
                   </text>
                 </svg>
               </div>
 
-              <div class="mt-4 grid grid-cols-3 gap-2 text-[11px] text-slate-300">
-                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Clear roles</div>
-                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Control points</div>
-                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Fast escalation</div>
+              <div class="mt-4 grid grid-cols-5 gap-2 text-[11px] text-slate-300">
+                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Roles</div>
+                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Gates</div>
+                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Workflow</div>
+                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">AI Alerts</div>
+                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">KPIs</div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Broad industries marquee -->
-        <div class="mt-10 reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-          <div class="flex items-center justify-between flex-wrap gap-3">
-            <div class="text-sm text-slate-300">Where we apply the playbook</div>
-            <a href="services.html#cases" class="text-sm font-semibold text-indigo-300 hover:text-indigo-200">Examples →</a>
+    <!-- Industries grid -->
+    <section id="industries" class="border-t border-white/10">
+      <div class="mx-auto max-w-6xl px-4 py-14">
+        <div class="reveal flex items-end justify-between gap-4 flex-wrap">
+          <div>
+            <h2 class="text-2xl font-semibold tracking-tight">Industries</h2>
+            <p class="mt-3 text-slate-200 max-w-2xl">One consulting playbook, adapted to each operation.</p>
           </div>
-          <div class="mt-5 marquee">
-            <div class="marquee-track" id="logoTrack">
-              <div class="logoBadge">Manufacturing operations</div>
-              <div class="logoBadge">Utilities & infrastructure</div>
-              <div class="logoBadge">Construction execution</div>
-              <div class="logoBadge">Warehousing & logistics</div>
-              <div class="logoBadge">Maintenance & reliability</div>
-              <div class="logoBadge">Quality & compliance</div>
+          <a href="#services" class="text-sm font-semibold text-indigo-300 hover:text-indigo-200">Services →</a>
+        </div>
+
+        <div class="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <!-- 12 tiles -->
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
+            <div class="flex items-center gap-3">
+              <div class="h-11 w-11 rounded-2xl border border-white/10 bg-white/10 flex items-center justify-center">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/><path d="M8 20v-6h8v6" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <div class="font-semibold">Manufacturing</div>
             </div>
           </div>
-          <div class="mt-3 text-[11px] text-slate-400">Illustrative focus areas.</div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
+            <div class="flex items-center gap-3">
+              <div class="h-11 w-11 rounded-2xl border border-white/10 bg-white/10 flex items-center justify-center">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 21V8a5 5 0 0110 0v13" stroke="currentColor" stroke-width="2"/><path d="M6 21h12" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <div class="font-semibold">Pharma & GMP</div>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
+            <div class="flex items-center gap-3">
+              <div class="h-11 w-11 rounded-2xl border border-white/10 bg-white/10 flex items-center justify-center">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M8 3h8v6l3 3v9H5v-9l3-3V3z" stroke="currentColor" stroke-width="2"/><path d="M9 14h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="font-semibold">Oil & Gas</div>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
+            <div class="flex items-center gap-3">
+              <div class="h-11 w-11 rounded-2xl border border-white/10 bg-white/10 flex items-center justify-center">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2v6" stroke="currentColor" stroke-width="2"/><path d="M6 8h12l-2 14H8L6 8z" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <div class="font-semibold">Utilities</div>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
+            <div class="flex items-center gap-3">
+              <div class="h-11 w-11 rounded-2xl border border-white/10 bg-white/10 flex items-center justify-center">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 20h18" stroke="currentColor" stroke-width="2"/><path d="M7 20V9l5-4 5 4v11" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <div class="font-semibold">Construction</div>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
+            <div class="flex items-center gap-3">
+              <div class="h-11 w-11 rounded-2xl border border-white/10 bg-white/10 flex items-center justify-center">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 18l8-14 8 14H4z" stroke="currentColor" stroke-width="2"/><path d="M10 18v-4h4v4" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <div class="font-semibold">Mining</div>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
+            <div class="flex items-center gap-3">
+              <div class="h-11 w-11 rounded-2xl border border-white/10 bg-white/10 flex items-center justify-center">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 17h18" stroke="currentColor" stroke-width="2"/><path d="M6 17V7h12v10" stroke="currentColor" stroke-width="2"/><path d="M8 7l4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="font-semibold">Ports & Terminals</div>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
+            <div class="flex items-center gap-3">
+              <div class="h-11 w-11 rounded-2xl border border-white/10 bg-white/10 flex items-center justify-center">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 18h18" stroke="currentColor" stroke-width="2"/><path d="M6 18V8h12v10" stroke="currentColor" stroke-width="2"/><path d="M9 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="font-semibold">Warehousing</div>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
+            <div class="flex items-center gap-3">
+              <div class="h-11 w-11 rounded-2xl border border-white/10 bg-white/10 flex items-center justify-center">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 21V7l7-4 7 4v14H5z" stroke="currentColor" stroke-width="2"/><path d="M9 21v-7h6v7" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <div class="font-semibold">Food & Beverage</div>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
+            <div class="flex items-center gap-3">
+              <div class="h-11 w-11 rounded-2xl border border-white/10 bg-white/10 flex items-center justify-center">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 16c4-6 12-6 16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6 20h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="2" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <div class="font-semibold">Field Operations</div>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
+            <div class="flex items-center gap-3">
+              <div class="h-11 w-11 rounded-2xl border border-white/10 bg-white/10 flex items-center justify-center">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+              <div class="font-semibold">Maintenance & Reliability</div>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
+            <div class="flex items-center gap-3">
+              <div class="h-11 w-11 rounded-2xl border border-white/10 bg-white/10 flex items-center justify-center">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="2"/><path d="M8 10h8M8 14h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="font-semibold">Industrial Tech (AI/ML)</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -224,91 +337,49 @@
         <div class="reveal">
           <h2 class="text-2xl font-semibold tracking-tight">Services</h2>
           <p class="mt-3 text-slate-200 max-w-2xl">
-            Consulting across industrial operations: from process and quality to execution systems and automation.
+            From process to control to ML/AI—built to run daily in real operations.
           </p>
         </div>
 
         <div class="mt-7 grid gap-4 md:grid-cols-3">
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
             <div class="text-sm font-semibold">Operations improvement</div>
-            <p class="mt-3 text-slate-200">Remove bottlenecks, simplify handoffs, and stabilize throughput.</p>
-            <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">process mapping</span>
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">constraint fixes</span>
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">handoff design</span>
-            </div>
+            <p class="mt-3 text-slate-200">Stabilize throughput, reduce variation, and simplify handoffs.</p>
           </div>
 
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
-            <div class="text-sm font-semibold">Quality & compliance systems</div>
-            <p class="mt-3 text-slate-200">Build checkpoints that prevent defects and reduce audit pain.</p>
-            <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">quality gates</span>
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">checklists</span>
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">traceability</span>
-            </div>
+            <div class="text-sm font-semibold">Quality systems</div>
+            <p class="mt-3 text-slate-200">Control points, ownership, checklists, audit readiness.</p>
           </div>
 
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
-            <div class="text-sm font-semibold">Execution + automation enablement</div>
-            <p class="mt-3 text-slate-200">Turn decisions into action with workflows, routing, and alerts.</p>
-            <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">workflow design</span>
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">exceptions</span>
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">reporting</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-8 reveal rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent p-8">
-          <div class="flex items-start justify-between gap-4 flex-wrap">
-            <div>
-              <div class="text-xs text-slate-300">Next step</div>
-              <div class="mt-2 text-xl font-semibold">See practical examples across operations</div>
-              <div class="mt-3 text-sm text-slate-200">Fictional case studies: multiple industrial functions.</div>
-            </div>
-            <a href="services.html#cases" class="shine inline-flex items-center justify-center rounded-xl bg-indigo-400 text-slate-950 px-5 py-3 text-sm font-semibold hover:bg-indigo-300">
-              View cases →
-            </a>
+            <div class="text-sm font-semibold">ML/AI enablement</div>
+            <p class="mt-3 text-slate-200">Anomaly alerts, forecasting, decision support, dashboards.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Testimonials (broad) -->
+    <!-- Testimonials -->
     <section id="testimonials" class="border-t border-white/10">
       <div class="mx-auto max-w-6xl px-4 py-14">
         <div class="reveal">
           <h2 class="text-2xl font-semibold tracking-tight">Testimonials</h2>
-          <p class="mt-3 text-slate-200 max-w-2xl">Short quotes from representative industrial roles (examples).</p>
+          <p class="mt-3 text-slate-200 max-w-2xl">Short quotes from representative roles (examples).</p>
         </div>
 
         <div class="mt-7 grid gap-4 md:grid-cols-3">
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
             <div class="text-xs text-slate-300">Site director</div>
-            <p class="mt-3 text-slate-100">“We now run the same playbook across sites. Execution is calmer and faster.”</p>
-            <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">standardization</span>
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">multi-site</span>
-            </div>
+            <p class="mt-3 text-slate-100">“We standardized execution without slowing the floor down.”</p>
           </div>
-
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
             <div class="text-xs text-slate-300">Quality manager</div>
-            <p class="mt-3 text-slate-100">“Clear checkpoints and ownership reduced defects and made audits easier.”</p>
-            <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">checkpoints</span>
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">ownership</span>
-            </div>
+            <p class="mt-3 text-slate-100">“Checkpoints and ownership reduced defects and simplified audits.”</p>
           </div>
-
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
             <div class="text-xs text-slate-300">Operations manager</div>
-            <p class="mt-3 text-slate-100">“Handoffs became visible. Exceptions are handled before they become delays.”</p>
-            <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">handoffs</span>
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">exceptions</span>
-            </div>
+            <p class="mt-3 text-slate-100">“ML alerts helped us spot issues early—before they became downtime.”</p>
           </div>
         </div>
       </div>
@@ -322,31 +393,35 @@
             <div>
               <h2 class="text-2xl font-semibold tracking-tight">Contact</h2>
               <p class="mt-3 text-slate-200 max-w-xl">
-                Share your operation type, site count, and the outcome you need. We’ll respond with a proposed approach.
+                Share your operation type, sites, and outcome. We’ll reply with a plan and timeline.
               </p>
             </div>
             <a href="services.html" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold hover:bg-white/10">
-              Services →
+              More →
             </a>
           </div>
 
-          <div class="mt-6 grid gap-3 sm:grid-cols-3">
+          <div class="mt-6 grid gap-3 sm:grid-cols-4">
             <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
               <div class="text-xs text-slate-300">Email</div>
-              <a class="mt-2 block font-semibold hover:text-indigo-200" href="mailto:hello@automtas.com">hello@automtas.com</a>
-              <div class="mt-1 text-[11px] text-slate-400">Update if needed</div>
+              <a class="mt-2 block font-semibold hover:text-indigo-200" href="mailto:apramparsingh@automatas.store">apramparsingh@automatas.store</a>
             </div>
 
             <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div class="text-xs text-slate-300">Engagements</div>
-              <div class="mt-2 font-semibold">Remote + Onsite</div>
-              <div class="mt-1 text-[11px] text-slate-400">Single site • multi-site • rollout</div>
+              <div class="text-xs text-slate-300">Phone</div>
+              <a class="mt-2 block font-semibold hover:text-indigo-200" href="tel:+19196509271">9196509271</a>
+            </div>
+
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div class="text-xs text-slate-300">LinkedIn</div>
+              <a class="mt-2 block font-semibold hover:text-indigo-200" href="#" aria-label="LinkedIn Aprampar Singh">Aprampar Singh</a>
+              <div class="mt-1 text-[11px] text-slate-400">Replace link URL</div>
             </div>
 
             <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
               <div class="text-xs text-slate-300">Send a brief</div>
               <a class="mt-2 inline-flex items-center justify-center rounded-xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200"
-                 href="mailto:hello@automtas.com?subject=Automtas%20-%20Industrial%20Consulting&body=Operation%20type%3A%0ASites%3A%0AOutcome%3A%0ATimeline%3A%0A">
+                 href="mailto:apramparsingh@automatas.store?subject=Automtas%20-%20Industrial%20Consulting&body=Industry%3A%0ASites%3A%0AOutcome%3A%0ATimeline%3A%0A">
                 Email template →
               </a>
             </div>
@@ -366,12 +441,14 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
+    // reveal on scroll
     const els = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries)=> {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("show"); });
     }, { threshold: 0.12 });
     els.forEach(el => io.observe(el));
 
+    // counters
     function animateCounters(){
       document.querySelectorAll(".count").forEach(el=>{
         const to = Number(el.getAttribute("data-to") || "0");
@@ -392,24 +469,8 @@
       if(entries.some(e=>e.isIntersecting)){ ran=true; animateCounters(); }
     },{threshold:.25});
     obs.observe(document.querySelector("main"));
-
-    const style=document.createElement("style");
-    style.textContent=`
-      .logoBadge{
-        min-width:220px; display:flex; align-items:center; justify-content:center;
-        padding:12px 16px; border-radius:16px; font-weight:700;
-        border:1px solid rgba(255,255,255,.10);
-        background:rgba(2,6,23,.40);
-        color:rgba(255,255,255,.82);
-        letter-spacing:.02em; font-size:12px;
-      }`;
-    document.head.appendChild(style);
-
-    const track=document.getElementById("logoTrack");
-    track.innerHTML = track.innerHTML + track.innerHTML;
   </script>
 </body>
 </html>
-
 
 
