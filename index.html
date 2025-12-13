@@ -38,7 +38,6 @@
       display:flex; align-items:center; justify-content:center;
     }
 
-    /* Animated infographic motion */
     .pulseDot{ animation: pulseDot 1.9s ease-in-out infinite; transform-origin:center; }
     @keyframes pulseDot{ 0%,100%{ transform:scale(1); opacity:.65;} 50%{ transform:scale(1.25); opacity:1;} }
 
@@ -51,11 +50,12 @@
     .floatPic{ animation: floatPic 6s ease-in-out infinite; }
     @keyframes floatPic{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
 
-    .pulseRing{ animation:pulseRing 2.2s ease-in-out infinite; transform-origin:center; }
-    @keyframes pulseRing{ 0%,100%{ transform:scale(1); opacity:.55;} 50%{ transform:scale(1.12); opacity:1;} }
+    /* soft zoom for real photos */
+    .slowZoom { animation: slowZoom 9s ease-in-out infinite alternate; transform-origin:center; }
+    @keyframes slowZoom { from{ transform:scale(1);} to{ transform:scale(1.05);} }
 
     @media (prefers-reduced-motion: reduce){
-      body,.shine:after,.pulseDot,.scanLine,.gear,.floatPic,.pulseRing{ animation:none!important; }
+      body,.shine:after,.pulseDot,.scanLine,.gear,.floatPic,.slowZoom{ animation:none!important; }
       .reveal,.reveal.show{ transition:none!important; }
       html { scroll-behavior:auto; }
     }
@@ -141,6 +141,7 @@
     <section id="intro" class="relative overflow-hidden">
       <div class="mx-auto max-w-6xl px-4 pt-14 pb-10 md:pt-20 md:pb-14">
         <div class="grid gap-8 md:grid-cols-2 md:items-center">
+
           <!-- Left -->
           <div class="reveal">
             <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">
@@ -161,8 +162,7 @@
             </h1>
 
             <p class="mt-4 text-slate-200">
-              We improve execution across sites—process clarity, quality discipline, practical automation,
-              plus lightweight ML/AI for visibility and decision support.
+              We help plants, warehouses, and field teams run smoother—clear processes, strong quality gates, and practical rollout across sites.
             </p>
 
             <div class="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -186,7 +186,7 @@
               </a>
             </div>
 
-            <!-- Micro Infographics -->
+            <!-- Micro Infographics (numbers show immediately, not 0%) -->
             <div class="mt-8 grid grid-cols-3 gap-3">
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <div class="text-[11px] text-slate-300 inline-flex items-center gap-2">
@@ -195,7 +195,7 @@
                   </svg>
                   Process
                 </div>
-                <div class="mt-1 text-2xl font-semibold"><span class="count" data-to="85">0</span>%</div>
+                <div class="mt-1 text-2xl font-semibold">85%</div>
               </div>
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <div class="text-[11px] text-slate-300 inline-flex items-center gap-2">
@@ -205,7 +205,7 @@
                   </svg>
                   Quality
                 </div>
-                <div class="mt-1 text-2xl font-semibold"><span class="count" data-to="92">0</span>%</div>
+                <div class="mt-1 text-2xl font-semibold">92%</div>
               </div>
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <div class="text-[11px] text-slate-300 inline-flex items-center gap-2">
@@ -216,13 +216,13 @@
                   </svg>
                   Reliability
                 </div>
-                <div class="mt-1 text-2xl font-semibold"><span class="count" data-to="96">0</span>%</div>
+                <div class="mt-1 text-2xl font-semibold">96%</div>
               </div>
             </div>
             <div class="mt-2 text-[11px] text-slate-400">Illustrative targets.</div>
           </div>
 
-          <!-- Right: Detailed Blueprint (animated pic) -->
+          <!-- Right: Photos + Blueprint -->
           <div class="reveal">
             <div class="floatPic rounded-3xl border border-white/10 bg-white/5 p-6">
               <div class="flex items-center justify-between">
@@ -232,35 +232,61 @@
                       <path d="M4 4h16v16H4V4z" stroke="currentColor" stroke-width="2"/>
                       <path d="M7 8h10M7 12h10M7 16h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     </svg>
-                    Industrial consulting system
+                    How we deliver
                   </div>
                   <div class="text-lg font-semibold">Delivery Blueprint</div>
                 </div>
                 <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">
-                  process → control → AI
+                  diagnose → standardize → control
                 </span>
               </div>
 
-              <div class="mt-5 rounded-2xl border border-white/10 bg-slate-950/40 p-4 overflow-hidden">
-                <svg viewBox="0 0 720 280" class="w-full" fill="none">
-                  <rect x="10" y="10" width="700" height="260" rx="18" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.10)"/>
+              <!-- Two real photos -->
+              <div class="mt-5 grid gap-3 sm:grid-cols-2">
+                <!-- Consultant photo (Commons) -->
+                <div class="rounded-2xl border border-white/10 bg-slate-950/40 overflow-hidden">
+                  <img
+                    class="w-full h-44 object-cover slowZoom"
+                    alt="Consultant portrait"
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Clement%20Dos%20Santos%20portrait%202025.jpg?width=900">
+                  <div class="p-3 text-[11px] text-slate-300 border-t border-white/10">
+                    Consulting partner (illustrative)
+                  </div>
+                </div>
+
+                <!-- Industry photo (Commons) -->
+                <div class="rounded-2xl border border-white/10 bg-slate-950/40 overflow-hidden">
+                  <img
+                    class="w-full h-44 object-cover slowZoom"
+                    alt="Factory interior"
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Trains_no6-32905_Irvington_Factory_Interior_82.JPG?width=1200">
+                  <div class="p-3 text-[11px] text-slate-300 border-t border-white/10">
+                    Industrial floor view (illustrative)
+                  </div>
+                </div>
+              </div>
+
+              <!-- Blueprint infographic (no ML/AI step) -->
+              <div class="mt-4 rounded-2xl border border-white/10 bg-slate-950/40 p-4 overflow-hidden">
+                <svg viewBox="0 0 720 250" class="w-full" fill="none">
+                  <rect x="10" y="10" width="700" height="230" rx="18" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.10)"/>
 
                   <rect x="34" y="42" width="652" height="44" rx="14" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)"/>
                   <rect x="34" y="98" width="652" height="44" rx="14" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.10)"/>
                   <rect x="34" y="154" width="652" height="44" rx="14" fill="rgba(255,255,255,.045)" stroke="rgba(255,255,255,.10)"/>
-                  <rect x="34" y="210" width="652" height="40" rx="14" fill="rgba(255,255,255,.035)" stroke="rgba(255,255,255,.08)"/>
+                  <rect x="34" y="206" width="652" height="30" rx="14" fill="rgba(255,255,255,.035)" stroke="rgba(255,255,255,.08)"/>
 
                   <text x="54" y="70" font-size="13" fill="rgba(255,255,255,.86)" font-weight="800">1) Diagnose</text>
-                  <text x="178" y="70" font-size="12" fill="rgba(255,255,255,.62)">site walk • process map • risk list • baseline metrics</text>
+                  <text x="178" y="70" font-size="12" fill="rgba(255,255,255,.62)">site walk • process map • risk list • baseline</text>
 
                   <text x="54" y="126" font-size="13" fill="rgba(255,255,255,.86)" font-weight="800">2) Standardize</text>
-                  <text x="200" y="126" font-size="12" fill="rgba(255,255,255,.62)">standard work • ownership • training packs • SOP visuals</text>
+                  <text x="200" y="126" font-size="12" fill="rgba(255,255,255,.62)">standard work • ownership • training • SOP visuals</text>
 
                   <text x="54" y="182" font-size="13" fill="rgba(255,255,255,.86)" font-weight="800">3) Control</text>
-                  <text x="168" y="182" font-size="12" fill="rgba(255,255,255,.62)">quality gates • checklists • escalation • audit readiness</text>
+                  <text x="168" y="182" font-size="12" fill="rgba(255,255,255,.62)">quality gates • checklists • escalation • audit ready</text>
 
-                  <text x="54" y="236" font-size="13" fill="rgba(255,255,255,.86)" font-weight="800">4) Enable (ML/AI)</text>
-                  <text x="220" y="236" font-size="12" fill="rgba(255,255,255,.62)">anomaly detection • forecasting • alerts • decision support</text>
+                  <text x="54" y="228" font-size="13" fill="rgba(255,255,255,.86)" font-weight="800">4) Rollout</text>
+                  <text x="155" y="228" font-size="12" fill="rgba(255,255,255,.62)">repeatable cadence • site scorecards • sustainment</text>
 
                   <g class="scanLine" style="opacity:.9">
                     <rect x="0" y="28" width="100" height="2" fill="rgba(99,102,241,.9)"/>
@@ -270,32 +296,25 @@
                   <circle class="pulseDot" cx="650" cy="64" r="6" fill="rgba(16,185,129,.85)"/>
                   <circle class="pulseDot" cx="620" cy="120" r="6" fill="rgba(16,185,129,.85)"/>
                   <circle class="pulseDot" cx="640" cy="176" r="6" fill="rgba(16,185,129,.85)"/>
-                  <circle class="pulseDot" cx="600" cy="230" r="6" fill="rgba(16,185,129,.85)"/>
-
-                  <circle class="pulseDot" cx="540" cy="232" r="10" fill="rgba(99,102,241,.16)" stroke="rgba(99,102,241,.55)" stroke-width="2"/>
-                  <text x="522" y="237" font-size="11" fill="rgba(255,255,255,.80)" font-weight="700">AI</text>
+                  <circle class="pulseDot" cx="600" cy="220" r="6" fill="rgba(16,185,129,.85)"/>
 
                   <g class="gear" transform="translate(660 24)">
                     <circle cx="18" cy="18" r="8" stroke="rgba(255,255,255,.75)" stroke-width="2"/>
                     <path d="M18 4v4M18 28v4M4 18h4M28 18h4M8 8l3 3M25 25l3 3M28 8l-3 3M8 28l3-3"
                           stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
                   </g>
-
-                  <text x="40" y="266" font-size="11" fill="rgba(255,255,255,.55)">
-                    Built for industrial reality: simple, repeatable, scalable across sites.
-                  </text>
                 </svg>
               </div>
 
-              <div class="mt-4 grid grid-cols-5 gap-2 text-[11px] text-slate-300">
+              <div class="mt-4 grid grid-cols-4 gap-2 text-[11px] text-slate-300">
                 <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Roles</div>
                 <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Gates</div>
                 <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Workflow</div>
-                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">AI Alerts</div>
                 <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">KPIs</div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -429,9 +448,18 @@
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
             <div class="flex items-center gap-3">
               <div class="iconBox">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/><path d="M8 10h8M8 14h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/><path d="M9 10h6M9 14h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
               </div>
-              <div class="font-semibold">Industrial AI/ML</div>
+              <div class="font-semibold">Compliance</div>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
+            <div class="flex items-center gap-3">
+              <div class="iconBox">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 18h18" stroke="currentColor" stroke-width="2"/><path d="M6 18V9h12v9" stroke="currentColor" stroke-width="2"/><path d="M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="font-semibold">Logistics</div>
             </div>
           </div>
         </div>
@@ -453,7 +481,7 @@
             Services
           </h2>
           <p class="mt-3 text-slate-200 max-w-2xl">
-            From process to control to ML/AI—built to run daily in real operations.
+            Designed to work on real shop floors—simple, repeatable, measurable.
           </p>
         </div>
 
@@ -468,7 +496,7 @@
               </span>
               <div class="text-sm font-semibold">Operations improvement</div>
             </div>
-            <p class="mt-3 text-slate-200">Stabilize throughput, reduce variation, simplify handoffs.</p>
+            <p class="mt-3 text-slate-200">Throughput stability, shift consistency, faster handoffs.</p>
           </div>
 
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
@@ -488,14 +516,13 @@
             <div class="flex items-center gap-3">
               <span class="iconBox">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                  <path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M9 10h6M9 14h6M9 18h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
               </span>
-              <div class="text-sm font-semibold">ML/AI enablement</div>
+              <div class="text-sm font-semibold">Execution rollout</div>
             </div>
-            <p class="mt-3 text-slate-200">Anomaly alerts, forecasting, decision support, dashboards.</p>
+            <p class="mt-3 text-slate-200">Repeatable cadence, site scorecards, sustainment plan.</p>
           </div>
         </div>
 
@@ -505,7 +532,6 @@
               <div class="text-xs text-slate-300 inline-flex items-center gap-2">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                   <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/>
-                  <path d="M9 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
                 Next step
               </div>
@@ -565,13 +591,13 @@
               </svg>
               Operations manager
             </div>
-            <p class="mt-3 text-slate-100">“ML alerts helped us spot issues early—before they became downtime.”</p>
+            <p class="mt-3 text-slate-100">“Clear escalation rules made shifts more consistent.”</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Contact (icons + email emphasized + animated pic) -->
+    <!-- Contact -->
     <section id="contact" class="border-t border-white/10">
       <div class="mx-auto max-w-6xl px-4 py-14">
         <div class="reveal rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent p-8">
@@ -602,7 +628,7 @@
           </div>
 
           <div class="mt-7 grid gap-4 lg:grid-cols-5">
-            <!-- Left: Contact cards -->
+            <!-- Left cards -->
             <div class="lg:col-span-3 grid gap-3 sm:grid-cols-2">
               <!-- Email -->
               <div class="rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
@@ -666,7 +692,7 @@
                 <div class="mt-4 text-[11px] text-slate-400">Quick message or background.</div>
               </div>
 
-              <!-- Email template -->
+              <!-- Email template (FIXED) -->
               <div class="rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
                 <div class="flex items-center gap-3">
                   <span class="iconBox">
@@ -678,7 +704,7 @@
                   <div>
                     <div class="text-xs text-slate-300">Send a brief</div>
                     <a class="mt-2 inline-flex items-center justify-center rounded-xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200"
-                       href="mailto:apramparsingh@automatas.store?subject=Automtas%20-%20Industrial%20Consulting&body=Industry%3A%0ASites%3A%0AOutcome%3A%0ATimeline%3A%0AConstraints%3A%0A">
+                       href="mailto:apramparsingh@automatas.store?subject=Automtas%20%E2%80%93%20Industrial%20Consulting%20Brief&body=Industry%3A%0D%0ASites%20%28count%29%3A%0D%0AOutcome%20you%20want%3A%0D%0ATimeline%3A%0D%0AConstraints%20%28safety%2C%20budget%2C%20headcount%29%3A%0D%0A%0D%0AContext%20%281%E2%80%932%20sentences%29%3A%0D%0A">
                       <span class="mr-2 inline-flex">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                           <path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/>
@@ -693,7 +719,7 @@
               </div>
             </div>
 
-            <!-- Right: Animated pic -->
+            <!-- Right: simple animated infographic (NO ML/AI) -->
             <div class="lg:col-span-2 rounded-2xl border border-white/10 bg-white/5 p-5 overflow-hidden">
               <div class="flex items-center justify-between">
                 <div>
@@ -704,18 +730,18 @@
                     </svg>
                     Animated picture
                   </div>
-                  <div class="text-sm font-semibold">Engagement Radar</div>
+                  <div class="text-sm font-semibold">Delivery Radar</div>
                 </div>
-                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">ML/AI ready</span>
+                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">multi-site</span>
               </div>
 
               <div class="mt-4 rounded-2xl border border-white/10 bg-slate-950/40 p-4">
                 <svg viewBox="0 0 320 200" class="w-full" fill="none">
                   <rect x="10" y="10" width="300" height="180" rx="18" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.10)"/>
 
-                  <circle class="pulseRing" cx="160" cy="105" r="24" stroke="rgba(99,102,241,.55)" stroke-width="2" fill="rgba(99,102,241,.08)"/>
-                  <circle class="pulseRing" cx="160" cy="105" r="52" stroke="rgba(99,102,241,.25)" stroke-width="2" fill="rgba(99,102,241,.04)"/>
-                  <circle class="pulseRing" cx="160" cy="105" r="78" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+                  <circle cx="160" cy="105" r="24" stroke="rgba(99,102,241,.55)" stroke-width="2" fill="rgba(99,102,241,.08)"/>
+                  <circle cx="160" cy="105" r="52" stroke="rgba(99,102,241,.25)" stroke-width="2" fill="rgba(99,102,241,.04)"/>
+                  <circle cx="160" cy="105" r="78" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
 
                   <g class="gear" style="transform-origin:160px 105px;">
                     <path d="M160 105 L240 70" stroke="rgba(16,185,129,.7)" stroke-width="2" stroke-linecap="round"/>
@@ -728,18 +754,18 @@
                   <text x="28" y="40" font-size="11" fill="rgba(255,255,255,.70)" font-weight="700">Scope</text>
                   <text x="28" y="58" font-size="11" fill="rgba(255,255,255,.55)">process • quality • execution</text>
 
-                  <text x="28" y="158" font-size="11" fill="rgba(255,255,255,.70)" font-weight="700">Enable</text>
-                  <text x="28" y="176" font-size="11" fill="rgba(255,255,255,.55)">automation • ML/AI alerts</text>
+                  <text x="28" y="158" font-size="11" fill="rgba(255,255,255,.70)" font-weight="700">Control</text>
+                  <text x="28" y="176" font-size="11" fill="rgba(255,255,255,.55)">gates • escalation • audits</text>
 
-                  <text x="214" y="156" font-size="11" fill="rgba(255,255,255,.70)" font-weight="700">Deliver</text>
-                  <text x="214" y="174" font-size="11" fill="rgba(255,255,255,.55)">repeatable rollout</text>
+                  <text x="214" y="156" font-size="11" fill="rgba(255,255,255,.70)" font-weight="700">Rollout</text>
+                  <text x="214" y="174" font-size="11" fill="rgba(255,255,255,.55)">repeatable cadence</text>
                 </svg>
               </div>
 
               <div class="mt-4 grid grid-cols-3 gap-2 text-[11px] text-slate-300">
                 <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">2–4 week sprint</div>
                 <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Multi-site</div>
-                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">AI alerts</div>
+                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Sustainment</div>
               </div>
             </div>
           </div>
@@ -764,31 +790,10 @@
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("show"); });
     }, { threshold: 0.12 });
     els.forEach(el => io.observe(el));
-
-    // counters
-    function animateCounters(){
-      document.querySelectorAll(".count").forEach(el=>{
-        const to = Number(el.getAttribute("data-to") || "0");
-        const t0 = performance.now();
-        const duration = 900;
-        function tick(t){
-          const p = Math.min(1, (t - t0)/duration);
-          const eased = 1 - Math.pow(1 - p, 3);
-          el.textContent = String(Math.round(to * eased));
-          if(p < 1) requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-      });
-    }
-    let ran=false;
-    const obs=new IntersectionObserver((entries)=>{
-      if(ran) return;
-      if(entries.some(e=>e.isIntersecting)){ ran=true; animateCounters(); }
-    },{threshold:.25});
-    obs.observe(document.querySelector("main"));
   </script>
 </body>
 </html>
+
 
 
 
