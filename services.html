@@ -1,323 +1,299 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Automtas | Services & Case Studies</title>
-  <meta name="description" content="Automtas services and case studies across industrial operations: process, quality, and execution." />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Automatas — Services & Case Studies</title>
+    <meta name="description" content="Automatas services and case studies for industrial operations, manufacturing, logistics, and execution." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            boxShadow: { soft: "0 12px 40px rgba(0,0,0,.14)" }
+          }
+        }
+      }
+    </script>
+    <style>
+      .reveal { opacity: 0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease; }
+      .reveal.in { opacity: 1; transform: translateY(0); }
+      .gridbg {
+        background-image:
+          linear-gradient(to right, rgba(255,255,255,.08) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255,255,255,.08) 1px, transparent 1px);
+        background-size: 40px 40px;
+        mask-image: radial-gradient(60% 60% at 50% 40%, black 50%, transparent 100%);
+      }
+      :focus-visible { outline: 3px solid rgba(255,255,255,.65); outline-offset: 3px; border-radius: 14px; }
+    </style>
+  </head>
 
-  <style>
-    html { scroll-behavior: smooth; }
-    body{
-      background:
-        radial-gradient(1200px 600px at 18% 10%, rgba(99,102,241,.16), transparent 60%),
-        radial-gradient(1100px 560px at 82% 22%, rgba(16,185,129,.12), transparent 55%),
-        radial-gradient(900px 500px at 40% 92%, rgba(255,255,255,.05), transparent 62%),
-        #020617;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* Industrial background photo (subtle) */
-    body::before{
-      content:"";
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Trains_no6-32905_Irvington_Factory_Interior_82.JPG?width=2400");
-      background-size: cover;
-      background-position: center;
-      opacity: 0.06;
-      filter: grayscale(1) blur(2px) contrast(1.08);
-      transform: scale(1.02);
-      pointer-events: none;
-    }
-
-    body::after{
-      content:"";
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      background:
-        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
-      background-size: 72px 72px;
-      opacity: 0.08;
-      pointer-events: none;
-      mix-blend-mode: overlay;
-    }
-
-    header, main, footer { position: relative; z-index: 1; }
-
-    .reveal{ opacity:0; transform: translateY(10px) scale(.99); }
-    .reveal.show{ opacity:1; transform: translateY(0) scale(1); transition: all .7s cubic-bezier(.2,.8,.2,1); }
-
-    .shine{ position:relative; overflow:hidden; }
-    .shine:after{
-      content:""; position:absolute; inset:-120%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
-      transform: rotate(18deg);
-      animation: shine 3.2s ease-in-out infinite;
-    }
-    @keyframes shine{ 0%{ left:-140%; } 100%{ left:140%; } }
-
-    .iconBox{
-      height:44px; width:44px; border-radius:16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.10);
-      display:flex; align-items:center; justify-content:center;
-    }
-
-    .slowZoom { animation: slowZoom 9s ease-in-out infinite alternate; transform-origin:center; }
-    @keyframes slowZoom { from{ transform:scale(1);} to{ transform:scale(1.05);} }
-
-    .truck{ animation: truck 3.2s ease-in-out infinite alternate; }
-    @keyframes truck{ from{ transform:translateX(-10px);} to{ transform:translateX(10px);} }
-
-    .wrench{ animation: wrench 2.8s ease-in-out infinite; transform-origin: 50% 50%; }
-    @keyframes wrench{ 0%,100%{ transform: rotate(-6deg);} 50%{ transform: rotate(8deg);} }
-
-    @media (prefers-reduced-motion: reduce){
-      .shine:after,.slowZoom,.truck,.wrench{ animation:none!important; }
-      .reveal,.reveal.show{ transition:none!important; }
-      html { scroll-behavior:auto; }
-    }
-  </style>
-</head>
-
-<body class="text-slate-100">
-  <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
-    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-      <a href="index.html#top" class="flex items-center gap-3">
-        <div class="h-10 w-10 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" class="opacity-90">
-            <path d="M7 17l5-10 5 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M9.2 13h5.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="leading-tight">
-          <div class="font-semibold tracking-tight">Automtas</div>
-          <div class="text-xs text-slate-300">Services & Case Studies</div>
-        </div>
-      </a>
-
-      <nav class="hidden md:flex items-center gap-6 text-sm text-slate-200">
-        <a href="#services" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/></svg>
-          Services
+  <body class="bg-zinc-950 text-white antialiased">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-zinc-950/70 backdrop-blur border-b border-white/10">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2">
+          <div class="w-9 h-9 rounded-xl bg-white text-zinc-950 grid place-items-center shadow-soft">
+            <span class="font-black tracking-tight">A</span>
+          </div>
+          <div class="leading-tight">
+            <div class="font-semibold tracking-tight">Automatas</div>
+            <div class="text-xs text-white/60">Services & Case Studies</div>
+          </div>
         </a>
-        <a href="#cases" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/></svg>
-          Cases
-        </a>
-        <a href="#contact" class="hover:text-white inline-flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Contact
-        </a>
-      </nav>
 
-      <a href="#contact" class="shine inline-flex items-center justify-center rounded-xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200">
-        Start
-      </a>
-    </div>
-  </header>
+        <nav class="flex items-center gap-3">
+          <a href="index.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5 transition text-sm font-semibold">
+            <span data-lucide="arrow-left"></span> Home
+          </a>
+          <a href="#case-studies" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-zinc-950 hover:bg-zinc-100 transition text-sm font-semibold">
+            <span data-lucide="layout-grid"></span> Case Studies
+          </a>
+        </nav>
+      </div>
+    </header>
 
-  <main>
-    <section class="mx-auto max-w-6xl px-4 pt-14 pb-10">
-      <div class="reveal flex items-end justify-between flex-wrap gap-4">
-        <div>
-          <h1 class="text-4xl md:text-5xl font-semibold tracking-tight flex items-start gap-3">
-            <span class="hidden sm:flex iconBox mt-1">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/></svg>
-            </span>
-            <span>Services & case studies</span>
-          </h1>
-          <p class="mt-3 text-slate-200 max-w-2xl">Industrial consulting across process, quality, and execution rollout.</p>
-        </div>
-
-        <a href="index.html" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold hover:bg-white/10">
-          ← Home
-        </a>
+    <!-- Hero -->
+    <section class="relative py-12">
+      <div class="absolute inset-0 -z-10">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=2400&q=80')] bg-cover bg-center opacity-25"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-zinc-950 to-zinc-950"></div>
+        <div class="absolute inset-0 gridbg"></div>
       </div>
 
-      <div class="reveal mt-8 rounded-3xl border border-white/10 bg-white/5 overflow-hidden">
-        <img class="w-full h-56 md:h-72 object-cover slowZoom"
-             alt="Industrial factory interior"
-             src="https://commons.wikimedia.org/wiki/Special:FilePath/Lionel_Trains_no6-32905_Irvington_Factory_Interior_82.JPG?width=1700">
-      </div>
-    </section>
-
-    <section id="services" class="border-t border-white/10">
-      <div class="mx-auto max-w-6xl px-4 py-14">
-        <div class="reveal grid gap-4 md:grid-cols-3">
-          <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="flex items-center gap-3">
-              <span class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20V8l8-4 8 4v12H4z" stroke="currentColor" stroke-width="2"/></svg></span>
-              <div class="text-sm font-semibold">Process improvement</div>
-            </div>
-            <p class="mt-3 text-slate-200">Bottlenecks, handoffs, shift consistency, throughput stability.</p>
-          </div>
-
-          <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="flex items-center gap-3">
-              <span class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 4v6c0 5-3 9-7 10C8 21 5 17 5 12V6l7-4z" stroke="currentColor" stroke-width="2"/></svg></span>
-              <div class="text-sm font-semibold">Quality systems</div>
-            </div>
-            <p class="mt-3 text-slate-200">Control points, ownership, checklists, audit readiness.</p>
-          </div>
-
-          <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="flex items-center gap-3">
-              <span class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/></svg></span>
-              <div class="text-sm font-semibold">Execution rollout</div>
-            </div>
-            <p class="mt-3 text-slate-200">Repeatable cadence, scorecards, sustainment across sites.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="cases" class="border-t border-white/10">
-      <div class="mx-auto max-w-6xl px-4 py-14">
+      <div class="max-w-6xl mx-auto px-4">
         <div class="reveal">
-          <h2 class="text-2xl font-semibold tracking-tight flex items-center gap-3">
-            <span class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l3 3v17H6V2z" stroke="currentColor" stroke-width="2"/></svg></span>
-            Case studies
-          </h2>
-          <p class="mt-3 text-slate-200 max-w-2xl">Short, industrial-style examples.</p>
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-xs text-white/80">
+            <span data-lucide="wrench"></span>
+            <span>Industrial delivery • PMO • Lean • Quality</span>
+          </div>
+          <h1 class="mt-5 text-3xl md:text-4xl font-extrabold tracking-tight">Services built for execution.</h1>
+          <p class="mt-3 text-white/70 max-w-2xl">
+            Minimal fluff. Clear scope. A plan your teams can run next week.
+          </p>
         </div>
 
-        <div class="mt-7 grid gap-4 md:grid-cols-3">
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="flex items-center justify-between">
-              <div class="text-sm font-semibold inline-flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8 8h8l2 4-2 4H8L6 12l2-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-                CCTV manufacturing
-              </div>
-              <span class="text-[11px] text-slate-400">electronics</span>
+        <!-- Service tiles -->
+        <div class="mt-8 grid md:grid-cols-3 gap-4">
+          <div class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+            <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="route"></span></div>
+            <h3 class="mt-4 font-semibold text-lg">Operational Strategy</h3>
+            <p class="mt-2 text-white/65 text-sm">Roadmap + KPIs + org alignment.</p>
+            <div class="mt-4 flex flex-wrap gap-2 text-xs">
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Capacity</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Bottlenecks</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">S&OP</span>
             </div>
-            <p class="mt-3 text-slate-200">Quality gates + line balance + rework reduction.</p>
           </div>
 
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="flex items-center justify-between">
-              <div class="text-sm font-semibold inline-flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 18h18" stroke="currentColor" stroke-width="2"/><path d="M6 18V8h12v10" stroke="currentColor" stroke-width="2"/></svg>
-                Distribution redesign
-              </div>
-              <span class="text-[11px] text-slate-400">logistics</span>
+          <div class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+            <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="clipboard-check"></span></div>
+            <h3 class="mt-4 font-semibold text-lg">Project PMO</h3>
+            <p class="mt-2 text-white/65 text-sm">Milestones + vendors + governance.</p>
+            <div class="mt-4 flex flex-wrap gap-2 text-xs">
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">RACI</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Risk</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">SOP rollout</span>
             </div>
-            <p class="mt-3 text-slate-200">Dock rules + staging ownership + exception handling.</p>
           </div>
 
-          <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="flex items-center justify-between">
-              <div class="text-sm font-semibold inline-flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                Maintenance execution
-              </div>
-              <span class="text-[11px] text-slate-400">reliability</span>
+          <div class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+            <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="shield-check"></span></div>
+            <h3 class="mt-4 font-semibold text-lg">Quality Systems</h3>
+            <p class="mt-2 text-white/65 text-sm">QC gates + traceability + audits.</p>
+            <div class="mt-4 flex flex-wrap gap-2 text-xs">
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">CAPA</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Inspection plans</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Supplier QA</span>
             </div>
-            <p class="mt-3 text-slate-200">Triage rules + parts readiness + disciplined closeout.</p>
           </div>
         </div>
+
+        <!-- Process (revamped) -->
+        <div class="mt-10 rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+          <div class="flex items-center justify-between gap-3">
+            <h2 class="text-xl font-bold tracking-tight">Engagement process</h2>
+            <span class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="repeat"></span> Built to be repeatable</span>
+          </div>
+
+          <div class="mt-6 grid md:grid-cols-4 gap-3">
+            <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+              <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="search"></span> 01</div>
+              <div class="mt-2 font-semibold">Assess</div>
+              <div class="mt-1 text-sm text-white/65">Plant walk + data pull</div>
+            </div>
+            <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+              <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="sliders-horizontal"></span> 02</div>
+              <div class="mt-2 font-semibold">Design</div>
+              <div class="mt-1 text-sm text-white/65">Plan + owners + cadence</div>
+            </div>
+            <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+              <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="hammer"></span> 03</div>
+              <div class="mt-2 font-semibold">Implement</div>
+              <div class="mt-1 text-sm text-white/65">SOPs + training + pilot</div>
+            </div>
+            <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+              <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="line-chart"></span> 04</div>
+              <div class="mt-2 font-semibold">Sustain</div>
+              <div class="mt-1 text-sm text-white/65">KPIs + handover kit</div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- Contact (no right infographic) -->
-    <section id="contact" class="border-t border-white/10">
-      <div class="mx-auto max-w-6xl px-4 py-14">
-        <div class="reveal rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent p-8">
-          <div class="flex items-start justify-between gap-4 flex-wrap">
+    <!-- Case Studies -->
+    <section id="case-studies" class="py-14 border-t border-white/10">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="reveal">
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Case Studies</h2>
+          <p class="mt-2 text-white/65">Three quick reads. Industrial outcomes.</p>
+        </div>
+
+        <div class="mt-8 grid md:grid-cols-3 gap-4">
+          <!-- CCTV manufacturing -->
+          <article class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+            <div class="flex items-start justify-between gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center">
+                <span data-lucide="camera"></span>
+              </div>
+              <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10 text-white/80">Manufacturing</span>
+            </div>
+
+            <h3 class="mt-4 font-semibold text-lg">CCTV Camera Manufacturing Ramp</h3>
+            <p class="mt-2 text-white/65 text-sm">Stabilized assembly + QC for a fast volume ramp.</p>
+
+            <div class="mt-4 grid gap-2 text-sm">
+              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> QC gates at 3 stations</div>
+              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Vendor parts flow + kitting</div>
+              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Rework loop reduced via CAPA</div>
+            </div>
+
+            <div class="mt-5 grid grid-cols-3 gap-2 text-xs">
+              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
+                <div class="text-white/60">Yield</div>
+                <div class="mt-1 font-bold">+11%</div>
+              </div>
+              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
+                <div class="text-white/60">Rework</div>
+                <div class="mt-1 font-bold">-19%</div>
+              </div>
+              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
+                <div class="text-white/60">Output</div>
+                <div class="mt-1 font-bold">+14%</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Warehouse throughput -->
+          <article class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+            <div class="flex items-start justify-between gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center">
+                <span data-lucide="warehouse"></span>
+              </div>
+              <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10 text-white/80">Logistics</span>
+            </div>
+
+            <h3 class="mt-4 font-semibold text-lg">Warehouse Throughput Reset</h3>
+            <p class="mt-2 text-white/65 text-sm">Slotting, labor cadence, and dispatch control.</p>
+
+            <div class="mt-4 grid gap-2 text-sm">
+              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Pick-path redesign</div>
+              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Dock scheduling playbook</div>
+              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Daily tier meetings</div>
+            </div>
+
+            <div class="mt-5 grid grid-cols-3 gap-2 text-xs">
+              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
+                <div class="text-white/60">OTIF</div>
+                <div class="mt-1 font-bold">+10%</div>
+              </div>
+              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
+                <div class="text-white/60">Labor</div>
+                <div class="mt-1 font-bold">-7%</div>
+              </div>
+              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
+                <div class="text-white/60">Cycle</div>
+                <div class="mt-1 font-bold">-13%</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- PMO / rollout -->
+          <article class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+            <div class="flex items-start justify-between gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center">
+                <span data-lucide="clipboard-check"></span>
+              </div>
+              <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10 text-white/80">PMO</span>
+            </div>
+
+            <h3 class="mt-4 font-semibold text-lg">Multi-site SOP Rollout</h3>
+            <p class="mt-2 text-white/65 text-sm">Standard work + training + audit cadence.</p>
+
+            <div class="mt-4 grid gap-2 text-sm">
+              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> RACI + weekly governance</div>
+              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> SOP pack + training kit</div>
+              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Audit checklist + CAPA</div>
+            </div>
+
+            <div class="mt-5 grid grid-cols-3 gap-2 text-xs">
+              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
+                <div class="text-white/60">Adoption</div>
+                <div class="mt-1 font-bold">+15%</div>
+              </div>
+              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
+                <div class="text-white/60">Incidents</div>
+                <div class="mt-1 font-bold">-8%</div>
+              </div>
+              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
+                <div class="text-white/60">Delays</div>
+                <div class="mt-1 font-bold">-12%</div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- CTA -->
+        <div class="mt-10 rounded-3xl bg-white text-zinc-950 p-6 shadow-soft reveal">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
-              <h2 class="text-2xl font-semibold tracking-tight flex items-center gap-3">
-                <span class="iconBox"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                Contact
-              </h2>
-              <p class="mt-3 text-slate-200 max-w-xl">Email or call with industry, site count, and outcome.</p>
+              <div class="flex items-center gap-2 font-semibold"><span data-lucide="phone-call"></span> Let’s talk scope</div>
+              <div class="mt-1 text-sm text-zinc-700">Email: <a class="font-semibold hover:underline" href="mailto:apramparsingh@automatas.store">apramparsingh@automatas.store</a> • Phone: <a class="font-semibold hover:underline" href="tel:+19196509271">919-650-9271</a></div>
             </div>
-          </div>
-
-          <div class="mt-6 grid gap-3 sm:grid-cols-3">
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
-              <div class="flex items-center gap-3">
-                <span class="iconBox" style="height:40px;width:40px;border-radius:14px;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="currentColor" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2"/></svg>
-                </span>
-                <div>
-                  <div class="text-[11px] text-slate-300">Email</div>
-                  <a class="mt-1 block text-base font-semibold tracking-tight hover:text-indigo-200"
-                     href="mailto:apramparsingh@automatas.store">apramparsingh@automatas.store</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
-              <div class="flex items-center gap-3">
-                <span class="iconBox">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M6 3h4l2 5-3 2c1.5 3.2 4.2 5.8 7.4 7.4l2-3 5 2v4c0 1-1 2-2 2C11 22 2 13 2 4c0-1 1-2 2-2h2z"
-                          stroke="currentColor" stroke-width="2"/>
-                  </svg>
-                </span>
-                <div>
-                  <div class="text-xs text-slate-300">Phone</div>
-                  <a class="mt-1 block text-lg font-semibold tracking-tight hover:text-indigo-200"
-                     href="tel:+19196509271">9196509271</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition">
-              <div class="flex items-center gap-3">
-                <span class="iconBox">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M4 4h16v16H4V4z" stroke="currentColor" stroke-width="2"/>
-                    <path d="M8 10v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M8 7.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                  </svg>
-                </span>
-                <div>
-                  <div class="text-xs text-slate-300">LinkedIn</div>
-                  <a class="mt-1 block text-lg font-semibold tracking-tight hover:text-indigo-200"
-                     href="https://www.linkedin.com/in/apramaparsingh" target="_blank" rel="noopener">
-                    Aprampar Singh
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-6">
-            <a class="shine inline-flex items-center justify-center rounded-xl bg-white text-slate-950 px-5 py-3 text-sm font-semibold hover:bg-slate-200"
-               href="mailto:apramparsingh@automatas.store?subject=Automtas%20%E2%80%93%20Industrial%20Consulting%20Brief&body=Industry%3A%0D%0ASites%20%28count%29%3A%0D%0AOutcome%20you%20want%3A%0D%0ATimeline%3A%0D%0AConstraints%20%28safety%2C%20budget%2C%20headcount%29%3A%0D%0A%0D%0AContext%20%281%E2%80%932%20sentences%29%3A%0D%0A">
-              Email template →
+            <a href="index.html#contact" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-zinc-950 text-white font-semibold hover:bg-zinc-900 transition">
+              <span data-lucide="send"></span> Contact
             </a>
           </div>
         </div>
+
+        <footer class="mt-12 pt-6 border-t border-white/10 text-sm text-white/55 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="flex items-center gap-2">
+            <span data-lucide="hexagon" class="w-4 h-4"></span>
+            <span>© <span id="year"></span> Automatas. All rights reserved.</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <a class="hover:text-white transition" href="index.html">Home</a>
+            <a class="hover:text-white transition" href="#case-studies">Back to Case Studies</a>
+          </div>
+        </footer>
+
       </div>
     </section>
-  </main>
 
-  <footer class="border-t border-white/10">
-    <div class="mx-auto max-w-6xl px-4 py-7 flex flex-col md:flex-row items-center justify-between gap-3">
-      <div class="text-sm text-slate-400">© <span id="year"></span> Automtas</div>
-      <div class="text-sm text-slate-400">Cloudflare Pages • Static + JS</div>
-    </div>
-  </footer>
+    <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+    <script>
+      lucide.createIcons();
+      document.getElementById("year").textContent = new Date().getFullYear();
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    const els = document.querySelectorAll(".reveal");
-    const io = new IntersectionObserver((entries)=> {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("show"); });
-    }, { threshold: 0.12 });
-
-    els.forEach(el => io.observe(el));
-  </script>
-</body>
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("in"); });
+      }, { threshold: 0.12 });
+      document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+    </script>
+  </body>
 </html>
 
 
