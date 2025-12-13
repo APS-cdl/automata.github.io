@@ -9,7 +9,7 @@
 
   <style>
     html { scroll-behavior: smooth; }
-    body {
+    body{
       background:
         radial-gradient(1200px 600px at 14% 10%, rgba(99,102,241,.20), transparent 60%),
         radial-gradient(1100px 560px at 86% 18%, rgba(16,185,129,.16), transparent 55%),
@@ -19,28 +19,38 @@
     }
     @keyframes drift { 0%{ filter:hue-rotate(0deg); transform:translateY(0);} 100%{ filter:hue-rotate(10deg); transform:translateY(-8px);} }
 
-    .reveal { opacity:0; transform: translateY(10px) scale(.99); }
-    .reveal.show { opacity:1; transform: translateY(0) scale(1); transition: all .7s cubic-bezier(.2,.8,.2,1); }
+    .reveal{ opacity:0; transform: translateY(10px) scale(.99); }
+    .reveal.show{ opacity:1; transform: translateY(0) scale(1); transition: all .7s cubic-bezier(.2,.8,.2,1); }
 
-    .shine { position:relative; overflow:hidden; }
+    .shine{ position:relative; overflow:hidden; }
     .shine:after{
       content:""; position:absolute; inset:-120%;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
       transform: rotate(18deg);
       animation: shine 3.2s ease-in-out infinite;
     }
-    @keyframes shine { 0% { left:-140%; } 100% { left:140%; } }
+    @keyframes shine{ 0%{ left:-140%; } 100%{ left:140%; } }
 
-    .marquee { overflow:hidden; }
-    .marquee-track { display:flex; width:max-content; gap:12px; animation: marquee 22s linear infinite; }
-    @keyframes marquee { from { transform: translateX(0);} to { transform: translateX(-50%);} }
+    .marquee{ overflow:hidden; }
+    .marquee-track{ display:flex; width:max-content; gap:12px; animation: marquee 22s linear infinite; }
+    @keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
 
-    .float { animation: float 6s ease-in-out infinite; }
-    @keyframes float { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-10px);} }
+    /* Animated “pics” (SVG motion) */
+    .pulseDot{ animation: pulseDot 1.9s ease-in-out infinite; transform-origin:center; }
+    @keyframes pulseDot{ 0%,100%{ transform:scale(1); opacity:.65;} 50%{ transform:scale(1.25); opacity:1;} }
+
+    .scanLine{ animation: scan 2.6s linear infinite; }
+    @keyframes scan{ 0%{ transform:translateX(-40px);} 100%{ transform:translateX(420px);} }
+
+    .gear{ animation: gearSpin 7s linear infinite; transform-origin: 50% 50%; }
+    @keyframes gearSpin{ to{ transform:rotate(360deg);} }
+
+    .floatPic{ animation: floatPic 6s ease-in-out infinite; }
+    @keyframes floatPic{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
 
     @media (prefers-reduced-motion: reduce){
-      body, .marquee-track, .shine:after, .float { animation:none!important; }
-      .reveal, .reveal.show { transition:none!important; }
+      body,.marquee-track,.shine:after,.pulseDot,.scanLine,.gear,.floatPic{ animation:none!important; }
+      .reveal,.reveal.show{ transition:none!important; }
     }
   </style>
 </head>
@@ -64,7 +74,7 @@
       </a>
 
       <nav class="hidden md:flex items-center gap-6 text-sm text-slate-200">
-        <a href="#intro" class="hover:text-white">Intro</a>
+        <a href="#intro" class="hover:text-white">Introduction</a>
         <a href="#services" class="hover:text-white">Services</a>
         <a href="#testimonials" class="hover:text-white">Testimonials</a>
         <a href="#contact" class="hover:text-white">Contact</a>
@@ -72,13 +82,13 @@
       </nav>
 
       <a href="#contact" class="shine inline-flex items-center justify-center rounded-xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200">
-        Get in touch
+        Talk to us
       </a>
     </div>
   </header>
 
   <main id="top">
-    <!-- Hero -->
+    <!-- Hero / Intro -->
     <section id="intro" class="relative overflow-hidden">
       <div class="mx-auto max-w-6xl px-4 pt-14 pb-10 md:pt-20 md:pb-14">
         <div class="grid gap-8 md:grid-cols-2 md:items-center">
@@ -89,152 +99,126 @@
             </div>
 
             <h1 class="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">
-              Make operations <span class="text-indigo-300">repeatable</span>, <span class="text-emerald-300">audit-ready</span>, and <span class="text-slate-200">faster</span>.
+              Industrial improvements that teams can <span class="text-indigo-300">run daily</span>.
             </h1>
 
             <p class="mt-4 text-slate-200">
-              We partner with industrial teams to tighten process, strengthen quality gates, and ship practical automation.
+              We help plants and warehouses reduce variation, simplify handoffs, and implement automation that sticks.
             </p>
 
             <div class="mt-7 flex flex-col gap-3 sm:flex-row">
               <a href="services.html" class="shine inline-flex items-center justify-center rounded-xl bg-indigo-400 text-slate-950 px-5 py-3 text-sm font-semibold hover:bg-indigo-300">
-                View services →
+                See services →
               </a>
               <a href="#services" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold hover:bg-white/10">
-                What we do ↓
+                What we deliver ↓
               </a>
             </div>
 
-            <!-- KPI-style badges (not charts) -->
+            <!-- Infographic tiles (with text, not acronyms) -->
             <div class="mt-8 grid grid-cols-3 gap-3">
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div class="text-[11px] text-slate-300">SOP coverage</div>
+                <div class="text-[11px] text-slate-300">Standard work coverage</div>
                 <div class="mt-1 text-2xl font-semibold"><span class="count" data-to="85">0</span>%</div>
               </div>
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div class="text-[11px] text-slate-300">Gate compliance</div>
+                <div class="text-[11px] text-slate-300">Quality checkpoint adoption</div>
                 <div class="mt-1 text-2xl font-semibold"><span class="count" data-to="92">0</span>%</div>
               </div>
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div class="text-[11px] text-slate-300">OTD target</div>
+                <div class="text-[11px] text-slate-300">On-time shipping target</div>
                 <div class="mt-1 text-2xl font-semibold"><span class="count" data-to="96">0</span>%</div>
               </div>
             </div>
             <div class="mt-2 text-[11px] text-slate-400">Illustrative targets.</div>
           </div>
 
-          <!-- Right: “infographic panel” (icons + pipeline map) -->
+          <!-- Animated “picture” (industrial dashboard illustration, no charts) -->
           <div class="reveal">
-            <div class="float rounded-3xl border border-white/10 bg-white/5 p-6">
-              <div class="flex items-center justify-between gap-3">
+            <div class="floatPic rounded-3xl border border-white/10 bg-white/5 p-6">
+              <div class="flex items-center justify-between">
                 <div>
-                  <div class="text-xs text-slate-300">Blueprint</div>
-                  <div class="text-lg font-semibold">Industrial Delivery System</div>
+                  <div class="text-xs text-slate-300">Animated plant view</div>
+                  <div class="text-lg font-semibold">Line Visibility Panel</div>
                 </div>
-                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">2–6 weeks</span>
+                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">Live</span>
               </div>
 
-              <!-- Icon grid -->
-              <div class="mt-5 grid grid-cols-2 gap-3">
-                <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-4">
-                  <div class="flex items-center gap-3">
-                    <div class="h-10 w-10 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M4 20V4m0 16h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M7 15l3-3 3 2 6-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <div class="text-sm font-semibold">Diagnostics</div>
-                      <div class="text-[11px] text-slate-400">map • gaps • KPIs</div>
-                    </div>
-                  </div>
-                </div>
+              <div class="mt-5 rounded-2xl border border-white/10 bg-slate-950/40 p-4 overflow-hidden">
+                <svg viewBox="0 0 520 220" class="w-full" fill="none">
+                  <!-- frame -->
+                  <rect x="10" y="10" width="500" height="200" rx="18" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.10)"/>
 
-                <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-4">
-                  <div class="flex items-center gap-3">
-                    <div class="h-10 w-10 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M4 7h16M7 4v16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M9 12h11M9 16h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <div class="text-sm font-semibold">SOP + RACI</div>
-                      <div class="text-[11px] text-slate-400">standard work</div>
-                    </div>
-                  </div>
-                </div>
+                  <!-- conveyor -->
+                  <rect x="40" y="150" width="440" height="20" rx="10" fill="rgba(255,255,255,.08)" />
+                  <circle cx="90" cy="160" r="6" fill="rgba(255,255,255,.16)"/>
+                  <circle cx="220" cy="160" r="6" fill="rgba(255,255,255,.16)"/>
+                  <circle cx="350" cy="160" r="6" fill="rgba(255,255,255,.16)"/>
+                  <circle cx="450" cy="160" r="6" fill="rgba(255,255,255,.16)"/>
 
-                <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-4">
-                  <div class="flex items-center gap-3">
-                    <div class="h-10 w-10 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2"/>
-                        <path d="M7 15l3-3 2 2 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <div class="text-sm font-semibold">Quality Gates</div>
-                      <div class="text-[11px] text-slate-400">checklists</div>
-                    </div>
-                  </div>
-                </div>
+                  <!-- stations -->
+                  <g>
+                    <rect x="60" y="65" width="90" height="60" rx="12" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)"/>
+                    <rect x="215" y="65" width="90" height="60" rx="12" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)"/>
+                    <rect x="370" y="65" width="90" height="60" rx="12" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)"/>
+                  </g>
 
-                <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-4">
-                  <div class="flex items-center gap-3">
-                    <div class="h-10 w-10 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <div class="text-sm font-semibold">Automation</div>
-                      <div class="text-[11px] text-slate-400">scan • route • alert</div>
-                    </div>
-                  </div>
-                </div>
+                  <!-- labels -->
+                  <text x="72" y="92" font-size="12" fill="rgba(255,255,255,.82)" font-weight="700">Assembly</text>
+                  <text x="72" y="110" font-size="11" fill="rgba(255,255,255,.55)">Standard steps</text>
+
+                  <text x="228" y="92" font-size="12" fill="rgba(255,255,255,.82)" font-weight="700">Inspection</text>
+                  <text x="228" y="110" font-size="11" fill="rgba(255,255,255,.55)">Checkpoint</text>
+
+                  <text x="385" y="92" font-size="12" fill="rgba(255,255,255,.82)" font-weight="700">Packing</text>
+                  <text x="385" y="110" font-size="11" fill="rgba(255,255,255,.55)">Label + scan</text>
+
+                  <!-- scanning line -->
+                  <g class="scanLine" style="opacity:.85">
+                    <rect x="0" y="54" width="70" height="2" fill="rgba(99,102,241,.9)"/>
+                    <rect x="0" y="56" width="70" height="14" rx="7" fill="rgba(99,102,241,.15)"/>
+                  </g>
+
+                  <!-- pulsing sensor dots -->
+                  <circle class="pulseDot" cx="105" cy="140" r="4" fill="rgba(16,185,129,.9)"/>
+                  <circle class="pulseDot" cx="260" cy="140" r="4" fill="rgba(16,185,129,.9)"/>
+                  <circle class="pulseDot" cx="415" cy="140" r="4" fill="rgba(16,185,129,.9)"/>
+
+                  <!-- gear icon -->
+                  <g class="gear" transform="translate(468 38)">
+                    <circle cx="18" cy="18" r="8" stroke="rgba(255,255,255,.75)" stroke-width="2"/>
+                    <path d="M18 4v4M18 28v4M4 18h4M28 18h4M8 8l3 3M25 25l3 3M28 8l-3 3M8 28l3-3"
+                          stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                  </g>
+                </svg>
               </div>
 
-              <!-- Mini process infographic -->
-              <div class="mt-4 rounded-2xl border border-white/10 bg-slate-950/40 p-4">
-                <div class="flex items-center justify-between text-xs text-slate-300">
-                  <span>Delivery</span><span class="text-slate-400">repeatable</span>
-                </div>
-                <div class="mt-4 grid grid-cols-4 gap-2 text-[11px] text-slate-200">
-                  <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Map</div>
-                  <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Design</div>
-                  <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Gate</div>
-                  <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Ship</div>
-                </div>
+              <div class="mt-4 grid grid-cols-3 gap-2 text-[11px] text-slate-300">
+                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Clear steps</div>
+                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Quality checks</div>
+                <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center">Scan trace</div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Logo marquee (more logos, no charts) -->
+        <!-- Partner-like marquee -->
         <div class="mt-10 reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-          <div class="flex items-center justify-between gap-4 flex-wrap">
-            <div class="text-sm text-slate-300">Industrial partner patterns</div>
-            <a href="services.html" class="text-sm font-semibold text-indigo-300 hover:text-indigo-200">Details →</a>
+          <div class="flex items-center justify-between flex-wrap gap-3">
+            <div class="text-sm text-slate-300">Sectors we support</div>
+            <a href="services.html#cases" class="text-sm font-semibold text-indigo-300 hover:text-indigo-200">Case studies →</a>
           </div>
-
           <div class="mt-5 marquee">
             <div class="marquee-track" id="logoTrack">
-              <div class="logoBadge">AUTOMTAS</div>
-              <div class="logoBadge">PLANTFLOW</div>
-              <div class="logoBadge">QAGATE</div>
-              <div class="logoBadge">TRACEID</div>
-              <div class="logoBadge">SHIFTNOTE</div>
-              <div class="logoBadge">VENDORLINK</div>
-              <div class="logoBadge">WAREHOUSE</div>
-              <div class="logoBadge">FIELDOPS</div>
+              <div class="logoBadge">Electronics manufacturing</div>
+              <div class="logoBadge">Warehouse & distribution</div>
+              <div class="logoBadge">Field service operations</div>
+              <div class="logoBadge">Quality & compliance</div>
+              <div class="logoBadge">Maintenance systems</div>
+              <div class="logoBadge">Vendor coordination</div>
             </div>
           </div>
-
-          <div class="mt-3 text-[11px] text-slate-400">Logo tiles are design elements.</div>
+          <div class="mt-3 text-[11px] text-slate-400">Illustrative categories.</div>
         </div>
       </div>
     </section>
@@ -242,72 +226,82 @@
     <!-- Services -->
     <section id="services" class="border-t border-white/10">
       <div class="mx-auto max-w-6xl px-4 py-14">
-        <div class="reveal flex items-end justify-between gap-4 flex-wrap">
-          <h2 class="text-2xl font-semibold tracking-tight">Services</h2>
-          <div class="flex flex-wrap gap-2 text-[11px] text-slate-300">
-            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">manufacturing</span>
-            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">logistics</span>
-            <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">field ops</span>
-          </div>
+        <div class="reveal">
+          <h2 class="text-2xl font-semibold tracking-tight">Services offered</h2>
+          <p class="mt-3 text-slate-200 max-w-2xl">
+            We focus on practical systems: clearer work, stronger checks, and automation that reduces rework and delays.
+          </p>
         </div>
 
         <div class="mt-7 grid gap-4 md:grid-cols-3">
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
-            <div class="flex items-center justify-between">
-              <div class="text-sm font-semibold">Ops Diagnostics</div>
-              <span class="text-[11px] text-slate-400">AS-IS</span>
+            <div class="flex items-center gap-3">
+              <div class="h-11 w-11 rounded-2xl border border-white/10 bg-white/10 flex items-center justify-center">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20V4m0 16h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M7 15l3-3 3 2 6-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div>
+                <div class="text-sm font-semibold">Operations diagnostics</div>
+                <div class="text-[11px] text-slate-400">Walkthrough + process map + risk list</div>
+              </div>
             </div>
-            <div class="mt-4 grid grid-cols-3 gap-2 text-[11px] text-slate-300">
-              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">process</div>
-              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">risk</div>
-              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">KPI</div>
-            </div>
+            <ul class="mt-4 text-sm text-slate-200 space-y-2">
+              <li class="flex gap-2"><span class="text-emerald-300">•</span>Find bottlenecks and handoff failures</li>
+              <li class="flex gap-2"><span class="text-emerald-300">•</span>Define measurable targets</li>
+            </ul>
           </div>
 
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
-            <div class="flex items-center justify-between">
-              <div class="text-sm font-semibold">SOP + Quality Gates</div>
-              <span class="text-[11px] text-slate-400">TO-BE</span>
+            <div class="flex items-center gap-3">
+              <div class="h-11 w-11 rounded-2xl border border-white/10 bg-white/10 flex items-center justify-center">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 7h16M7 4v16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M9 12h11M9 16h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <div class="text-sm font-semibold">Standard work & ownership</div>
+                <div class="text-[11px] text-slate-400">Step-by-step SOP + clear roles</div>
+              </div>
             </div>
-            <div class="mt-4 grid grid-cols-2 gap-2 text-[11px] text-slate-300">
-              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-4">SOP</div>
-              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-4">RACI</div>
-              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-4">checklist</div>
-              <div class="rounded-xl border border-white/10 bg-slate-950/40 p-4">handoff</div>
-            </div>
+            <ul class="mt-4 text-sm text-slate-200 space-y-2">
+              <li class="flex gap-2"><span class="text-emerald-300">•</span>Reduce variation across shifts</li>
+              <li class="flex gap-2"><span class="text-emerald-300">•</span>Make training faster and consistent</li>
+            </ul>
           </div>
 
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
-            <div class="flex items-center justify-between">
-              <div class="text-sm font-semibold">Automation Enablement</div>
-              <span class="text-[11px] text-slate-400">SHIP</span>
-            </div>
-            <div class="mt-4 rounded-2xl border border-white/10 bg-slate-950/40 p-4">
-              <div class="text-xs text-slate-300 flex items-center justify-between">
-                <span>Workflow</span><span class="text-slate-400">scan → route → alert</span>
+            <div class="flex items-center gap-3">
+              <div class="h-11 w-11 rounded-2xl border border-white/10 bg-white/10 flex items-center justify-center">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2v4M12 18v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                </svg>
               </div>
-              <div class="mt-4 grid grid-cols-3 gap-2 text-[10px] text-slate-300">
-                <div class="rounded-xl border border-white/10 bg-white/5 px-2 py-1 text-center">capture</div>
-                <div class="rounded-xl border border-white/10 bg-white/5 px-2 py-1 text-center">validate</div>
-                <div class="rounded-xl border border-white/10 bg-white/5 px-2 py-1 text-center">report</div>
+              <div>
+                <div class="text-sm font-semibold">Quality gates & automation</div>
+                <div class="text-[11px] text-slate-400">Checklists + scan/route/alert workflow</div>
               </div>
             </div>
+            <ul class="mt-4 text-sm text-slate-200 space-y-2">
+              <li class="flex gap-2"><span class="text-emerald-300">•</span>Prevent defects from moving forward</li>
+              <li class="flex gap-2"><span class="text-emerald-300">•</span>Improve traceability and audit readiness</li>
+            </ul>
           </div>
         </div>
 
         <div class="mt-8 reveal rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent p-8">
           <div class="flex items-start justify-between gap-4 flex-wrap">
             <div>
-              <div class="text-xs text-slate-300">Next</div>
-              <div class="mt-2 text-xl font-semibold">See industrial case studies</div>
-              <div class="mt-3 flex flex-wrap gap-2 text-[11px] text-slate-300">
-                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">CCTV</span>
-                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">Warehouse</span>
-                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">Maintenance</span>
-              </div>
+              <div class="text-xs text-slate-300">Want examples?</div>
+              <div class="mt-2 text-xl font-semibold">Explore case studies with more detail</div>
+              <div class="mt-3 text-sm text-slate-200">Manufacturing, logistics, and maintenance scenarios.</div>
             </div>
             <a href="services.html#cases" class="shine inline-flex items-center justify-center rounded-xl bg-indigo-400 text-slate-950 px-5 py-3 text-sm font-semibold hover:bg-indigo-300">
-              Open cases →
+              View cases →
             </a>
           </div>
         </div>
@@ -317,42 +311,38 @@
     <!-- Testimonials -->
     <section id="testimonials" class="border-t border-white/10">
       <div class="mx-auto max-w-6xl px-4 py-14">
-        <div class="reveal flex items-end justify-between gap-4 flex-wrap">
+        <div class="reveal">
           <h2 class="text-2xl font-semibold tracking-tight">Testimonials</h2>
-          <div class="text-[11px] text-slate-400">Representative partner feedback</div>
+          <p class="mt-3 text-slate-200 max-w-2xl">
+            Short quotes from representative industrial roles (examples).
+          </p>
         </div>
 
         <div class="mt-7 grid gap-4 md:grid-cols-3">
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="text-xs text-slate-300">Manufacturing Lead</div>
-            <p class="mt-3 text-slate-100">
-              “The SOP + gate rollout made our line predictable within weeks.”
-            </p>
+            <div class="text-xs text-slate-300">Manufacturing lead</div>
+            <p class="mt-3 text-slate-100">“Our team finally has one way of working—less confusion, fewer returns.”</p>
             <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">gates</span>
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">audit-ready</span>
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">standard work</span>
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">training</span>
             </div>
           </div>
 
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="text-xs text-slate-300">Ops Manager</div>
-            <p class="mt-3 text-slate-100">
-              “We stopped firefighting—handoffs are clean and visible now.”
-            </p>
+            <div class="text-xs text-slate-300">Operations manager</div>
+            <p class="mt-3 text-slate-100">“Quality checkpoints are now consistent across shifts. That changed everything.”</p>
             <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">RACI</span>
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">checkpoints</span>
               <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">handoffs</span>
             </div>
           </div>
 
           <div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="text-xs text-slate-300">Logistics Supervisor</div>
-            <p class="mt-3 text-slate-100">
-              “The scan-route workflow eliminated delays at the dock.”
-            </p>
+            <div class="text-xs text-slate-300">Logistics supervisor</div>
+            <p class="mt-3 text-slate-100">“The scan-and-route workflow cut dock delays and improved scheduling.”</p>
             <div class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-300">
-              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">scan</span>
               <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">routing</span>
+              <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">visibility</span>
             </div>
           </div>
         </div>
@@ -366,12 +356,9 @@
           <div class="flex items-start justify-between gap-4 flex-wrap">
             <div>
               <h2 class="text-2xl font-semibold tracking-tight">Contact</h2>
-              <div class="mt-3 flex flex-wrap gap-2 text-[11px] text-slate-300">
-                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">industry</span>
-                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">site</span>
-                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">KPIs</span>
-                <span class="rounded-full bg-white/10 border border-white/10 px-2 py-1">timeline</span>
-              </div>
+              <p class="mt-3 text-slate-200 max-w-xl">
+                Send a short brief and we’ll reply with a recommended approach and timeline.
+              </p>
             </div>
             <a href="services.html" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold hover:bg-white/10">
               Services →
@@ -384,16 +371,18 @@
               <a class="mt-2 block font-semibold hover:text-indigo-200" href="mailto:hello@automtas.com">hello@automtas.com</a>
               <div class="mt-1 text-[11px] text-slate-400">Update if needed</div>
             </div>
+
             <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div class="text-xs text-slate-300">Location</div>
+              <div class="text-xs text-slate-300">Availability</div>
               <div class="mt-2 font-semibold">Remote + Onsite</div>
-              <div class="mt-1 text-[11px] text-slate-400">Industrial regions</div>
+              <div class="mt-1 text-[11px] text-slate-400">Plants • Warehouses • Field teams</div>
             </div>
+
             <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div class="text-xs text-slate-300">Start</div>
+              <div class="text-xs text-slate-300">Send a brief</div>
               <a class="mt-2 inline-flex items-center justify-center rounded-xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200"
-                 href="mailto:hello@automtas.com?subject=Automtas%20-%20Industrial%20Inquiry&body=Industry%3A%0ASite%3A%0AKPIs%3A%0ATimeline%3A%0A">
-                Send brief →
+                 href="mailto:hello@automtas.com?subject=Automtas%20-%20Industrial%20Inquiry&body=Industry%3A%0ASite%3A%0AProblem%3A%0ATimeline%3A%0A">
+                Email template →
               </a>
             </div>
           </div>
@@ -412,14 +401,14 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // reveal on scroll
+    // reveal
     const els = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries)=> {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("show"); });
     }, { threshold: 0.12 });
     els.forEach(el => io.observe(el));
 
-    // counter animation (badges only; no charts)
+    // counters
     function animateCounters() {
       document.querySelectorAll(".count").forEach(el => {
         const to = Number(el.getAttribute("data-to") || "0");
@@ -441,22 +430,33 @@
     }, { threshold: 0.25 });
     obs.observe(document.querySelector("main"));
 
-    // logo badges style + marquee duplication
+    // marquee badges
     const style = document.createElement("style");
     style.textContent = `
       .logoBadge{
-        min-width:160px; display:flex; align-items:center; justify-content:center;
-        padding:12px 16px; border-radius:16px; font-weight:800;
+        min-width:220px; display:flex; align-items:center; justify-content:center;
+        padding:12px 16px; border-radius:16px; font-weight:700;
         border:1px solid rgba(255,255,255,.10);
         background:rgba(2,6,23,.40);
         color:rgba(255,255,255,.82);
-        letter-spacing:.12em; font-size:12px;
+        letter-spacing:.02em; font-size:12px;
       }`;
     document.head.appendChild(style);
 
     const track = document.getElementById("logoTrack");
     track.innerHTML = track.innerHTML + track.innerHTML;
+
+    // optional: subtle parallax on mouse (desktop)
+    const hero = document.querySelector("#intro");
+    hero.addEventListener("mousemove", (e) => {
+      const r = hero.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      hero.style.transform = `translate3d(${x*2}px, ${y*2}px, 0)`;
+    });
+    hero.addEventListener("mouseleave", () => hero.style.transform = "translate3d(0,0,0)");
   </script>
 </body>
 </html>
+
 
