@@ -3,225 +3,154 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Automatas — Services & Case Studies</title>
-  <meta name="description" content="Automatas services and case studies for industrial operations, manufacturing, logistics, and execution." />
+  <title>Automatas | Case Studies</title>
+  <meta name="description" content="Industrial case studies and services: manufacturing, warehousing, and delivery programs." />
+
+  <!-- SEO -->
+  <link rel="canonical" href="https://www.automtas/services.html" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#0B0F19" />
+
+  <!-- Social -->
+  <meta property="og:title" content="Automatas | Case Studies" />
+  <meta property="og:description" content="Snapshots of industrial outcomes: manufacturing, warehousing, multi-site rollout." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.automtas/services.html" />
+  <meta property="og:image" content="https://www.automtas/og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
+
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { theme: { extend: { boxShadow: { soft: "0 12px 40px rgba(0,0,0,.14)" } } } }
-  </script>
+
   <style>
-    html { scroll-behavior: smooth; }
-    .reveal{ opacity:0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease; }
+    html { scroll-behavior:smooth; }
+    :focus-visible { outline: 3px solid rgba(255,255,255,.7); outline-offset: 3px; border-radius: 14px; }
+
+    .reveal{ opacity:0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.in{ opacity:1; transform: translateY(0); }
-    :focus-visible { outline: 3px solid rgba(255,255,255,.65); outline-offset: 3px; border-radius: 14px; }
+
+    /* Animated background layers */
+    .bg-layers { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+    .bg-layers::before{
+      content:""; position:absolute; inset:-20%;
+      background:
+        radial-gradient(42% 36% at 18% 22%, rgba(59,130,246,.18), transparent 60%),
+        radial-gradient(44% 38% at 82% 26%, rgba(16,185,129,.14), transparent 60%),
+        radial-gradient(48% 42% at 52% 82%, rgba(255,255,255,.10), transparent 60%);
+      filter: blur(18px);
+      animation: drift 12s ease-in-out infinite alternate;
+      opacity: .95;
+    }
+    @keyframes drift{
+      0%   { transform: translate3d(-2%, -1%, 0) scale(1); }
+      100% { transform: translate3d( 2%,  1%, 0) scale(1.06); }
+    }
     @media (prefers-reduced-motion: reduce){
-      html { scroll-behavior:auto; }
-      .reveal, .reveal.in { transition:none!important; }
+      html { scroll-behavior: auto; }
+      .reveal { transition:none!important; }
+      .bg-layers::before { animation:none !important; }
     }
   </style>
 </head>
 
 <body class="bg-zinc-950 text-white antialiased">
-  <!-- Header -->
-  <header class="sticky top-0 z-50 bg-zinc-950/70 backdrop-blur border-b border-white/10">
+  <header class="sticky top-0 z-50 bg-zinc-950/75 backdrop-blur border-b border-white/10">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-2">
-        <div class="w-9 h-9 rounded-xl bg-white text-zinc-950 grid place-items-center shadow-soft">
-          <span class="font-black tracking-tight">A</span>
-        </div>
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="/automatas-logo.svg" alt="Automatas" class="w-9 h-9" />
         <div class="leading-tight">
-          <div class="font-semibold tracking-tight">Automatas</div>
-          <div class="text-xs text-white/60">Services & Case Studies</div>
+          <div class="font-extrabold tracking-tight">AUTOMATAS</div>
+          <div class="text-xs text-white/60">Case Studies</div>
         </div>
       </a>
-
-      <nav class="flex items-center gap-3">
-        <a href="index.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5 transition text-sm font-semibold">
-          <span data-lucide="arrow-left"></span> Home
-        </a>
-        <a href="#case-studies" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-zinc-950 hover:bg-zinc-100 transition text-sm font-semibold">
-          <span data-lucide="layout-grid"></span> Case Studies
-        </a>
-      </nav>
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5 transition text-sm font-semibold">Home</a>
+        <a href="/Automatas_Industrial_Consulting_Brochure.pdf" class="px-4 py-2 rounded-xl bg-white text-zinc-950 hover:bg-zinc-100 transition text-sm font-semibold">Brochure (PDF)</a>
+      </div>
     </div>
   </header>
 
-  <!-- Hero with infographic background -->
-  <section class="relative py-12">
-    <!-- BACKGROUND: industry1to4.png -->
-    <div class="absolute inset-0 -z-10">
-      <div class="absolute inset-0 bg-[url('industry1to4.png')] bg-cover bg-center bg-no-repeat opacity-25"></div>
+  <!-- Hero -->
+  <section class="relative py-14">
+    <!-- Animated layers -->
+    <div class="bg-layers -z-10"></div>
+
+    <!-- Your Industry 1→4 image background -->
+    <div class="absolute inset-0 -z-20">
+      <div class="absolute inset-0 bg-[url('industry1to4.png')] bg-cover bg-center opacity-18"></div>
       <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-zinc-950/90 to-zinc-950"></div>
     </div>
 
     <div class="max-w-6xl mx-auto px-4">
       <div class="reveal">
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-xs text-white/80">
-          <span data-lucide="sparkles"></span>
-          <span>Industrial evolution → execution-ready delivery</span>
-        </div>
-        <h1 class="mt-5 text-3xl md:text-4xl font-extrabold tracking-tight">Services built for execution.</h1>
-        <p class="mt-3 text-white/70 max-w-2xl">Minimal fluff. Clear scope. A plan your teams can run next week.</p>
+        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Case Studies</h1>
+        <p class="mt-3 text-white/70 max-w-2xl">
+          Short snapshots from industrial environments—manufacturing, warehousing, and program delivery.
+        </p>
       </div>
 
-      <!-- Services tiles -->
-      <div class="mt-8 grid md:grid-cols-3 gap-4">
-        <div class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
-          <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="route"></span></div>
-          <h3 class="mt-4 font-semibold text-lg">Operational Strategy</h3>
-          <p class="mt-2 text-white/65 text-sm">Roadmap + KPIs + org alignment.</p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs">
-            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Capacity</span>
-            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Constraints</span>
-            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">S&OP</span>
+      <div class="mt-10 grid md:grid-cols-3 gap-4">
+        <article class="reveal relative rounded-3xl overflow-hidden border border-white/10">
+          <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581092334651-ddf26d9b7a5b?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-35"></div>
+          <div class="absolute inset-0 bg-zinc-950/70"></div>
+          <div class="relative p-6">
+            <div class="text-xs text-white/70">Manufacturing</div>
+            <h3 class="mt-2 text-lg font-semibold">CCTV Camera Manufacturing</h3>
+            <p class="mt-2 text-sm text-white/70">Assembly stabilization + QC gates for a volume ramp.</p>
+            <div class="mt-4 text-sm text-white/80 space-y-1">
+              <div>• QC gates at 3 stations</div>
+              <div>• Kitting & parts flow</div>
+              <div>• CAPA rework loop</div>
+            </div>
+            <div class="mt-5 text-xs text-white/70">Yield +11% • Rework -19% • Output +14%</div>
           </div>
-        </div>
+        </article>
 
-        <div class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
-          <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="clipboard-check"></span></div>
-          <h3 class="mt-4 font-semibold text-lg">Project PMO</h3>
-          <p class="mt-2 text-white/65 text-sm">Milestones + vendors + governance.</p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs">
-            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">RACI</span>
-            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Risk</span>
-            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">SOP rollout</span>
+        <article class="reveal relative rounded-3xl overflow-hidden border border-white/10">
+          <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-35"></div>
+          <div class="absolute inset-0 bg-zinc-950/70"></div>
+          <div class="relative p-6">
+            <div class="text-xs text-white/70">Logistics</div>
+            <h3 class="mt-2 text-lg font-semibold">Warehouse Throughput Reset</h3>
+            <p class="mt-2 text-sm text-white/70">Slotting, labor cadence, dispatch control.</p>
+            <div class="mt-4 text-sm text-white/80 space-y-1">
+              <div>• Pick-path redesign</div>
+              <div>• Dock scheduling</div>
+              <div>• Tier meetings cadence</div>
+            </div>
+            <div class="mt-5 text-xs text-white/70">OTIF +10% • Labor -7% • Cycle -13%</div>
           </div>
-        </div>
+        </article>
 
-        <div class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
-          <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="shield-check"></span></div>
-          <h3 class="mt-4 font-semibold text-lg">Quality Systems</h3>
-          <p class="mt-2 text-white/65 text-sm">QC gates + traceability + audits.</p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs">
-            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">CAPA</span>
-            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Inspection plans</span>
-            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Supplier QA</span>
+        <article class="reveal relative rounded-3xl overflow-hidden border border-white/10">
+          <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-35"></div>
+          <div class="absolute inset-0 bg-zinc-950/70"></div>
+          <div class="relative p-6">
+            <div class="text-xs text-white/70">PMO</div>
+            <h3 class="mt-2 text-lg font-semibold">Multi-site SOP Rollout</h3>
+            <p class="mt-2 text-sm text-white/70">Governance + training kit + audit cadence.</p>
+            <div class="mt-4 text-sm text-white/80 space-y-1">
+              <div>• RACI + governance</div>
+              <div>• SOP pack + training kit</div>
+              <div>• Audit checklist + CAPA</div>
+            </div>
+            <div class="mt-5 text-xs text-white/70">Adoption +15% • Incidents -8% • Delays -12%</div>
           </div>
-        </div>
-      </div>
-
-      <!-- Process -->
-      <div class="mt-10 rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
-        <div class="flex items-center justify-between gap-3">
-          <h2 class="text-xl font-bold tracking-tight">Engagement process</h2>
-          <span class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="repeat"></span> Repeatable</span>
-        </div>
-
-        <div class="mt-6 grid md:grid-cols-4 gap-3">
-          <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
-            <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="search"></span> 01</div>
-            <div class="mt-2 font-semibold">Assess</div>
-            <div class="mt-1 text-sm text-white/65">Walk + data pull</div>
-          </div>
-          <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
-            <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="sliders-horizontal"></span> 02</div>
-            <div class="mt-2 font-semibold">Design</div>
-            <div class="mt-1 text-sm text-white/65">Plan + owners</div>
-          </div>
-          <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
-            <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="hammer"></span> 03</div>
-            <div class="mt-2 font-semibold">Implement</div>
-            <div class="mt-1 text-sm text-white/65">SOP + training</div>
-          </div>
-          <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
-            <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="line-chart"></span> 04</div>
-            <div class="mt-2 font-semibold">Sustain</div>
-            <div class="mt-1 text-sm text-white/65">KPIs + cadence</div>
-          </div>
-        </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- Case Studies -->
-  <section id="case-studies" class="py-14 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="reveal">
-        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Case Studies</h2>
-        <p class="mt-2 text-white/65">Three quick reads. Industrial outcomes.</p>
-      </div>
+  <footer class="py-8 border-t border-white/10 text-center text-sm text-white/55">
+    © <span id="y"></span> Automatas • <a class="hover:text-white" href="index.html">Home</a>
+  </footer>
 
-      <div class="mt-8 grid md:grid-cols-3 gap-4">
-        <article class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
-          <div class="flex items-start justify-between gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="camera"></span></div>
-            <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10 text-white/80">Manufacturing</span>
-          </div>
-          <h3 class="mt-4 font-semibold text-lg">CCTV Camera Manufacturing Ramp</h3>
-          <p class="mt-2 text-white/65 text-sm">Stabilized assembly + QC for a volume ramp.</p>
-          <div class="mt-4 grid gap-2 text-sm">
-            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> QC gates at 3 stations</div>
-            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Vendor parts flow + kitting</div>
-            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Rework loop reduced via CAPA</div>
-          </div>
-          <div class="mt-5 grid grid-cols-3 gap-2 text-xs">
-            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">Yield</div><div class="mt-1 font-bold">+11%</div></div>
-            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">Rework</div><div class="mt-1 font-bold">-19%</div></div>
-            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">Output</div><div class="mt-1 font-bold">+14%</div></div>
-          </div>
-        </article>
-
-        <article class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
-          <div class="flex items-start justify-between gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="warehouse"></span></div>
-            <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10 text-white/80">Logistics</span>
-          </div>
-          <h3 class="mt-4 font-semibold text-lg">Warehouse Throughput Reset</h3>
-          <p class="mt-2 text-white/65 text-sm">Slotting, labor cadence, dispatch control.</p>
-          <div class="mt-4 grid gap-2 text-sm">
-            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Pick-path redesign</div>
-            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Dock scheduling playbook</div>
-            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Daily tier meetings</div>
-          </div>
-          <div class="mt-5 grid grid-cols-3 gap-2 text-xs">
-            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">OTIF</div><div class="mt-1 font-bold">+10%</div></div>
-            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">Labor</div><div class="mt-1 font-bold">-7%</div></div>
-            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">Cycle</div><div class="mt-1 font-bold">-13%</div></div>
-          </div>
-        </article>
-
-        <article class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
-          <div class="flex items-start justify-between gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="clipboard-check"></span></div>
-            <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10 text-white/80">PMO</span>
-          </div>
-          <h3 class="mt-4 font-semibold text-lg">Multi-site SOP Rollout</h3>
-          <p class="mt-2 text-white/65 text-sm">Standard work + training + audit cadence.</p>
-          <div class="mt-4 grid gap-2 text-sm">
-            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> RACI + weekly governance</div>
-            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> SOP pack + training kit</div>
-            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Audit checklist + CAPA</div>
-          </div>
-          <div class="mt-5 grid grid-cols-3 gap-2 text-xs">
-            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">Adoption</div><div class="mt-1 font-bold">+15%</div></div>
-            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">Incidents</div><div class="mt-1 font-bold">-8%</div></div>
-            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">Delays</div><div class="mt-1 font-bold">-12%</div></div>
-          </div>
-        </article>
-      </div>
-
-      <footer class="mt-12 pt-6 border-t border-white/10 text-sm text-white/55 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div class="flex items-center gap-2">
-          <span data-lucide="hexagon" class="w-4 h-4"></span>
-          <span>© <span id="year"></span> Automatas. All rights reserved.</span>
-        </div>
-        <div class="flex items-center gap-4">
-          <a class="hover:text-white transition" href="index.html">Home</a>
-          <a class="hover:text-white transition" href="#case-studies">Back to Case Studies</a>
-        </div>
-      </footer>
-    </div>
-  </section>
-
-  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
   <script>
-    lucide.createIcons();
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    const io = new IntersectionObserver((entries)=> {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("in"); });
-    }, { threshold: 0.12 });
-    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+    document.getElementById("y").textContent = new Date().getFullYear();
+    const io = new IntersectionObserver((entries)=>entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("in"); }), {threshold:0.12});
+    document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
   </script>
 </body>
 </html>
