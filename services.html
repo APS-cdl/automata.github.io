@@ -1,299 +1,229 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Automatas — Services & Case Studies</title>
-    <meta name="description" content="Automatas services and case studies for industrial operations, manufacturing, logistics, and execution." />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            boxShadow: { soft: "0 12px 40px rgba(0,0,0,.14)" }
-          }
-        }
-      }
-    </script>
-    <style>
-      .reveal { opacity: 0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease; }
-      .reveal.in { opacity: 1; transform: translateY(0); }
-      .gridbg {
-        background-image:
-          linear-gradient(to right, rgba(255,255,255,.08) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(255,255,255,.08) 1px, transparent 1px);
-        background-size: 40px 40px;
-        mask-image: radial-gradient(60% 60% at 50% 40%, black 50%, transparent 100%);
-      }
-      :focus-visible { outline: 3px solid rgba(255,255,255,.65); outline-offset: 3px; border-radius: 14px; }
-    </style>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Automatas — Services & Case Studies</title>
+  <meta name="description" content="Automatas services and case studies for industrial operations, manufacturing, logistics, and execution." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { boxShadow: { soft: "0 12px 40px rgba(0,0,0,.14)" } } } }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .reveal{ opacity:0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in{ opacity:1; transform: translateY(0); }
+    :focus-visible { outline: 3px solid rgba(255,255,255,.65); outline-offset: 3px; border-radius: 14px; }
+    @media (prefers-reduced-motion: reduce){
+      html { scroll-behavior:auto; }
+      .reveal, .reveal.in { transition:none!important; }
+    }
+  </style>
+</head>
 
-  <body class="bg-zinc-950 text-white antialiased">
-    <!-- Header -->
-    <header class="sticky top-0 z-50 bg-zinc-950/70 backdrop-blur border-b border-white/10">
-      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-        <a href="index.html" class="flex items-center gap-2">
-          <div class="w-9 h-9 rounded-xl bg-white text-zinc-950 grid place-items-center shadow-soft">
-            <span class="font-black tracking-tight">A</span>
-          </div>
-          <div class="leading-tight">
-            <div class="font-semibold tracking-tight">Automatas</div>
-            <div class="text-xs text-white/60">Services & Case Studies</div>
-          </div>
+<body class="bg-zinc-950 text-white antialiased">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-zinc-950/70 backdrop-blur border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-xl bg-white text-zinc-950 grid place-items-center shadow-soft">
+          <span class="font-black tracking-tight">A</span>
+        </div>
+        <div class="leading-tight">
+          <div class="font-semibold tracking-tight">Automatas</div>
+          <div class="text-xs text-white/60">Services & Case Studies</div>
+        </div>
+      </a>
+
+      <nav class="flex items-center gap-3">
+        <a href="index.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5 transition text-sm font-semibold">
+          <span data-lucide="arrow-left"></span> Home
         </a>
+        <a href="#case-studies" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-zinc-950 hover:bg-zinc-100 transition text-sm font-semibold">
+          <span data-lucide="layout-grid"></span> Case Studies
+        </a>
+      </nav>
+    </div>
+  </header>
 
-        <nav class="flex items-center gap-3">
-          <a href="index.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5 transition text-sm font-semibold">
-            <span data-lucide="arrow-left"></span> Home
-          </a>
-          <a href="#case-studies" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-zinc-950 hover:bg-zinc-100 transition text-sm font-semibold">
-            <span data-lucide="layout-grid"></span> Case Studies
-          </a>
-        </nav>
+  <!-- Hero with infographic background -->
+  <section class="relative py-12">
+    <!-- BACKGROUND: industry1to4.png -->
+    <div class="absolute inset-0 -z-10">
+      <div class="absolute inset-0 bg-[url('industry1to4.png')] bg-cover bg-center bg-no-repeat opacity-25"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-zinc-950/90 to-zinc-950"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-xs text-white/80">
+          <span data-lucide="sparkles"></span>
+          <span>Industrial evolution → execution-ready delivery</span>
+        </div>
+        <h1 class="mt-5 text-3xl md:text-4xl font-extrabold tracking-tight">Services built for execution.</h1>
+        <p class="mt-3 text-white/70 max-w-2xl">Minimal fluff. Clear scope. A plan your teams can run next week.</p>
       </div>
-    </header>
 
-    <!-- Hero -->
-    <section class="relative py-12">
-      <div class="absolute inset-0 -z-10">
-        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=2400&q=80')] bg-cover bg-center opacity-25"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-zinc-950 to-zinc-950"></div>
-        <div class="absolute inset-0 gridbg"></div>
-      </div>
-
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="reveal">
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-xs text-white/80">
-            <span data-lucide="wrench"></span>
-            <span>Industrial delivery • PMO • Lean • Quality</span>
+      <!-- Services tiles -->
+      <div class="mt-8 grid md:grid-cols-3 gap-4">
+        <div class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+          <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="route"></span></div>
+          <h3 class="mt-4 font-semibold text-lg">Operational Strategy</h3>
+          <p class="mt-2 text-white/65 text-sm">Roadmap + KPIs + org alignment.</p>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Capacity</span>
+            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Constraints</span>
+            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">S&OP</span>
           </div>
-          <h1 class="mt-5 text-3xl md:text-4xl font-extrabold tracking-tight">Services built for execution.</h1>
-          <p class="mt-3 text-white/70 max-w-2xl">
-            Minimal fluff. Clear scope. A plan your teams can run next week.
-          </p>
         </div>
 
-        <!-- Service tiles -->
-        <div class="mt-8 grid md:grid-cols-3 gap-4">
-          <div class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
-            <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="route"></span></div>
-            <h3 class="mt-4 font-semibold text-lg">Operational Strategy</h3>
-            <p class="mt-2 text-white/65 text-sm">Roadmap + KPIs + org alignment.</p>
-            <div class="mt-4 flex flex-wrap gap-2 text-xs">
-              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Capacity</span>
-              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Bottlenecks</span>
-              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">S&OP</span>
-            </div>
+        <div class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+          <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="clipboard-check"></span></div>
+          <h3 class="mt-4 font-semibold text-lg">Project PMO</h3>
+          <p class="mt-2 text-white/65 text-sm">Milestones + vendors + governance.</p>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">RACI</span>
+            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Risk</span>
+            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">SOP rollout</span>
           </div>
+        </div>
 
-          <div class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+        <div class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+          <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="shield-check"></span></div>
+          <h3 class="mt-4 font-semibold text-lg">Quality Systems</h3>
+          <p class="mt-2 text-white/65 text-sm">QC gates + traceability + audits.</p>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">CAPA</span>
+            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Inspection plans</span>
+            <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Supplier QA</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Process -->
+      <div class="mt-10 rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+        <div class="flex items-center justify-between gap-3">
+          <h2 class="text-xl font-bold tracking-tight">Engagement process</h2>
+          <span class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="repeat"></span> Repeatable</span>
+        </div>
+
+        <div class="mt-6 grid md:grid-cols-4 gap-3">
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+            <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="search"></span> 01</div>
+            <div class="mt-2 font-semibold">Assess</div>
+            <div class="mt-1 text-sm text-white/65">Walk + data pull</div>
+          </div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+            <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="sliders-horizontal"></span> 02</div>
+            <div class="mt-2 font-semibold">Design</div>
+            <div class="mt-1 text-sm text-white/65">Plan + owners</div>
+          </div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+            <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="hammer"></span> 03</div>
+            <div class="mt-2 font-semibold">Implement</div>
+            <div class="mt-1 text-sm text-white/65">SOP + training</div>
+          </div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+            <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="line-chart"></span> 04</div>
+            <div class="mt-2 font-semibold">Sustain</div>
+            <div class="mt-1 text-sm text-white/65">KPIs + cadence</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Studies -->
+  <section id="case-studies" class="py-14 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal">
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Case Studies</h2>
+        <p class="mt-2 text-white/65">Three quick reads. Industrial outcomes.</p>
+      </div>
+
+      <div class="mt-8 grid md:grid-cols-3 gap-4">
+        <article class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+          <div class="flex items-start justify-between gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="camera"></span></div>
+            <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10 text-white/80">Manufacturing</span>
+          </div>
+          <h3 class="mt-4 font-semibold text-lg">CCTV Camera Manufacturing Ramp</h3>
+          <p class="mt-2 text-white/65 text-sm">Stabilized assembly + QC for a volume ramp.</p>
+          <div class="mt-4 grid gap-2 text-sm">
+            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> QC gates at 3 stations</div>
+            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Vendor parts flow + kitting</div>
+            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Rework loop reduced via CAPA</div>
+          </div>
+          <div class="mt-5 grid grid-cols-3 gap-2 text-xs">
+            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">Yield</div><div class="mt-1 font-bold">+11%</div></div>
+            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">Rework</div><div class="mt-1 font-bold">-19%</div></div>
+            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">Output</div><div class="mt-1 font-bold">+14%</div></div>
+          </div>
+        </article>
+
+        <article class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+          <div class="flex items-start justify-between gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="warehouse"></span></div>
+            <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10 text-white/80">Logistics</span>
+          </div>
+          <h3 class="mt-4 font-semibold text-lg">Warehouse Throughput Reset</h3>
+          <p class="mt-2 text-white/65 text-sm">Slotting, labor cadence, dispatch control.</p>
+          <div class="mt-4 grid gap-2 text-sm">
+            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Pick-path redesign</div>
+            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Dock scheduling playbook</div>
+            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Daily tier meetings</div>
+          </div>
+          <div class="mt-5 grid grid-cols-3 gap-2 text-xs">
+            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">OTIF</div><div class="mt-1 font-bold">+10%</div></div>
+            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">Labor</div><div class="mt-1 font-bold">-7%</div></div>
+            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">Cycle</div><div class="mt-1 font-bold">-13%</div></div>
+          </div>
+        </article>
+
+        <article class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
+          <div class="flex items-start justify-between gap-3">
             <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="clipboard-check"></span></div>
-            <h3 class="mt-4 font-semibold text-lg">Project PMO</h3>
-            <p class="mt-2 text-white/65 text-sm">Milestones + vendors + governance.</p>
-            <div class="mt-4 flex flex-wrap gap-2 text-xs">
-              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">RACI</span>
-              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Risk</span>
-              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">SOP rollout</span>
-            </div>
+            <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10 text-white/80">PMO</span>
           </div>
-
-          <div class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
-            <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center"><span data-lucide="shield-check"></span></div>
-            <h3 class="mt-4 font-semibold text-lg">Quality Systems</h3>
-            <p class="mt-2 text-white/65 text-sm">QC gates + traceability + audits.</p>
-            <div class="mt-4 flex flex-wrap gap-2 text-xs">
-              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">CAPA</span>
-              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Inspection plans</span>
-              <span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/10">Supplier QA</span>
-            </div>
+          <h3 class="mt-4 font-semibold text-lg">Multi-site SOP Rollout</h3>
+          <p class="mt-2 text-white/65 text-sm">Standard work + training + audit cadence.</p>
+          <div class="mt-4 grid gap-2 text-sm">
+            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> RACI + weekly governance</div>
+            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> SOP pack + training kit</div>
+            <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Audit checklist + CAPA</div>
           </div>
-        </div>
-
-        <!-- Process (revamped) -->
-        <div class="mt-10 rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
-          <div class="flex items-center justify-between gap-3">
-            <h2 class="text-xl font-bold tracking-tight">Engagement process</h2>
-            <span class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="repeat"></span> Built to be repeatable</span>
+          <div class="mt-5 grid grid-cols-3 gap-2 text-xs">
+            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">Adoption</div><div class="mt-1 font-bold">+15%</div></div>
+            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">Incidents</div><div class="mt-1 font-bold">-8%</div></div>
+            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center"><div class="text-white/60">Delays</div><div class="mt-1 font-bold">-12%</div></div>
           </div>
-
-          <div class="mt-6 grid md:grid-cols-4 gap-3">
-            <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
-              <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="search"></span> 01</div>
-              <div class="mt-2 font-semibold">Assess</div>
-              <div class="mt-1 text-sm text-white/65">Plant walk + data pull</div>
-            </div>
-            <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
-              <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="sliders-horizontal"></span> 02</div>
-              <div class="mt-2 font-semibold">Design</div>
-              <div class="mt-1 text-sm text-white/65">Plan + owners + cadence</div>
-            </div>
-            <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
-              <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="hammer"></span> 03</div>
-              <div class="mt-2 font-semibold">Implement</div>
-              <div class="mt-1 text-sm text-white/65">SOPs + training + pilot</div>
-            </div>
-            <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
-              <div class="text-xs text-white/60 flex items-center gap-2"><span data-lucide="line-chart"></span> 04</div>
-              <div class="mt-2 font-semibold">Sustain</div>
-              <div class="mt-1 text-sm text-white/65">KPIs + handover kit</div>
-            </div>
-          </div>
-        </div>
-
+        </article>
       </div>
-    </section>
 
-    <!-- Case Studies -->
-    <section id="case-studies" class="py-14 border-t border-white/10">
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="reveal">
-          <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Case Studies</h2>
-          <p class="mt-2 text-white/65">Three quick reads. Industrial outcomes.</p>
+      <footer class="mt-12 pt-6 border-t border-white/10 text-sm text-white/55 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <span data-lucide="hexagon" class="w-4 h-4"></span>
+          <span>© <span id="year"></span> Automatas. All rights reserved.</span>
         </div>
-
-        <div class="mt-8 grid md:grid-cols-3 gap-4">
-          <!-- CCTV manufacturing -->
-          <article class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
-            <div class="flex items-start justify-between gap-3">
-              <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center">
-                <span data-lucide="camera"></span>
-              </div>
-              <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10 text-white/80">Manufacturing</span>
-            </div>
-
-            <h3 class="mt-4 font-semibold text-lg">CCTV Camera Manufacturing Ramp</h3>
-            <p class="mt-2 text-white/65 text-sm">Stabilized assembly + QC for a fast volume ramp.</p>
-
-            <div class="mt-4 grid gap-2 text-sm">
-              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> QC gates at 3 stations</div>
-              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Vendor parts flow + kitting</div>
-              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Rework loop reduced via CAPA</div>
-            </div>
-
-            <div class="mt-5 grid grid-cols-3 gap-2 text-xs">
-              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
-                <div class="text-white/60">Yield</div>
-                <div class="mt-1 font-bold">+11%</div>
-              </div>
-              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
-                <div class="text-white/60">Rework</div>
-                <div class="mt-1 font-bold">-19%</div>
-              </div>
-              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
-                <div class="text-white/60">Output</div>
-                <div class="mt-1 font-bold">+14%</div>
-              </div>
-            </div>
-          </article>
-
-          <!-- Warehouse throughput -->
-          <article class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
-            <div class="flex items-start justify-between gap-3">
-              <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center">
-                <span data-lucide="warehouse"></span>
-              </div>
-              <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10 text-white/80">Logistics</span>
-            </div>
-
-            <h3 class="mt-4 font-semibold text-lg">Warehouse Throughput Reset</h3>
-            <p class="mt-2 text-white/65 text-sm">Slotting, labor cadence, and dispatch control.</p>
-
-            <div class="mt-4 grid gap-2 text-sm">
-              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Pick-path redesign</div>
-              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Dock scheduling playbook</div>
-              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Daily tier meetings</div>
-            </div>
-
-            <div class="mt-5 grid grid-cols-3 gap-2 text-xs">
-              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
-                <div class="text-white/60">OTIF</div>
-                <div class="mt-1 font-bold">+10%</div>
-              </div>
-              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
-                <div class="text-white/60">Labor</div>
-                <div class="mt-1 font-bold">-7%</div>
-              </div>
-              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
-                <div class="text-white/60">Cycle</div>
-                <div class="mt-1 font-bold">-13%</div>
-              </div>
-            </div>
-          </article>
-
-          <!-- PMO / rollout -->
-          <article class="rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
-            <div class="flex items-start justify-between gap-3">
-              <div class="w-12 h-12 rounded-2xl bg-white text-zinc-950 grid place-items-center">
-                <span data-lucide="clipboard-check"></span>
-              </div>
-              <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10 text-white/80">PMO</span>
-            </div>
-
-            <h3 class="mt-4 font-semibold text-lg">Multi-site SOP Rollout</h3>
-            <p class="mt-2 text-white/65 text-sm">Standard work + training + audit cadence.</p>
-
-            <div class="mt-4 grid gap-2 text-sm">
-              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> RACI + weekly governance</div>
-              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> SOP pack + training kit</div>
-              <div class="flex items-center gap-2 text-white/75"><span data-lucide="check-circle-2" class="w-4 h-4"></span> Audit checklist + CAPA</div>
-            </div>
-
-            <div class="mt-5 grid grid-cols-3 gap-2 text-xs">
-              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
-                <div class="text-white/60">Adoption</div>
-                <div class="mt-1 font-bold">+15%</div>
-              </div>
-              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
-                <div class="text-white/60">Incidents</div>
-                <div class="mt-1 font-bold">-8%</div>
-              </div>
-              <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
-                <div class="text-white/60">Delays</div>
-                <div class="mt-1 font-bold">-12%</div>
-              </div>
-            </div>
-          </article>
+        <div class="flex items-center gap-4">
+          <a class="hover:text-white transition" href="index.html">Home</a>
+          <a class="hover:text-white transition" href="#case-studies">Back to Case Studies</a>
         </div>
+      </footer>
+    </div>
+  </section>
 
-        <!-- CTA -->
-        <div class="mt-10 rounded-3xl bg-white text-zinc-950 p-6 shadow-soft reveal">
-          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <div>
-              <div class="flex items-center gap-2 font-semibold"><span data-lucide="phone-call"></span> Let’s talk scope</div>
-              <div class="mt-1 text-sm text-zinc-700">Email: <a class="font-semibold hover:underline" href="mailto:apramparsingh@automatas.store">apramparsingh@automatas.store</a> • Phone: <a class="font-semibold hover:underline" href="tel:+19196509271">919-650-9271</a></div>
-            </div>
-            <a href="index.html#contact" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-zinc-950 text-white font-semibold hover:bg-zinc-900 transition">
-              <span data-lucide="send"></span> Contact
-            </a>
-          </div>
-        </div>
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script>
+    lucide.createIcons();
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-        <footer class="mt-12 pt-6 border-t border-white/10 text-sm text-white/55 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div class="flex items-center gap-2">
-            <span data-lucide="hexagon" class="w-4 h-4"></span>
-            <span>© <span id="year"></span> Automatas. All rights reserved.</span>
-          </div>
-          <div class="flex items-center gap-4">
-            <a class="hover:text-white transition" href="index.html">Home</a>
-            <a class="hover:text-white transition" href="#case-studies">Back to Case Studies</a>
-          </div>
-        </footer>
-
-      </div>
-    </section>
-
-    <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
-    <script>
-      lucide.createIcons();
-      document.getElementById("year").textContent = new Date().getFullYear();
-
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("in"); });
-      }, { threshold: 0.12 });
-      document.querySelectorAll(".reveal").forEach(el => io.observe(el));
-    </script>
-  </body>
+    const io = new IntersectionObserver((entries)=> {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("in"); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+  </script>
+</body>
 </html>
 
 
