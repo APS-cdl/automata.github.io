@@ -3,63 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Automatas | Industrial Consulting</title>
-  <meta name="description" content="Execution-first industrial consulting for manufacturing, logistics, and operations. Plans that ship outcomes." />
+  <title>Automatas | Case Studies</title>
+  <meta name="description" content="Industrial case studies and services: manufacturing, warehousing, and delivery programs." />
 
-  <!-- SEO -->
-  <link rel="canonical" href="https://www.automtas/" />
+  <link rel="canonical" href="https://www.automtas/services.html" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0B0F19" />
 
-  <!-- Social -->
-  <meta property="og:title" content="Automatas | Industrial Consulting" />
-  <meta property="og:description" content="Execution-first industrial consulting for manufacturing, logistics, and operations." />
+  <meta property="og:title" content="Automatas | Case Studies" />
+  <meta property="og:description" content="Snapshots of industrial outcomes: manufacturing, warehousing, multi-site rollout." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.automtas/" />
+  <meta property="og:url" content="https://www.automtas/services.html" />
   <meta property="og:image" content="https://www.automtas/og.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Icons -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="/site.webmanifest" />
 
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior:smooth; }
     :focus-visible { outline: 3px solid rgba(255,255,255,.7); outline-offset: 3px; border-radius: 14px; }
 
-    /* Reveal */
     .reveal{ opacity:0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.in{ opacity:1; transform: translateY(0); }
 
-    /* Animated background layers */
     .bg-layers { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
     .bg-layers::before{
       content:""; position:absolute; inset:-20%;
       background:
-        radial-gradient(42% 36% at 18% 22%, rgba(59,130,246,.22), transparent 60%),
-        radial-gradient(44% 38% at 82% 26%, rgba(16,185,129,.18), transparent 60%),
+        radial-gradient(42% 36% at 18% 22%, rgba(59,130,246,.18), transparent 60%),
+        radial-gradient(44% 38% at 82% 26%, rgba(16,185,129,.14), transparent 60%),
         radial-gradient(48% 42% at 52% 82%, rgba(255,255,255,.10), transparent 60%);
       filter: blur(18px);
       animation: drift 12s ease-in-out infinite alternate;
       opacity: .95;
-    }
-    .bg-layers::after{
-      content:""; position:absolute; inset:0;
-      background-image:
-        linear-gradient(to right, rgba(255,255,255,.08) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.08) 1px, transparent 1px);
-      background-size: 48px 48px;
-      opacity:.20;
-      mask-image: radial-gradient(60% 55% at 50% 35%, black 55%, transparent 100%);
     }
     @keyframes drift{
       0%   { transform: translate3d(-2%, -1%, 0) scale(1); }
       100% { transform: translate3d( 2%,  1%, 0) scale(1.06); }
     }
 
-    /* Dynamic “pulse” icons */
     .icon-pulse { position: relative; }
     .icon-pulse::after{
       content:""; position:absolute; inset:-10px;
@@ -75,14 +60,20 @@
       100%{ opacity:0; transform: scale(1.25); }
     }
 
-    /* Animated “flow line” stroke */
-    .flow-line path{
-      stroke-dasharray: 12 10;
-      animation: dashMove 2.2s linear infinite;
+    .flow-line path{ stroke-dasharray: 12 10; animation: dashMove 2.2s linear infinite; }
+    @keyframes dashMove{ to { stroke-dashoffset: -44; } }
+
+    .glow-card{ position:relative; }
+    .glow-card::before{
+      content:""; position:absolute; inset:-1px; border-radius: 24px;
+      background: radial-gradient(80% 80% at 30% 20%, rgba(59,130,246,.20), transparent 60%),
+                  radial-gradient(80% 80% at 70% 80%, rgba(16,185,129,.14), transparent 60%);
+      opacity:0; transition: opacity .25s ease;
+      z-index:0;
     }
-    @keyframes dashMove{
-      to { stroke-dashoffset: -44; }
-    }
+    .glow-card:hover::before{ opacity:1; }
+    .glow-card > *{ position:relative; z-index:1; }
+    .lift:hover{ transform: translateY(-2px); }
 
     @media (prefers-reduced-motion: reduce){
       html { scroll-behavior: auto; }
@@ -90,108 +81,45 @@
       .bg-layers::before { animation:none !important; }
       .icon-pulse::after{ animation:none!important; }
       .flow-line path{ animation:none!important; }
+      .lift:hover{ transform:none; }
     }
   </style>
-
-  <!-- Structured data -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"Automatas",
-    "url":"https://www.automtas/",
-    "email":"apramparsingh@automatas.store",
-    "telephone":"+1-919-650-9271",
-    "sameAs":["https://www.linkedin.com/in/apramaparsingh"]
-  }
-  </script>
 </head>
 
 <body class="bg-zinc-950 text-white antialiased">
-  <!-- Header -->
-  <header class="fixed top-0 inset-x-0 z-50 bg-zinc-950/75 backdrop-blur border-b border-white/10">
+  <header class="sticky top-0 z-50 bg-zinc-950/75 backdrop-blur border-b border-white/10">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
       <a href="index.html" class="flex items-center gap-3">
         <img src="/automatas-logo.svg" alt="Automatas" class="w-9 h-9" />
         <div class="leading-tight">
           <div class="font-extrabold tracking-tight">AUTOMATAS</div>
-          <div class="text-xs text-white/60">Industrial Consulting</div>
+          <div class="text-xs text-white/60">Case Studies</div>
         </div>
       </a>
 
-      <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
-        <a class="hover:text-white transition" href="#services">Services</a>
-        <a class="hover:text-white transition" href="#industries">Industries</a>
-        <a class="hover:text-white transition" href="#contact">Contact</a>
-        <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5 transition font-semibold"
-           href="brochure.html">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
-            <path d="M6 4h9l3 3v13H6V4Z" stroke="currentColor" stroke-width="2"/>
-            <path d="M9 12h6M9 16h6M9 8h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          Brochure
-        </a>
-        <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition"
-           href="services.html">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
-            <path d="M9 6a3 3 0 0 1 6 0v2H9V6Z" stroke="currentColor" stroke-width="2"/>
-            <path d="M4 9h16v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9Z" stroke="currentColor" stroke-width="2"/>
-            <path d="M4 13h16" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          Case Studies
-        </a>
-      </nav>
+      <div class="flex items-center gap-3">
+        <a href="brochure.html" class="px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5 transition text-sm font-semibold">Brochure</a>
+        <a href="index.html" class="px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5 transition text-sm font-semibold">Home</a>
+      </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="relative pt-24">
+  <section class="relative py-14">
     <div class="bg-layers -z-10"></div>
 
     <div class="absolute inset-0 -z-20">
-      <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581091215367-59ab6b405c0b?auto=format&fit=crop&w=2400&q=80')] bg-cover bg-center opacity-25"></div>
-      <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-zinc-950/85 to-zinc-950"></div>
+      <div class="absolute inset-0 bg-[url('industry1to4.png')] bg-cover bg-center opacity-18"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-zinc-950/90 to-zinc-950"></div>
     </div>
 
-    <div class="max-w-6xl mx-auto px-4 py-14">
+    <div class="max-w-6xl mx-auto px-4">
       <div class="reveal">
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-xs text-white/80">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
-            <path d="M13 2 3 14h8l-1 8 10-12h-8l1-8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-          </svg>
-          Execution • Manufacturing • Logistics • Delivery
-        </div>
-
-        <h1 class="mt-5 text-4xl md:text-5xl font-extrabold tracking-tight max-w-3xl">
-          Industrial consulting that moves the floor.
-        </h1>
-
-        <p class="mt-4 text-white/70 max-w-2xl">
-          Practical plans, tighter execution, and measurable outcomes—built for real plants and warehouses.
-        </p>
-
-        <div class="mt-7 flex flex-wrap gap-3">
-          <a href="#contact" class="inline-flex items-center gap-2 justify-center px-5 py-3 rounded-2xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
-              <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.7.6 2.5a2 2 0 0 1-.5 2.1L8 9.4a16 16 0 0 0 6.6 6.6l1.1-1.2a2 2 0 0 1 2.1-.5c.8.3 1.6.5 2.5.6A2 2 0 0 1 22 16.9Z"
-                    stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-            </svg>
-            Contact
-          </a>
-
-          <a href="brochure.html"
-             class="inline-flex items-center gap-2 justify-center px-5 py-3 rounded-2xl border border-white/15 hover:bg-white/5 transition font-semibold">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
-              <path d="M6 4h9l3 3v13H6V4Z" stroke="currentColor" stroke-width="2"/>
-              <path d="M9 12h6M9 16h6M9 8h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            View brochure
-          </a>
-        </div>
+        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Case Studies</h1>
+        <p class="mt-3 text-white/70 max-w-2xl">Short snapshots from industrial environments—manufacturing, warehousing, and program delivery.</p>
       </div>
 
-      <!-- ✅ Dynamic graphics strip (added) -->
-      <div class="reveal mt-10 max-w-5xl rounded-3xl bg-white/5 border border-white/10 p-6">
+      <!-- Dynamic graphics strip -->
+      <div class="reveal mt-8 max-w-5xl rounded-3xl bg-white/5 border border-white/10 p-6">
         <div class="flex items-center justify-between gap-6 flex-col md:flex-row">
           <div class="flex items-center gap-3">
             <div class="icon-pulse p-3 rounded-2xl bg-white/10 border border-white/10">
@@ -202,8 +130,8 @@
               </svg>
             </div>
             <div>
-              <div class="text-xs text-white/60">Dynamic metrics</div>
-              <div class="font-semibold">On-floor outcomes, visualized.</div>
+              <div class="text-xs text-white/60">Delivery indicators</div>
+              <div class="font-semibold">Snapshots of impact.</div>
             </div>
           </div>
 
@@ -218,17 +146,100 @@
 
           <div class="grid grid-cols-3 gap-3 w-full md:w-auto">
             <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
-              <div class="text-xs text-white/60">Lead time</div>
-              <div class="text-xl font-extrabold"><span class="count" data-to="18">0</span>%</div>
+              <div class="text-xs text-white/60">Yield</div>
+              <div class="text-xl font-extrabold"><span class="count" data-to="11">0</span>%</div>
             </div>
             <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
-              <div class="text-xs text-white/60">Defects</div>
-              <div class="text-xl font-extrabold"><span class="count" data-to="24">0</span>%</div>
+              <div class="text-xs text-white/60">Rework</div>
+              <div class="text-xl font-extrabold"><span class="count" data-to="19">0</span>%</div>
             </div>
             <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
-              <div class="text-xs text-white/60">OTIF</div>
-              <div class="text-xl font-extrabold"><span class="count" data-to="12">0</span>%</div>
+              <div class="text-xs text-white/60">Output</div>
+              <div class="text-xl font-extrabold"><span class="count" data-to="14">0</span>%</div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main case studies -->
+      <div class="mt-10 grid md:grid-cols-3 gap-4">
+        <article id="cctv" class="reveal glow-card lift relative rounded-3xl overflow-hidden border border-white/10 bg-white/5 transition">
+          <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581092334651-ddf26d9b7a5b?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-35"></div>
+          <div class="absolute inset-0 bg-zinc-950/70"></div>
+          <div class="relative p-6">
+            <div class="text-xs text-white/70">Manufacturing</div>
+            <h3 class="mt-2 text-lg font-semibold">CCTV Camera Manufacturing</h3>
+            <p class="mt-2 text-sm text-white/70">Assembly stabilization + QC gates for a volume ramp.</p>
+            <div class="mt-4 text-sm text-white/80 space-y-1">
+              <div>• QC gates at 3 stations</div>
+              <div>• Kitting & parts flow</div>
+              <div>• CAPA rework loop</div>
+            </div>
+            <div class="mt-5 text-xs text-white/70">Yield +11% • Rework -19% • Output +14%</div>
+          </div>
+        </article>
+
+        <article id="warehouse" class="reveal glow-card lift relative rounded-3xl overflow-hidden border border-white/10 bg-white/5 transition">
+          <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-35"></div>
+          <div class="absolute inset-0 bg-zinc-950/70"></div>
+          <div class="relative p-6">
+            <div class="text-xs text-white/70">Logistics</div>
+            <h3 class="mt-2 text-lg font-semibold">Warehouse Throughput Reset</h3>
+            <p class="mt-2 text-sm text-white/70">Slotting, labor cadence, dispatch control.</p>
+            <div class="mt-4 text-sm text-white/80 space-y-1">
+              <div>• Pick-path redesign</div>
+              <div>• Dock scheduling</div>
+              <div>• Tier meetings cadence</div>
+            </div>
+            <div class="mt-5 text-xs text-white/70">OTIF +10% • Labor -7% • Cycle -13%</div>
+          </div>
+        </article>
+
+        <article id="sop" class="reveal glow-card lift relative rounded-3xl overflow-hidden border border-white/10 bg-white/5 transition">
+          <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-35"></div>
+          <div class="absolute inset-0 bg-zinc-950/70"></div>
+          <div class="relative p-6">
+            <div class="text-xs text-white/70">PMO</div>
+            <h3 class="mt-2 text-lg font-semibold">Multi-site SOP Rollout</h3>
+            <p class="mt-2 text-sm text-white/70">Governance + training kit + audit cadence.</p>
+            <div class="mt-4 text-sm text-white/80 space-y-1">
+              <div>• RACI + governance</div>
+              <div>• SOP pack + training kit</div>
+              <div>• Audit checklist + CAPA</div>
+            </div>
+            <div class="mt-5 text-xs text-white/70">Adoption +15% • Incidents -8% • Delays -12%</div>
+          </div>
+        </article>
+      </div>
+
+      <!-- More previous case studies (extra list) -->
+      <div class="reveal mt-12 rounded-3xl bg-white/5 border border-white/10 p-6">
+        <div class="flex items-center justify-between gap-6 flex-col md:flex-row">
+          <div>
+            <div class="text-sm text-white/70">More previous work (examples)</div>
+            <div class="text-xl font-bold mt-1">Additional industrial engagements</div>
+          </div>
+          <a href="brochure.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5 transition font-semibold">
+            View brochure
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="m13 6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="mt-6 grid md:grid-cols-3 gap-4 text-sm">
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+            <div class="font-semibold">Line balancing + takt</div>
+            <div class="text-white/65 mt-1">Reduced queue time at 2 bottleneck stations</div>
+          </div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+            <div class="font-semibold">Incoming inspection redesign</div>
+            <div class="text-white/65 mt-1">Sampling plan + supplier feedback loop</div>
+          </div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+            <div class="font-semibold">Dispatch & dock control</div>
+            <div class="text-white/65 mt-1">Dock schedule + lane discipline + SLA checks</div>
           </div>
         </div>
       </div>
@@ -236,93 +247,18 @@
     </div>
   </section>
 
-  <!-- Services -->
-  <section id="services" class="py-16 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="reveal">
-        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Services</h2>
-        <p class="mt-2 text-white/65">Short, practical, execution-ready.</p>
-      </div>
-
-      <div class="mt-8 grid md:grid-cols-3 gap-4">
-        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
-          <div class="font-semibold text-lg">Operations + Lean</div>
-          <div class="mt-2 text-sm text-white/65">Flow, bottlenecks, standard work, cadence.</div>
-        </div>
-        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
-          <div class="font-semibold text-lg">PMO + Delivery</div>
-          <div class="mt-2 text-sm text-white/65">Milestones, vendors, risk, rollout playbooks.</div>
-        </div>
-        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
-          <div class="font-semibold text-lg">Quality Systems</div>
-          <div class="mt-2 text-sm text-white/65">QC gates, traceability, audits, CAPA loops.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Industries -->
-  <section id="industries" class="py-16 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="reveal">
-        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Industries</h2>
-        <p class="mt-2 text-white/65">Industrial-first across plants, warehouses, and field operations.</p>
-      </div>
-
-      <div class="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 text-sm">
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Manufacturing</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Pharma</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Oil &amp; Gas</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Utilities</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Construction</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Mining</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Ports</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Warehousing</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Logistics</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Electronics</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Facilities</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Security</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="py-16 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="reveal">
-        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Contact</h2>
-        <p class="mt-2 text-white/65">Response-focused. Clear scope. Real execution.</p>
-      </div>
-
-      <div class="mt-8 grid md:grid-cols-3 gap-4">
-        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
-          <div class="text-sm text-white/70">Email</div>
-          <a class="mt-2 block font-semibold break-all hover:underline" href="mailto:apramparsingh@automatas.store">apramparsingh@automatas.store</a>
-        </div>
-        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
-          <div class="text-sm text-white/70">Phone</div>
-          <a class="mt-2 block font-semibold hover:underline" href="tel:+19196509271">+1 (919) 650-9271</a>
-        </div>
-        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
-          <div class="text-sm text-white/70">LinkedIn</div>
-          <a class="mt-2 block font-semibold break-all hover:underline" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/apramaparsingh">linkedin.com/in/apramaparsingh</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <footer class="py-8 border-t border-white/10 text-center text-sm text-white/55">
-    © <span id="y"></span> Automatas • <a class="hover:text-white" href="services.html">Case Studies</a> • <a class="hover:text-white" href="brochure.html">Brochure</a>
+    © <span id="y"></span> Automatas • <a class="hover:text-white" href="index.html">Home</a> • <a class="hover:text-white" href="brochure.html">Brochure</a>
   </footer>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Reveal on scroll
+    // Reveal
     const io = new IntersectionObserver((entries)=>entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("in"); }), {threshold:0.12});
     document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 
-    // Animated counters (runs once when visible)
+    // Counters
     const counters = document.querySelectorAll(".count");
     const runCounter = (el) => {
       const to = parseInt(el.dataset.to || "0", 10);
@@ -335,7 +271,6 @@
       };
       requestAnimationFrame(step);
     };
-
     const cIO = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting && !e.target.dataset.done) {
@@ -344,11 +279,11 @@
         }
       });
     }, { threshold: 0.6 });
-
     counters.forEach(c => cIO.observe(c));
   </script>
 </body>
 </html>
+
 
 
 
