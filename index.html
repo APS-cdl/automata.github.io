@@ -4,216 +4,176 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Automatas | Industrial Consulting</title>
-
 <meta name="description" content="Execution-first industrial consulting for manufacturing, logistics, and operations.">
-<meta name="robots" content="index,follow">
-<link rel="canonical" href="https://www.automtas/">
 
-<!-- OpenGraph -->
-<meta property="og:title" content="Automatas | Industrial Consulting">
-<meta property="og:description" content="Industrial execution, factory stabilization, and delivery systems.">
-<meta property="og:type" content="website">
-
-<!-- Performance -->
-<link rel="preload" href="/Automatas_Industrial_Consulting_Brochure.pdf" as="document">
-<link rel="icon" href="/favicon.svg">
-
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-html{scroll-behavior:smooth}
+html { scroll-behavior:smooth }
 .reveal{opacity:0;transform:translateY(14px);transition:.7s}
 .reveal.in{opacity:1;transform:none}
 
-/* background grid */
+/* ---------- BACKGROUND GRID ---------- */
 .bg-grid{
   background:
-    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
   background-size:48px 48px;
   mask-image:radial-gradient(circle at center,black 55%,transparent 100%);
 }
 
-/* SVG animations */
-.belt{stroke-dasharray:14 8;animation:beltMove 1.8s linear infinite}
-@keyframes beltMove{to{stroke-dashoffset:-44}}
-
-.machine{transition:fill .4s}
-.machine.active{fill:rgba(255,255,255,.35)}
-
-.qc-pulse{animation:pulse 2.4s infinite}
+/* ---------- SVG FACTORY ANIMATION ---------- */
+.conveyor{animation:moveBelt 2s linear infinite}
+@keyframes moveBelt{
+  to{stroke-dashoffset:-40}
+}
+.machine-pulse{animation:pulse 2.5s ease-in-out infinite}
 @keyframes pulse{
-  0%,100%{opacity:.5}
+  0%,100%{opacity:.6}
   50%{opacity:1}
 }
 
-/* tooltips */
-.hotspot{cursor:pointer}
-.tip{
+/* ---------- TIMELINE ---------- */
+.timeline-line{
   position:absolute;
-  background:#0b0f19;
-  border:1px solid rgba(255,255,255,.15);
-  padding:10px 12px;
-  border-radius:12px;
-  font-size:12px;
-  max-width:220px;
-  opacity:0;
-  pointer-events:none;
-  transition:.25s;
+  left:50%;
+  top:0;
+  bottom:0;
+  width:2px;
+  background:linear-gradient(to bottom,transparent,white,transparent);
+  transform:translateX(-50%);
 }
-.hotspot:hover + .tip,
-.hotspot:focus + .tip{opacity:1}
-
-/* timeline */
-.dot{width:14px;height:14px;border-radius:50%;background:white}
-.line{width:2px;background:linear-gradient(transparent,white,transparent)}
-
+.timeline-dot{
+  width:14px;height:14px;border-radius:50%;
+  background:white;
+  box-shadow:0 0 0 0 rgba(255,255,255,.6);
+  animation:dotPulse 2s infinite;
+}
+@keyframes dotPulse{
+  0%{box-shadow:0 0 0 0 rgba(255,255,255,.6)}
+  100%{box-shadow:0 0 0 18px rgba(255,255,255,0)}
+}
 </style>
-
-<script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@type":"Organization",
- "name":"Automatas",
- "url":"https://www.automtas/",
- "email":"apramparsingh@automatas.store",
- "telephone":"+1-919-650-9271",
- "sameAs":["https://www.linkedin.com/in/apramaparsingh"]
-}
-</script>
 </head>
 
-<body class="bg-zinc-950 text-white antialiased">
+<body class="bg-zinc-950 text-white">
 
+<!-- HEADER -->
 <header class="fixed w-full z-50 bg-zinc-950/80 backdrop-blur border-b border-white/10">
-  <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-    <div class="flex items-center gap-3">
-      <img src="/automatas-logo.svg" class="w-9 h-9" alt="Automatas logo">
-      <div>
-        <div class="font-extrabold">AUTOMATAS</div>
-        <div class="text-xs text-white/60">Industrial Consulting</div>
-      </div>
+<div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+  <div class="flex items-center gap-3">
+    <img src="/automatas-logo.svg" class="w-9 h-9">
+    <div>
+      <div class="font-extrabold">AUTOMATAS</div>
+      <div class="text-xs text-white/60">Industrial Consulting</div>
     </div>
-    <nav class="hidden md:flex gap-6 text-sm">
-      <a href="#factory">Factory</a>
-      <a href="#evolution">Evolution</a>
-      <a href="#brochure">Brochure</a>
-      <a href="#contact" class="px-4 py-2 bg-white text-black rounded-xl font-semibold">Contact</a>
-    </nav>
   </div>
+  <nav class="hidden md:flex gap-6 text-sm">
+    <a href="#factory">Factory</a>
+    <a href="#timeline">Evolution</a>
+    <a href="#contact">Contact</a>
+    <a href="brochure.html" class="px-4 py-2 bg-white text-black rounded-xl font-semibold">Brochure</a>
+  </nav>
+</div>
 </header>
 
 <!-- HERO -->
-<section class="pt-28 relative">
-  <div class="absolute inset-0 bg-grid opacity-25"></div>
-  <div class="max-w-6xl mx-auto px-4 py-20 reveal">
-    <h1 class="text-4xl md:text-5xl font-extrabold max-w-3xl">
-      Industrial consulting that stabilizes execution.
-    </h1>
-    <p class="mt-4 text-white/70 max-w-2xl">
-      We design predictable factory, warehouse, and delivery systems — grounded in real operations.
-    </p>
-  </div>
+<section class="pt-28 relative overflow-hidden">
+<div class="absolute inset-0 bg-grid opacity-30"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-black/60 to-black"></div>
+
+<div class="relative max-w-6xl mx-auto px-4 py-16 reveal">
+  <h1 class="text-4xl md:text-5xl font-extrabold max-w-3xl">
+    We engineer industrial execution.
+  </h1>
+  <p class="mt-4 text-white/70 max-w-2xl">
+    From manual lines to digitized plants — we stabilize, scale, and deliver operations.
+  </p>
+</div>
 </section>
 
-<!-- INTERACTIVE FACTORY -->
+<!-- 🔧 ANIMATED SVG FACTORY -->
 <section id="factory" class="py-20 border-t border-white/10">
 <div class="max-w-6xl mx-auto px-4">
-<h2 class="text-3xl font-bold mb-8 reveal">Interactive Factory Model</h2>
+<h2 class="text-3xl font-bold mb-8 reveal">Factory Floor (Live Model)</h2>
 
-<div class="relative reveal">
-<svg viewBox="0 0 900 260" class="w-full rounded-3xl bg-white/5 border border-white/10 p-6" aria-label="Factory flow diagram">
-
+<svg viewBox="0 0 900 260" class="w-full rounded-3xl bg-white/5 border border-white/10 p-6 reveal">
   <!-- Conveyor -->
-  <line x1="50" y1="170" x2="850" y2="170" stroke="white" stroke-width="4" class="belt"/>
+  <line x1="50" y1="160" x2="850" y2="160"
+        stroke="white" stroke-width="4"
+        stroke-dasharray="12 8"
+        class="conveyor"/>
 
-  <!-- Assembly -->
-  <rect x="80" y="90" width="140" height="60" rx="10" class="machine active"/>
-  <circle cx="150" cy="120" r="12" class="hotspot" tabindex="0"/>
-  <foreignObject x="60" y="20" width="240" height="80">
-    <div class="tip">Assembly stabilization, line balance, takt enforcement</div>
-  </foreignObject>
+  <!-- Machines -->
+  <rect x="80" y="80" width="140" height="60" rx="8" class="machine-pulse" fill="rgba(255,255,255,.15)"/>
+  <rect x="300" y="80" width="140" height="60" rx="8" class="machine-pulse" fill="rgba(255,255,255,.15)"/>
+  <rect x="520" y="80" width="140" height="60" rx="8" class="machine-pulse" fill="rgba(255,255,255,.15)"/>
 
-  <!-- Integration -->
-  <rect x="320" y="90" width="140" height="60" rx="10" class="machine"/>
-  <circle cx="390" cy="120" r="12" class="hotspot" tabindex="0"/>
-  <foreignObject x="300" y="20" width="240" height="80">
-    <div class="tip">Integration sequencing, WIP control</div>
-  </foreignObject>
+  <!-- QC Station -->
+  <circle cx="760" cy="110" r="30" stroke="white" stroke-width="2" fill="none"/>
+  <circle cx="760" cy="110" r="18" class="machine-pulse" fill="rgba(255,255,255,.25)"/>
 
-  <!-- Packaging -->
-  <rect x="560" y="90" width="140" height="60" rx="10" class="machine"/>
-  <circle cx="630" cy="120" r="12" class="hotspot" tabindex="0"/>
-  <foreignObject x="540" y="20" width="240" height="80">
-    <div class="tip">Packaging flow, kitting, dispatch readiness</div>
-  </foreignObject>
-
-  <!-- QC -->
-  <circle cx="800" cy="120" r="28" stroke="white" stroke-width="2" fill="none"/>
-  <circle cx="800" cy="120" r="18" class="qc-pulse" fill="rgba(255,255,255,.25)"/>
+  <!-- Labels -->
+  <text x="110" y="75" fill="white" font-size="12">Assembly</text>
+  <text x="330" y="75" fill="white" font-size="12">Integration</text>
+  <text x="550" y="75" fill="white" font-size="12">Packaging</text>
+  <text x="735" y="155" fill="white" font-size="12">QC</text>
 </svg>
 
-<p class="mt-4 text-sm text-white/60">
-Hover or focus on each station to see where Automatas intervenes.
+<p class="mt-4 text-sm text-white/60 reveal">
+  Animated representation of stabilized flow, quality gates, and throughput.
 </p>
 </div>
-</div>
 </section>
 
-<!-- SCROLL EVOLUTION -->
-<section id="evolution" class="py-20 border-t border-white/10">
-<div class="max-w-6xl mx-auto px-4 space-y-16">
-<h2 class="text-3xl font-bold text-center reveal">Industrial Evolution</h2>
+<!-- ⏳ SCROLL TIMELINE -->
+<section id="timeline" class="py-20 border-t border-white/10 relative">
+<div class="timeline-line"></div>
 
-<div class="grid md:grid-cols-2 gap-10 items-center reveal">
-<div class="dot"></div>
-<div>
-<h3 class="font-semibold text-xl">Industry 1.0</h3>
-<p class="text-white/70">Manual labor, mechanical production</p>
-</div>
-</div>
+<div class="max-w-6xl mx-auto px-4 space-y-20">
+  <h2 class="text-3xl font-bold text-center reveal">Industrial Evolution</h2>
 
-<div class="grid md:grid-cols-2 gap-10 items-center reveal">
-<div class="md:text-right">
-<h3 class="font-semibold text-xl">Industry 2.0</h3>
-<p class="text-white/70">Standardization and mass production</p>
-</div>
-<div class="dot"></div>
-</div>
+  <!-- STEP -->
+  <div class="grid md:grid-cols-2 gap-8 items-center reveal">
+    <div class="flex justify-center">
+      <div class="timeline-dot"></div>
+    </div>
+    <div>
+      <h3 class="font-semibold text-xl">Industry 1.0</h3>
+      <p class="text-white/70">Manual labor, mechanical power, fragmented processes.</p>
+    </div>
+  </div>
 
-<div class="grid md:grid-cols-2 gap-10 items-center reveal">
-<div class="dot"></div>
-<div>
-<h3 class="font-semibold text-xl">Industry 3.0</h3>
-<p class="text-white/70">Automation and PLC-driven workflows</p>
-</div>
-</div>
+  <div class="grid md:grid-cols-2 gap-8 items-center reveal">
+    <div class="md:text-right">
+      <h3 class="font-semibold text-xl">Industry 2.0</h3>
+      <p class="text-white/70">Mass production, standardization, electrical power.</p>
+    </div>
+    <div class="flex justify-center">
+      <div class="timeline-dot"></div>
+    </div>
+  </div>
 
-<div class="grid md:grid-cols-2 gap-10 items-center reveal">
-<div class="md:text-right">
-<h3 class="font-semibold text-xl">Industry 4.0</h3>
-<p class="text-white/70">Connected execution, real-time control</p>
-</div>
-<div class="dot"></div>
-</div>
+  <div class="grid md:grid-cols-2 gap-8 items-center reveal">
+    <div class="flex justify-center">
+      <div class="timeline-dot"></div>
+    </div>
+    <div>
+      <h3 class="font-semibold text-xl">Industry 3.0</h3>
+      <p class="text-white/70">Automation, PLCs, digital workflows.</p>
+    </div>
+  </div>
 
-</div>
-</section>
-
-<!-- BROCHURE PREVIEW -->
-<section id="brochure" class="py-20 border-t border-white/10">
-<div class="max-w-6xl mx-auto px-4 reveal">
-<h2 class="text-3xl font-bold mb-6">Consulting Brochure</h2>
-
-<div class="rounded-3xl overflow-hidden border border-white/10 bg-white/5">
-<iframe
-  loading="lazy"
-  src="/Automatas_Industrial_Consulting_Brochure.pdf#view=FitH"
-  class="w-full"
-  style="height:70vh;border:0"
-  title="Automatas Brochure Preview">
-</iframe>
-</div>
+  <div class="grid md:grid-cols-2 gap-8 items-center reveal">
+    <div class="md:text-right">
+      <h3 class="font-semibold text-xl">Industry 4.0</h3>
+      <p class="text-white/70">Connected systems, real-time visibility, execution control.</p>
+    </div>
+    <div class="flex justify-center">
+      <div class="timeline-dot"></div>
+    </div>
+  </div>
 </div>
 </section>
 
@@ -222,9 +182,9 @@ Hover or focus on each station to see where Automatas intervenes.
 <div class="max-w-6xl mx-auto px-4 reveal">
 <h2 class="text-3xl font-bold">Contact</h2>
 <div class="grid md:grid-cols-3 gap-6 mt-8">
-  <div class="bg-white/5 border border-white/10 rounded-3xl p-6">apramparsingh@automatas.store</div>
-  <div class="bg-white/5 border border-white/10 rounded-3xl p-6">+1 919 650 9271</div>
-  <div class="bg-white/5 border border-white/10 rounded-3xl p-6">linkedin.com/in/apramaparsingh</div>
+  <div class="bg-white/5 border border-white/10 rounded-3xl p-6">📧 apramparsingh@automatas.store</div>
+  <div class="bg-white/5 border border-white/10 rounded-3xl p-6">📞 +1 919 650 9271</div>
+  <div class="bg-white/5 border border-white/10 rounded-3xl p-6">🔗 linkedin.com/in/apramaparsingh</div>
 </div>
 </div>
 </section>
@@ -240,6 +200,8 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 
 </body>
 </html>
+
+
 
 
 
