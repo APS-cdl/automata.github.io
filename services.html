@@ -4,16 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Automatas | Case Studies</title>
-  <meta name="description" content="Industrial case studies and services: manufacturing, warehousing, and delivery programs." />
+  <meta name="description" content="Industrial case studies: manufacturing, warehousing, and multi-site delivery." />
 
-  <!-- SEO -->
   <link rel="canonical" href="https://www.automtas/services.html" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0B0F19" />
 
-  <!-- Social -->
   <meta property="og:title" content="Automatas | Case Studies" />
-  <meta property="og:description" content="Snapshots of industrial outcomes: manufacturing, warehousing, multi-site rollout." />
+  <meta property="og:description" content="Industrial outcomes: manufacturing, warehousing, multi-site rollout." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.automtas/services.html" />
   <meta property="og:image" content="https://www.automtas/og.jpg" />
@@ -21,6 +19,8 @@
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="/site.webmanifest" />
+
+  <link rel="prefetch" href="/Automatas_Industrial_Consulting_Brochure.pdf" as="document" />
 
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -31,7 +31,6 @@
     .reveal{ opacity:0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.in{ opacity:1; transform: translateY(0); }
 
-    /* Animated background layers */
     .bg-layers { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
     .bg-layers::before{
       content:""; position:absolute; inset:-20%;
@@ -56,104 +55,175 @@
 </head>
 
 <body class="bg-zinc-950 text-white antialiased">
-  <header class="sticky top-0 z-50 bg-zinc-950/75 backdrop-blur border-b border-white/10">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-3">
-        <img src="/automatas-logo.svg" alt="Automatas" class="w-9 h-9" />
-        <div class="leading-tight">
-          <div class="font-extrabold tracking-tight">AUTOMATAS</div>
-          <div class="text-xs text-white/60">Case Studies</div>
-        </div>
+
+<header class="sticky top-0 z-50 bg-zinc-950/75 backdrop-blur border-b border-white/10">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="/automatas-logo.svg" alt="Automatas" class="w-9 h-9" />
+      <div class="leading-tight">
+        <div class="font-extrabold tracking-tight">AUTOMATAS</div>
+        <div class="text-xs text-white/60">Case Studies</div>
+      </div>
+    </a>
+
+    <div class="flex items-center gap-3">
+      <a href="index.html" class="px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5 transition text-sm font-semibold inline-flex items-center gap-2">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M12 3 3 10v11h6v-7h6v7h6V10l-9-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        Home
       </a>
-      <div class="flex items-center gap-3">
-        <a href="index.html" class="px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5 transition text-sm font-semibold">Home</a>
-        <a href="/Automatas_Industrial_Consulting_Brochure.pdf" class="px-4 py-2 rounded-xl bg-white text-zinc-950 hover:bg-zinc-100 transition text-sm font-semibold">Brochure (PDF)</a>
+      <a href="/Automatas_Industrial_Consulting_Brochure.pdf" class="px-4 py-2 rounded-xl bg-white text-zinc-950 hover:bg-zinc-100 transition text-sm font-semibold inline-flex items-center gap-2">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
+          <path d="M12 3v10m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 17v3h16v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Brochure (PDF)
+      </a>
+    </div>
+  </div>
+</header>
+
+<section class="relative py-14">
+  <div class="bg-layers -z-10"></div>
+
+  <!-- Background image for the page -->
+  <div class="absolute inset-0 -z-20">
+    <div class="absolute inset-0 bg-[url('industry1to4.png')] bg-cover bg-center opacity-18"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-zinc-950/90 to-zinc-950"></div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="reveal">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-xs text-white/80">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M4 7h16v10H4V7Z" stroke="currentColor" stroke-width="2"/><path d="M8 7V5h8v2" stroke="currentColor" stroke-width="2"/></svg>
+        Industrial outcomes
+      </div>
+      <h1 class="mt-4 text-3xl md:text-4xl font-extrabold tracking-tight">Case Studies</h1>
+      <p class="mt-3 text-white/70 max-w-2xl">
+        Short snapshots from industrial environments—manufacturing, warehousing, and program delivery.
+      </p>
+    </div>
+
+    <!-- Icon graphic row -->
+    <div class="mt-8 grid sm:grid-cols-3 gap-4 max-w-4xl">
+      <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-5 flex items-center gap-3">
+        <div class="p-2 rounded-2xl bg-white/10 border border-white/10">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M3 21V10l6-3v14H3Zm8 0V7l6-3v17h-6Zm8 0v-9l3 2v7h-3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="text-sm font-semibold">Factory execution</div>
+          <div class="text-xs text-white/65">Flow + QC + ramp</div>
+        </div>
+      </div>
+
+      <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-5 flex items-center gap-3">
+        <div class="p-2 rounded-2xl bg-white/10 border border-white/10">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M3 7h11v10H3V7Z" stroke="currentColor" stroke-width="2"/><path d="M14 10h4l3 3v4h-7v-7Z" stroke="currentColor" stroke-width="2"/></svg>
+        </div>
+        <div>
+          <div class="text-sm font-semibold">Logistics cadence</div>
+          <div class="text-xs text-white/65">OTIF + labor</div>
+        </div>
+      </div>
+
+      <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-5 flex items-center gap-3">
+        <div class="p-2 rounded-2xl bg-white/10 border border-white/10">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M4 7h16v14H4V7Z" stroke="currentColor" stroke-width="2"/><path d="M4 11h16" stroke="currentColor" stroke-width="2" opacity=".65"/></svg>
+        </div>
+        <div>
+          <div class="text-sm font-semibold">PMO control</div>
+          <div class="text-xs text-white/65">Governance + rollout</div>
+        </div>
       </div>
     </div>
-  </header>
 
-  <!-- Hero -->
-  <section class="relative py-14">
-    <!-- Animated layers -->
-    <div class="bg-layers -z-10"></div>
+    <!-- Case cards -->
+    <div class="mt-10 grid md:grid-cols-3 gap-4">
+      <article class="reveal relative rounded-3xl overflow-hidden border border-white/10">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581092334651-ddf26d9b7a5b?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-35"></div>
+        <div class="absolute inset-0 bg-zinc-950/70"></div>
 
-    <!-- Your Industry 1→4 image background -->
-    <div class="absolute inset-0 -z-20">
-      <div class="absolute inset-0 bg-[url('industry1to4.png')] bg-cover bg-center opacity-18"></div>
-      <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-zinc-950/90 to-zinc-950"></div>
+        <div class="relative p-6">
+          <div class="text-xs text-white/70 flex items-center gap-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M3 21V10l6-3v14H3Zm8 0V7l6-3v17h-6Zm8 0v-9l3 2v7h-3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            Manufacturing
+          </div>
+
+          <h3 class="mt-2 text-lg font-semibold">CCTV Camera Manufacturing</h3>
+          <p class="mt-2 text-sm text-white/70">Assembly stabilization + QC gates for a volume ramp.</p>
+
+          <div class="mt-4 text-sm text-white/80 space-y-1">
+            <div>• QC gates at 3 stations</div>
+            <div>• Kitting & parts flow</div>
+            <div>• CAPA rework loop</div>
+          </div>
+
+          <div class="mt-5 text-xs text-white/70">Yield +11% • Rework -19% • Output +14%</div>
+        </div>
+      </article>
+
+      <article class="reveal relative rounded-3xl overflow-hidden border border-white/10">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-35"></div>
+        <div class="absolute inset-0 bg-zinc-950/70"></div>
+
+        <div class="relative p-6">
+          <div class="text-xs text-white/70 flex items-center gap-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M3 7h11v10H3V7Z" stroke="currentColor" stroke-width="2"/><path d="M14 10h4l3 3v4h-7v-7Z" stroke="currentColor" stroke-width="2"/></svg>
+            Logistics
+          </div>
+
+          <h3 class="mt-2 text-lg font-semibold">Warehouse Throughput Reset</h3>
+          <p class="mt-2 text-sm text-white/70">Slotting, labor cadence, dispatch control.</p>
+
+          <div class="mt-4 text-sm text-white/80 space-y-1">
+            <div>• Pick-path redesign</div>
+            <div>• Dock scheduling</div>
+            <div>• Tier meetings cadence</div>
+          </div>
+
+          <div class="mt-5 text-xs text-white/70">OTIF +10% • Labor -7% • Cycle -13%</div>
+        </div>
+      </article>
+
+      <article class="reveal relative rounded-3xl overflow-hidden border border-white/10">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-35"></div>
+        <div class="absolute inset-0 bg-zinc-950/70"></div>
+
+        <div class="relative p-6">
+          <div class="text-xs text-white/70 flex items-center gap-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M4 7h16v14H4V7Z" stroke="currentColor" stroke-width="2"/><path d="M4 11h16" stroke="currentColor" stroke-width="2" opacity=".65"/></svg>
+            PMO
+          </div>
+
+          <h3 class="mt-2 text-lg font-semibold">Multi-site SOP Rollout</h3>
+          <p class="mt-2 text-sm text-white/70">Governance + training kit + audit cadence.</p>
+
+          <div class="mt-4 text-sm text-white/80 space-y-1">
+            <div>• RACI + governance</div>
+            <div>• SOP pack + training kit</div>
+            <div>• Audit checklist + CAPA</div>
+          </div>
+
+          <div class="mt-5 text-xs text-white/70">Adoption +15% • Incidents -8% • Delays -12%</div>
+        </div>
+      </article>
     </div>
+  </div>
+</section>
 
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="reveal">
-        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Case Studies</h1>
-        <p class="mt-3 text-white/70 max-w-2xl">
-          Short snapshots from industrial environments—manufacturing, warehousing, and program delivery.
-        </p>
-      </div>
+<footer class="py-8 border-t border-white/10 text-center text-sm text-white/55">
+  © <span id="y"></span> Automatas • <a class="hover:text-white" href="index.html">Home</a> •
+  <a class="hover:text-white" href="/Automatas_Industrial_Consulting_Brochure.pdf">Brochure</a>
+</footer>
 
-      <div class="mt-10 grid md:grid-cols-3 gap-4">
-        <article class="reveal relative rounded-3xl overflow-hidden border border-white/10">
-          <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581092334651-ddf26d9b7a5b?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-35"></div>
-          <div class="absolute inset-0 bg-zinc-950/70"></div>
-          <div class="relative p-6">
-            <div class="text-xs text-white/70">Manufacturing</div>
-            <h3 class="mt-2 text-lg font-semibold">CCTV Camera Manufacturing</h3>
-            <p class="mt-2 text-sm text-white/70">Assembly stabilization + QC gates for a volume ramp.</p>
-            <div class="mt-4 text-sm text-white/80 space-y-1">
-              <div>• QC gates at 3 stations</div>
-              <div>• Kitting & parts flow</div>
-              <div>• CAPA rework loop</div>
-            </div>
-            <div class="mt-5 text-xs text-white/70">Yield +11% • Rework -19% • Output +14%</div>
-          </div>
-        </article>
+<script>
+  document.getElementById("y").textContent = new Date().getFullYear();
+  const io = new IntersectionObserver((entries)=>entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("in"); }), {threshold:0.12});
+  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+</script>
 
-        <article class="reveal relative rounded-3xl overflow-hidden border border-white/10">
-          <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-35"></div>
-          <div class="absolute inset-0 bg-zinc-950/70"></div>
-          <div class="relative p-6">
-            <div class="text-xs text-white/70">Logistics</div>
-            <h3 class="mt-2 text-lg font-semibold">Warehouse Throughput Reset</h3>
-            <p class="mt-2 text-sm text-white/70">Slotting, labor cadence, dispatch control.</p>
-            <div class="mt-4 text-sm text-white/80 space-y-1">
-              <div>• Pick-path redesign</div>
-              <div>• Dock scheduling</div>
-              <div>• Tier meetings cadence</div>
-            </div>
-            <div class="mt-5 text-xs text-white/70">OTIF +10% • Labor -7% • Cycle -13%</div>
-          </div>
-        </article>
-
-        <article class="reveal relative rounded-3xl overflow-hidden border border-white/10">
-          <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-35"></div>
-          <div class="absolute inset-0 bg-zinc-950/70"></div>
-          <div class="relative p-6">
-            <div class="text-xs text-white/70">PMO</div>
-            <h3 class="mt-2 text-lg font-semibold">Multi-site SOP Rollout</h3>
-            <p class="mt-2 text-sm text-white/70">Governance + training kit + audit cadence.</p>
-            <div class="mt-4 text-sm text-white/80 space-y-1">
-              <div>• RACI + governance</div>
-              <div>• SOP pack + training kit</div>
-              <div>• Audit checklist + CAPA</div>
-            </div>
-            <div class="mt-5 text-xs text-white/70">Adoption +15% • Incidents -8% • Delays -12%</div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <footer class="py-8 border-t border-white/10 text-center text-sm text-white/55">
-    © <span id="y"></span> Automatas • <a class="hover:text-white" href="index.html">Home</a>
-  </footer>
-
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-    const io = new IntersectionObserver((entries)=>entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("in"); }), {threshold:0.12});
-    document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
-  </script>
 </body>
 </html>
+
 
 
 
