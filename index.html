@@ -1,627 +1,750 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Automatas — Execution-first industrial consulting & intelligent systems for manufacturing, logistics, and asset-intensive operations." />
   <title>Automatas | Industrial Consulting</title>
-  <meta name="description" content="Execution-first industrial consulting for manufacturing, logistics, and operations. Plans that ship outcomes." />
-
-  <link rel="canonical" href="https://www.automtas/" />
-  <meta name="robots" content="index,follow" />
-  <meta name="theme-color" content="#0B0F19" />
-
-  <meta property="og:title" content="Automatas | Industrial Consulting" />
-  <meta property="og:description" content="Execution-first industrial consulting for manufacturing, logistics, and operations." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.automtas/" />
-  <meta property="og:image" content="https://www.automtas/og.jpg" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="manifest" href="/site.webmanifest" />
-
-  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    html { scroll-behavior: smooth; }
-    :focus-visible { outline: 3px solid rgba(255,255,255,.7); outline-offset: 3px; border-radius: 14px; }
+    /* =========================
+       THEME TOKENS
+       ========================= */
+    :root{
+      color-scheme: light dark;
 
-    /* SITE-WIDE INDUSTRIAL BACKGROUND */
-    .site-bg {
-      position: fixed;
-      inset: 0;
-      z-index: -40;
+      --bg: #ffffff;
+      --bg-2: #f5f7fb;
+      --card: #ffffff;
+      --text: #0b1220;
+      --muted: #44506a;
+      --border: #e6e8ef;
+      --shadow: 0 10px 30px rgba(10, 20, 60, 0.08);
+
+      --brand: #0A3D62;   /* Deep blue */
+      --brand-2: #1aa3ff; /* Accent blue */
+      --ring: rgba(26,163,255,.35);
+
+      --max: 1120px;
+      --radius: 18px;
+    }
+
+    html.dark{
+      --bg: #070b16;
+      --bg-2: #0b1328;
+      --card: #0b1328;
+      --text: #eef2ff;
+      --muted: #b7c1dd;
+      --border: #1a2550;
+      --shadow: 0 12px 34px rgba(0,0,0,.45);
+
+      --brand: #65b7ff;
+      --brand-2: #2aa8ff;
+      --ring: rgba(101,183,255,.30);
+    }
+
+    /* =========================
+       BASE
+       ========================= */
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    a{ color: inherit; }
+    .container{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* =========================
+       HEADER
+       ========================= */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      min-width: 220px;
+    }
+    .brand-logo{
+      height: 42px;
+      width: auto;
+      display:block;
+    }
+    /* If logo looks too dark on dark mode, keep this ON */
+    html.dark .brand-logo{
+      filter: brightness(1.15) contrast(1.05);
+    }
+
+    .nav-links{
+      display:flex;
+      gap: 18px;
+      align-items:center;
+      justify-content:center;
+      flex: 1;
+    }
+    .nav-links a{
+      text-decoration:none;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 14px;
+      padding: 8px 10px;
+      border-radius: 10px;
+    }
+    .nav-links a:hover{
+      color: var(--text);
+      background: var(--bg-2);
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 220px;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: none;
+      transition: transform .08s ease, border-color .15s ease, background .15s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn.primary{
+      border-color: color-mix(in srgb, var(--brand-2) 55%, var(--border));
+      background: linear-gradient(135deg, color-mix(in srgb, var(--brand) 18%, var(--card)), color-mix(in srgb, var(--brand-2) 10%, var(--card)));
+    }
+    .btn:focus{
+      outline:none;
+      box-shadow: 0 0 0 4px var(--ring);
+    }
+
+    /* =========================
+       HERO
+       ========================= */
+    .hero{
+      padding: 54px 0 26px;
       background:
-        linear-gradient(to bottom, rgba(11,15,25,.90), rgba(11,15,25,.97)),
-        url("https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=2400&q=80");
-      background-size: cover;
-      background-position: center;
+        radial-gradient(900px 500px at 25% 10%, color-mix(in srgb, var(--brand-2) 18%, transparent), transparent 60%),
+        radial-gradient(700px 420px at 80% 15%, color-mix(in srgb, var(--brand) 20%, transparent), transparent 60%);
     }
-
-    /* Reveal */
-    .reveal{ opacity:0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
-    .reveal.in{ opacity:1; transform: translateY(0); }
-
-    /* Animated background layers */
-    .bg-layers { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
-    .bg-layers::before{
-      content:""; position:absolute; inset:-20%;
-      background:
-        radial-gradient(42% 36% at 18% 22%, rgba(59,130,246,.22), transparent 60%),
-        radial-gradient(44% 38% at 82% 26%, rgba(16,185,129,.18), transparent 60%),
-        radial-gradient(48% 42% at 52% 82%, rgba(255,255,255,.10), transparent 60%);
-      filter: blur(18px);
-      animation: drift 12s ease-in-out infinite alternate;
-      opacity: .95;
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.25fr .85fr;
+      gap: 22px;
+      align-items: stretch;
     }
-    .bg-layers::after{
-      content:""; position:absolute; inset:0;
-      background-image:
-        linear-gradient(to right, rgba(255,255,255,.08) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.08) 1px, transparent 1px);
-      background-size: 48px 48px;
-      opacity:.20;
-      mask-image: radial-gradient(60% 55% at 50% 35%, black 55%, transparent 100%);
-    }
-    @keyframes drift{
-      0%   { transform: translate3d(-2%, -1%, 0) scale(1); }
-      100% { transform: translate3d( 2%,  1%, 0) scale(1.06); }
-    }
-
-    /* Dynamic “pulse” icons */
-    .icon-pulse { position: relative; }
-    .icon-pulse::after{
-      content:""; position:absolute; inset:-10px;
-      border:1px solid rgba(255,255,255,.18);
+    .kicker{
+      display:inline-flex;
+      gap: 8px;
+      align-items:center;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
       border-radius: 999px;
-      opacity:0;
-      transform: scale(.85);
-      animation: pulseRing 2.2s ease-out infinite;
+      background: color-mix(in srgb, var(--bg-2) 75%, transparent);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
     }
-    @keyframes pulseRing{
-      0%{ opacity:0; transform: scale(.85); }
-      25%{ opacity:.55; }
-      100%{ opacity:0; transform: scale(1.25); }
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+    .lead{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 62ch;
+    }
+    .hero-actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .card{
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .stat{
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .stat:last-child{ border-bottom: 0; padding-bottom: 0; }
+    .badge{
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--bg-2) 70%, transparent);
+      font-size: 16px;
+    }
+    .stat b{ display:block; margin-bottom: 2px; }
+    .stat span{ color: var(--muted); font-size: 13.5px; }
+
+    /* =========================
+       SECTIONS
+       ========================= */
+    section{
+      padding: 46px 0;
+    }
+    .section-title{
+      display:flex;
+      align-items:flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+    .section-title h2{
+      margin:0;
+      font-size: 26px;
+      letter-spacing: -0.01em;
+    }
+    .section-title p{
+      margin:0;
+      color: var(--muted);
+      max-width: 62ch;
+      font-size: 14.5px;
     }
 
-    /* Animated “flow line” stroke */
-    .flow-line path{ stroke-dasharray: 12 10; animation: dashMove 2.2s linear infinite; }
-    @keyframes dashMove{ to { stroke-dashoffset: -44; } }
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .tile{
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .tile h3{
+      margin: 8px 0 6px;
+      font-size: 16px;
+    }
+    .tile p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .icon{
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--bg-2) 70%, transparent);
+      font-size: 18px;
+    }
 
-    /* Marquee for logos */
-    .marquee{
-      display:flex; gap:16px; overflow:hidden;
-      mask-image: linear-gradient(to right, transparent 0, black 12%, black 88%, transparent 100%);
+    .steps{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items: start;
     }
-    .marquee-track{
-      display:flex; gap:16px; flex:0 0 auto;
-      animation: marqueeMove 18s linear infinite;
+    .step{
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
     }
-    @keyframes marqueeMove{
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+    .step .num{
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      display:grid;
+      place-items:center;
+      font-weight: 900;
+      color: var(--brand);
+      background: color-mix(in srgb, var(--bg-2) 70%, transparent);
+    }
+    .step b{ display:block; }
+    .step p{ margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+
+    .case{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .case ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .pill-row{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .pill{
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 13px;
+      color: var(--muted);
+      background: color-mix(in srgb, var(--bg-2) 75%, transparent);
+      font-weight: 700;
     }
 
-    /* Card hover glow */
-    .glow-card{ position:relative; }
-    .glow-card::before{
-      content:""; position:absolute; inset:-1px; border-radius: 24px;
-      background: radial-gradient(80% 80% at 30% 20%, rgba(59,130,246,.20), transparent 60%),
-                  radial-gradient(80% 80% at 70% 80%, rgba(16,185,129,.14), transparent 60%);
-      opacity:0; transition: opacity .25s ease;
-      z-index:0;
+    /* =========================
+       FOOTER
+       ========================= */
+    footer{
+      padding: 34px 0 60px;
+      border-top: 1px solid var(--border);
+      background: color-mix(in srgb, var(--bg-2) 55%, transparent);
     }
-    .glow-card:hover::before{ opacity:1; }
-    .glow-card > *{ position:relative; z-index:1; }
-    .lift:hover{ transform: translateY(-2px); }
+    .footer-grid{
+      display:grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 14px;
+      align-items:start;
+    }
+    .small{ color: var(--muted); font-size: 13.5px; margin: 10px 0 0; }
+    .footer-links a{
+      display:block;
+      text-decoration:none;
+      color: var(--muted);
+      padding: 6px 0;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .footer-links a:hover{ color: var(--text); }
 
-    @media (prefers-reduced-motion: reduce){
-      html { scroll-behavior: auto; }
-      .reveal { transition:none!important; }
-      .bg-layers::before { animation:none !important; }
-      .icon-pulse::after{ animation:none!important; }
-      .flow-line path{ animation:none!important; }
-      .marquee-track{ animation:none!important; }
-      .lift:hover{ transform:none; }
+    /* =========================
+       RESPONSIVE
+       ========================= */
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .nav-links{ display:none; }
+      .nav-actions{ min-width: auto; }
+      .brand{ min-width: auto; }
+      .grid-3{ grid-template-columns: 1fr; }
+      .steps{ grid-template-columns: 1fr; }
+      .case{ grid-template-columns: 1fr; }
+      .footer-grid{ grid-template-columns: 1fr; }
     }
   </style>
-
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"Automatas",
-    "url":"https://www.automtas/",
-    "email":"apramparsingh@automatas.store",
-    "telephone":"+1-919-650-9271",
-    "sameAs":["https://www.linkedin.com/in/apramaparsingh"]
-  }
-  </script>
 </head>
 
-<body class="bg-zinc-950 text-white antialiased">
-  <!-- Background -->
-  <div class="site-bg"></div>
+<body>
+  <header>
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="#top" aria-label="Automatas Home">
+          <!-- Put your logo here: /assets/automatas-logo.png -->
+          <img class="brand-logo" src="/assets/automatas-logo.png" alt="Automatas logo" />
+        </a>
 
-  <!-- Header -->
-  <header class="fixed top-0 inset-x-0 z-50 bg-zinc-950/75 backdrop-blur border-b border-white/10">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-3">
-        <img src="/automatas-logo.svg" alt="Automatas" class="w-9 h-9" />
-        <div class="leading-tight">
-          <div class="font-extrabold tracking-tight">AUTOMATAS</div>
-          <div class="text-xs text-white/60">Industrial Consulting</div>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#services">Services</a>
+          <a href="#delivery">How We Deliver</a>
+          <a href="#case">Case Study</a>
+          <a href="#regions">Regions</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button class="btn" id="themeToggle" type="button" aria-label="Toggle theme">Toggle theme</button>
+          <a class="btn primary" href="#contact">Book a call</a>
         </div>
-      </a>
-
-      <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
-        <a class="hover:text-white transition" href="#services">Services</a>
-        <a class="hover:text-white transition" href="#work">Work</a>
-        <a class="hover:text-white transition" href="#industries">Industries</a>
-        <a class="hover:text-white transition" href="#brochure">Brochure</a>
-        <a class="hover:text-white transition" href="#contact">Contact</a>
-
-        <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5 transition font-semibold"
-           href="brochure.html">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
-            <path d="M6 4h9l3 3v13H6V4Z" stroke="currentColor" stroke-width="2"/>
-            <path d="M9 12h6M9 16h6M9 8h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          Brochure (PDF)
-        </a>
-
-        <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition"
-           href="services.html">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
-            <path d="M9 6a3 3 0 0 1 6 0v2H9V6Z" stroke="currentColor" stroke-width="2"/>
-            <path d="M4 9h16v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9Z" stroke="currentColor" stroke-width="2"/>
-            <path d="M4 13h16" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          Case Studies
-        </a>
-      </nav>
+      </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="relative pt-24">
-    <div class="bg-layers -z-10"></div>
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="kicker">⚙️ Execution-first industrial consulting</div>
+            <h1>Industry 4.0 transformation that works on the floor.</h1>
+            <p class="lead">
+              Automatas partners with industrial teams to stabilize operations, remove constraints, and embed scalable operating systems—turning
+              technology into measurable performance across plants and sites.
+            </p>
 
-    <div class="absolute inset-0 -z-20">
-      <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581091215367-59ab6b405c0b?auto=format&fit=crop&w=2400&q=80')] bg-cover bg-center opacity-20"></div>
-      <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-zinc-950/85 to-zinc-950"></div>
-    </div>
+            <div class="hero-actions">
+              <a class="btn primary" href="#services">See what we do</a>
+              <a class="btn" href="#case">View case study</a>
+            </div>
+          </div>
 
-    <div class="max-w-6xl mx-auto px-4 py-14">
-      <div class="reveal">
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-xs text-white/80">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
-            <path d="M13 2 3 14h8l-1 8 10-12h-8l1-8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-          </svg>
-          Execution • Manufacturing • Logistics • Delivery
-        </div>
+          <div class="card" aria-label="Highlights">
+            <div class="stat">
+              <div class="badge">🏭</div>
+              <div>
+                <b>Plant-floor execution</b>
+                <span>Hands-on delivery in real industrial environments.</span>
+              </div>
+            </div>
+            <div class="stat">
+              <div class="badge">📈</div>
+              <div>
+                <b>Operational stabilization</b>
+                <span>Throughput, quality, OTIF, and cost drivers.</span>
+              </div>
+            </div>
+            <div class="stat">
+              <div class="badge">🧭</div>
+              <div>
+                <b>Scalable operating systems</b>
+                <span>Governance, cadence, ownership—results that stay.</span>
+              </div>
+            </div>
+          </div>
 
-        <h1 class="mt-5 text-4xl md:text-5xl font-extrabold tracking-tight max-w-3xl">
-          Industrial consulting that moves the floor.
-        </h1>
-
-        <p class="mt-4 text-white/70 max-w-2xl">
-          Practical plans, tighter execution, and measurable outcomes—built for real plants and warehouses.
-        </p>
-
-        <div class="mt-7 flex flex-wrap gap-3">
-          <a href="#contact" class="inline-flex items-center gap-2 justify-center px-5 py-3 rounded-2xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
-              <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.7.6 2.5a2 2 0 0 1-.5 2.1L8 9.4a16 16 0 0 0 6.6 6.6l1.1-1.2a2 2 0 0 1 2.1-.5c.8.3 1.6.5 2.5.6A2 2 0 0 1 22 16.9Z"
-                    stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-            </svg>
-            Contact
-          </a>
-
-          <a href="services.html"
-             class="inline-flex items-center gap-2 justify-center px-5 py-3 rounded-2xl border border-white/15 hover:bg-white/5 transition font-semibold">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
-              <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="m13 6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            View work
-          </a>
-
-          <a href="#brochure"
-             class="inline-flex items-center gap-2 justify-center px-5 py-3 rounded-2xl border border-white/15 hover:bg-white/5 transition font-semibold">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
-              <path d="M6 4h9l3 3v13H6V4Z" stroke="currentColor" stroke-width="2"/>
-              <path d="M9 12h6M9 16h6M9 8h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            Brochure
-          </a>
         </div>
       </div>
+    </section>
 
-      <!-- Dynamic graphics strip -->
-      <div class="reveal mt-10 max-w-5xl rounded-3xl bg-white/5 border border-white/10 p-6">
-        <div class="flex items-center justify-between gap-6 flex-col md:flex-row">
-          <div class="flex items-center gap-3">
-            <div class="icon-pulse p-3 rounded-2xl bg-white/10 border border-white/10">
-              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none">
-                <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M19.4 15a7.9 7.9 0 0 0 .1-2l2-1.2-2-3.4-2.3.7a7.5 7.5 0 0 0-1.7-1L15 5H9l-.5 2.1c-.6.2-1.2.6-1.7 1L4.5 7.4 2.5 10.8 4.5 12c-.1.7-.1 1.3.1 2l-2 1.2 2 3.4 2.3-.7c.5.4 1.1.8 1.7 1L9 19h6l.5-2.1c.6-.2 1.2-.6 1.7-1l2.3.7 2-3.4-2-1.2Z"
-                      stroke="currentColor" stroke-width="2" stroke-linejoin="round" opacity=".55"/>
-              </svg>
-            </div>
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>What we do</h2>
+            <p>Operations-first delivery across manufacturing, warehouses, and asset-intensive environments.</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="tile">
+            <div class="icon">⚙️</div>
+            <h3>Stabilize performance</h3>
+            <p>Improve throughput, yield, OTIF, and daily execution stability with floor-level diagnostics and action.</p>
+          </div>
+
+          <div class="tile">
+            <div class="icon">🧱</div>
+            <h3>Remove constraints</h3>
+            <p>Identify bottlenecks, validate metrics, and redesign flow with practical systems—not generic tools.</p>
+          </div>
+
+          <div class="tile">
+            <div class="icon">📊</div>
+            <h3>Embed operating systems</h3>
+            <p>Standard work, governance cadence, ownership models, and audit mechanisms that sustain gains.</p>
+          </div>
+
+          <div class="tile">
+            <div class="icon">🛠️</div>
+            <h3>Quality systems</h3>
+            <p>Control gates, compliance readiness, and execution discipline that reduce rework and variability.</p>
+          </div>
+
+          <div class="tile">
+            <div class="icon">🔌</div>
+            <h3>Data + automation integration</h3>
+            <p>Connect IoT/ERP/MES signals into workflows to support faster decision-making and response.</p>
+          </div>
+
+          <div class="tile">
+            <div class="icon">🤖</div>
+            <h3>Applied AI (when useful)</h3>
+            <p>Predictive quality, maintenance insights, and forecasting—layered into operations with human ownership.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DELIVERY -->
+    <section id="delivery">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>How we deliver results</h2>
+            <p>A disciplined execution model: observe, validate, design, execute, and sustain.</p>
+          </div>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
             <div>
-              <div class="text-xs text-white/60">Dynamic metrics</div>
-              <div class="font-semibold">On-floor outcomes, visualized.</div>
+              <b>Observe & validate on the floor</b>
+              <p>Direct observation + data validation to confirm what’s actually happening and why.</p>
             </div>
           </div>
 
-          <svg class="flow-line w-full md:w-[420px] h-12" viewBox="0 0 420 48" fill="none" aria-hidden="true">
-            <path d="M10 24 C70 8, 110 40, 170 24 S270 8, 330 24 S380 40, 410 24"
-                  stroke="currentColor" stroke-width="2" opacity=".7"/>
-            <circle cx="10" cy="24" r="4" fill="currentColor" opacity=".8"/>
-            <circle cx="170" cy="24" r="4" fill="currentColor" opacity=".8"/>
-            <circle cx="330" cy="24" r="4" fill="currentColor" opacity=".8"/>
-            <circle cx="410" cy="24" r="4" fill="currentColor" opacity=".8"/>
-          </svg>
-
-          <div class="grid grid-cols-3 gap-3 w-full md:w-auto">
-            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
-              <div class="text-xs text-white/60">Lead time</div>
-              <div class="text-xl font-extrabold"><span class="count" data-to="18">0</span>%</div>
-            </div>
-            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
-              <div class="text-xs text-white/60">Defects</div>
-              <div class="text-xl font-extrabold"><span class="count" data-to="24">0</span>%</div>
-            </div>
-            <div class="rounded-2xl bg-white/5 border border-white/10 p-3 text-center">
-              <div class="text-xs text-white/60">OTIF</div>
-              <div class="text-xl font-extrabold"><span class="count" data-to="12">0</span>%</div>
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <b>Map value streams & constraints</b>
+              <p>Identify bottlenecks and performance drivers (lead time, yield, OTIF, cost).</p>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Marquee -->
-      <div class="reveal mt-10">
-        <div class="flex items-center justify-between">
-          <div class="text-sm text-white/65 flex items-center gap-2">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2 20 6v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6l8-4Z" stroke="currentColor" stroke-width="2"/>
-            </svg>
-            Partners & project environments (sample)
-          </div>
-          <a href="services.html" class="text-sm text-white/70 hover:text-white transition">See case studies →</a>
-        </div>
-
-        <div class="mt-4 marquee rounded-3xl border border-white/10 bg-white/5 p-3">
-          <div class="marquee-track">
-            <div class="flex items-center gap-3">
-              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-white/70"></span> Plant Ops
-              </div>
-              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-white/70"></span> Warehouse
-              </div>
-              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-white/70"></span> Quality
-              </div>
-              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-white/70"></span> PMO
-              </div>
-              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-white/70"></span> Vendors
-              </div>
-              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-white/70"></span> Compliance
-              </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <b>Design practical systems</b>
+              <p>Standard work, quality gates, governance cadence, training, and clear ownership.</p>
             </div>
-            <div class="flex items-center gap-3">
-              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-white/70"></span> Plant Ops
-              </div>
-              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-white/70"></span> Warehouse
-              </div>
-              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-white/70"></span> Quality
-              </div>
-              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-white/70"></span> PMO
-              </div>
-              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-white/70"></span> Vendors
-              </div>
-              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-white/70"></span> Compliance
-              </div>
+          </div>
+
+          <div class="step">
+            <div class="num">4</div>
+            <div>
+              <b>Execute with cadence</b>
+              <p>Daily/weekly rhythms, reviews, audits, and escalation paths to enforce accountability.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">5</div>
+            <div>
+              <b>Layer intelligent insights</b>
+              <p>Automation + AI where it improves speed/quality—integrated into real workflows.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">6</div>
+            <div>
+              <b>Sustain & scale</b>
+              <p>Embed improvements so performance continues after engagement close, across sites.</p>
             </div>
           </div>
         </div>
       </div>
+    </section>
 
-    </div>
-  </section>
-
-  <!-- Services -->
-  <section id="services" class="py-16 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="reveal">
-        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Services</h2>
-        <p class="mt-2 text-white/65">Short, practical, execution-ready.</p>
-      </div>
-
-      <div class="mt-8 grid md:grid-cols-3 gap-4">
-        <div class="reveal glow-card lift rounded-3xl bg-white/5 border border-white/10 p-6 transition">
-          <div class="flex items-center gap-3">
-            <div class="p-2 rounded-2xl bg-white/10 border border-white/10">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
-                <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M19.4 15a7.9 7.9 0 0 0 .1-2l2-1.2-2-3.4-2.3.7a7.5 7.5 0 0 0-1.7-1L15 5H9l-.5 2.1c-.6.2-1.2.6-1.7 1L4.5 7.4 2.5 10.8 4.5 12c-.1.7-.1 1.3.1 2l-2 1.2 2 3.4 2.3-.7c.5.4 1.1.8 1.7 1L9 19h6l.5-2.1c.6-.2 1.2-.6 1.7-1l2.3.7 2-3.4-2-1.2Z"
-                      stroke="currentColor" stroke-width="2" stroke-linejoin="round" opacity=".55"/>
-              </svg>
-            </div>
-            <div class="font-semibold text-lg">Operations + Lean</div>
+    <!-- CASE STUDY -->
+    <section id="case">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>Case study snapshot (CCSE)</h2>
+            <p>Example of floor-level execution to stabilize production and quality.</p>
           </div>
-          <div class="mt-2 text-sm text-white/65">Flow, bottlenecks, standard work, cadence.</div>
         </div>
 
-        <div class="reveal glow-card lift rounded-3xl bg-white/5 border border-white/10 p-6 transition">
-          <div class="flex items-center gap-3">
-            <div class="p-2 rounded-2xl bg-white/10 border border-white/10">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
-                <path d="M7 3v3M17 3v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M4 7h16v14H4V7Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M4 11h16" stroke="currentColor" stroke-width="2" opacity=".65"/>
-              </svg>
+        <div class="case">
+          <div class="tile">
+            <div class="icon">🧩</div>
+            <h3>Client context</h3>
+            <p>
+              A complex industrial operation faced unstable production flow, quality losses, and reactive decision-making.
+              The organization needed hands-on execution to stabilize performance and build systems that scale.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Manufacturing</span>
+              <span class="pill">Quality</span>
+              <span class="pill">Execution cadence</span>
+              <span class="pill">Multi-site readiness</span>
             </div>
-            <div class="font-semibold text-lg">PMO + Delivery</div>
           </div>
-          <div class="mt-2 text-sm text-white/65">Milestones, vendors, risk, rollout playbooks.</div>
+
+          <div class="tile">
+            <div class="icon">✅</div>
+            <h3>Approach & outcome</h3>
+            <p>Automatas embedded on the shop floor and delivered:</p>
+            <ul>
+              <li>Constraint analysis and validated performance baselines</li>
+              <li>Standard work, quality gates, and clear ownership</li>
+              <li>Daily/weekly operating cadence with KPI visibility</li>
+              <li>Improved throughput stability and reduced rework</li>
+              <li>A scalable operating model embedded into operations</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REGIONS -->
+    <section id="regions">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>Where we operate</h2>
+            <p>Partnering across EMEC & USA industrial leaders and India-based IoT innovators.</p>
+          </div>
         </div>
 
-        <div class="reveal glow-card lift rounded-3xl bg-white/5 border border-white/10 p-6 transition">
-          <div class="flex items-center gap-3">
-            <div class="p-2 rounded-2xl bg-white/10 border border-white/10">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
-                <path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+        <div class="grid-3">
+          <div class="tile">
+            <div class="icon">🌍</div>
+            <h3>EMEC</h3>
+            <p>Industrial modernization, execution excellence, and scalable operating systems for plants and warehouses.</p>
+          </div>
+
+          <div class="tile">
+            <div class="icon">🇺🇸</div>
+            <h3>USA</h3>
+            <p>Operational stabilization, quality systems, governance cadence, and floor-level execution support.</p>
+          </div>
+
+          <div class="tile">
+            <div class="icon">🇮🇳</div>
+            <h3>India (IoT & deep-tech)</h3>
+            <p>Support for startups moving from pilots to production: integration, validation, and industrial scaling.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>Contact</h2>
+            <p>Share your challenge, region, and timeline. We’ll respond with a clear next step.</p>
+          </div>
+        </div>
+
+        <div class="case">
+          <div class="tile">
+            <div class="icon">📩</div>
+            <h3>Reach out</h3>
+            <p class="small">
+              Email: <a href="mailto:apramparsingh@automatas.store">apramparsingh@automatas.store</a><br/>
+              Website: <a href="https://automatas.com" target="_blank" rel="noopener">automatas.com</a>
+            </p>
+            <div class="pill-row">
+              <span class="pill">Assessments</span>
+              <span class="pill">Execution sprints</span>
+              <span class="pill">Program support</span>
             </div>
-            <div class="font-semibold text-lg">Quality Systems</div>
           </div>
-          <div class="mt-2 text-sm text-white/65">QC gates, traceability, audits, CAPA loops.</div>
+
+          <div class="tile">
+            <div class="icon">🗓️</div>
+            <h3>Quick message</h3>
+            <form onsubmit="return sendMessage(event)">
+              <label class="small" for="name">Name</label><br/>
+              <input id="name" name="name" required
+                     style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--bg-2);color:var(--text);margin:6px 0 12px;" />
+
+              <label class="small" for="email">Email</label><br/>
+              <input id="email" name="email" type="email" required
+                     style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--bg-2);color:var(--text);margin:6px 0 12px;" />
+
+              <label class="small" for="msg">Message</label><br/>
+              <textarea id="msg" name="msg" rows="4" required
+                        style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--bg-2);color:var(--text);margin:6px 0 12px;"></textarea>
+
+              <button class="btn primary" type="submit">Send</button>
+              <p id="formNote" class="small" style="margin-top:10px;"></p>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- Brochure Highlights (added) -->
-  <section id="brochure" class="py-16 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="reveal">
-        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Brochure highlights</h2>
-        <p class="mt-2 text-white/65 max-w-3xl">
-          A sales-ready overview: delivery approach, KPIs, and industrial case snapshots.
-        </p>
-      </div>
-
-      <div class="mt-8 grid md:grid-cols-3 gap-4 text-sm">
-        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
-          <div class="font-semibold mb-2">Delivery model</div>
-          <p class="text-white/65">
-            30–60–90 day plan, tier cadence, ownership, and visible KPI tracking.
-          </p>
-        </div>
-
-        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
-          <div class="font-semibold mb-2">Programs that ship</div>
-          <p class="text-white/65">
-            Manufacturing stabilization, warehouse throughput resets, multi-site rollout playbooks.
-          </p>
-        </div>
-
-        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
-          <div class="font-semibold mb-2">Proof + outcomes</div>
-          <p class="text-white/65">
-            Before/after metrics, QC gates, rework reduction loops, and OTIF improvements.
-          </p>
-        </div>
-      </div>
-
-      <div class="mt-8 reveal flex flex-wrap gap-3">
-        <a href="brochure.html"
-           class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition">
-          View brochure (embedded PDF)
-        </a>
-        <a href="automatas_brochure.pdf"
-           class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-white/15 hover:bg-white/5 transition font-semibold">
-          Download PDF
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Work -->
-  <section id="work" class="py-16 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="reveal flex items-end justify-between gap-6 flex-col md:flex-row">
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
         <div>
-          <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Previous case studies</h2>
-          <p class="mt-2 text-white/65">Very short snapshots — industrial-style.</p>
-        </div>
-        <a href="services.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5 transition font-semibold">
-          View all
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
-            <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="m13 6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-
-      <div class="mt-8 grid md:grid-cols-3 gap-4">
-        <a href="services.html#cctv" class="reveal glow-card lift block rounded-3xl overflow-hidden border border-white/10 bg-white/5 transition">
-          <div class="p-6">
-            <div class="text-xs text-white/70 flex items-center gap-2">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7V7Z" stroke="currentColor" stroke-width="2"/><path d="M4 4h3M17 4h3M4 20h3M17 20h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              Manufacturing
-            </div>
-            <div class="mt-2 font-semibold">CCTV Camera Ramp</div>
-            <div class="mt-1 text-sm text-white/65">QC gates + kitting + rework loop</div>
-            <div class="mt-4 text-xs text-white/70">Yield +11% • Rework -19%</div>
-          </div>
-        </a>
-
-        <a href="services.html#warehouse" class="reveal glow-card lift block rounded-3xl overflow-hidden border border-white/10 bg-white/5 transition">
-          <div class="p-6">
-            <div class="text-xs text-white/70 flex items-center gap-2">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M3 7h11v10H3V7Z" stroke="currentColor" stroke-width="2"/><path d="M14 10h4l3 3v4h-7v-7Z" stroke="currentColor" stroke-width="2"/></svg>
-              Logistics
-            </div>
-            <div class="mt-2 font-semibold">Warehouse Throughput</div>
-            <div class="mt-1 text-sm text-white/65">Slotting + dock control + cadence</div>
-            <div class="mt-4 text-xs text-white/70">OTIF +10% • Cycle -13%</div>
-          </div>
-        </a>
-
-        <a href="services.html#sop" class="reveal glow-card lift block rounded-3xl overflow-hidden border border-white/10 bg-white/5 transition">
-          <div class="p-6">
-            <div class="text-xs text-white/70 flex items-center gap-2">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M4 7h16v14H4V7Z" stroke="currentColor" stroke-width="2"/><path d="M4 11h16" stroke="currentColor" stroke-width="2" opacity=".65"/></svg>
-              PMO
-            </div>
-            <div class="mt-2 font-semibold">Multi-site SOP Rollout</div>
-            <div class="mt-1 text-sm text-white/65">Governance + training kit + audit</div>
-            <div class="mt-4 text-xs text-white/70">Adoption +15% • Delays -12%</div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Industries -->
-  <section id="industries" class="py-16 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="reveal">
-        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Industries</h2>
-        <p class="mt-2 text-white/65">Industrial-first across plants, warehouses, and field operations.</p>
-      </div>
-
-      <div class="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 text-sm">
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Manufacturing</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Pharma</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Oil &amp; Gas</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Utilities</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Construction</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Mining</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Ports</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Warehousing</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Logistics</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Electronics</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Facilities</div>
-        <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-4">Security</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials (added) -->
-  <section id="testimonials" class="py-16 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="reveal">
-        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Client feedback</h2>
-        <p class="mt-2 text-white/65">From industrial leadership teams.</p>
-      </div>
-
-      <div class="mt-8 grid md:grid-cols-3 gap-4">
-        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
-          <p class="text-white/80 leading-relaxed">
-            “Automatas brought structure to a chaotic operation. Within weeks, we had stable flow, clear ownership, and KPIs leadership could trust.”
+          <img class="brand-logo" src="/assets/automatas-logo.png" alt="Automatas logo" />
+          <p class="small">
+            Execution-first industrial consulting & intelligent systems for manufacturing, logistics, and asset-intensive operations.
           </p>
-          <div class="mt-4 text-sm">
-            <div class="font-semibold">Rahul Mehta</div>
-            <div class="text-white/60">Head of Operations, Electronics Manufacturing</div>
-          </div>
         </div>
 
-        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
-          <p class="text-white/80 leading-relaxed">
-            “Their SOP rollout kit and cadence reduced delays across sites and improved audit readiness without adding bureaucracy.”
-          </p>
-          <div class="mt-4 text-sm">
-            <div class="font-semibold">Sarah Coleman</div>
-            <div class="text-white/60">Program Manager, Multi-site Operations</div>
-          </div>
+        <div class="footer-links">
+          <b>Pages</b>
+          <a href="#services">Services</a>
+          <a href="#delivery">How We Deliver</a>
+          <a href="#case">Case Study</a>
+          <a href="#contact">Contact</a>
         </div>
 
-        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
-          <p class="text-white/80 leading-relaxed">
-            “Warehouse throughput improved fast—slotting changes, dock discipline, and daily tier meetings made performance visible.”
-          </p>
-          <div class="mt-4 text-sm">
-            <div class="font-semibold">David Kim</div>
-            <div class="text-white/60">Distribution Lead, Logistics & Warehousing</div>
-          </div>
+        <div class="footer-links">
+          <b>Contact</b>
+          <a href="mailto:apramparsingh@automatas.store">apramparsingh@automatas.store</a>
+          <a href="https://automatas.com" target="_blank" rel="noopener">automatas.com</a>
         </div>
       </div>
+
+      <p class="small" style="margin-top:18px;">
+        © <span id="year"></span> Automatas. All rights reserved.
+      </p>
     </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="py-16 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="reveal">
-        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Contact</h2>
-        <p class="mt-2 text-white/65">Response-focused. Clear scope. Real execution.</p>
-      </div>
-
-      <div class="mt-8 grid md:grid-cols-3 gap-4">
-        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
-          <div class="text-sm text-white/70">Email</div>
-          <a class="mt-2 block font-semibold break-all hover:underline" href="mailto:apramparsingh@automatas.store">apramparsingh@automatas.store</a>
-        </div>
-        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
-          <div class="text-sm text-white/70">Phone</div>
-          <a class="mt-2 block font-semibold hover:underline" href="tel:+19196509271">+1 (919) 650-9271</a>
-        </div>
-        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
-          <div class="text-sm text-white/70">LinkedIn</div>
-          <a class="mt-2 block font-semibold break-all hover:underline" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/apramaparsingh">linkedin.com/in/apramaparsingh</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="py-8 border-t border-white/10 text-center text-sm text-white/55">
-    © <span id="y"></span> Automatas • <a class="hover:text-white" href="services.html">Case Studies</a> • <a class="hover:text-white" href="brochure.html">Brochure</a>
   </footer>
 
   <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
+    // =========================
+    // Theme toggle (auto + saved)
+    // =========================
+    const root = document.documentElement;
+    const saved = localStorage.getItem("theme");
 
-    // Reveal on scroll
-    const io = new IntersectionObserver((entries)=>entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("in"); }), {threshold:0.12});
-    document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+    if (!saved) {
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      root.classList.toggle("dark", prefersDark);
+    } else {
+      root.classList.toggle("dark", saved === "dark");
+    }
 
-    // Animated counters (runs once when visible)
-    const counters = document.querySelectorAll(".count");
-    const runCounter = (el) => {
-      const to = parseInt(el.dataset.to || "0", 10);
-      const dur = 900;
-      const start = performance.now();
-      const step = (t) => {
-        const p = Math.min(1, (t - start) / dur);
-        el.textContent = String(Math.round(to * p));
-        if (p < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    };
-    const cIO = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting && !e.target.dataset.done) {
-          e.target.dataset.done = "1";
-          runCounter(e.target);
-        }
-      });
-    }, { threshold: 0.6 });
-    counters.forEach(c => cIO.observe(c));
+    document.getElementById("themeToggle")?.addEventListener("click", () => {
+      root.classList.toggle("dark");
+      localStorage.setItem("theme", root.classList.contains("dark") ? "dark" : "light");
+    });
+
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // =========================
+    // Simple "send" handler
+    // (Replace with your backend / form tool)
+    // =========================
+    function sendMessage(e){
+      e.preventDefault();
+      const note = document.getElementById("formNote");
+      note.textContent = "Thanks — please email us directly at apramparsingh@automatas.store (form wiring can be added).";
+      return false;
+    }
   </script>
 </body>
 </html>
