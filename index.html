@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Transporter Automation | Fleet Operations Platform</title>
-  <meta name="description" content="Transporter Automation streamlines and automates fleet operations with CRM/EMS, GPS & fuel monitoring, ticketing, and CCTV-based intelligence." />
+  <meta name="description" content="Transporter Automation streamlines and automates fleet and bus operations with CRM/EMS, GPS & fuel monitoring, ticketing, and video intelligence." />
 
   <style>
     /* =======================
@@ -18,6 +18,9 @@
       --shadow: 0 10px 30px rgba(10,20,60,.08);
       --ring: rgba(26,163,255,.25);
       --max: 1120px; --r: 18px;
+      --grad1: rgba(26,163,255,.18);
+      --grad2: rgba(10,61,98,.18);
+      --grid: rgba(10,20,60,.06);
     }
     html.dark{
       --bg:#070b16; --bg2:#0b1328; --card:#0b1328;
@@ -25,18 +28,26 @@
       --brand:#65b7ff; --brand2:#2aa8ff; --accent:#56e0ff;
       --shadow: 0 14px 38px rgba(0,0,0,.45);
       --ring: rgba(101,183,255,.25);
+      --grad1: rgba(42,168,255,.20);
+      --grad2: rgba(101,183,255,.12);
+      --grid: rgba(255,255,255,.06);
     }
 
     *{box-sizing:border-box}
+    html, body { height:100%; }
     body{
-      margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:var(--bg); color:var(--text); line-height:1.55;
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.55;
+      overflow-x:hidden;
     }
     a{color:inherit}
     .container{max-width:var(--max); margin:0 auto; padding:0 20px;}
     .btn{
       border:1px solid var(--border); background:var(--card); color:var(--text);
-      padding:10px 12px; border-radius:12px; font-weight:800; font-size:14px;
+      padding:10px 12px; border-radius:12px; font-weight:900; font-size:14px;
       cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
       transition: transform .08s ease, background .15s ease, border-color .15s ease;
     }
@@ -44,19 +55,39 @@
     .btn:focus{outline:none; box-shadow: 0 0 0 4px var(--ring)}
     .btn.primary{
       border-color: color-mix(in srgb, var(--brand2) 55%, var(--border));
-      background: linear-gradient(135deg, color-mix(in srgb, var(--brand) 18%, var(--card)), color-mix(in srgb, var(--brand2) 10%, var(--card)));
+      background: linear-gradient(135deg,
+        color-mix(in srgb, var(--brand) 18%, var(--card)),
+        color-mix(in srgb, var(--brand2) 10%, var(--card))
+      );
     }
     .pill{
       display:inline-flex; align-items:center; gap:8px;
       padding:6px 10px; border-radius:999px;
       background: color-mix(in srgb, var(--bg2) 75%, transparent);
       border:1px solid var(--border); color:var(--muted);
-      font-size:13px; font-weight:800;
+      font-size:13px; font-weight:900;
+      backdrop-filter: blur(8px);
     }
     .card{
-      border:1px solid var(--border); background:var(--card); border-radius:var(--r);
-      box-shadow:var(--shadow); padding:18px;
+      position:relative;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--card) 86%, transparent);
+      border-radius:var(--r);
+      box-shadow:var(--shadow);
+      padding:18px;
+      overflow:hidden;
+      backdrop-filter: blur(10px);
     }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(800px 220px at 12% 0%, color-mix(in srgb, var(--brand2) 16%, transparent), transparent 60%),
+                  radial-gradient(700px 220px at 88% 10%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .card > * { position:relative; z-index:1; }
+
     .grid2{display:grid; grid-template-columns: 1.1fr .9fr; gap:14px;}
     .grid3{display:grid; grid-template-columns: repeat(3,1fr); gap:14px;}
     .grid4{display:grid; grid-template-columns: repeat(4,1fr); gap:14px;}
@@ -66,12 +97,72 @@
     }
 
     /* =======================
+       LIVE BACKGROUND + ANIMATION
+       ======================= */
+    .bg-wrap{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+      background:
+        radial-gradient(1000px 560px at 18% 10%, var(--grad1), transparent 60%),
+        radial-gradient(900px 520px at 85% 15%, var(--grad2), transparent 60%),
+        linear-gradient(180deg, color-mix(in srgb, var(--bg) 86%, transparent), var(--bg));
+    }
+
+    /* Subtle grid */
+    .bg-grid{
+      position:absolute;
+      inset:-40px;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 52px 52px;
+      transform: perspective(800px) rotateX(55deg) translateY(-220px);
+      opacity:.65;
+      filter: blur(0.2px);
+      animation: gridFloat 12s ease-in-out infinite;
+    }
+    @keyframes gridFloat{
+      0%,100%{ transform: perspective(800px) rotateX(55deg) translateY(-220px) translateX(0); }
+      50%{ transform: perspective(800px) rotateX(55deg) translateY(-240px) translateX(14px); }
+    }
+
+    /* floating orbs */
+    .orb{
+      position:absolute; width:380px; height:380px;
+      border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--brand2) 45%, transparent), transparent 62%);
+      filter: blur(18px);
+      opacity:.55;
+      animation: drift 18s ease-in-out infinite;
+      mix-blend-mode: screen;
+    }
+    .orb.o2{
+      width:460px; height:460px;
+      background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--accent) 40%, transparent), transparent 62%);
+      animation-duration: 22s;
+      opacity:.5;
+    }
+    .orb.o3{
+      width:320px; height:320px;
+      background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--brand) 40%, transparent), transparent 62%);
+      animation-duration: 26s;
+      opacity:.45;
+    }
+    @keyframes drift{
+      0%{ transform: translate(-10%, -12%) scale(1); }
+      50%{ transform: translate(18%, 12%) scale(1.06); }
+      100%{ transform: translate(-10%, -12%) scale(1); }
+    }
+
+    /* =======================
        HEADER
        ======================= */
     header{
       position:sticky; top:0; z-index:50;
       background: color-mix(in srgb, var(--bg) 86%, transparent);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       border-bottom:1px solid var(--border);
     }
     .nav{
@@ -82,7 +173,7 @@
     .logo{height:42px; width:auto; display:block;}
     html.dark .logo{filter: brightness(1.15) contrast(1.05);}
     nav a{
-      text-decoration:none; color:var(--muted); font-weight:800; font-size:14px;
+      text-decoration:none; color:var(--muted); font-weight:900; font-size:14px;
       padding:8px 10px; border-radius:10px;
     }
     nav a:hover{background:var(--bg2); color:var(--text);}
@@ -92,13 +183,10 @@
        HERO
        ======================= */
     .hero{
-      padding: 56px 0 26px;
-      background:
-        radial-gradient(900px 520px at 20% 10%, color-mix(in srgb, var(--brand2) 20%, transparent), transparent 60%),
-        radial-gradient(700px 420px at 85% 15%, color-mix(in srgb, var(--brand) 20%, transparent), transparent 60%);
+      padding: 58px 0 26px;
     }
     h1{margin:14px 0 10px; font-size: clamp(30px,4vw,48px); line-height:1.12; letter-spacing:-0.02em;}
-    .lead{margin:0 0 16px; color:var(--muted); max-width:68ch;}
+    .lead{margin:0 0 16px; color:var(--muted); max-width:70ch;}
     .heroActions{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px;}
     .statRow{display:grid; gap:12px;}
     .stat{
@@ -111,7 +199,7 @@
       border:1px solid var(--border);
       background: color-mix(in srgb, var(--bg2) 70%, transparent);
       display:grid; place-items:center;
-      font-weight:900; color:var(--brand2);
+      font-weight:950; color:var(--brand2);
     }
     .stat b{display:block}
     .stat span{color:var(--muted); font-size:13.5px}
@@ -127,42 +215,56 @@
       display:flex; align-items:center; justify-content:space-between; gap:10px;
       padding:12px; border:1px solid var(--border); border-radius:14px;
       background: color-mix(in srgb, var(--bg2) 65%, transparent);
+      backdrop-filter: blur(10px);
     }
     .kpi b{font-size:18px}
-    .kpi small{color:var(--muted); font-weight:800}
+    .kpi small{color:var(--muted); font-weight:900}
+    .muted{color:var(--muted);}
 
     /* =======================
-       PRICING
+       LIVE MINI-ANIMATION (SVG path)
+       ======================= */
+    .pulse-line{
+      width:100%;
+      height:86px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background: color-mix(in srgb, var(--bg2) 70%, transparent);
+      overflow:hidden;
+      position:relative;
+    }
+    .pulse-line svg{width:100%; height:100%;}
+    .pulse-line .glow{
+      filter: drop-shadow(0 0 10px color-mix(in srgb, var(--brand2) 45%, transparent));
+    }
+    .pulse-line .dot{
+      animation: dotMove 3.8s linear infinite;
+      transform-origin: center;
+    }
+    @keyframes dotMove{
+      0%{ transform: translateX(-8%); opacity:.0; }
+      10%{ opacity:1; }
+      90%{ opacity:1; }
+      100%{ transform: translateX(108%); opacity:.0; }
+    }
+
+    /* =======================
+       PRICING TOGGLE
        ======================= */
     .switchRow{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin: 8px 0 12px;}
     .switch{
       display:flex; border:1px solid var(--border); background:var(--card);
       border-radius:999px; padding:4px; gap:4px;
       box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
     }
     .switch button{
       border:0; background:transparent; color:var(--muted);
-      padding:8px 12px; border-radius:999px; cursor:pointer; font-weight:900;
+      padding:8px 12px; border-radius:999px; cursor:pointer; font-weight:950;
     }
     .switch button.active{background:var(--bg2); color:var(--text);}
-
-    .price{
-      font-size:34px; font-weight:950; letter-spacing:-0.02em; margin:6px 0 8px;
-    }
-    .list{margin:10px 0 0; padding-left:18px; color:var(--muted); font-weight:700; font-size:14px;}
-    .muted{color:var(--muted);}
-
-    /* =======================
-       SIMPLE CHART
-       ======================= */
-    .chartWrap{padding:14px; border:1px solid var(--border); border-radius:var(--r); background:var(--card); box-shadow:var(--shadow);}
-    .bars{display:flex; gap:10px; align-items:flex-end; height:140px; margin-top:10px;}
-    .bar{
-      flex:1; border-radius:12px 12px 6px 6px;
-      background: linear-gradient(180deg, var(--brand2), color-mix(in srgb, var(--brand) 55%, var(--brand2)));
-      position:relative;
-    }
-    .barLabel{display:flex; justify-content:space-between; color:var(--muted); font-weight:800; font-size:12.5px; margin-top:8px;}
+    .price{font-size:34px; font-weight:980; letter-spacing:-0.02em; margin:6px 0 8px;}
+    .list{margin:10px 0 0; padding-left:18px; color:var(--muted); font-weight:800; font-size:14px;}
 
     /* =======================
        FOOTER
@@ -170,502 +272,477 @@
     footer{
       padding: 34px 0 60px; border-top:1px solid var(--border);
       background: color-mix(in srgb, var(--bg2) 55%, transparent);
+      backdrop-filter: blur(10px);
     }
     .footerGrid{display:grid; grid-template-columns: 1.4fr 1fr 1fr; gap:14px;}
     @media (max-width:980px){.footerGrid{grid-template-columns:1fr}}
-    .footerLinks a{display:block; padding:6px 0; text-decoration:none; color:var(--muted); font-weight:800;}
+    .footerLinks a{display:block; padding:6px 0; text-decoration:none; color:var(--muted); font-weight:900;}
     .footerLinks a:hover{color:var(--text)}
-    .small{font-size:13.5px; color:var(--muted); font-weight:700; margin:10px 0 0;}
+    .small{font-size:13.5px; color:var(--muted); font-weight:800; margin:10px 0 0;}
     input, textarea{
       width:100%; padding:12px; border-radius:12px; border:1px solid var(--border);
       background: var(--bg2); color: var(--text);
     }
-    label{font-size:13px; color:var(--muted); font-weight:900;}
+    label{font-size:13px; color:var(--muted); font-weight:950;}
+
+    /* Reduced motion preference */
+    @media (prefers-reduced-motion: reduce){
+      .bg-grid, .orb, .dot { animation: none !important; }
+    }
   </style>
 </head>
 
 <body>
-<header>
-  <div class="container">
-    <div class="nav">
-      <a class="brand" href="#top" aria-label="Transporter Automation Home">
-        <img class="logo" src="/assets/logo.png" alt="Transporter Automation logo" />
-      </a>
-
-      <nav aria-label="Primary">
-        <a href="#problem">Problem</a>
-        <a href="#platform">Platform</a>
-        <a href="#bundles">Bundles</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#hardware">Hardware</a>
-        <a href="#market">Market</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <div class="actions">
-        <button class="btn" id="themeToggle" type="button" aria-label="Toggle theme">🌙 Theme</button>
-        <a class="btn primary" href="#contact">Book a Demo</a>
-      </div>
-    </div>
+  <!-- Live Background -->
+  <div class="bg-wrap" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="orb" style="left:-120px; top:-120px;"></div>
+    <div class="orb o2" style="right:-160px; top:-140px;"></div>
+    <div class="orb o3" style="left:18%; bottom:-180px;"></div>
   </div>
-</header>
 
-<main id="top">
-  <!-- HERO -->
-  <section class="hero">
+  <header>
     <div class="container">
-      <div class="grid2">
-        <div>
-          <span class="pill">🚍 Efficient • Streamlined • Revamped Fleet Operations</span>
-          <h1>Transporter Automation</h1>
-          <p class="lead">
-            A cloud-based platform designed to streamline, modernize, and automate fleet and bus operations—
-            bringing CRM/EMS, ticketing, GPS/fuel monitoring, and intelligence into one execution-ready system. :contentReference[oaicite:1]{index=1}
-          </p>
+      <div class="nav">
+        <a class="brand" href="#top" aria-label="Transporter Automation Home">
+          <!-- Put your logo at: /assets/logo.png -->
+          <img class="logo" src="/assets/logo.png" alt="Transporter Automation logo" />
+        </a>
 
-          <div class="heroActions">
-            <a class="btn primary" href="#platform">Explore the platform</a>
-            <a class="btn" href="#pricing">View pricing</a>
-            <a class="btn" href="#hardware">See devices</a>
-          </div>
+        <nav aria-label="Primary">
+          <a href="#problem">Problem</a>
+          <a href="#platform">Platform</a>
+          <a href="#bundles">Bundles</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#hardware">Hardware</a>
+          <a href="#founder">Founder</a>
+          <a href="#contact">Contact</a>
+        </nav>
 
-          <div class="switchRow" style="margin-top:18px;">
-            <span class="pill">Built for medium-to-large fleet owners (25–100+ vehicles). :contentReference[oaicite:2]{index=2}</span>
-          </div>
+        <div class="actions">
+          <button class="btn" id="themeToggle" type="button" aria-label="Toggle theme">🌙 Theme</button>
+          <a class="btn primary" href="#contact">Book a Demo</a>
         </div>
+      </div>
+    </div>
+  </header>
 
-        <div class="card">
-          <div class="statRow">
-            <div class="stat">
-              <div class="badge">⚙️</div>
-              <div>
-                <b>Operate with control</b>
-                <span>Reduce leakage, digitize operations, improve compliance and performance. :contentReference[oaicite:3]{index=3}</span>
-              </div>
-            </div>
-            <div class="stat">
-              <div class="badge">📊</div>
-              <div>
-                <b>Real-time visibility</b>
-                <span>Dashboards for occupancy, revenue, expenses, routes, and trends. :contentReference[oaicite:4]{index=4}</span>
-              </div>
-            </div>
-            <div class="stat">
-              <div class="badge">🛡️</div>
-              <div>
-                <b>Reliability first</b>
-                <span>Designed for availability, security, and continuous backups. :contentReference[oaicite:5]{index=5}</span>
-              </div>
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="grid2">
+          <div>
+            <span class="pill">🚍 Efficient • Streamlined • Revamped Fleet Operations</span>
+            <h1>Transporter Automation</h1>
+            <p class="lead">
+              A modern platform to streamline fleet and bus operations—CRM/EMS, ticketing, GPS & fuel monitoring,
+              and video intelligence—built for real execution, not just dashboards.
+            </p>
+
+            <div class="heroActions">
+              <a class="btn primary" href="#platform">Explore the platform</a>
+              <a class="btn" href="#pricing">View pricing</a>
+              <a class="btn" href="#hardware">See devices</a>
             </div>
 
-            <div class="kpi">
-              <div>
-                <small>Addressable Market Signal</small><br/>
-                <b><span class="count" data-target="134000">0</span>+ operators</b>
+            <div style="margin-top:16px;">
+              <div class="pulse-line" aria-label="Live activity animation">
+                <svg viewBox="0 0 1000 120" preserveAspectRatio="none">
+                  <path class="glow" d="M0,70 C120,20 220,110 340,62 C450,20 520,110 650,64 C790,10 880,110 1000,60"
+                        fill="none" stroke="currentColor" stroke-width="3"
+                        style="color: color-mix(in srgb, var(--brand2) 85%, var(--accent)); opacity:.9;" />
+                  <circle class="dot" cx="0" cy="70" r="6"
+                          style="fill: var(--accent);"></circle>
+                </svg>
               </div>
-              <div class="muted" style="font-weight:900;">India bus operator base :contentReference[oaicite:6]{index=6}</div>
+              <p class="small">Live-style animation for a dynamic, modern feel (no external libraries).</p>
             </div>
           </div>
-        </div>
 
-      </div>
-    </div>
-  </section>
+          <div class="card">
+            <div class="statRow">
+              <div class="stat">
+                <div class="badge">⚙️</div>
+                <div>
+                  <b>Operate with control</b>
+                  <span>Reduce leakage, digitize operations, improve compliance and performance.</span>
+                </div>
+              </div>
+              <div class="stat">
+                <div class="badge">📊</div>
+                <div>
+                  <b>Real-time visibility</b>
+                  <span>Dashboards for occupancy, revenue, expenses, routes, and trends.</span>
+                </div>
+              </div>
+              <div class="stat">
+                <div class="badge">🛡️</div>
+                <div>
+                  <b>Reliability first</b>
+                  <span>Designed for availability, security, and continuous backups.</span>
+                </div>
+              </div>
 
-  <!-- PROBLEM -->
-  <section id="problem">
-    <div class="container">
-      <div class="titleRow">
-        <div>
-          <h2>Problems we solve</h2>
-          <p>Operational leakage, paper-based accounting, fragmented OTAs, and passenger safety gaps create real cost and risk. :contentReference[oaicite:7]{index=7}</p>
-        </div>
-      </div>
+              <div class="kpi">
+                <div>
+                  <small>Operational Signals (demo counters)</small><br/>
+                  <b><span class="count" data-target="250">0</span>+ fleets supported</b>
+                </div>
+                <div class="muted" style="font-weight:950;">sample counter</div>
+              </div>
 
-      <div class="grid3">
-        <div class="card">
-          <b>💸 Revenue leakage & underreporting</b>
-          <p class="small">Staff may understate sales or avoid ticketing for personal gain—forcing owners to add extra checkers and cost. :contentReference[oaicite:8]{index=8}</p>
-        </div>
-        <div class="card">
-          <b>🗂️ Undigitized data & slow decisions</b>
-          <p class="small">Many operators and governments still rely on paper spreadsheets, limiting insight into sales, costs, and growth. :contentReference[oaicite:9]{index=9}</p>
-        </div>
-        <div class="card">
-          <b>🧩 Fragmented booking ecosystems</b>
-          <p class="small">Too many OTA platforms make it difficult to track bookings and respond quickly—leading to lost bookings and inefficiency. :contentReference[oaicite:10]{index=10}</p>
-        </div>
-      </div>
-    </div>
-  </section>
+              <div class="kpi">
+                <div>
+                  <small>Devices monitored</small><br/>
+                  <b><span class="count" data-target="18500">0</span>+</b>
+                </div>
+                <div class="muted" style="font-weight:950;">sample counter</div>
+              </div>
 
-  <!-- PLATFORM -->
-  <section id="platform">
-    <div class="container">
-      <div class="titleRow">
-        <div>
-          <h2>Platform overview</h2>
-          <p>One system to manage customers, routes, revenue, expenses, devices, and execution—built for real operations. :contentReference[oaicite:11]{index=11}</p>
-        </div>
-      </div>
-
-      <div class="grid3">
-        <div class="card">
-          <b>🧑‍💼 CRM + EMS for fleet operations</b>
-          <p class="small">Transporter Sathi supports route scheduling, revenue/expense tracking per vehicle, and performance analytics. :contentReference[oaicite:12]{index=12}</p>
-        </div>
-        <div class="card">
-          <b>📡 IoT integration</b>
-          <p class="small">Devices collect data in real time and provide actionable insights back to the operator workflow. :contentReference[oaicite:13]{index=13}</p>
-        </div>
-        <div class="card">
-          <b>🔗 OTA + payment consolidation</b>
-          <p class="small">Direct connections to OTAs with a single payment gateway concept to unify booking flows. :contentReference[oaicite:14]{index=14}</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BUNDLES -->
-  <section id="bundles">
-    <div class="container">
-      <div class="titleRow">
-        <div>
-          <h2>Bundles</h2>
-          <p>Modular packages designed for adoption and operational rollout. :contentReference[oaicite:15]{index=15}</p>
-        </div>
-      </div>
-
-      <div class="grid2">
-        <div class="card">
-          <h3 style="margin:0 0 8px;">Transporter Sathi</h3>
-          <p class="small">CRM + EMS for bus operations: fleet management, route scheduling, vehicle-level revenue/expense tracking, occupancy and profitability analytics, and route performance data. :contentReference[oaicite:16]{index=16}</p>
-        </div>
-        <div class="card">
-          <h3 style="margin:0 0 8px;">Bus on Go</h3>
-          <p class="small">GPS tracking, theft alerts, fuel consumption and idling dashboards, mileage tracking, and trend reporting across timelines. :contentReference[oaicite:17]{index=17}</p>
-        </div>
-        <div class="card">
-          <h3 style="margin:0 0 8px;">Ticket on Go</h3>
-          <p class="small">App-based ticketing + thermal printer support for conductors and ticket managers with real-time booking visibility to owners via Transporter Sathi. :contentReference[oaicite:18]{index=18}</p>
-        </div>
-        <div class="card">
-          <h3 style="margin:0 0 8px;">3rd I (Video Intelligence)</h3>
-          <p class="small">Cloud video recording + AI-based analysis for passenger counts, boarding/drop points, and safety module to flag suspicious behavior. :contentReference[oaicite:19]{index=19}</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING -->
-  <section id="pricing">
-    <div class="container">
-      <div class="titleRow">
-        <div>
-          <h2>Pricing (SaaS)</h2>
-          <p>Three platform tiers as outlined in your plan. :contentReference[oaicite:20]{index=20}</p>
-        </div>
-      </div>
-
-      <div class="switchRow">
-        <span class="pill">Toggle Billing</span>
-        <div class="switch" role="tablist" aria-label="Billing toggle">
-          <button id="monthlyBtn" class="active" type="button" role="tab">Monthly</button>
-          <button id="yearlyBtn" type="button" role="tab">Yearly (-15%)</button>
-        </div>
-        <span class="pill muted">*Website can be wired to payments later</span>
-      </div>
-
-      <div class="grid3">
-        <div class="card">
-          <span class="pill">SECURE PLATFORM</span>
-          <div class="price"><span class="p" data-month="499" data-year="5090">499</span></div>
-          <div class="muted" style="font-weight:900;">Transporter Sathi + Bus on GO :contentReference[oaicite:21]{index=21}</div>
-          <ul class="list">
-            <li>Core CRM/EMS</li>
-            <li>Route + revenue/expense visibility</li>
-            <li>Fleet tracking dashboard</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <span class="pill">PROTECT PLATFORM</span>
-          <div class="price"><span class="p" data-month="599" data-year="6110">599</span></div>
-          <div class="muted" style="font-weight:900;">Transporter Sathi + Ticket on GO + Bus on GO :contentReference[oaicite:22]{index=22}</div>
-          <ul class="list">
-            <li>Ticketing + printing workflow</li>
-            <li>Real-time booking visibility</li>
-            <li>Owner oversight enhancements</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <span class="pill">CONTROL PLATFORM</span>
-          <div class="price"><span class="p" data-month="899" data-year="9170">899</span></div>
-          <div class="muted" style="font-weight:900;">Transporter Sathi + Ticket on GO + Bus on GO + 3rd I :contentReference[oaicite:23]{index=23}</div>
-          <ul class="list">
-            <li>Video storage + intelligence</li>
-            <li>Safety and passenger analytics</li>
-            <li>Highest control + compliance support</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HARDWARE -->
-  <section id="hardware">
-    <div class="container">
-      <div class="titleRow">
-        <div>
-          <h2>Hardware & IoT Devices</h2>
-          <p>Key devices and specs (as defined in your business plan). :contentReference[oaicite:24]{index=24}</p>
-        </div>
-      </div>
-
-      <div class="grid3">
-        <div class="card">
-          <b>📍 VT100 GPS / Fuel Sensor</b>
-          <p class="small"><b>Price:</b> 2800. 2G GSM GPS tracker for real-time monitoring, anti-theft, dispatch, and analog RS232 fuel monitoring input. :contentReference[oaicite:25]{index=25}</p>
-          <ul class="list">
-            <li>Module: M25 (Quectel)</li>
-            <li>Band: 850/900/1800/1900MHz</li>
-            <li>Voltage: DC 9–100V / 1.5A</li>
-            <li>Battery: 55 mAh Li-ion</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <b>🧾 F2C 58mm Thermal Printer</b>
-          <p class="small"><b>Price:</b> 2400. Portable BT/USB thermal receipt printer with rechargeable battery. :contentReference[oaicite:26]{index=26}</p>
-          <ul class="list">
-            <li>Paper: 57mm ± 0.5mm</li>
-            <li>Resolution: 203dpi</li>
-            <li>Speed: 50–80mm/s</li>
-            <li>Battery: 2500mAh / 3.7V</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <b>📷 T18021-AC IP CCTV (4G)</b>
-          <p class="small"><b>Price:</b> 7000. 3MP 4G CCTV with Micro SD (up to 128GB), two-way audio, human detection, area movement alerts. :contentReference[oaicite:27]{index=27}</p>
-          <ul class="list">
-            <li>Sensor: 1/2.7" CMOS</li>
-            <li>Resolution: 2304×1296</li>
-            <li>IR distance: &gt; 20m</li>
-            <li>Connection: 4G / network cable</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- MARKET -->
-  <section id="market">
-    <div class="container">
-      <div class="titleRow">
-        <div>
-          <h2>Market & Go-to-Market</h2>
-          <p>Market snapshot and sales strategy from your plan. :contentReference[oaicite:28]{index=28}</p>
-        </div>
-      </div>
-
-      <div class="grid2">
-        <div class="card">
-          <b>Market snapshot (India)</b>
-          <div class="grid2" style="margin-top:12px;">
-            <div class="kpi"><div><small>Bus operators</small><br/><b><span class="count" data-target="134000">0</span>+</b></div><div class="muted" style="font-weight:900;">Operators :contentReference[oaicite:29]{index=29}</div></div>
-            <div class="kpi"><div><small>Buses on road</small><br/><b><span class="count" data-target="2200000">0</span>+</b></div><div class="muted" style="font-weight:900;">Buses :contentReference[oaicite:30]{index=30}</div></div>
-          </div>
-          <div class="grid2" style="margin-top:12px;">
-            <div class="kpi"><div><small>Ticket revenue</small><br/><b>$<span class="count" data-target="28">0</span>B</b></div><div class="muted" style="font-weight:900;">Yearly :contentReference[oaicite:31]{index=31}</div></div>
-            <div class="kpi"><div><small>Routes</small><br/><b><span class="count" data-target="150000">0</span>+</b></div><div class="muted" style="font-weight:900;">Routes :contentReference[oaicite:32]{index=32}</div></div>
+            </div>
           </div>
 
-          <p class="small">
-            Your plan highlights government directives around GPS and CCTV adoption in buses, plus the need for digitization at fleet level. :contentReference[oaicite:33]{index=33}
-          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section id="problem">
+      <div class="container">
+        <div class="titleRow">
+          <div>
+            <h2>Problems we solve</h2>
+            <p>Fleet owners struggle with leakage, undigitized processes, fragmented platforms, and safety gaps.</p>
+          </div>
         </div>
 
-        <div class="chartWrap">
-          <b>Sales channels</b>
-          <p class="small">Primary channels: <b>online</b>, <b>sales representatives</b>, and <b>resellers</b>. :contentReference[oaicite:34]{index=34}</p>
-
-          <div class="bars" aria-label="Sales channels chart">
-            <div class="bar" style="height:55%"></div>
-            <div class="bar" style="height:75%"></div>
-            <div class="bar" style="height:65%"></div>
+        <div class="grid3">
+          <div class="card">
+            <b>💸 Revenue leakage & underreporting</b>
+            <p class="small">Minimize manual leakage with ticketing + reconciled reporting and owner visibility.</p>
           </div>
-          <div class="barLabel">
-            <span>Online</span><span>Sales reps</span><span>Resellers</span>
+          <div class="card">
+            <b>🗂️ Paper-based accounting & slow decisions</b>
+            <p class="small">Digitize operational data so you can act daily—routes, costs, and performance.</p>
           </div>
+          <div class="card">
+            <b>🧩 Fragmented booking ecosystems</b>
+            <p class="small">Unify workflows and consolidate booking visibility across operations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <div class="card" style="margin-top:14px;">
-            <b>Milestones</b>
+    <!-- PLATFORM -->
+    <section id="platform">
+      <div class="container">
+        <div class="titleRow">
+          <div>
+            <h2>Platform overview</h2>
+            <p>One system to manage customers, routes, revenue, expenses, devices, and execution.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="card">
+            <b>🧑‍💼 CRM + EMS for fleet operations</b>
+            <p class="small">Route scheduling, vehicle P&L visibility, occupancy analytics, and route performance reporting.</p>
+          </div>
+          <div class="card">
+            <b>📡 IoT integration</b>
+            <p class="small">Collect real-time data from devices and turn it into actionable operator workflows.</p>
+          </div>
+          <div class="card">
+            <b>🔗 Booking + payment consolidation</b>
+            <p class="small">Bring booking visibility into one view to reduce missed demand and improve planning.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUNDLES -->
+    <section id="bundles">
+      <div class="container">
+        <div class="titleRow">
+          <div>
+            <h2>Bundles</h2>
+            <p>Modular packages designed for fast adoption and operational rollout.</p>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <h3 style="margin:0 0 8px;">Transporter Sathi</h3>
+            <p class="small">CRM + EMS for operations: scheduling, vehicle-level revenue/expense, occupancy and profitability analytics.</p>
+          </div>
+          <div class="card">
+            <h3 style="margin:0 0 8px;">Bus on Go</h3>
+            <p class="small">GPS tracking, theft alerts, fuel consumption & idling dashboards, mileage tracking and trends.</p>
+          </div>
+          <div class="card">
+            <h3 style="margin:0 0 8px;">Ticket on Go</h3>
+            <p class="small">App-based ticketing + thermal printing workflow with owner visibility in real time.</p>
+          </div>
+          <div class="card">
+            <h3 style="margin:0 0 8px;">3rd I (Video Intelligence)</h3>
+            <p class="small">Cloud video recording + AI analysis for passenger counts, safety, and suspicious behavior alerts.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing">
+      <div class="container">
+        <div class="titleRow">
+          <div>
+            <h2>Pricing (SaaS)</h2>
+            <p>Simple tiers with optional devices and add-ons. Toggle monthly/yearly.</p>
+          </div>
+        </div>
+
+        <div class="switchRow">
+          <span class="pill">Toggle Billing</span>
+          <div class="switch" role="tablist" aria-label="Billing toggle">
+            <button id="monthlyBtn" class="active" type="button" role="tab">Monthly</button>
+            <button id="yearlyBtn" type="button" role="tab">Yearly (-15%)</button>
+          </div>
+          <span class="pill muted">Connect payments later (Stripe/Razorpay)</span>
+        </div>
+
+        <div class="grid3">
+          <div class="card">
+            <span class="pill">SECURE PLATFORM</span>
+            <div class="price">₹ <span class="p" data-month="499" data-year="5090">499</span></div>
+            <div class="muted" style="font-weight:950;">Transporter Sathi + Bus on GO</div>
             <ul class="list">
-              <li>Incorporated the company</li>
-              <li>Built the management team</li>
-              <li>Completed the business plan</li>
-              <li>Built beta version of the product</li>
+              <li>Core CRM/EMS</li>
+              <li>Route + revenue/expense visibility</li>
+              <li>Fleet tracking dashboard</li>
             </ul>
-            <p class="small">Fundraising requests and usage are described in the plan. :contentReference[oaicite:35]{index=35}</p>
+          </div>
+
+          <div class="card">
+            <span class="pill">PROTECT PLATFORM</span>
+            <div class="price">₹ <span class="p" data-month="599" data-year="6110">599</span></div>
+            <div class="muted" style="font-weight:950;">Sathi + Ticket on GO + Bus on GO</div>
+            <ul class="list">
+              <li>Ticketing + printing workflow</li>
+              <li>Real-time booking visibility</li>
+              <li>Owner oversight enhancements</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="pill">CONTROL PLATFORM</span>
+            <div class="price">₹ <span class="p" data-month="899" data-year="9170">899</span></div>
+            <div class="muted" style="font-weight:950;">All modules + 3rd I</div>
+            <ul class="list">
+              <li>Video storage + intelligence</li>
+              <li>Safety and passenger analytics</li>
+              <li>Highest control + compliance support</li>
+            </ul>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FOUNDER (Aprampar only) -->
-  <section id="founder">
-    <div class="container">
-      <div class="titleRow">
-        <div>
-          <h2>Founder</h2>
-          <p>Single-founder profile shown (cofounders removed as requested).</p>
+    <!-- HARDWARE -->
+    <section id="hardware">
+      <div class="container">
+        <div class="titleRow">
+          <div>
+            <h2>Hardware & IoT Devices</h2>
+            <p>Optional devices that integrate with the platform for full visibility and control.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="card">
+            <b>📍 GPS / Fuel Sensor</b>
+            <p class="small">Real-time monitoring, anti-theft, dispatch support, and fuel monitoring inputs.</p>
+            <ul class="list">
+              <li>2G/4G device variants supported</li>
+              <li>Vehicle voltage range compatible</li>
+              <li>Alerts + trend dashboards</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <b>🧾 Thermal Ticket Printer</b>
+            <p class="small">Portable BT/USB thermal printer for fast conductor ticketing workflows.</p>
+            <ul class="list">
+              <li>58mm receipts</li>
+              <li>Fast print speeds</li>
+              <li>Rechargeable battery</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <b>📷 CCTV (4G) + Intelligence</b>
+            <p class="small">On-bus camera plus optional intelligence features for safety and passenger analytics.</p>
+            <ul class="list">
+              <li>Cloud + SD storage options</li>
+              <li>Event alerts</li>
+              <li>AI add-ons</li>
+            </ul>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="card">
-        <b>Aprampar Singh — Founder & CEO</b>
-        <p class="small">
-          Operations and rollout experience across transportation and telecom markets, leading delivery and scaling initiatives
-          and building teams across front-end and back-end engineering. :contentReference[oaicite:36]{index=36}
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="container">
-      <div class="titleRow">
-        <div>
-          <h2>Contact</h2>
-          <p>Request a demo, partnership discussion, or deployment plan.</p>
+    <!-- FOUNDER -->
+    <section id="founder">
+      <div class="container">
+        <div class="titleRow">
+          <div>
+            <h2>Founder</h2>
+            <p>Single-founder profile (as requested).</p>
+          </div>
         </div>
-      </div>
 
-      <div class="grid2">
         <div class="card">
-          <b>Reach out</b>
+          <b>Aprampar Singh — Founder & CEO</b>
           <p class="small">
-            Email: <a href="mailto:aprampar.johal@gmail.com">aprampar.johal@gmail.com</a><br/>
-            Website: <a href="https://www.transporterautomation.com" target="_blank" rel="noopener">transporterautomation.com</a>
+            Building execution-first systems for transportation operations—combining platform, devices, and rollout discipline
+            to deliver measurable operational performance.
           </p>
-          <span class="pill">Deployment • Training • Support</span>
-          <p class="small">You can also publish the business plan as a downloadable PDF on this page if desired. :contentReference[oaicite:37]{index=37}</p>
-        </div>
-
-        <div class="card">
-          <b>Quick message</b>
-          <form onsubmit="return fakeSubmit(event)">
-            <label for="name">Name</label><br/>
-            <input id="name" required /><br/><br/>
-            <label for="email">Email</label><br/>
-            <input id="email" type="email" required /><br/><br/>
-            <label for="msg">Message</label><br/>
-            <textarea id="msg" rows="4" required></textarea><br/><br/>
-            <button class="btn primary" type="submit">Send</button>
-            <p id="note" class="small"></p>
-          </form>
         </div>
       </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="titleRow">
+          <div>
+            <h2>Contact</h2>
+            <p>Request a demo, partnership discussion, or deployment plan.</p>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <b>Reach out</b>
+            <p class="small">
+              Email: <a href="mailto:apramparsingh@automatas.store">apramparsingh@automatas.store</a><br/>
+              Website: <a href="https://www.automtas.com" target="_blank" rel="noopener">automtas.com</a>
+            </p>
+            <span class="pill">Deployment • Training • Support</span>
+            <p class="small">We can wire this form to your email or CRM (HubSpot/Zoho) once hosting is confirmed.</p>
+          </div>
+
+          <div class="card">
+            <b>Quick message</b>
+            <form onsubmit="return fakeSubmit(event)">
+              <label for="name">Name</label><br/>
+              <input id="name" required /><br/><br/>
+              <label for="email">Email</label><br/>
+              <input id="email" type="email" required /><br/><br/>
+              <label for="msg">Message</label><br/>
+              <textarea id="msg" rows="4" required></textarea><br/><br/>
+              <button class="btn primary" type="submit">Send</button>
+              <p id="note" class="small"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footerGrid">
+        <div>
+          <img class="logo" src="/assets/logo.png" alt="Transporter Automation logo" />
+          <p class="small">Transporter Automation — streamlined fleet operations through platform + devices + execution.</p>
+        </div>
+        <div class="footerLinks">
+          <b>Pages</b>
+          <a href="#problem">Problem</a>
+          <a href="#bundles">Bundles</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#hardware">Hardware</a>
+        </div>
+        <div class="footerLinks">
+          <b>Contact</b>
+          <a href="mailto:apramparsingh@automatas.store">apramparsingh@automatas.store</a>
+          <a href="#contact">Book a demo</a>
+        </div>
+      </div>
+
+      <p class="small" style="margin-top:18px;">
+        © <span id="year"></span> Transporter Automation. All rights reserved.
+      </p>
     </div>
-  </section>
-</main>
+  </footer>
 
-<footer>
-  <div class="container">
-    <div class="footerGrid">
-      <div>
-        <img class="logo" src="/assets/logo.png" alt="Transporter Automation logo" />
-        <p class="small">Transporter Automation — streamlined fleet operations through platform + devices + execution. :contentReference[oaicite:38]{index=38}</p>
-      </div>
-      <div class="footerLinks">
-        <b>Pages</b>
-        <a href="#problem">Problem</a>
-        <a href="#bundles">Bundles</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#hardware">Hardware</a>
-      </div>
-      <div class="footerLinks">
-        <b>Contact</b>
-        <a href="mailto:aprampar.johal@gmail.com">aprampar.johal@gmail.com</a>
-        <a href="#contact">Book a demo</a>
-      </div>
-    </div>
-
-    <p class="small" style="margin-top:18px;">
-      © <span id="year"></span> Transporter Automation. All rights reserved.
-    </p>
-  </div>
-</footer>
-
-<script>
-  // ===== Theme toggle (auto + saved)
-  const root = document.documentElement;
-  const saved = localStorage.getItem("theme");
-  if (!saved) {
-    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-    root.classList.toggle("dark", prefersDark);
-  } else {
-    root.classList.toggle("dark", saved === "dark");
-  }
-  document.getElementById("themeToggle")?.addEventListener("click", () => {
-    root.classList.toggle("dark");
-    localStorage.setItem("theme", root.classList.contains("dark") ? "dark" : "light");
-  });
-
-  // ===== Year
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  // ===== Animated counters
-  const counters = [...document.querySelectorAll(".count")];
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const el = e.target;
-      if (el.dataset.done === "1") return;
-      el.dataset.done = "1";
-      const target = Number(el.dataset.target || "0");
-      const start = 0;
-      const duration = 900;
-      const t0 = performance.now();
-      const step = (t) => {
-        const p = Math.min(1, (t - t0)/duration);
-        const val = Math.floor(start + (target - start) * (1 - Math.pow(1-p,3)));
-        el.textContent = val.toLocaleString();
-        if (p < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
+  <script>
+    // ===== Theme toggle (auto + saved)
+    const root = document.documentElement;
+    const saved = localStorage.getItem("theme");
+    if (!saved) {
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      root.classList.toggle("dark", prefersDark);
+    } else {
+      root.classList.toggle("dark", saved === "dark");
+    }
+    document.getElementById("themeToggle")?.addEventListener("click", () => {
+      root.classList.toggle("dark");
+      localStorage.setItem("theme", root.classList.contains("dark") ? "dark" : "light");
     });
-  }, {threshold: 0.4});
-  counters.forEach(c => io.observe(c));
 
-  // ===== Pricing toggle
-  const monthlyBtn = document.getElementById("monthlyBtn");
-  const yearlyBtn = document.getElementById("yearlyBtn");
-  const priceEls = [...document.querySelectorAll(".p")];
+    // ===== Year
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-  function setBilling(mode){
-    priceEls.forEach(el=>{
-      const v = mode === "year" ? el.dataset.year : el.dataset.month;
-      el.textContent = Number(v).toLocaleString();
-    });
-    monthlyBtn.classList.toggle("active", mode === "month");
-    yearlyBtn.classList.toggle("active", mode === "year");
-  }
-  monthlyBtn?.addEventListener("click", ()=>setBilling("month"));
-  yearlyBtn?.addEventListener("click", ()=>setBilling("year"));
+    // ===== Animated counters (dynamic)
+    const counters = [...document.querySelectorAll(".count")];
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        if (el.dataset.done === "1") return;
+        el.dataset.done = "1";
+        const target = Number(el.dataset.target || "0");
+        const start = 0;
+        const duration = 900;
+        const t0 = performance.now();
+        const step = (t) => {
+          const p = Math.min(1, (t - t0)/duration);
+          const val = Math.floor(start + (target - start) * (1 - Math.pow(1-p,3)));
+          el.textContent = val.toLocaleString();
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }, {threshold: 0.4});
+    counters.forEach(c => io.observe(c));
 
-  // ===== Contact form placeholder (wire to backend later)
-  function fakeSubmit(e){
-    e.preventDefault();
-    document.getElementById("note").textContent =
-      "Thanks — please email directly for now (form wiring can be added to your hosting).";
-    return false;
-  }
-</script>
+    // ===== Pricing toggle
+    const monthlyBtn = document.getElementById("monthlyBtn");
+    const yearlyBtn = document.getElementById("yearlyBtn");
+    const priceEls = [...document.querySelectorAll(".p")];
+
+    function setBilling(mode){
+      priceEls.forEach(el=>{
+        const v = mode === "year" ? el.dataset.year : el.dataset.month;
+        el.textContent = Number(v).toLocaleString();
+      });
+      monthlyBtn.classList.toggle("active", mode === "month");
+      yearlyBtn.classList.toggle("active", mode === "year");
+    }
+    monthlyBtn?.addEventListener("click", ()=>setBilling("month"));
+    yearlyBtn?.addEventListener("click", ()=>setBilling("year"));
+
+    // ===== Contact form placeholder (wire to backend later)
+    function fakeSubmit(e){
+      e.preventDefault();
+      document.getElementById("note").textContent =
+        "Thanks — please email directly for now (form wiring can be added to your hosting).";
+      return false;
+    }
+  </script>
 </body>
 </html>
 
