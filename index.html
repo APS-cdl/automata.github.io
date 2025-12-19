@@ -2,63 +2,175 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Automatas — Execution-first industrial consulting & intelligent systems for manufacturing, logistics, and asset-intensive operations." />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Automatas | Industrial Consulting</title>
+  <meta name="description" content="Automatas — execution-first industrial consulting & intelligent systems for manufacturing, logistics, drones, and rail construction operations." />
 
   <style>
     /* =========================
-       THEME TOKENS
+       LIGHT BLUE THEME + DARK MODE
        ========================= */
     :root{
       color-scheme: light dark;
 
-      --bg: #ffffff;
-      --bg-2: #f5f7fb;
-      --card: #ffffff;
-      --text: #0b1220;
-      --muted: #44506a;
-      --border: #e6e8ef;
-      --shadow: 0 10px 30px rgba(10, 20, 60, 0.08);
+      /* Light theme */
+      --bg: #f6fbff;          /* very light blue background */
+      --bg2:#eef6ff;          /* light section tint */
+      --card:#ffffff;
+      --text:#0b1220;
+      --muted:#44506a;
+      --border:#d7e7ff;
 
-      --brand: #0A3D62;   /* Deep blue */
-      --brand-2: #1aa3ff; /* Accent blue */
-      --ring: rgba(26,163,255,.35);
+      --brand:#0b4aa6;        /* deep blue */
+      --brand2:#3aa6ff;       /* light blue */
+      --accent:#6ee7ff;       /* cyan accent */
 
-      --max: 1120px;
-      --radius: 18px;
+      --shadow: 0 12px 34px rgba(10,20,60,.10);
+      --ring: rgba(58,166,255,.25);
+      --max: 1140px;
+      --r: 18px;
     }
 
     html.dark{
-      --bg: #070b16;
-      --bg-2: #0b1328;
-      --card: #0b1328;
-      --text: #eef2ff;
-      --muted: #b7c1dd;
-      --border: #1a2550;
-      --shadow: 0 12px 34px rgba(0,0,0,.45);
+      --bg:#061021;
+      --bg2:#0a1933;
+      --card:#0b1328;
+      --text:#eef2ff;
+      --muted:#b7c1dd;
+      --border:#19315f;
 
-      --brand: #65b7ff;
-      --brand-2: #2aa8ff;
-      --ring: rgba(101,183,255,.30);
+      --brand:#65b7ff;
+      --brand2:#2aa8ff;
+      --accent:#56e0ff;
+
+      --shadow: 0 14px 38px rgba(0,0,0,.45);
+      --ring: rgba(101,183,255,.25);
     }
 
-    /* =========================
-       BASE
-       ========================= */
     *{ box-sizing: border-box; }
+    html, body { height: 100%; }
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.55;
+      overflow-x:hidden;
     }
     a{ color: inherit; }
-    .container{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 0 20px;
+    .container{ max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+    /* =========================
+       BACKGROUND GRAPHICS (animated)
+       ========================= */
+    .bg-wrap{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+      background:
+        radial-gradient(1100px 680px at 20% 10%, color-mix(in srgb, var(--brand2) 20%, transparent), transparent 65%),
+        radial-gradient(900px 540px at 85% 12%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 68%),
+        linear-gradient(180deg, color-mix(in srgb, var(--bg) 90%, transparent), var(--bg));
+    }
+    .grid{
+      position:absolute; inset:-40px;
+      background-image:
+        linear-gradient(color-mix(in srgb, var(--border) 55%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in srgb, var(--border) 55%, transparent) 1px, transparent 1px);
+      background-size: 56px 56px;
+      opacity: .50;
+      transform: perspective(900px) rotateX(58deg) translateY(-220px);
+      animation: gridFloat 12s ease-in-out infinite;
+      filter: blur(.2px);
+    }
+    @keyframes gridFloat{
+      0%,100%{ transform: perspective(900px) rotateX(58deg) translateY(-220px) translateX(0); }
+      50%{ transform: perspective(900px) rotateX(58deg) translateY(-238px) translateX(14px); }
+    }
+    .orb{
+      position:absolute; border-radius:50%;
+      filter: blur(22px);
+      opacity:.55;
+      mix-blend-mode: screen;
+      animation: drift 20s ease-in-out infinite;
+      background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--brand2) 45%, transparent), transparent 62%);
+    }
+    .orb.o2{
+      animation-duration: 26s;
+      opacity:.48;
+      background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--accent) 40%, transparent), transparent 62%);
+    }
+    .orb.o3{
+      animation-duration: 30s;
+      opacity:.42;
+      background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--brand) 40%, transparent), transparent 62%);
+    }
+    @keyframes drift{
+      0%{ transform: translate(-10%, -12%) scale(1); }
+      50%{ transform: translate(16%, 12%) scale(1.06); }
+      100%{ transform: translate(-10%, -12%) scale(1); }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .grid, .orb{ animation:none !important; }
+      .pulse-dot{ animation:none !important; }
+    }
+
+    /* =========================
+       COMPONENTS
+       ========================= */
+    .card{
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--card) 92%, transparent);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      backdrop-filter: blur(10px);
+    }
+    .btn{
+      border:1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 14px;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring); }
+    .btn.primary{
+      border-color: color-mix(in srgb, var(--brand2) 55%, var(--border));
+      background: linear-gradient(135deg,
+        color-mix(in srgb, var(--brand) 18%, var(--card)),
+        color-mix(in srgb, var(--brand2) 12%, var(--card))
+      );
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius: 999px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--bg2) 75%, transparent);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .muted{ color: var(--muted); }
+    .small{ font-size: 13.5px; color: var(--muted); font-weight: 650; margin: 10px 0 0; }
+
+    .grid2{ display:grid; grid-template-columns: 1.15fr .85fr; gap: 14px; }
+    .grid3{ display:grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    @media (max-width: 980px){
+      .grid2,.grid3{ grid-template-columns: 1fr; }
+      nav{ display:none; }
     }
 
     /* =========================
@@ -68,9 +180,9 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: color-mix(in srgb, var(--bg) 85%, transparent);
-      backdrop-filter: blur(10px);
+      background: color-mix(in srgb, var(--bg) 86%, transparent);
       border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
     }
     .nav{
       display:flex;
@@ -82,255 +194,100 @@
     .brand{
       display:flex;
       align-items:center;
-      gap:12px;
+      gap: 12px;
       text-decoration:none;
       min-width: 220px;
     }
-    .brand-logo{
-      height: 42px;
-      width: auto;
-      display:block;
-    }
-    /* If logo looks too dark on dark mode, keep this ON */
-    html.dark .brand-logo{
-      filter: brightness(1.15) contrast(1.05);
-    }
+    .brand-logo{ height: 42px; width:auto; display:block; }
+    html.dark .brand-logo{ filter: brightness(1.15) contrast(1.05); }
 
-    .nav-links{
-      display:flex;
-      gap: 18px;
-      align-items:center;
-      justify-content:center;
-      flex: 1;
-    }
-    .nav-links a{
+    nav a{
       text-decoration:none;
       color: var(--muted);
-      font-weight: 600;
+      font-weight: 800;
       font-size: 14px;
       padding: 8px 10px;
       border-radius: 10px;
     }
-    .nav-links a:hover{
-      color: var(--text);
-      background: var(--bg-2);
-    }
+    nav a:hover{ background: var(--bg2); color: var(--text); }
 
-    .nav-actions{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      min-width: 220px;
-      justify-content:flex-end;
-    }
-
-    .btn{
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 14px;
-      box-shadow: none;
-      transition: transform .08s ease, border-color .15s ease, background .15s ease;
-    }
-    .btn:hover{ transform: translateY(-1px); }
-    .btn.primary{
-      border-color: color-mix(in srgb, var(--brand-2) 55%, var(--border));
-      background: linear-gradient(135deg, color-mix(in srgb, var(--brand) 18%, var(--card)), color-mix(in srgb, var(--brand-2) 10%, var(--card)));
-    }
-    .btn:focus{
-      outline:none;
-      box-shadow: 0 0 0 4px var(--ring);
-    }
-
-    /* =========================
-       HERO
-       ========================= */
-    .hero{
-      padding: 54px 0 26px;
-      background:
-        radial-gradient(900px 500px at 25% 10%, color-mix(in srgb, var(--brand-2) 18%, transparent), transparent 60%),
-        radial-gradient(700px 420px at 80% 15%, color-mix(in srgb, var(--brand) 20%, transparent), transparent 60%);
-    }
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.25fr .85fr;
-      gap: 22px;
-      align-items: stretch;
-    }
-    .kicker{
-      display:inline-flex;
-      gap: 8px;
-      align-items:center;
-      padding: 6px 10px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: color-mix(in srgb, var(--bg-2) 75%, transparent);
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 700;
-    }
-    h1{
-      margin: 14px 0 10px;
-      font-size: clamp(30px, 4vw, 46px);
-      line-height: 1.12;
-      letter-spacing: -0.02em;
-    }
-    .lead{
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: 16px;
-      max-width: 62ch;
-    }
-    .hero-actions{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-    }
-    .card{
-      border: 1px solid var(--border);
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 18px;
-    }
-    .stat{
-      display:flex;
-      gap: 12px;
-      align-items:flex-start;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .stat:last-child{ border-bottom: 0; padding-bottom: 0; }
-    .badge{
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      display:grid;
-      place-items:center;
-      border: 1px solid var(--border);
-      background: color-mix(in srgb, var(--bg-2) 70%, transparent);
-      font-size: 16px;
-    }
-    .stat b{ display:block; margin-bottom: 2px; }
-    .stat span{ color: var(--muted); font-size: 13.5px; }
+    .actions{ display:flex; gap:10px; align-items:center; justify-content:flex-end; min-width:220px; }
 
     /* =========================
        SECTIONS
        ========================= */
-    section{
-      padding: 46px 0;
+    section{ padding: 46px 0; }
+    .hero{ padding: 58px 0 26px; }
+
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
     }
-    .section-title{
+    .lead{
+      margin: 0 0 16px;
+      color: var(--muted);
+      max-width: 72ch;
+    }
+    .hero-actions{ display:flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+
+    .titleRow{
       display:flex;
       align-items:flex-end;
       justify-content: space-between;
       gap: 18px;
       margin-bottom: 16px;
     }
-    .section-title h2{
-      margin:0;
-      font-size: 26px;
-      letter-spacing: -0.01em;
+    .titleRow h2{ margin:0; font-size: 26px; letter-spacing: -0.01em; }
+    .titleRow p{ margin:0; color: var(--muted); max-width: 78ch; font-size: 14.5px; }
+
+    /* =========================
+       HERO MINI LIVE GRAPHIC
+       ========================= */
+    .pulse-line{
+      width:100%;
+      height:92px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background: color-mix(in srgb, var(--bg2) 70%, transparent);
+      overflow:hidden;
+      margin-top: 14px;
+      position:relative;
     }
-    .section-title p{
-      margin:0;
-      color: var(--muted);
-      max-width: 62ch;
+    .pulse-line svg{ width:100%; height:100%; }
+    .pulse-dot{ animation: dotMove 4.2s linear infinite; }
+    @keyframes dotMove{
+      0%{ transform: translateX(-8%); opacity:0; }
+      10%{ opacity:1; }
+      90%{ opacity:1; }
+      100%{ transform: translateX(108%); opacity:0; }
+    }
+
+    /* =========================
+       TESTIMONIALS
+       ========================= */
+    .quote{
       font-size: 14.5px;
+      color: var(--text);
+      margin: 8px 0 10px;
     }
-
-    .grid-3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    .tile{
-      border: 1px solid var(--border);
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: var(--shadow);
-    }
-    .tile h3{
-      margin: 8px 0 6px;
-      font-size: 16px;
-    }
-    .tile p{
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .icon{
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      display:grid;
-      place-items:center;
-      border: 1px solid var(--border);
-      background: color-mix(in srgb, var(--bg-2) 70%, transparent);
-      font-size: 18px;
-    }
-
-    .steps{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      align-items: start;
-    }
-    .step{
+    .person{
       display:flex;
-      gap: 12px;
-      align-items:flex-start;
-      padding: 14px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--card);
-      box-shadow: var(--shadow);
-    }
-    .step .num{
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      display:grid;
-      place-items:center;
-      font-weight: 900;
-      color: var(--brand);
-      background: color-mix(in srgb, var(--bg-2) 70%, transparent);
-    }
-    .step b{ display:block; }
-    .step p{ margin: 4px 0 0; color: var(--muted); font-size: 14px; }
-
-    .case{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-    .case ul{
-      margin: 10px 0 0;
-      padding-left: 18px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .pill-row{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      align-items:center;
+      gap:10px;
       margin-top: 10px;
-    }
-    .pill{
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 13px;
       color: var(--muted);
-      background: color-mix(in srgb, var(--bg-2) 75%, transparent);
-      font-weight: 700;
+      font-weight: 800;
+      font-size: 13.5px;
+    }
+    .avatar{
+      width:34px; height:34px; border-radius:12px;
+      border:1px solid var(--border);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--brand2) 22%, var(--bg2)), color-mix(in srgb, var(--accent) 16%, var(--bg2)));
+      display:grid; place-items:center;
+      font-weight: 950;
+      color: color-mix(in srgb, var(--brand) 75%, var(--text));
     }
 
     /* =========================
@@ -339,42 +296,42 @@
     footer{
       padding: 34px 0 60px;
       border-top: 1px solid var(--border);
-      background: color-mix(in srgb, var(--bg-2) 55%, transparent);
+      background: color-mix(in srgb, var(--bg2) 55%, transparent);
+      backdrop-filter: blur(10px);
     }
-    .footer-grid{
-      display:grid;
-      grid-template-columns: 1.4fr 1fr 1fr;
-      gap: 14px;
-      align-items:start;
-    }
-    .small{ color: var(--muted); font-size: 13.5px; margin: 10px 0 0; }
-    .footer-links a{
+    .footerGrid{ display:grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 14px; }
+    @media (max-width:980px){ .footerGrid{ grid-template-columns: 1fr; } }
+    .footerLinks a{
       display:block;
+      padding: 6px 0;
       text-decoration:none;
       color: var(--muted);
-      padding: 6px 0;
-      font-weight: 600;
+      font-weight: 800;
       font-size: 14px;
     }
-    .footer-links a:hover{ color: var(--text); }
+    .footerLinks a:hover{ color: var(--text); }
 
-    /* =========================
-       RESPONSIVE
-       ========================= */
-    @media (max-width: 980px){
-      .hero-grid{ grid-template-columns: 1fr; }
-      .nav-links{ display:none; }
-      .nav-actions{ min-width: auto; }
-      .brand{ min-width: auto; }
-      .grid-3{ grid-template-columns: 1fr; }
-      .steps{ grid-template-columns: 1fr; }
-      .case{ grid-template-columns: 1fr; }
-      .footer-grid{ grid-template-columns: 1fr; }
+    input, textarea{
+      width:100%;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background: var(--bg2);
+      color: var(--text);
     }
+    label{ font-size: 13px; color: var(--muted); font-weight: 900; }
   </style>
 </head>
 
 <body>
+  <!-- animated background -->
+  <div class="bg-wrap" aria-hidden="true">
+    <div class="grid"></div>
+    <div class="orb" style="width:420px;height:420px;left:-140px;top:-140px;"></div>
+    <div class="orb o2" style="width:520px;height:520px;right:-180px;top:-160px;"></div>
+    <div class="orb o3" style="width:360px;height:360px;left:22%;bottom:-210px;"></div>
+  </div>
+
   <header>
     <div class="container">
       <div class="nav">
@@ -383,16 +340,15 @@
           <img class="brand-logo" src="/assets/automatas-logo.png" alt="Automatas logo" />
         </a>
 
-        <nav class="nav-links" aria-label="Primary">
+        <nav aria-label="Primary">
           <a href="#services">Services</a>
-          <a href="#delivery">How We Deliver</a>
-          <a href="#case">Case Study</a>
-          <a href="#regions">Regions</a>
+          <a href="#case-studies">Case Studies</a>
+          <a href="#testimonials">Testimonials</a>
           <a href="#contact">Contact</a>
         </nav>
 
-        <div class="nav-actions">
-          <button class="btn" id="themeToggle" type="button" aria-label="Toggle theme">Toggle theme</button>
+        <div class="actions">
+          <button class="btn" id="themeToggle" type="button" aria-label="Toggle theme">🌙 Theme</button>
           <a class="btn primary" href="#contact">Book a call</a>
         </div>
       </div>
@@ -403,41 +359,57 @@
     <!-- HERO -->
     <section class="hero">
       <div class="container">
-        <div class="hero-grid">
+        <div class="grid2">
           <div>
-            <div class="kicker">⚙️ Execution-first industrial consulting</div>
+            <span class="pill">⚙️ Execution-first industrial consulting • Light-blue theme</span>
             <h1>Industry 4.0 transformation that works on the floor.</h1>
             <p class="lead">
-              Automatas partners with industrial teams to stabilize operations, remove constraints, and embed scalable operating systems—turning
-              technology into measurable performance across plants and sites.
+              Automatas works directly with operations teams—factory floor, field work, and asset-heavy environments—
+              to stabilize performance, integrate IoT data, and apply AI/ML where it improves real execution outcomes.
             </p>
 
             <div class="hero-actions">
-              <a class="btn primary" href="#services">See what we do</a>
-              <a class="btn" href="#case">View case study</a>
+              <a class="btn primary" href="#case-studies">View case studies</a>
+              <a class="btn" href="#services">What we do</a>
             </div>
+
+            <!-- live graphic -->
+            <div class="pulse-line" aria-label="Live activity animation">
+              <svg viewBox="0 0 1000 120" preserveAspectRatio="none">
+                <path d="M0,70 C120,20 220,110 340,62 C450,20 520,110 650,64 C790,10 880,110 1000,60"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      style="color: color-mix(in srgb, var(--brand2) 85%, var(--accent)); opacity:.95;" />
+                <circle class="pulse-dot" cx="0" cy="70" r="6" style="fill: var(--accent);"></circle>
+              </svg>
+            </div>
+            <p class="small">Dynamic background + subtle live animation (no external libraries).</p>
           </div>
 
-          <div class="card" aria-label="Highlights">
-            <div class="stat">
-              <div class="badge">🏭</div>
-              <div>
-                <b>Plant-floor execution</b>
-                <span>Hands-on delivery in real industrial environments.</span>
+          <div class="card">
+            <span class="pill">📌 What you get</span>
+            <div style="display:grid; gap:12px; margin-top:12px;">
+              <div style="display:flex; gap:12px; align-items:flex-start; padding:12px 0; border-bottom:1px solid var(--border);">
+                <div style="width:36px;height:36px;border-radius:14px;border:1px solid var(--border);display:grid;place-items:center;background:color-mix(in srgb, var(--bg2) 75%, transparent);font-weight:950;color:var(--brand2);">🏭</div>
+                <div>
+                  <b>Floor-level execution</b><br/>
+                  <span class="muted" style="font-size:13.5px;">We diagnose constraints where work happens—then implement systems that stick.</span>
+                </div>
               </div>
-            </div>
-            <div class="stat">
-              <div class="badge">📈</div>
-              <div>
-                <b>Operational stabilization</b>
-                <span>Throughput, quality, OTIF, and cost drivers.</span>
+              <div style="display:flex; gap:12px; align-items:flex-start; padding:12px 0; border-bottom:1px solid var(--border);">
+                <div style="width:36px;height:36px;border-radius:14px;border:1px solid var(--border);display:grid;place-items:center;background:color-mix(in srgb, var(--bg2) 75%, transparent);font-weight:950;color:var(--brand2);">📡</div>
+                <div>
+                  <b>IoT integration</b><br/>
+                  <span class="muted" style="font-size:13.5px;">Sensors, edge devices, and operational data tied into workflows and dashboards.</span>
+                </div>
               </div>
-            </div>
-            <div class="stat">
-              <div class="badge">🧭</div>
-              <div>
-                <b>Scalable operating systems</b>
-                <span>Governance, cadence, ownership—results that stay.</span>
+              <div style="display:flex; gap:12px; align-items:flex-start; padding:12px 0;">
+                <div style="width:36px;height:36px;border-radius:14px;border:1px solid var(--border);display:grid;place-items:center;background:color-mix(in srgb, var(--bg2) 75%, transparent);font-weight:950;color:var(--brand2);">🤖</div>
+                <div>
+                  <b>Applied AI/ML</b><br/>
+                  <span class="muted" style="font-size:13.5px;">Predictive quality, forecasting, anomaly detection—only where it drives measurable outcomes.</span>
+                </div>
               </div>
             </div>
           </div>
@@ -449,184 +421,146 @@
     <!-- SERVICES -->
     <section id="services">
       <div class="container">
-        <div class="section-title">
+        <div class="titleRow">
           <div>
             <h2>What we do</h2>
-            <p>Operations-first delivery across manufacturing, warehouses, and asset-intensive environments.</p>
+            <p>Execution-first services for manufacturing, field operations, and infrastructure programs.</p>
           </div>
         </div>
 
-        <div class="grid-3">
-          <div class="tile">
-            <div class="icon">⚙️</div>
-            <h3>Stabilize performance</h3>
-            <p>Improve throughput, yield, OTIF, and daily execution stability with floor-level diagnostics and action.</p>
+        <div class="grid3">
+          <div class="card">
+            <span class="pill">⚙️ Operations Excellence</span>
+            <p class="small">Value-stream mapping, bottleneck removal, standard work, and cadence to stabilize throughput and OTIF.</p>
           </div>
-
-          <div class="tile">
-            <div class="icon">🧱</div>
-            <h3>Remove constraints</h3>
-            <p>Identify bottlenecks, validate metrics, and redesign flow with practical systems—not generic tools.</p>
+          <div class="card">
+            <span class="pill">🛡️ Quality Systems</span>
+            <p class="small">Control plans, gates, compliance-ready documentation, and shop-floor discipline to reduce rework and variability.</p>
           </div>
-
-          <div class="tile">
-            <div class="icon">📊</div>
-            <h3>Embed operating systems</h3>
-            <p>Standard work, governance cadence, ownership models, and audit mechanisms that sustain gains.</p>
+          <div class="card">
+            <span class="pill">📊 IoT + Data Enablement</span>
+            <p class="small">Device integration, dashboards, alerts, and data pipelines connecting operations to decisions in real time.</p>
           </div>
-
-          <div class="tile">
-            <div class="icon">🛠️</div>
-            <h3>Quality systems</h3>
-            <p>Control gates, compliance readiness, and execution discipline that reduce rework and variability.</p>
+          <div class="card">
+            <span class="pill">🤖 AI/ML (Practical)</span>
+            <p class="small">Predictive quality, anomaly detection, forecasting, and optimization—embedded into workflows.</p>
           </div>
-
-          <div class="tile">
-            <div class="icon">🔌</div>
-            <h3>Data + automation integration</h3>
-            <p>Connect IoT/ERP/MES signals into workflows to support faster decision-making and response.</p>
+          <div class="card">
+            <span class="pill">🧭 Program Delivery</span>
+            <p class="small">Operating model, governance, stakeholder cadence, and execution sprints across sites and teams.</p>
           </div>
-
-          <div class="tile">
-            <div class="icon">🤖</div>
-            <h3>Applied AI (when useful)</h3>
-            <p>Predictive quality, maintenance insights, and forecasting—layered into operations with human ownership.</p>
+          <div class="card">
+            <span class="pill">🏗️ Field Operations</span>
+            <p class="small">Remote monitoring, inspection workflows, asset tracking, and reporting for infrastructure and construction.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- DELIVERY -->
-    <section id="delivery">
+    <!-- CASE STUDIES (NEW) -->
+    <section id="case-studies">
       <div class="container">
-        <div class="section-title">
+        <div class="titleRow">
           <div>
-            <h2>How we deliver results</h2>
-            <p>A disciplined execution model: observe, validate, design, execute, and sustain.</p>
+            <h2>Case studies</h2>
+            <p>Real-life scenario writeups. Replace placeholders (client name, numbers) with your verified details before publishing.</p>
           </div>
         </div>
 
-        <div class="steps">
-          <div class="step">
-            <div class="num">1</div>
-            <div>
-              <b>Observe & validate on the floor</b>
-              <p>Direct observation + data validation to confirm what’s actually happening and why.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="num">2</div>
-            <div>
-              <b>Map value streams & constraints</b>
-              <p>Identify bottlenecks and performance drivers (lead time, yield, OTIF, cost).</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="num">3</div>
-            <div>
-              <b>Design practical systems</b>
-              <p>Standard work, quality gates, governance cadence, training, and clear ownership.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="num">4</div>
-            <div>
-              <b>Execute with cadence</b>
-              <p>Daily/weekly rhythms, reviews, audits, and escalation paths to enforce accountability.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="num">5</div>
-            <div>
-              <b>Layer intelligent insights</b>
-              <p>Automation + AI where it improves speed/quality—integrated into real workflows.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="num">6</div>
-            <div>
-              <b>Sustain & scale</b>
-              <p>Embed improvements so performance continues after engagement close, across sites.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CASE STUDY -->
-    <section id="case">
-      <div class="container">
-        <div class="section-title">
-          <div>
-            <h2>Case study snapshot (CCSE)</h2>
-            <p>Example of floor-level execution to stabilize production and quality.</p>
-          </div>
-        </div>
-
-        <div class="case">
-          <div class="tile">
-            <div class="icon">🧩</div>
-            <h3>Client context</h3>
-            <p>
-              A complex industrial operation faced unstable production flow, quality losses, and reactive decision-making.
-              The organization needed hands-on execution to stabilize performance and build systems that scale.
+        <div class="grid3">
+          <!-- Drone case -->
+          <div class="card">
+            <span class="pill">🛰️ Drones • Inspection • Safety</span>
+            <h3 style="margin:10px 0 6px;">Drone-enabled inspection & incident prevention</h3>
+            <p class="small">
+              A field operations team needed faster inspection cycles and safer reporting over large work zones.
+              Automatas supported a drone workflow with standardized checklists, geo-tagged capture, and an anomaly triage pipeline.
             </p>
-            <div class="pill-row">
-              <span class="pill">Manufacturing</span>
-              <span class="pill">Quality</span>
-              <span class="pill">Execution cadence</span>
-              <span class="pill">Multi-site readiness</span>
-            </div>
+            <ul class="small" style="margin:10px 0 0; padding-left:18px;">
+              <li><b>IoT/Data:</b> flight logs + geo-tagged imagery ingestion + centralized audit trail</li>
+              <li><b>AI/ML:</b> defect/anomaly flagging to prioritize review and reduce manual screening</li>
+              <li><b>Ops:</b> SOPs, governance cadence, and response playbooks for field teams</li>
+            </ul>
+            <p class="small"><b>Outcome:</b> faster inspection turnaround, clearer accountability, and improved safety visibility.</p>
           </div>
 
-          <div class="tile">
-            <div class="icon">✅</div>
-            <h3>Approach & outcome</h3>
-            <p>Automatas embedded on the shop floor and delivered:</p>
-            <ul>
-              <li>Constraint analysis and validated performance baselines</li>
-              <li>Standard work, quality gates, and clear ownership</li>
-              <li>Daily/weekly operating cadence with KPI visibility</li>
-              <li>Improved throughput stability and reduced rework</li>
-              <li>A scalable operating model embedded into operations</li>
+          <!-- Factory floor case -->
+          <div class="card">
+            <span class="pill">🏭 Factory Floor • Quality • Throughput</span>
+            <h3 style="margin:10px 0 6px;">Factory floor stabilization with predictive quality</h3>
+            <p class="small">
+              A manufacturing line faced unstable yield and frequent rework. Automatas mapped constraints on the floor,
+              implemented quality gates, and integrated production signals into a live dashboard for daily execution.
+            </p>
+            <ul class="small" style="margin:10px 0 0; padding-left:18px;">
+              <li><b>IoT/Data:</b> machine/shift data capture, SPC signals, and defect tagging</li>
+              <li><b>AI/ML:</b> early-warning model for quality drift and anomaly alerts</li>
+              <li><b>Ops:</b> standard work + daily management cadence + audit routines</li>
             </ul>
+            <p class="small"><b>Outcome:</b> reduced variability, faster response to drift, and a scalable operating model.</p>
           </div>
+
+          <!-- Rail construction case -->
+          <div class="card">
+            <span class="pill">🛤️ Rail Construction • Assets • Planning</span>
+            <h3 style="margin:10px 0 6px;">Rail construction progress control & asset tracking</h3>
+            <p class="small">
+              A rail construction program needed better coordination across crews, materials, and equipment.
+              Automatas helped implement a field cadence, asset tracking, and progress reporting tied to a single dashboard.
+            </p>
+            <ul class="small" style="margin:10px 0 0; padding-left:18px;">
+              <li><b>IoT/Data:</b> equipment telemetry + geo-tagged updates + material movement logs</li>
+              <li><b>AI/ML:</b> schedule risk flags based on progress patterns and resource constraints</li>
+              <li><b>Ops:</b> governance rhythm, escalation paths, and standardized reporting</li>
+            </ul>
+            <p class="small"><b>Outcome:</b> clearer progress visibility, fewer coordination gaps, and improved delivery discipline.</p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px;">
+          <span class="pill">⚠️ Publishing note</span>
+          <p class="small">
+            If you want these on a public website, keep them anonymized unless you have written client approval.
+            You can also replace outcomes with verified metrics (e.g., “X% yield improvement”) once confirmed.
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- REGIONS -->
-    <section id="regions">
+    <!-- TESTIMONIALS (NEW) -->
+    <section id="testimonials">
       <div class="container">
-        <div class="section-title">
+        <div class="titleRow">
           <div>
-            <h2>Where we operate</h2>
-            <p>Partnering across EMEC & USA industrial leaders and India-based IoT innovators.</p>
+            <h2>Testimonials</h2>
+            <p>Add real client quotes when you have approval. Below are safe placeholders you can replace.</p>
           </div>
         </div>
 
-        <div class="grid-3">
-          <div class="tile">
-            <div class="icon">🌍</div>
-            <h3>EMEC</h3>
-            <p>Industrial modernization, execution excellence, and scalable operating systems for plants and warehouses.</p>
+        <div class="grid3">
+          <div class="card">
+            <span class="pill">Manufacturing Ops Lead</span>
+            <p class="quote">“Automatas helped us stabilize execution on the line and build a cadence we can sustain.”</p>
+            <div class="person">
+              <div class="avatar">M</div>
+              <div>Operations Lead • Multi-site Manufacturing</div>
+            </div>
           </div>
-
-          <div class="tile">
-            <div class="icon">🇺🇸</div>
-            <h3>USA</h3>
-            <p>Operational stabilization, quality systems, governance cadence, and floor-level execution support.</p>
+          <div class="card">
+            <span class="pill">Program Manager</span>
+            <p class="quote">“Their approach was practical—floor-first, measurable, and focused on ownership.”</p>
+            <div class="person">
+              <div class="avatar">P</div>
+              <div>Program Manager • Infrastructure Delivery</div>
+            </div>
           </div>
-
-          <div class="tile">
-            <div class="icon">🇮🇳</div>
-            <h3>India (IoT & deep-tech)</h3>
-            <p>Support for startups moving from pilots to production: integration, validation, and industrial scaling.</p>
+          <div class="card">
+            <span class="pill">Tech + Field Operations</span>
+            <p class="quote">“They bridged IoT data and real workflows, improving response time and visibility.”</p>
+            <div class="person">
+              <div class="avatar">T</div>
+              <div>Field Ops Lead • Asset-Intensive Services</div>
+            </div>
           </div>
         </div>
       </div>
@@ -635,46 +569,40 @@
     <!-- CONTACT -->
     <section id="contact">
       <div class="container">
-        <div class="section-title">
+        <div class="titleRow">
           <div>
             <h2>Contact</h2>
-            <p>Share your challenge, region, and timeline. We’ll respond with a clear next step.</p>
+            <p>Share your use case (factory, drones, rail/infrastructure) and timeline. We’ll respond with a clear next step.</p>
           </div>
         </div>
 
-        <div class="case">
-          <div class="tile">
-            <div class="icon">📩</div>
-            <h3>Reach out</h3>
+        <div class="grid2">
+          <div class="card">
+            <span class="pill">Reach out</span>
             <p class="small">
               Email: <a href="mailto:apramparsingh@automatas.store">apramparsingh@automatas.store</a><br/>
-              Website: <a href="https://automatas.com" target="_blank" rel="noopener">automatas.com</a>
+              Website: <a href="https://automtas.com" target="_blank" rel="noopener">automtas.com</a>
             </p>
-            <div class="pill-row">
-              <span class="pill">Assessments</span>
-              <span class="pill">Execution sprints</span>
-              <span class="pill">Program support</span>
-            </div>
+            <p class="small">
+              <b>Founder:</b> Aprampar Singh (Automatas)
+            </p>
+            <p class="small">Want a case-study PDF version for investors? We can generate a printable one-page format.</p>
           </div>
 
-          <div class="tile">
-            <div class="icon">🗓️</div>
-            <h3>Quick message</h3>
-            <form onsubmit="return sendMessage(event)">
-              <label class="small" for="name">Name</label><br/>
-              <input id="name" name="name" required
-                     style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--bg-2);color:var(--text);margin:6px 0 12px;" />
+          <div class="card">
+            <span class="pill">Quick message</span>
+            <form onsubmit="return fakeSubmit(event)">
+              <label for="name">Name</label><br/>
+              <input id="name" name="name" required /><br/><br/>
 
-              <label class="small" for="email">Email</label><br/>
-              <input id="email" name="email" type="email" required
-                     style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--bg-2);color:var(--text);margin:6px 0 12px;" />
+              <label for="email">Email</label><br/>
+              <input id="email" name="email" type="email" required /><br/><br/>
 
-              <label class="small" for="msg">Message</label><br/>
-              <textarea id="msg" name="msg" rows="4" required
-                        style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--bg-2);color:var(--text);margin:6px 0 12px;"></textarea>
+              <label for="msg">Message</label><br/>
+              <textarea id="msg" name="msg" rows="4" required></textarea><br/><br/>
 
               <button class="btn primary" type="submit">Send</button>
-              <p id="formNote" class="small" style="margin-top:10px;"></p>
+              <p id="note" class="small"></p>
             </form>
           </div>
         </div>
@@ -684,26 +612,26 @@
 
   <footer>
     <div class="container">
-      <div class="footer-grid">
+      <div class="footerGrid">
         <div>
           <img class="brand-logo" src="/assets/automatas-logo.png" alt="Automatas logo" />
           <p class="small">
-            Execution-first industrial consulting & intelligent systems for manufacturing, logistics, and asset-intensive operations.
+            Automatas — execution-first industrial consulting & intelligent systems for factory, field, and infrastructure operations.
           </p>
         </div>
 
-        <div class="footer-links">
+        <div class="footerLinks">
           <b>Pages</b>
           <a href="#services">Services</a>
-          <a href="#delivery">How We Deliver</a>
-          <a href="#case">Case Study</a>
+          <a href="#case-studies">Case Studies</a>
+          <a href="#testimonials">Testimonials</a>
           <a href="#contact">Contact</a>
         </div>
 
-        <div class="footer-links">
+        <div class="footerLinks">
           <b>Contact</b>
           <a href="mailto:apramparsingh@automatas.store">apramparsingh@automatas.store</a>
-          <a href="https://automatas.com" target="_blank" rel="noopener">automatas.com</a>
+          <a href="#contact">Book a call</a>
         </div>
       </div>
 
@@ -714,40 +642,34 @@
   </footer>
 
   <script>
-    // =========================
-    // Theme toggle (auto + saved)
-    // =========================
+    // ===== Theme toggle (auto + saved)
     const root = document.documentElement;
     const saved = localStorage.getItem("theme");
-
     if (!saved) {
       const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
       root.classList.toggle("dark", prefersDark);
     } else {
       root.classList.toggle("dark", saved === "dark");
     }
-
     document.getElementById("themeToggle")?.addEventListener("click", () => {
       root.classList.toggle("dark");
       localStorage.setItem("theme", root.classList.contains("dark") ? "dark" : "light");
     });
 
-    // Footer year
+    // Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // =========================
-    // Simple "send" handler
-    // (Replace with your backend / form tool)
-    // =========================
-    function sendMessage(e){
+    // Contact form placeholder
+    function fakeSubmit(e){
       e.preventDefault();
-      const note = document.getElementById("formNote");
-      note.textContent = "Thanks — please email us directly at apramparsingh@automatas.store (form wiring can be added).";
+      document.getElementById("note").textContent =
+        "Thanks — please email us directly for now (form wiring can be added to your hosting).";
       return false;
     }
   </script>
 </body>
 </html>
+
 
 
 
