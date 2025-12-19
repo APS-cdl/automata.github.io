@@ -2,334 +2,398 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Transporter Automation | Fleet Operations Platform</title>
-  <meta name="description" content="Transporter Automation streamlines and automates fleet and bus operations with CRM/EMS, GPS & fuel monitoring, ticketing, and video intelligence." />
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TFV0T656LN"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Automatas — Execution-first industrial consulting & intelligent systems for manufacturing, logistics, and asset-intensive operations." />
+  <title>Automatas | Industrial Consulting</title>
 
-  gtag('config', 'G-TFV0T656LN');
-</script>
   <style>
-    /* =======================
-       THEME (Light/Dark)
-       ======================= */
+    /* =========================
+       THEME TOKENS
+       ========================= */
     :root{
       color-scheme: light dark;
-      --bg:#ffffff; --bg2:#f6f8fc; --card:#ffffff;
-      --text:#0b1220; --muted:#4a5876; --border:#e6e8ef;
-      --brand:#0A3D62; --brand2:#1aa3ff; --accent:#00c2ff;
-      --shadow: 0 10px 30px rgba(10,20,60,.08);
-      --ring: rgba(26,163,255,.25);
-      --max: 1120px; --r: 18px;
-      --grad1: rgba(26,163,255,.18);
-      --grad2: rgba(10,61,98,.18);
-      --grid: rgba(10,20,60,.06);
-    }
-    html.dark{
-      --bg:#070b16; --bg2:#0b1328; --card:#0b1328;
-      --text:#eef2ff; --muted:#b7c1dd; --border:#1a2550;
-      --brand:#65b7ff; --brand2:#2aa8ff; --accent:#56e0ff;
-      --shadow: 0 14px 38px rgba(0,0,0,.45);
-      --ring: rgba(101,183,255,.25);
-      --grad1: rgba(42,168,255,.20);
-      --grad2: rgba(101,183,255,.12);
-      --grid: rgba(255,255,255,.06);
+
+      --bg: #ffffff;
+      --bg-2: #f5f7fb;
+      --card: #ffffff;
+      --text: #0b1220;
+      --muted: #44506a;
+      --border: #e6e8ef;
+      --shadow: 0 10px 30px rgba(10, 20, 60, 0.08);
+
+      --brand: #0A3D62;   /* Deep blue */
+      --brand-2: #1aa3ff; /* Accent blue */
+      --ring: rgba(26,163,255,.35);
+
+      --max: 1120px;
+      --radius: 18px;
     }
 
-    *{box-sizing:border-box}
-    html, body { height:100%; }
+    html.dark{
+      --bg: #070b16;
+      --bg-2: #0b1328;
+      --card: #0b1328;
+      --text: #eef2ff;
+      --muted: #b7c1dd;
+      --border: #1a2550;
+      --shadow: 0 12px 34px rgba(0,0,0,.45);
+
+      --brand: #65b7ff;
+      --brand-2: #2aa8ff;
+      --ring: rgba(101,183,255,.30);
+    }
+
+    /* =========================
+       BASE
+       ========================= */
+    *{ box-sizing: border-box; }
     body{
       margin:0;
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      line-height:1.55;
-      overflow-x:hidden;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
     }
-    a{color:inherit}
-    .container{max-width:var(--max); margin:0 auto; padding:0 20px;}
-    .btn{
-      border:1px solid var(--border); background:var(--card); color:var(--text);
-      padding:10px 12px; border-radius:12px; font-weight:900; font-size:14px;
-      cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
-      transition: transform .08s ease, background .15s ease, border-color .15s ease;
-    }
-    .btn:hover{transform: translateY(-1px)}
-    .btn:focus{outline:none; box-shadow: 0 0 0 4px var(--ring)}
-    .btn.primary{
-      border-color: color-mix(in srgb, var(--brand2) 55%, var(--border));
-      background: linear-gradient(135deg,
-        color-mix(in srgb, var(--brand) 18%, var(--card)),
-        color-mix(in srgb, var(--brand2) 10%, var(--card))
-      );
-    }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:6px 10px; border-radius:999px;
-      background: color-mix(in srgb, var(--bg2) 75%, transparent);
-      border:1px solid var(--border); color:var(--muted);
-      font-size:13px; font-weight:900;
-      backdrop-filter: blur(8px);
-    }
-    .card{
-      position:relative;
-      border:1px solid var(--border);
-      background: color-mix(in srgb, var(--card) 86%, transparent);
-      border-radius:var(--r);
-      box-shadow:var(--shadow);
-      padding:18px;
-      overflow:hidden;
-      backdrop-filter: blur(10px);
-    }
-    .card::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(800px 220px at 12% 0%, color-mix(in srgb, var(--brand2) 16%, transparent), transparent 60%),
-                  radial-gradient(700px 220px at 88% 10%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 60%);
-      opacity:.9;
-      pointer-events:none;
-    }
-    .card > * { position:relative; z-index:1; }
-
-    .grid2{display:grid; grid-template-columns: 1.1fr .9fr; gap:14px;}
-    .grid3{display:grid; grid-template-columns: repeat(3,1fr); gap:14px;}
-    .grid4{display:grid; grid-template-columns: repeat(4,1fr); gap:14px;}
-    @media (max-width: 980px){
-      .grid2,.grid3,.grid4{grid-template-columns:1fr}
-      nav{display:none}
+    a{ color: inherit; }
+    .container{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 20px;
     }
 
-    /* =======================
-       LIVE BACKGROUND + ANIMATION
-       ======================= */
-    .bg-wrap{
-      position:fixed;
-      inset:0;
-      z-index:-2;
-      pointer-events:none;
-      background:
-        radial-gradient(1000px 560px at 18% 10%, var(--grad1), transparent 60%),
-        radial-gradient(900px 520px at 85% 15%, var(--grad2), transparent 60%),
-        linear-gradient(180deg, color-mix(in srgb, var(--bg) 86%, transparent), var(--bg));
-    }
-
-    /* Subtle grid */
-    .bg-grid{
-      position:absolute;
-      inset:-40px;
-      background-image:
-        linear-gradient(var(--grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-      background-size: 52px 52px;
-      transform: perspective(800px) rotateX(55deg) translateY(-220px);
-      opacity:.65;
-      filter: blur(0.2px);
-      animation: gridFloat 12s ease-in-out infinite;
-    }
-    @keyframes gridFloat{
-      0%,100%{ transform: perspective(800px) rotateX(55deg) translateY(-220px) translateX(0); }
-      50%{ transform: perspective(800px) rotateX(55deg) translateY(-240px) translateX(14px); }
-    }
-
-    /* floating orbs */
-    .orb{
-      position:absolute; width:380px; height:380px;
-      border-radius:50%;
-      background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--brand2) 45%, transparent), transparent 62%);
-      filter: blur(18px);
-      opacity:.55;
-      animation: drift 18s ease-in-out infinite;
-      mix-blend-mode: screen;
-    }
-    .orb.o2{
-      width:460px; height:460px;
-      background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--accent) 40%, transparent), transparent 62%);
-      animation-duration: 22s;
-      opacity:.5;
-    }
-    .orb.o3{
-      width:320px; height:320px;
-      background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--brand) 40%, transparent), transparent 62%);
-      animation-duration: 26s;
-      opacity:.45;
-    }
-    @keyframes drift{
-      0%{ transform: translate(-10%, -12%) scale(1); }
-      50%{ transform: translate(18%, 12%) scale(1.06); }
-      100%{ transform: translate(-10%, -12%) scale(1); }
-    }
-
-    /* =======================
+    /* =========================
        HEADER
-       ======================= */
+       ========================= */
     header{
-      position:sticky; top:0; z-index:50;
-      background: color-mix(in srgb, var(--bg) 86%, transparent);
-      backdrop-filter: blur(12px);
-      border-bottom:1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
     }
     .nav{
-      display:flex; align-items:center; justify-content:space-between; gap:14px;
-      padding:14px 0;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 0;
     }
-    .brand{display:flex; align-items:center; gap:12px; text-decoration:none;}
-    .logo{height:42px; width:auto; display:block;}
-    html.dark .logo{filter: brightness(1.15) contrast(1.05);}
-    nav a{
-      text-decoration:none; color:var(--muted); font-weight:900; font-size:14px;
-      padding:8px 10px; border-radius:10px;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      min-width: 220px;
     }
-    nav a:hover{background:var(--bg2); color:var(--text);}
-    .actions{display:flex; align-items:center; gap:10px;}
+    .brand-logo{
+      height: 42px;
+      width: auto;
+      display:block;
+    }
+    /* If logo looks too dark on dark mode, keep this ON */
+    html.dark .brand-logo{
+      filter: brightness(1.15) contrast(1.05);
+    }
 
-    /* =======================
+    .nav-links{
+      display:flex;
+      gap: 18px;
+      align-items:center;
+      justify-content:center;
+      flex: 1;
+    }
+    .nav-links a{
+      text-decoration:none;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 14px;
+      padding: 8px 10px;
+      border-radius: 10px;
+    }
+    .nav-links a:hover{
+      color: var(--text);
+      background: var(--bg-2);
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 220px;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: none;
+      transition: transform .08s ease, border-color .15s ease, background .15s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn.primary{
+      border-color: color-mix(in srgb, var(--brand-2) 55%, var(--border));
+      background: linear-gradient(135deg, color-mix(in srgb, var(--brand) 18%, var(--card)), color-mix(in srgb, var(--brand-2) 10%, var(--card)));
+    }
+    .btn:focus{
+      outline:none;
+      box-shadow: 0 0 0 4px var(--ring);
+    }
+
+    /* =========================
        HERO
-       ======================= */
+       ========================= */
     .hero{
-      padding: 58px 0 26px;
+      padding: 54px 0 26px;
+      background:
+        radial-gradient(900px 500px at 25% 10%, color-mix(in srgb, var(--brand-2) 18%, transparent), transparent 60%),
+        radial-gradient(700px 420px at 80% 15%, color-mix(in srgb, var(--brand) 20%, transparent), transparent 60%);
     }
-    h1{margin:14px 0 10px; font-size: clamp(30px,4vw,48px); line-height:1.12; letter-spacing:-0.02em;}
-    .lead{margin:0 0 16px; color:var(--muted); max-width:70ch;}
-    .heroActions{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px;}
-    .statRow{display:grid; gap:12px;}
-    .stat{
-      display:flex; gap:12px; align-items:flex-start;
-      padding:12px 0; border-bottom:1px solid var(--border);
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.25fr .85fr;
+      gap: 22px;
+      align-items: stretch;
     }
-    .stat:last-child{border-bottom:0; padding-bottom:0}
-    .badge{
-      width:36px; height:36px; border-radius:14px;
-      border:1px solid var(--border);
-      background: color-mix(in srgb, var(--bg2) 70%, transparent);
-      display:grid; place-items:center;
-      font-weight:950; color:var(--brand2);
+    .kicker{
+      display:inline-flex;
+      gap: 8px;
+      align-items:center;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--bg-2) 75%, transparent);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
     }
-    .stat b{display:block}
-    .stat span{color:var(--muted); font-size:13.5px}
-
-    /* =======================
-       SECTIONS
-       ======================= */
-    section{padding: 44px 0;}
-    .titleRow{display:flex; align-items:flex-end; justify-content:space-between; gap:18px; margin-bottom:16px;}
-    .titleRow h2{margin:0; font-size:26px; letter-spacing:-0.01em;}
-    .titleRow p{margin:0; color:var(--muted); max-width:70ch; font-size:14.5px;}
-    .kpi{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      padding:12px; border:1px solid var(--border); border-radius:14px;
-      background: color-mix(in srgb, var(--bg2) 65%, transparent);
-      backdrop-filter: blur(10px);
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
     }
-    .kpi b{font-size:18px}
-    .kpi small{color:var(--muted); font-weight:900}
-    .muted{color:var(--muted);}
-
-    /* =======================
-       LIVE MINI-ANIMATION (SVG path)
-       ======================= */
-    .pulse-line{
-      width:100%;
-      height:86px;
-      border:1px solid var(--border);
-      border-radius:14px;
-      background: color-mix(in srgb, var(--bg2) 70%, transparent);
-      overflow:hidden;
-      position:relative;
+    .lead{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 62ch;
     }
-    .pulse-line svg{width:100%; height:100%;}
-    .pulse-line .glow{
-      filter: drop-shadow(0 0 10px color-mix(in srgb, var(--brand2) 45%, transparent));
+    .hero-actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
     }
-    .pulse-line .dot{
-      animation: dotMove 3.8s linear infinite;
-      transform-origin: center;
-    }
-    @keyframes dotMove{
-      0%{ transform: translateX(-8%); opacity:.0; }
-      10%{ opacity:1; }
-      90%{ opacity:1; }
-      100%{ transform: translateX(108%); opacity:.0; }
-    }
-
-    /* =======================
-       PRICING TOGGLE
-       ======================= */
-    .switchRow{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin: 8px 0 12px;}
-    .switch{
-      display:flex; border:1px solid var(--border); background:var(--card);
-      border-radius:999px; padding:4px; gap:4px;
+    .card{
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
+      padding: 18px;
     }
-    .switch button{
-      border:0; background:transparent; color:var(--muted);
-      padding:8px 12px; border-radius:999px; cursor:pointer; font-weight:950;
+    .stat{
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
     }
-    .switch button.active{background:var(--bg2); color:var(--text);}
-    .price{font-size:34px; font-weight:980; letter-spacing:-0.02em; margin:6px 0 8px;}
-    .list{margin:10px 0 0; padding-left:18px; color:var(--muted); font-weight:800; font-size:14px;}
+    .stat:last-child{ border-bottom: 0; padding-bottom: 0; }
+    .badge{
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--bg-2) 70%, transparent);
+      font-size: 16px;
+    }
+    .stat b{ display:block; margin-bottom: 2px; }
+    .stat span{ color: var(--muted); font-size: 13.5px; }
 
-    /* =======================
+    /* =========================
+       SECTIONS
+       ========================= */
+    section{
+      padding: 46px 0;
+    }
+    .section-title{
+      display:flex;
+      align-items:flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+    .section-title h2{
+      margin:0;
+      font-size: 26px;
+      letter-spacing: -0.01em;
+    }
+    .section-title p{
+      margin:0;
+      color: var(--muted);
+      max-width: 62ch;
+      font-size: 14.5px;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .tile{
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .tile h3{
+      margin: 8px 0 6px;
+      font-size: 16px;
+    }
+    .tile p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .icon{
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--bg-2) 70%, transparent);
+      font-size: 18px;
+    }
+
+    .steps{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+    .step{
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+    .step .num{
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      display:grid;
+      place-items:center;
+      font-weight: 900;
+      color: var(--brand);
+      background: color-mix(in srgb, var(--bg-2) 70%, transparent);
+    }
+    .step b{ display:block; }
+    .step p{ margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+
+    .case{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .case ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .pill-row{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .pill{
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 13px;
+      color: var(--muted);
+      background: color-mix(in srgb, var(--bg-2) 75%, transparent);
+      font-weight: 700;
+    }
+
+    /* =========================
        FOOTER
-       ======================= */
+       ========================= */
     footer{
-      padding: 34px 0 60px; border-top:1px solid var(--border);
-      background: color-mix(in srgb, var(--bg2) 55%, transparent);
-      backdrop-filter: blur(10px);
+      padding: 34px 0 60px;
+      border-top: 1px solid var(--border);
+      background: color-mix(in srgb, var(--bg-2) 55%, transparent);
     }
-    .footerGrid{display:grid; grid-template-columns: 1.4fr 1fr 1fr; gap:14px;}
-    @media (max-width:980px){.footerGrid{grid-template-columns:1fr}}
-    .footerLinks a{display:block; padding:6px 0; text-decoration:none; color:var(--muted); font-weight:900;}
-    .footerLinks a:hover{color:var(--text)}
-    .small{font-size:13.5px; color:var(--muted); font-weight:800; margin:10px 0 0;}
-    input, textarea{
-      width:100%; padding:12px; border-radius:12px; border:1px solid var(--border);
-      background: var(--bg2); color: var(--text);
+    .footer-grid{
+      display:grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 14px;
+      align-items:start;
     }
-    label{font-size:13px; color:var(--muted); font-weight:950;}
+    .small{ color: var(--muted); font-size: 13.5px; margin: 10px 0 0; }
+    .footer-links a{
+      display:block;
+      text-decoration:none;
+      color: var(--muted);
+      padding: 6px 0;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .footer-links a:hover{ color: var(--text); }
 
-    /* Reduced motion preference */
-    @media (prefers-reduced-motion: reduce){
-      .bg-grid, .orb, .dot { animation: none !important; }
+    /* =========================
+       RESPONSIVE
+       ========================= */
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .nav-links{ display:none; }
+      .nav-actions{ min-width: auto; }
+      .brand{ min-width: auto; }
+      .grid-3{ grid-template-columns: 1fr; }
+      .steps{ grid-template-columns: 1fr; }
+      .case{ grid-template-columns: 1fr; }
+      .footer-grid{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Live Background -->
-  <div class="bg-wrap" aria-hidden="true">
-    <div class="bg-grid"></div>
-    <div class="orb" style="left:-120px; top:-120px;"></div>
-    <div class="orb o2" style="right:-160px; top:-140px;"></div>
-    <div class="orb o3" style="left:18%; bottom:-180px;"></div>
-  </div>
-
   <header>
     <div class="container">
       <div class="nav">
-        <a class="brand" href="#top" aria-label="Transporter Automation Home">
-          <!-- Put your logo at: /assets/logo.png -->
-          <img class="logo" src="/assets/logo.png" alt="Transporter Automation logo" />
+        <a class="brand" href="#top" aria-label="Automatas Home">
+          <!-- Put your logo here: /assets/automatas-logo.png -->
+          <img class="brand-logo" src="/assets/automatas-logo.png" alt="Automatas logo" />
         </a>
 
-        <nav aria-label="Primary">
-          <a href="#problem">Problem</a>
-          <a href="#platform">Platform</a>
-          <a href="#bundles">Bundles</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#hardware">Hardware</a>
-          <a href="#founder">Founder</a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#services">Services</a>
+          <a href="#delivery">How We Deliver</a>
+          <a href="#case">Case Study</a>
+          <a href="#regions">Regions</a>
           <a href="#contact">Contact</a>
         </nav>
 
-        <div class="actions">
-          <button class="btn" id="themeToggle" type="button" aria-label="Toggle theme">🌙 Theme</button>
-          <a class="btn primary" href="#contact">Book a Demo</a>
+        <div class="nav-actions">
+          <button class="btn" id="themeToggle" type="button" aria-label="Toggle theme">Toggle theme</button>
+          <a class="btn primary" href="#contact">Book a call</a>
         </div>
       </div>
     </div>
@@ -339,75 +403,42 @@
     <!-- HERO -->
     <section class="hero">
       <div class="container">
-        <div class="grid2">
+        <div class="hero-grid">
           <div>
-            <span class="pill">🚍 Efficient • Streamlined • Revamped Fleet Operations</span>
-            <h1>Transporter Automation</h1>
+            <div class="kicker">⚙️ Execution-first industrial consulting</div>
+            <h1>Industry 4.0 transformation that works on the floor.</h1>
             <p class="lead">
-              A modern platform to streamline fleet and bus operations—CRM/EMS, ticketing, GPS & fuel monitoring,
-              and video intelligence—built for real execution, not just dashboards.
+              Automatas partners with industrial teams to stabilize operations, remove constraints, and embed scalable operating systems—turning
+              technology into measurable performance across plants and sites.
             </p>
 
-            <div class="heroActions">
-              <a class="btn primary" href="#platform">Explore the platform</a>
-              <a class="btn" href="#pricing">View pricing</a>
-              <a class="btn" href="#hardware">See devices</a>
-            </div>
-
-            <div style="margin-top:16px;">
-              <div class="pulse-line" aria-label="Live activity animation">
-                <svg viewBox="0 0 1000 120" preserveAspectRatio="none">
-                  <path class="glow" d="M0,70 C120,20 220,110 340,62 C450,20 520,110 650,64 C790,10 880,110 1000,60"
-                        fill="none" stroke="currentColor" stroke-width="3"
-                        style="color: color-mix(in srgb, var(--brand2) 85%, var(--accent)); opacity:.9;" />
-                  <circle class="dot" cx="0" cy="70" r="6"
-                          style="fill: var(--accent);"></circle>
-                </svg>
-              </div>
-              <p class="small">Live-style animation for a dynamic, modern feel (no external libraries).</p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#services">See what we do</a>
+              <a class="btn" href="#case">View case study</a>
             </div>
           </div>
 
-          <div class="card">
-            <div class="statRow">
-              <div class="stat">
-                <div class="badge">⚙️</div>
-                <div>
-                  <b>Operate with control</b>
-                  <span>Reduce leakage, digitize operations, improve compliance and performance.</span>
-                </div>
+          <div class="card" aria-label="Highlights">
+            <div class="stat">
+              <div class="badge">🏭</div>
+              <div>
+                <b>Plant-floor execution</b>
+                <span>Hands-on delivery in real industrial environments.</span>
               </div>
-              <div class="stat">
-                <div class="badge">📊</div>
-                <div>
-                  <b>Real-time visibility</b>
-                  <span>Dashboards for occupancy, revenue, expenses, routes, and trends.</span>
-                </div>
+            </div>
+            <div class="stat">
+              <div class="badge">📈</div>
+              <div>
+                <b>Operational stabilization</b>
+                <span>Throughput, quality, OTIF, and cost drivers.</span>
               </div>
-              <div class="stat">
-                <div class="badge">🛡️</div>
-                <div>
-                  <b>Reliability first</b>
-                  <span>Designed for availability, security, and continuous backups.</span>
-                </div>
+            </div>
+            <div class="stat">
+              <div class="badge">🧭</div>
+              <div>
+                <b>Scalable operating systems</b>
+                <span>Governance, cadence, ownership—results that stay.</span>
               </div>
-
-              <div class="kpi">
-                <div>
-                  <small>Operational Signals (demo counters)</small><br/>
-                  <b><span class="count" data-target="250">0</span>+ fleets supported</b>
-                </div>
-                <div class="muted" style="font-weight:950;">sample counter</div>
-              </div>
-
-              <div class="kpi">
-                <div>
-                  <small>Devices monitored</small><br/>
-                  <b><span class="count" data-target="18500">0</span>+</b>
-                </div>
-                <div class="muted" style="font-weight:950;">sample counter</div>
-              </div>
-
             </div>
           </div>
 
@@ -415,207 +446,188 @@
       </div>
     </section>
 
-    <!-- PROBLEM -->
-    <section id="problem">
+    <!-- SERVICES -->
+    <section id="services">
       <div class="container">
-        <div class="titleRow">
+        <div class="section-title">
           <div>
-            <h2>Problems we solve</h2>
-            <p>Fleet owners struggle with leakage, undigitized processes, fragmented platforms, and safety gaps.</p>
+            <h2>What we do</h2>
+            <p>Operations-first delivery across manufacturing, warehouses, and asset-intensive environments.</p>
           </div>
         </div>
 
-        <div class="grid3">
-          <div class="card">
-            <b>💸 Revenue leakage & underreporting</b>
-            <p class="small">Minimize manual leakage with ticketing + reconciled reporting and owner visibility.</p>
+        <div class="grid-3">
+          <div class="tile">
+            <div class="icon">⚙️</div>
+            <h3>Stabilize performance</h3>
+            <p>Improve throughput, yield, OTIF, and daily execution stability with floor-level diagnostics and action.</p>
           </div>
-          <div class="card">
-            <b>🗂️ Paper-based accounting & slow decisions</b>
-            <p class="small">Digitize operational data so you can act daily—routes, costs, and performance.</p>
+
+          <div class="tile">
+            <div class="icon">🧱</div>
+            <h3>Remove constraints</h3>
+            <p>Identify bottlenecks, validate metrics, and redesign flow with practical systems—not generic tools.</p>
           </div>
-          <div class="card">
-            <b>🧩 Fragmented booking ecosystems</b>
-            <p class="small">Unify workflows and consolidate booking visibility across operations.</p>
+
+          <div class="tile">
+            <div class="icon">📊</div>
+            <h3>Embed operating systems</h3>
+            <p>Standard work, governance cadence, ownership models, and audit mechanisms that sustain gains.</p>
+          </div>
+
+          <div class="tile">
+            <div class="icon">🛠️</div>
+            <h3>Quality systems</h3>
+            <p>Control gates, compliance readiness, and execution discipline that reduce rework and variability.</p>
+          </div>
+
+          <div class="tile">
+            <div class="icon">🔌</div>
+            <h3>Data + automation integration</h3>
+            <p>Connect IoT/ERP/MES signals into workflows to support faster decision-making and response.</p>
+          </div>
+
+          <div class="tile">
+            <div class="icon">🤖</div>
+            <h3>Applied AI (when useful)</h3>
+            <p>Predictive quality, maintenance insights, and forecasting—layered into operations with human ownership.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PLATFORM -->
-    <section id="platform">
+    <!-- DELIVERY -->
+    <section id="delivery">
       <div class="container">
-        <div class="titleRow">
+        <div class="section-title">
           <div>
-            <h2>Platform overview</h2>
-            <p>One system to manage customers, routes, revenue, expenses, devices, and execution.</p>
+            <h2>How we deliver results</h2>
+            <p>A disciplined execution model: observe, validate, design, execute, and sustain.</p>
           </div>
         </div>
 
-        <div class="grid3">
-          <div class="card">
-            <b>🧑‍💼 CRM + EMS for fleet operations</b>
-            <p class="small">Route scheduling, vehicle P&L visibility, occupancy analytics, and route performance reporting.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <b>Observe & validate on the floor</b>
+              <p>Direct observation + data validation to confirm what’s actually happening and why.</p>
+            </div>
           </div>
-          <div class="card">
-            <b>📡 IoT integration</b>
-            <p class="small">Collect real-time data from devices and turn it into actionable operator workflows.</p>
+
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <b>Map value streams & constraints</b>
+              <p>Identify bottlenecks and performance drivers (lead time, yield, OTIF, cost).</p>
+            </div>
           </div>
-          <div class="card">
-            <b>🔗 Booking + payment consolidation</b>
-            <p class="small">Bring booking visibility into one view to reduce missed demand and improve planning.</p>
+
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <b>Design practical systems</b>
+              <p>Standard work, quality gates, governance cadence, training, and clear ownership.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">4</div>
+            <div>
+              <b>Execute with cadence</b>
+              <p>Daily/weekly rhythms, reviews, audits, and escalation paths to enforce accountability.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">5</div>
+            <div>
+              <b>Layer intelligent insights</b>
+              <p>Automation + AI where it improves speed/quality—integrated into real workflows.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">6</div>
+            <div>
+              <b>Sustain & scale</b>
+              <p>Embed improvements so performance continues after engagement close, across sites.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- BUNDLES -->
-    <section id="bundles">
+    <!-- CASE STUDY -->
+    <section id="case">
       <div class="container">
-        <div class="titleRow">
+        <div class="section-title">
           <div>
-            <h2>Bundles</h2>
-            <p>Modular packages designed for fast adoption and operational rollout.</p>
+            <h2>Case study snapshot (CCSE)</h2>
+            <p>Example of floor-level execution to stabilize production and quality.</p>
           </div>
         </div>
 
-        <div class="grid2">
-          <div class="card">
-            <h3 style="margin:0 0 8px;">Transporter Sathi</h3>
-            <p class="small">CRM + EMS for operations: scheduling, vehicle-level revenue/expense, occupancy and profitability analytics.</p>
-          </div>
-          <div class="card">
-            <h3 style="margin:0 0 8px;">Bus on Go</h3>
-            <p class="small">GPS tracking, theft alerts, fuel consumption & idling dashboards, mileage tracking and trends.</p>
-          </div>
-          <div class="card">
-            <h3 style="margin:0 0 8px;">Ticket on Go</h3>
-            <p class="small">App-based ticketing + thermal printing workflow with owner visibility in real time.</p>
-          </div>
-          <div class="card">
-            <h3 style="margin:0 0 8px;">3rd I (Video Intelligence)</h3>
-            <p class="small">Cloud video recording + AI analysis for passenger counts, safety, and suspicious behavior alerts.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PRICING -->
-    <section id="pricing">
-      <div class="container">
-        <div class="titleRow">
-          <div>
-            <h2>Pricing (SaaS)</h2>
-            <p>Simple tiers with optional devices and add-ons. Toggle monthly/yearly.</p>
-          </div>
-        </div>
-
-        <div class="switchRow">
-          <span class="pill">Toggle Billing</span>
-          <div class="switch" role="tablist" aria-label="Billing toggle">
-            <button id="monthlyBtn" class="active" type="button" role="tab">Monthly</button>
-            <button id="yearlyBtn" type="button" role="tab">Yearly (-15%)</button>
-          </div>
-          <span class="pill muted">Connect payments later (Stripe/Razorpay)</span>
-        </div>
-
-        <div class="grid3">
-          <div class="card">
-            <span class="pill">SECURE PLATFORM</span>
-            <div class="price">₹ <span class="p" data-month="499" data-year="5090">499</span></div>
-            <div class="muted" style="font-weight:950;">Transporter Sathi + Bus on GO</div>
-            <ul class="list">
-              <li>Core CRM/EMS</li>
-              <li>Route + revenue/expense visibility</li>
-              <li>Fleet tracking dashboard</li>
-            </ul>
+        <div class="case">
+          <div class="tile">
+            <div class="icon">🧩</div>
+            <h3>Client context</h3>
+            <p>
+              A complex industrial operation faced unstable production flow, quality losses, and reactive decision-making.
+              The organization needed hands-on execution to stabilize performance and build systems that scale.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Manufacturing</span>
+              <span class="pill">Quality</span>
+              <span class="pill">Execution cadence</span>
+              <span class="pill">Multi-site readiness</span>
+            </div>
           </div>
 
-          <div class="card">
-            <span class="pill">PROTECT PLATFORM</span>
-            <div class="price">₹ <span class="p" data-month="599" data-year="6110">599</span></div>
-            <div class="muted" style="font-weight:950;">Sathi + Ticket on GO + Bus on GO</div>
-            <ul class="list">
-              <li>Ticketing + printing workflow</li>
-              <li>Real-time booking visibility</li>
-              <li>Owner oversight enhancements</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <span class="pill">CONTROL PLATFORM</span>
-            <div class="price">₹ <span class="p" data-month="899" data-year="9170">899</span></div>
-            <div class="muted" style="font-weight:950;">All modules + 3rd I</div>
-            <ul class="list">
-              <li>Video storage + intelligence</li>
-              <li>Safety and passenger analytics</li>
-              <li>Highest control + compliance support</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- HARDWARE -->
-    <section id="hardware">
-      <div class="container">
-        <div class="titleRow">
-          <div>
-            <h2>Hardware & IoT Devices</h2>
-            <p>Optional devices that integrate with the platform for full visibility and control.</p>
-          </div>
-        </div>
-
-        <div class="grid3">
-          <div class="card">
-            <b>📍 GPS / Fuel Sensor</b>
-            <p class="small">Real-time monitoring, anti-theft, dispatch support, and fuel monitoring inputs.</p>
-            <ul class="list">
-              <li>2G/4G device variants supported</li>
-              <li>Vehicle voltage range compatible</li>
-              <li>Alerts + trend dashboards</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <b>🧾 Thermal Ticket Printer</b>
-            <p class="small">Portable BT/USB thermal printer for fast conductor ticketing workflows.</p>
-            <ul class="list">
-              <li>58mm receipts</li>
-              <li>Fast print speeds</li>
-              <li>Rechargeable battery</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <b>📷 CCTV (4G) + Intelligence</b>
-            <p class="small">On-bus camera plus optional intelligence features for safety and passenger analytics.</p>
-            <ul class="list">
-              <li>Cloud + SD storage options</li>
-              <li>Event alerts</li>
-              <li>AI add-ons</li>
+          <div class="tile">
+            <div class="icon">✅</div>
+            <h3>Approach & outcome</h3>
+            <p>Automatas embedded on the shop floor and delivered:</p>
+            <ul>
+              <li>Constraint analysis and validated performance baselines</li>
+              <li>Standard work, quality gates, and clear ownership</li>
+              <li>Daily/weekly operating cadence with KPI visibility</li>
+              <li>Improved throughput stability and reduced rework</li>
+              <li>A scalable operating model embedded into operations</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- FOUNDER -->
-    <section id="founder">
+    <!-- REGIONS -->
+    <section id="regions">
       <div class="container">
-        <div class="titleRow">
+        <div class="section-title">
           <div>
-            <h2>Founder</h2>
-            <p>Single-founder profile (as requested).</p>
+            <h2>Where we operate</h2>
+            <p>Partnering across EMEC & USA industrial leaders and India-based IoT innovators.</p>
           </div>
         </div>
 
-        <div class="card">
-          <b>Aprampar Singh — Founder & CEO</b>
-          <p class="small">
-            Building execution-first systems for transportation operations—combining platform, devices, and rollout discipline
-            to deliver measurable operational performance.
-          </p>
+        <div class="grid-3">
+          <div class="tile">
+            <div class="icon">🌍</div>
+            <h3>EMEC</h3>
+            <p>Industrial modernization, execution excellence, and scalable operating systems for plants and warehouses.</p>
+          </div>
+
+          <div class="tile">
+            <div class="icon">🇺🇸</div>
+            <h3>USA</h3>
+            <p>Operational stabilization, quality systems, governance cadence, and floor-level execution support.</p>
+          </div>
+
+          <div class="tile">
+            <div class="icon">🇮🇳</div>
+            <h3>India (IoT & deep-tech)</h3>
+            <p>Support for startups moving from pilots to production: integration, validation, and industrial scaling.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -623,35 +635,46 @@
     <!-- CONTACT -->
     <section id="contact">
       <div class="container">
-        <div class="titleRow">
+        <div class="section-title">
           <div>
             <h2>Contact</h2>
-            <p>Request a demo, partnership discussion, or deployment plan.</p>
+            <p>Share your challenge, region, and timeline. We’ll respond with a clear next step.</p>
           </div>
         </div>
 
-        <div class="grid2">
-          <div class="card">
-            <b>Reach out</b>
+        <div class="case">
+          <div class="tile">
+            <div class="icon">📩</div>
+            <h3>Reach out</h3>
             <p class="small">
               Email: <a href="mailto:apramparsingh@automatas.store">apramparsingh@automatas.store</a><br/>
-              Website: <a href="https://www.automtas.com" target="_blank" rel="noopener">automtas.com</a>
+              Website: <a href="https://automatas.com" target="_blank" rel="noopener">automatas.com</a>
             </p>
-            <span class="pill">Deployment • Training • Support</span>
-            <p class="small">We can wire this form to your email or CRM (HubSpot/Zoho) once hosting is confirmed.</p>
+            <div class="pill-row">
+              <span class="pill">Assessments</span>
+              <span class="pill">Execution sprints</span>
+              <span class="pill">Program support</span>
+            </div>
           </div>
 
-          <div class="card">
-            <b>Quick message</b>
-            <form onsubmit="return fakeSubmit(event)">
-              <label for="name">Name</label><br/>
-              <input id="name" required /><br/><br/>
-              <label for="email">Email</label><br/>
-              <input id="email" type="email" required /><br/><br/>
-              <label for="msg">Message</label><br/>
-              <textarea id="msg" rows="4" required></textarea><br/><br/>
+          <div class="tile">
+            <div class="icon">🗓️</div>
+            <h3>Quick message</h3>
+            <form onsubmit="return sendMessage(event)">
+              <label class="small" for="name">Name</label><br/>
+              <input id="name" name="name" required
+                     style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--bg-2);color:var(--text);margin:6px 0 12px;" />
+
+              <label class="small" for="email">Email</label><br/>
+              <input id="email" name="email" type="email" required
+                     style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--bg-2);color:var(--text);margin:6px 0 12px;" />
+
+              <label class="small" for="msg">Message</label><br/>
+              <textarea id="msg" name="msg" rows="4" required
+                        style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--bg-2);color:var(--text);margin:6px 0 12px;"></textarea>
+
               <button class="btn primary" type="submit">Send</button>
-              <p id="note" class="small"></p>
+              <p id="formNote" class="small" style="margin-top:10px;"></p>
             </form>
           </div>
         </div>
@@ -661,93 +684,65 @@
 
   <footer>
     <div class="container">
-      <div class="footerGrid">
+      <div class="footer-grid">
         <div>
-          <img class="logo" src="/assets/logo.png" alt="Transporter Automation logo" />
-          <p class="small">Transporter Automation — streamlined fleet operations through platform + devices + execution.</p>
+          <img class="brand-logo" src="/assets/automatas-logo.png" alt="Automatas logo" />
+          <p class="small">
+            Execution-first industrial consulting & intelligent systems for manufacturing, logistics, and asset-intensive operations.
+          </p>
         </div>
-        <div class="footerLinks">
+
+        <div class="footer-links">
           <b>Pages</b>
-          <a href="#problem">Problem</a>
-          <a href="#bundles">Bundles</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#hardware">Hardware</a>
+          <a href="#services">Services</a>
+          <a href="#delivery">How We Deliver</a>
+          <a href="#case">Case Study</a>
+          <a href="#contact">Contact</a>
         </div>
-        <div class="footerLinks">
+
+        <div class="footer-links">
           <b>Contact</b>
           <a href="mailto:apramparsingh@automatas.store">apramparsingh@automatas.store</a>
-          <a href="#contact">Book a demo</a>
+          <a href="https://automatas.com" target="_blank" rel="noopener">automatas.com</a>
         </div>
       </div>
 
       <p class="small" style="margin-top:18px;">
-        © <span id="year"></span> Transporter Automation. All rights reserved.
+        © <span id="year"></span> Automatas. All rights reserved.
       </p>
     </div>
   </footer>
 
   <script>
-    // ===== Theme toggle (auto + saved)
+    // =========================
+    // Theme toggle (auto + saved)
+    // =========================
     const root = document.documentElement;
     const saved = localStorage.getItem("theme");
+
     if (!saved) {
       const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
       root.classList.toggle("dark", prefersDark);
     } else {
       root.classList.toggle("dark", saved === "dark");
     }
+
     document.getElementById("themeToggle")?.addEventListener("click", () => {
       root.classList.toggle("dark");
       localStorage.setItem("theme", root.classList.contains("dark") ? "dark" : "light");
     });
 
-    // ===== Year
+    // Footer year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // ===== Animated counters (dynamic)
-    const counters = [...document.querySelectorAll(".count")];
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        const el = e.target;
-        if (el.dataset.done === "1") return;
-        el.dataset.done = "1";
-        const target = Number(el.dataset.target || "0");
-        const start = 0;
-        const duration = 900;
-        const t0 = performance.now();
-        const step = (t) => {
-          const p = Math.min(1, (t - t0)/duration);
-          const val = Math.floor(start + (target - start) * (1 - Math.pow(1-p,3)));
-          el.textContent = val.toLocaleString();
-          if (p < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-      });
-    }, {threshold: 0.4});
-    counters.forEach(c => io.observe(c));
-
-    // ===== Pricing toggle
-    const monthlyBtn = document.getElementById("monthlyBtn");
-    const yearlyBtn = document.getElementById("yearlyBtn");
-    const priceEls = [...document.querySelectorAll(".p")];
-
-    function setBilling(mode){
-      priceEls.forEach(el=>{
-        const v = mode === "year" ? el.dataset.year : el.dataset.month;
-        el.textContent = Number(v).toLocaleString();
-      });
-      monthlyBtn.classList.toggle("active", mode === "month");
-      yearlyBtn.classList.toggle("active", mode === "year");
-    }
-    monthlyBtn?.addEventListener("click", ()=>setBilling("month"));
-    yearlyBtn?.addEventListener("click", ()=>setBilling("year"));
-
-    // ===== Contact form placeholder (wire to backend later)
-    function fakeSubmit(e){
+    // =========================
+    // Simple "send" handler
+    // (Replace with your backend / form tool)
+    // =========================
+    function sendMessage(e){
       e.preventDefault();
-      document.getElementById("note").textContent =
-        "Thanks — please email directly for now (form wiring can be added to your hosting).";
+      const note = document.getElementById("formNote");
+      note.textContent = "Thanks — please email us directly at apramparsingh@automatas.store (form wiring can be added).";
       return false;
     }
   </script>
