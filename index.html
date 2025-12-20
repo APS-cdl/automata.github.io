@@ -1,141 +1,185 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Automtas — Industrial Consulting</title>
-  <meta name="description" content="Industrial consulting for AI, automation, and operations." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Automtas — Industrial Consulting</title>
+<meta name="description" content="Industrial consulting for AI, automation, and operations. Workflow design, documentation, and execution support.">
 
-  <style>
-    :root{
-      --ink:#0b1220;
-      --muted:#556070;
-      --line:#e6eaf0;
-      --card:#ffffff;
-      --soft:0 18px 50px rgba(2,6,23,.12);
-      --radius:18px;
-      --max:1120px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,Segoe UI,Roboto,Arial;
-      color:var(--ink);
-      background:#fff;
-    }
-    .container{width:min(var(--max),92%);margin:0 auto}
+<style>
+:root{
+  --ink:#0b1220;
+  --muted:#556070;
+  --line:#e6eaf0;
+  --card:#ffffff;
+  --soft:0 18px 50px rgba(2,6,23,.12);
+  --radius:18px;
+  --max:1120px;
+  --steel:#1e293b;
+  --accent:#2563eb;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,Segoe UI,Roboto,Arial;
+  background:#f8fafc;
+  color:var(--ink);
+}
+.container{width:min(var(--max),92%);margin:auto}
 
-    /* NAV */
-    .nav{
-      position:sticky;top:0;z-index:50;
-      background:rgba(255,255,255,.86);
-      backdrop-filter:blur(10px);
-      border-bottom:1px solid var(--line);
-    }
-    .navInner{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:14px 0;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      text-decoration:none;
-    }
-    .brandLogo{
-      width:46px;height:46px;
-      border-radius:14px;
-      background:#0b1220;
-      padding:6px;
-    }
-    .brandName{font-weight:900}
-    .brandSub{font-size:12px;color:var(--muted)}
-    .navLinks a{
-      margin-left:16px;
-      font-weight:800;
-      font-size:14px;
-      text-decoration:none;
-      color:#273244;
-    }
+/* NAV */
+.nav{
+  position:sticky;
+  top:0;
+  background:#ffffffdd;
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  z-index:20;
+}
+.navInner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 0;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+}
+.brandName{font-weight:900;font-size:18px}
+.brandSub{font-size:12px;color:var(--muted)}
+.navLinks a{
+  margin-left:16px;
+  font-weight:800;
+  font-size:14px;
+  text-decoration:none;
+  color:#273244;
+}
 
-    /* HERO */
-    .hero{
-      position:relative;
-      min-height:540px;
-      color:#fff;
-      overflow:hidden;
-    }
-    .heroBg{
-      position:absolute;inset:0;
-      background:
-        linear-gradient(90deg,rgba(11,18,32,.92),rgba(11,18,32,.62)),
-        url("{{BACKGROUND_BASE64}}");
-      background-size:cover;
-      background-position:center;
-    }
-    .heroInner{
-      position:relative;
-      padding:48px 0 56px;
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:18px;
-    }
-    @media(max-width:900px){
-      .heroInner{grid-template-columns:1fr}
-    }
+/* LOGO SVG */
+.logo{
+  width:44px;
+  height:44px;
+}
 
-    .pill{
-      display:inline-block;
-      padding:6px 10px;
-      border-radius:999px;
-      background:rgba(255,255,255,.12);
-      font-size:12px;
-      font-weight:900;
-    }
-    .heroTitle{
-      font-size:clamp(32px,4vw,50px);
-      font-weight:900;
-      margin:14px 0 0;
-    }
-    .heroDesc{
-      margin-top:10px;
-      max-width:60ch;
-      color:rgba(255,255,255,.86);
-    }
+/* HERO */
+.hero{
+  position:relative;
+  background:
+    linear-gradient(120deg,#0b1220,#1e293b);
+  color:#fff;
+  overflow:hidden;
+}
+.heroGrid{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(#ffffff10 1px, transparent 1px),
+    linear-gradient(90deg,#ffffff10 1px, transparent 1px);
+  background-size:40px 40px;
+}
+.heroInner{
+  position:relative;
+  padding:72px 0 80px;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:32px;
+}
+@media(max-width:900px){
+  .heroInner{grid-template-columns:1fr}
+}
 
-    .btn{
-      display:inline-block;
-      margin-top:14px;
-      padding:12px 16px;
-      border-radius:16px;
-      background:#fff;
-      color:#0b1220;
-      font-weight:900;
-      text-decoration:none;
-    }
+.pill{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#ffffff1a;
+  font-size:12px;
+  font-weight:900;
+}
+.heroTitle{
+  font-size:clamp(34px,4vw,52px);
+  font-weight:900;
+  margin:14px 0 0;
+}
+.heroDesc{
+  margin-top:12px;
+  max-width:60ch;
+  color:#ffffffcc;
+}
+.btn{
+  display:inline-block;
+  margin-top:16px;
+  padding:12px 16px;
+  border-radius:16px;
+  background:#fff;
+  color:#0b1220;
+  font-weight:900;
+  text-decoration:none;
+}
 
-    .card{
-      background:#fff;
-      border-radius:18px;
-      padding:18px;
-      border:1px solid var(--line);
-      box-shadow:var(--soft);
-      color:#0b1220;
-    }
+/* INDUSTRIAL GRAPHIC */
+.machine{
+  background:#ffffff;
+  border-radius:18px;
+  padding:18px;
+  box-shadow:var(--soft);
+}
+.machine svg{
+  width:100%;
+  height:auto;
+}
+.gear{
+  transform-origin:center;
+  animation:spin 6s linear infinite;
+}
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
 
-    .section{padding:48px 0}
-    .sectionAlt{background:#f8fafc}
+/* SECTIONS */
+.section{padding:56px 0}
+.sectionAlt{background:#f1f5f9}
+.sectionTitle{font-size:28px;font-weight:900}
+.sectionDesc{color:var(--muted);margin-top:8px}
 
-    footer{
-      border-top:1px solid var(--line);
-      background:#f8fafc;
-      padding:26px 0;
-      font-size:13px;
-      color:var(--muted);
-    }
-  </style>
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-top:20px;
+}
+@media(max-width:900px){
+  .cards{grid-template-columns:1fr}
+}
+.card{
+  background:var(--card);
+  border-radius:18px;
+  padding:18px;
+  border:1px solid var(--line);
+  box-shadow:var(--soft);
+}
+.cardTitle{font-weight:900}
+.cardText{margin-top:6px;color:var(--muted);font-size:14px}
+
+/* FOOTER */
+footer{
+  background:#0b1220;
+  color:#ffffffaa;
+  padding:28px 0;
+}
+.footerGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+@media(max-width:900px){
+  .footerGrid{grid-template-columns:1fr}
+}
+.footerTitle{color:#fff;font-weight:900}
+</style>
 </head>
 
 <body>
@@ -143,7 +187,11 @@
 <header class="nav">
   <div class="container navInner">
     <a class="brand" href="#">
-      <img class="brandLogo" src="{{LOGO_BASE64}}" alt="Automtas logo">
+      <!-- SVG LOGO -->
+      <svg class="logo" viewBox="0 0 100 100" fill="none">
+        <rect x="8" y="8" width="84" height="84" rx="18" fill="#0b1220"/>
+        <path d="M50 22 L68 50 L50 78 L32 50 Z" fill="#2563eb"/>
+      </svg>
       <div>
         <div class="brandName">Automtas</div>
         <div class="brandSub">Industrial Consulting</div>
@@ -152,63 +200,100 @@
 
     <nav class="navLinks">
       <a href="#services">Services</a>
-      <a href="#experience">Founder</a>
+      <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
 </header>
 
 <section class="hero">
-  <div class="heroBg"></div>
+  <div class="heroGrid"></div>
 
   <div class="container heroInner">
     <div>
       <span class="pill">USA • Industrial Consulting</span>
       <h1 class="heroTitle">Industrial delivery, fast</h1>
       <p class="heroDesc">
-        Workflows, documentation, and rollout support.
+        Workflow design, documentation, and execution support for AI and automation programs.
       </p>
       <a class="btn" href="#contact">Contact</a>
     </div>
 
-    <div class="card">
-      <strong>Embedded assets</strong>
-      <p style="margin-top:6px;color:#556070">
-        Logo and background are embedded directly in this file.
-      </p>
+    <!-- INDUSTRIAL SVG GRAPHIC -->
+    <div class="machine">
+      <svg viewBox="0 0 300 200">
+        <rect x="20" y="120" width="260" height="40" rx="8" fill="#e5e7eb"/>
+        <rect x="40" y="80" width="220" height="40" rx="8" fill="#cbd5f5"/>
+        <circle cx="110" cy="140" r="14" fill="#1e293b"/>
+        <circle cx="190" cy="140" r="14" fill="#1e293b"/>
+
+        <g class="gear" transform="translate(150 80)">
+          <circle r="18" fill="#2563eb"/>
+          <rect x="-2" y="-28" width="4" height="10" fill="#2563eb"/>
+          <rect x="-2" y="18" width="4" height="10" fill="#2563eb"/>
+          <rect x="18" y="-2" width="10" height="4" fill="#2563eb"/>
+          <rect x="-28" y="-2" width="10" height="4" fill="#2563eb"/>
+        </g>
+      </svg>
     </div>
   </div>
 </section>
 
 <section id="services" class="section sectionAlt">
   <div class="container">
-    <h2>Services</h2>
-    <p>Automation, documentation, and operations support.</p>
+    <h2 class="sectionTitle">Services</h2>
+    <p class="sectionDesc">Execution focused industrial consulting.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="cardTitle">Automation</div>
+        <div class="cardText">Use cases, pilots, rollout planning.</div>
+      </div>
+      <div class="card">
+        <div class="cardTitle">Documentation</div>
+        <div class="cardText">Workflow specs, stories, delivery plans.</div>
+      </div>
+      <div class="card">
+        <div class="cardTitle">Operations</div>
+        <div class="cardText">Systems, dashboards, adoption support.</div>
+      </div>
+    </div>
   </div>
 </section>
 
 <section id="experience" class="section">
   <div class="container">
-    <h2>Founder experience</h2>
-    <p>Startup build and consulting delivery.</p>
+    <h2 class="sectionTitle">Experience</h2>
+    <p class="sectionDesc">
+      Founder-led delivery across startups and consulting programs.
+    </p>
   </div>
 </section>
 
-<section id="contact" class="section">
+<section id="contact" class="section sectionAlt">
   <div class="container">
-    <h2>Contact</h2>
-    <p>Email: apsj726@gmail.com</p>
+    <h2 class="sectionTitle">Contact</h2>
+    <p class="sectionDesc">Email: apsj726@gmail.com</p>
   </div>
 </section>
 
 <footer>
-  <div class="container">
-    © Automtas
+  <div class="container footerGrid">
+    <div>
+      <div class="footerTitle">Automtas</div>
+      <p>Industrial consulting for AI, automation, and operations.</p>
+    </div>
+    <div>
+      <div class="footerTitle">Contact</div>
+      <p>apsj726@gmail.com</p>
+      <p>Cary, NC</p>
+    </div>
   </div>
 </footer>
 
 </body>
 </html>
+
 
 
 
