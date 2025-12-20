@@ -15,8 +15,8 @@
   --soft:0 18px 50px rgba(2,6,23,.12);
   --radius:18px;
   --max:1120px;
-  --steel:#1e293b;
   --accent:#2563eb;
+  --steel:#1e293b;
 }
 *{box-sizing:border-box}
 body{
@@ -24,30 +24,22 @@ body{
   font-family:system-ui,Segoe UI,Roboto,Arial;
   background:#f8fafc;
   color:var(--ink);
+  overflow-x:hidden;
 }
 .container{width:min(var(--max),92%);margin:auto}
 
 /* NAV */
 .nav{
-  position:sticky;
-  top:0;
+  position:sticky;top:0;z-index:50;
   background:#ffffffdd;
   backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
-  z-index:20;
 }
 .navInner{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  display:flex;align-items:center;justify-content:space-between;
   padding:14px 0;
 }
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  text-decoration:none;
-}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
 .brandName{font-weight:900;font-size:18px}
 .brandSub{font-size:12px;color:var(--muted)}
 .navLinks a{
@@ -57,103 +49,185 @@ body{
   text-decoration:none;
   color:#273244;
 }
-
-/* LOGO SVG */
-.logo{
-  width:44px;
-  height:44px;
-}
+.navLinks a:hover{text-decoration:underline}
+.logo{width:44px;height:44px}
 
 /* HERO */
 .hero{
   position:relative;
-  background:
-    linear-gradient(120deg,#0b1220,#1e293b);
+  background:linear-gradient(120deg,#0b1220,#1e293b);
   color:#fff;
   overflow:hidden;
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
 .heroGrid{
-  position:absolute;
-  inset:0;
+  position:absolute;inset:0;
   background:
     linear-gradient(#ffffff10 1px, transparent 1px),
     linear-gradient(90deg,#ffffff10 1px, transparent 1px);
   background-size:40px 40px;
+  opacity:.8;
+}
+.heroNoise{
+  position:absolute;inset:-40%;
+  background:radial-gradient(circle at 30% 40%, rgba(37,99,235,.22), transparent 55%),
+             radial-gradient(circle at 70% 60%, rgba(255,255,255,.10), transparent 50%);
+  filter:blur(10px);
+  transform:rotate(8deg);
+  opacity:.9;
 }
 .heroInner{
   position:relative;
-  padding:72px 0 80px;
+  padding:72px 0 84px;
   display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:32px;
+  grid-template-columns:1.08fr .92fr;
+  gap:28px;
+  align-items:start;
 }
 @media(max-width:900px){
-  .heroInner{grid-template-columns:1fr}
+  .heroInner{grid-template-columns:1fr;padding:56px 0 64px}
 }
-
 .pill{
-  display:inline-block;
+  display:inline-flex;
   padding:6px 10px;
   border-radius:999px;
-  background:#ffffff1a;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.18);
   font-size:12px;
   font-weight:900;
+  letter-spacing:.02em;
 }
 .heroTitle{
   font-size:clamp(34px,4vw,52px);
   font-weight:900;
   margin:14px 0 0;
+  letter-spacing:-.02em;
+  line-height:1.06;
 }
 .heroDesc{
   margin-top:12px;
-  max-width:60ch;
-  color:#ffffffcc;
+  max-width:62ch;
+  color:rgba(255,255,255,.86);
+  line-height:1.6;
 }
+.heroActions{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
 .btn{
-  display:inline-block;
-  margin-top:16px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
   padding:12px 16px;
   border-radius:16px;
-  background:#fff;
-  color:#0b1220;
   font-weight:900;
   text-decoration:none;
+  border:1px solid transparent;
+  transition:transform .2s ease;
 }
+.btn:hover{transform:translateY(-1px)}
+.btnPrimary{background:#fff;color:#0b1220}
+.btnSecondary{background:rgba(255,255,255,.10);color:#fff;border-color:rgba(255,255,255,.25)}
+.kpiRow{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+@media(max-width:700px){.kpiRow{grid-template-columns:1fr}}
+.kpi{
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.10);
+  border-radius:16px;
+  padding:12px 14px;
+}
+.kpi b{display:block;font-size:14px}
+.kpi span{display:block;margin-top:6px;color:rgba(255,255,255,.82);font-size:12.5px;line-height:1.45}
 
-/* INDUSTRIAL GRAPHIC */
-.machine{
+/* MACHINE PANEL */
+.panel{
   background:#ffffff;
   border-radius:18px;
-  padding:18px;
+  padding:16px;
+  border:1px solid var(--line);
   box-shadow:var(--soft);
 }
-.machine svg{
-  width:100%;
-  height:auto;
+.panelHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
 }
-.gear{
-  transform-origin:center;
-  animation:spin 6s linear infinite;
+.panelHead .tag{
+  font-weight:900;
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#f1f5f9;
+  border:1px solid var(--line);
+  color:#0b1220;
 }
-@keyframes spin{
-  to{transform:rotate(360deg)}
+
+/* INDUSTRIAL ANIMATION (conveyor + arm + scanning beam) */
+.machineSvg{width:100%;height:auto;display:block}
+.belt{
+  animation:beltMove 1.2s linear infinite;
+}
+@keyframes beltMove{
+  to{transform:translateX(-24px)}
+}
+.box{
+  animation:boxMove 5.2s linear infinite;
+}
+@keyframes boxMove{
+  0%{transform:translateX(-30px)}
+  100%{transform:translateX(240px)}
+}
+.arm{
+  transform-origin:210px 70px;
+  animation:armPick 5.2s ease-in-out infinite;
+}
+@keyframes armPick{
+  0%{transform:rotate(0deg)}
+  20%{transform:rotate(-12deg)}
+  35%{transform:rotate(-12deg)}
+  55%{transform:rotate(6deg)}
+  70%{transform:rotate(0deg)}
+  100%{transform:rotate(0deg)}
+}
+.gripper{
+  animation:grip 5.2s ease-in-out infinite;
+}
+@keyframes grip{
+  0%,18%,100%{transform:translateY(0)}
+  28%,45%{transform:translateY(6px)}
+}
+.scan{
+  opacity:0;
+  animation:scanPulse 5.2s ease-in-out infinite;
+}
+@keyframes scanPulse{
+  0%,22%,100%{opacity:0}
+  26%,40%{opacity:.75}
+}
+.lightDot{
+  animation:dotBlink 1.6s ease-in-out infinite;
+}
+@keyframes dotBlink{
+  0%,60%,100%{opacity:.25}
+  30%{opacity:1}
 }
 
 /* SECTIONS */
 .section{padding:56px 0}
 .sectionAlt{background:#f1f5f9}
-.sectionTitle{font-size:28px;font-weight:900}
-.sectionDesc{color:var(--muted);margin-top:8px}
-
+.h2{font-size:28px;font-weight:900;margin:0}
+.p{margin-top:10px;color:var(--muted);line-height:1.65}
 .cards{
+  margin-top:18px;
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:16px;
-  margin-top:20px;
 }
-@media(max-width:900px){
-  .cards{grid-template-columns:1fr}
-}
+@media(max-width:900px){.cards{grid-template-columns:1fr}}
 .card{
   background:var(--card);
   border-radius:18px;
@@ -162,7 +236,8 @@ body{
   box-shadow:var(--soft);
 }
 .cardTitle{font-weight:900}
-.cardText{margin-top:6px;color:var(--muted);font-size:14px}
+.cardText{margin-top:8px;color:var(--muted);font-size:14px;line-height:1.6}
+.list{margin:10px 0 0;padding-left:16px;color:#334155;line-height:1.7;font-size:14px}
 
 /* FOOTER */
 footer{
@@ -175,10 +250,9 @@ footer{
   grid-template-columns:1fr 1fr;
   gap:20px;
 }
-@media(max-width:900px){
-  .footerGrid{grid-template-columns:1fr}
-}
+@media(max-width:900px){.footerGrid{grid-template-columns:1fr}}
 .footerTitle{color:#fff;font-weight:900}
+.small{font-size:12px;color:#ffffff99;margin-top:10px}
 </style>
 </head>
 
@@ -186,11 +260,12 @@ footer{
 
 <header class="nav">
   <div class="container navInner">
-    <a class="brand" href="#">
-      <!-- SVG LOGO -->
-      <svg class="logo" viewBox="0 0 100 100" fill="none">
+    <a class="brand" href="#top" aria-label="Automtas">
+      <!-- Simple Industrial SVG Logo -->
+      <svg class="logo" viewBox="0 0 100 100" fill="none" aria-hidden="true">
         <rect x="8" y="8" width="84" height="84" rx="18" fill="#0b1220"/>
-        <path d="M50 22 L68 50 L50 78 L32 50 Z" fill="#2563eb"/>
+        <path d="M50 18 L78 50 L50 82 L22 50 Z" fill="#2563eb"/>
+        <path d="M34 50h32" stroke="#ffffff" stroke-width="6" stroke-linecap="round" opacity=".9"/>
       </svg>
       <div>
         <div class="brandName">Automtas</div>
@@ -198,82 +273,221 @@ footer{
       </div>
     </a>
 
-    <nav class="navLinks">
+    <nav class="navLinks" aria-label="Primary">
       <a href="#services">Services</a>
-      <a href="#experience">Experience</a>
+      <a href="#how">How it works</a>
+      <a href="#case">Case studies</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
 </header>
 
-<section class="hero">
-  <div class="heroGrid"></div>
+<section id="top" class="hero">
+  <div class="heroGrid" aria-hidden="true"></div>
+  <div class="heroNoise" aria-hidden="true"></div>
 
   <div class="container heroInner">
     <div>
-      <span class="pill">USA • Industrial Consulting</span>
-      <h1 class="heroTitle">Industrial delivery, fast</h1>
+      <span class="pill">USA • Founder led delivery</span>
+      <h1 class="heroTitle">Industrial consulting for AI and automation</h1>
       <p class="heroDesc">
-        Workflow design, documentation, and execution support for AI and automation programs.
+        I help operations teams turn ideas into working systems. You get clear workflows, execution documentation,
+        and rollout support that sticks on the factory floor and in the field.
       </p>
-      <a class="btn" href="#contact">Contact</a>
+
+      <div class="heroActions">
+        <a class="btn btnPrimary" href="#contact">Contact</a>
+        <a class="btn btnSecondary" href="#services">View services</a>
+      </div>
+
+      <div class="kpiRow">
+        <div class="kpi"><b>Execution first</b><span>Plan, document, deliver</span></div>
+        <div class="kpi"><b>Industrial focus</b><span>Logistics, plant ops, field work</span></div>
+        <div class="kpi"><b>Clear docs</b><span>Specs, workflows, rollout plans</span></div>
+      </div>
     </div>
 
-    <!-- INDUSTRIAL SVG GRAPHIC -->
-    <div class="machine">
-      <svg viewBox="0 0 300 200">
-        <rect x="20" y="120" width="260" height="40" rx="8" fill="#e5e7eb"/>
-        <rect x="40" y="80" width="220" height="40" rx="8" fill="#cbd5f5"/>
-        <circle cx="110" cy="140" r="14" fill="#1e293b"/>
-        <circle cx="190" cy="140" r="14" fill="#1e293b"/>
+    <div class="panel" aria-label="Industrial animation panel">
+      <div class="panelHead">
+        <div style="font-weight:900;color:#0b1220">Industrial workflow animation</div>
+        <div class="tag">Conveyor • Scan • Pick</div>
+      </div>
 
-        <g class="gear" transform="translate(150 80)">
-          <circle r="18" fill="#2563eb"/>
-          <rect x="-2" y="-28" width="4" height="10" fill="#2563eb"/>
-          <rect x="-2" y="18" width="4" height="10" fill="#2563eb"/>
-          <rect x="18" y="-2" width="10" height="4" fill="#2563eb"/>
-          <rect x="-28" y="-2" width="10" height="4" fill="#2563eb"/>
+      <!-- Industrial Animated SVG -->
+      <svg class="machineSvg" viewBox="0 0 320 210" role="img" aria-label="Conveyor with robotic arm scanning and sorting">
+        <!-- Background -->
+        <rect x="10" y="16" width="300" height="176" rx="14" fill="#f8fafc" stroke="#e6eaf0"/>
+        <!-- Status lights -->
+        <circle class="lightDot" cx="40" cy="44" r="6" fill="#22c55e"/>
+        <circle class="lightDot" cx="60" cy="44" r="6" fill="#f59e0b" style="animation-delay:.3s"/>
+        <circle class="lightDot" cx="80" cy="44" r="6" fill="#ef4444" style="animation-delay:.6s"/>
+
+        <!-- Conveyor base -->
+        <rect x="40" y="140" width="240" height="32" rx="10" fill="#cbd5e1"/>
+        <rect x="52" y="148" width="216" height="16" rx="8" fill="#0b1220" opacity=".9"/>
+
+        <!-- Belt pattern (moving) -->
+        <g class="belt" opacity=".35">
+          <rect x="60" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+          <rect x="84" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+          <rect x="108" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+          <rect x="132" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+          <rect x="156" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+          <rect x="180" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+          <rect x="204" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+          <rect x="228" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+          <rect x="252" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+          <rect x="276" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
         </g>
+
+        <!-- Moving box -->
+        <g class="box">
+          <rect x="70" y="122" width="34" height="22" rx="4" fill="#2563eb"/>
+          <rect x="74" y="126" width="26" height="4" rx="2" fill="#ffffff" opacity=".7"/>
+        </g>
+
+        <!-- Sensor post -->
+        <rect x="130" y="74" width="14" height="66" rx="7" fill="#334155"/>
+        <rect x="122" y="62" width="30" height="16" rx="8" fill="#0b1220"/>
+        <circle cx="137" cy="70" r="4" fill="#22c55e"/>
+
+        <!-- Scan beam -->
+        <g class="scan">
+          <polygon points="137,78 120,140 154,140" fill="#2563eb" opacity=".25"/>
+          <rect x="124" y="108" width="26" height="4" rx="2" fill="#2563eb" opacity=".8"/>
+        </g>
+
+        <!-- Robotic arm base -->
+        <rect x="214" y="70" width="74" height="16" rx="8" fill="#0b1220" opacity=".9"/>
+        <rect x="236" y="84" width="22" height="22" rx="8" fill="#334155"/>
+
+        <!-- Arm (animated pivot) -->
+        <g class="arm">
+          <rect x="208" y="92" width="78" height="12" rx="6" fill="#1e293b"/>
+          <rect x="200" y="104" width="56" height="12" rx="6" fill="#2563eb"/>
+          <!-- Gripper -->
+          <g class="gripper">
+            <rect x="192" y="112" width="18" height="12" rx="6" fill="#0b1220"/>
+            <rect x="190" y="124" width="6" height="14" rx="3" fill="#0b1220"/>
+            <rect x="204" y="124" width="6" height="14" rx="3" fill="#0b1220"/>
+          </g>
+        </g>
+
+        <!-- Ground line -->
+        <rect x="26" y="184" width="268" height="3" rx="2" fill="#e6eaf0"/>
       </svg>
+
+      <div style="margin-top:10px;color:#556070;line-height:1.6;font-size:13px">
+        Example: sensor scan, workflow decision, and automated handoff. This is the type of system thinking I apply
+        to production, logistics, and field operations.
+      </div>
     </div>
   </div>
 </section>
 
 <section id="services" class="section sectionAlt">
   <div class="container">
-    <h2 class="sectionTitle">Services</h2>
-    <p class="sectionDesc">Execution focused industrial consulting.</p>
+    <h2 class="h2">Services</h2>
+    <p class="p">Small engagements with clear outputs: workflows, documentation, and delivery support.</p>
 
     <div class="cards">
       <div class="card">
-        <div class="cardTitle">Automation</div>
-        <div class="cardText">Use cases, pilots, rollout planning.</div>
+        <div class="cardTitle">Automation and AI programs</div>
+        <div class="cardText">Use case selection, pilot plan, rollout KPIs.</div>
+        <ul class="list">
+          <li>Use case mapping</li>
+          <li>Process definition</li>
+          <li>Pilot delivery plan</li>
+        </ul>
       </div>
+
       <div class="card">
-        <div class="cardTitle">Documentation</div>
-        <div class="cardText">Workflow specs, stories, delivery plans.</div>
+        <div class="cardTitle">Documentation prepared</div>
+        <div class="cardText">Artifacts that teams can build from.</div>
+        <ul class="list">
+          <li>Workflow diagrams</li>
+          <li>Requirements and stories</li>
+          <li>Acceptance criteria</li>
+        </ul>
       </div>
+
       <div class="card">
-        <div class="cardTitle">Operations</div>
-        <div class="cardText">Systems, dashboards, adoption support.</div>
+        <div class="cardTitle">Operations enablement</div>
+        <div class="cardText">Systems, reporting, and adoption support.</div>
+        <ul class="list">
+          <li>Dashboards</li>
+          <li>Training and rollout</li>
+          <li>Continuous improvement</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section id="experience" class="section">
+<section id="how" class="section">
   <div class="container">
-    <h2 class="sectionTitle">Experience</h2>
-    <p class="sectionDesc">
-      Founder-led delivery across startups and consulting programs.
-    </p>
+    <h2 class="h2">How it works</h2>
+    <p class="p">A simple delivery approach that keeps teams aligned and moving.</p>
+
+    <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+      <div class="card">
+        <div class="cardTitle">1) Discovery</div>
+        <div class="cardText">Understand the process, pain points, and constraints.</div>
+      </div>
+      <div class="card">
+        <div class="cardTitle">2) Documentation</div>
+        <div class="cardText">Create workflows, specs, and a clear plan.</div>
+      </div>
+      <div class="card">
+        <div class="cardTitle">3) Delivery support</div>
+        <div class="cardText">Help teams ship, measure, and stabilize.</div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section id="contact" class="section sectionAlt">
+<section id="case" class="section sectionAlt">
   <div class="container">
-    <h2 class="sectionTitle">Contact</h2>
-    <p class="sectionDesc">Email: apsj726@gmail.com</p>
+    <h2 class="h2">Case studies</h2>
+    <p class="p">Short examples that can be tailored to your industry.</p>
+
+    <div class="cards" style="grid-template-columns:repeat(2,1fr)">
+      <div class="card">
+        <div class="cardTitle">Logistics system rollout</div>
+        <div class="cardText">
+          Defined workflows, wrote delivery documentation, and supported rollout adoption for an operations platform.
+        </div>
+      </div>
+      <div class="card">
+        <div class="cardTitle">Industrial reporting and dashboards</div>
+        <div class="cardText">
+          Built reporting requirements and KPI dashboards to improve visibility, accountability, and decision speed.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="container">
+    <h2 class="h2">Contact</h2>
+    <p class="p">Email is fastest. Share your process and target outcome.</p>
+
+    <div class="cards" style="grid-template-columns:repeat(2,1fr)">
+      <div class="card">
+        <div class="cardTitle">Aprampar Singh</div>
+        <div class="cardText">Cary, NC</div>
+        <div class="cardText">Email: <b>apsj726@gmail.com</b></div>
+        <div class="cardText">Phone: <b>9196509271</b></div>
+      </div>
+
+      <div class="card">
+        <div class="cardTitle">Quick action</div>
+        <div class="cardText">Include: industry, current workflow, target KPI.</div>
+        <div style="height:1px;background:var(--line);margin:14px 0"></div>
+        <a class="btn btnPrimary" style="background:var(--ink);color:#fff" href="mailto:apsj726@gmail.com?subject=Automtas%20Consulting%20Inquiry">Email</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -281,15 +495,24 @@ footer{
   <div class="container footerGrid">
     <div>
       <div class="footerTitle">Automtas</div>
-      <p>Industrial consulting for AI, automation, and operations.</p>
+      <div style="margin-top:8px;line-height:1.6">
+        Industrial consulting for AI, automation, and operations.
+      </div>
+      <div class="small">© <span id="year"></span> Automtas</div>
     </div>
     <div>
       <div class="footerTitle">Contact</div>
-      <p>apsj726@gmail.com</p>
-      <p>Cary, NC</p>
+      <div style="margin-top:8px;line-height:1.8">
+        apsj726@gmail.com<br>
+        Cary, NC
+      </div>
     </div>
   </div>
 </footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
