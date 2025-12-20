@@ -1,750 +1,569 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Automtas — Industrial Consulting</title>
-  <meta name="description" content="Automtas industrial consulting for AI, automation and operations. Workflow mapping, delivery documentation, system enablement, measurable outcomes." />
+    html { scroll-behavior: smooth; }
+    :focus-visible { outline: 3px solid rgba(255,255,255,.7); outline-offset: 3px; border-radius: 14px; }
 
-  <style>
-    :root{
-      --ink:#0b1220;
-      --muted:#556070;
-      --line:#e6eaf0;
-      --card:#ffffff;
-      --soft: 0 18px 50px rgba(2, 6, 23, .12);
-      --radius: 18px;
-      --max: 1120px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--ink);
-      background:#fff;
-      overflow-x:hidden;
-    }
-    a{color:inherit}
-    .container{width:min(var(--max), 92%); margin:0 auto}
-
-    /* Buttons */
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:8px;
-      padding:12px 16px;
-      border-radius:16px;
-      font-weight:900;
-      font-size:14px;
-      text-decoration:none;
-      cursor:pointer;
-      border:1px solid transparent;
-      transition: transform .2s ease, background .2s ease, border-color .2s ease, opacity .2s ease;
-      will-change: transform;
-    }
-    .btn:hover{transform: translateY(-1px)}
-    .btnPrimary{background:#fff; color:var(--ink)}
-    .btnSecondary{background: rgba(255,255,255,.10); color:#fff; border-color: rgba(255,255,255,.25)}
-    .btnDark{background: var(--ink); color:#fff}
-
-    .pill{
-      display:inline-flex;
-      padding:6px 10px;
-      border-radius:999px;
-      background: rgba(255,255,255,.12);
-      color: rgba(255,255,255,.92);
-      border: 1px solid rgba(255,255,255,.18);
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:.02em;
-    }
-
-    /* NAV */
-    .nav{
-      position:sticky; top:0; z-index:50;
-      background: rgba(255,255,255,.86);
-      backdrop-filter: blur(10px);
-      border-bottom:1px solid var(--line);
-    }
-    .navInner{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0;
-    }
-    .brand{display:flex; align-items:center; gap:10px; text-decoration:none}
-    .brandMark{
-      width:40px; height:40px; border-radius:14px;
-      background: var(--ink); color:#fff;
-      display:grid; place-items:center;
-      font-weight:900;
-    }
-    .brandName{font-weight:900}
-    .brandSub{font-size:12px; color:var(--muted); margin-top:-2px}
-    .navLinks{display:flex; gap:16px; align-items:center}
-    .navLinks a{
-      text-decoration:none; font-weight:800; font-size:14px; color:#273244;
-    }
-    .navLinks a:hover{text-decoration:underline}
-    .navCta{
-      text-decoration:none;
-      background: var(--ink); color:#fff;
-      padding:10px 14px; border-radius:14px;
-      font-weight:900; font-size:13px;
-    }
-    .mobileOnly{display:none}
-    @media (max-width: 900px){
-      .navLinks{display:none}
-      .mobileOnly{display:inline-flex}
-    }
-
-    /* HERO with image + overlay */
-    .hero{
-      position:relative;
-      overflow:hidden;
-      border-bottom:1px solid var(--line);
-      min-height: 520px;
-    }
-
-    /* === EDIT THESE IF YOU CHANGE HERO BACKGROUND FILE === */
-    .heroBg{
-      position:absolute; inset:0;
+    /* SITE-WIDE INDUSTRIAL BACKGROUND */
+    .site-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -40;
       background:
-        linear-gradient(90deg, rgba(11,18,32,.92), rgba(11,18,32,.62)),
-        url("./assets/hero-industrial.jpg");
-      background-size:cover;
-      background-position:center;
-      filter:saturate(1.06);
-      transform: scale(1.02);
+        linear-gradient(to bottom, rgba(11,15,25,.90), rgba(11,15,25,.97)),
+        url("https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=2400&q=80");
+      background-size: cover;
+      background-position: center;
     }
 
-    .heroTexture{
-      position:absolute; inset:0;
-      pointer-events:none;
-      opacity:0.10;
-      mix-blend-mode: overlay;
-      transform: rotate(-6deg);
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-      padding:60px 0 0;
+    /* Reveal */
+    .reveal{ opacity:0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in{ opacity:1; transform: translateY(0); }
+@@ -76,7 +88,7 @@
+    .flow-line path{ stroke-dasharray: 12 10; animation: dashMove 2.2s linear infinite; }
+    @keyframes dashMove{ to { stroke-dashoffset: -44; } }
+
+    /* Marquee */
+    /* Marquee for logos */
+    .marquee{
+      display:flex; gap:16px; overflow:hidden;
+      mask-image: linear-gradient(to right, transparent 0, black 12%, black 88%, transparent 100%);
+@@ -103,38 +115,6 @@
+    .glow-card > *{ position:relative; z-index:1; }
+    .lift:hover{ transform: translateY(-2px); }
+
+    /* Modal */
+    .modal-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.65); backdrop-filter: blur(10px); display:none; z-index:60; }
+    .modal-backdrop.open{ display:block; }
+    .modal{
+      position:fixed; inset:0; display:none; z-index:70;
+      align-items:center; justify-content:center; padding:16px;
     }
-    .textureLine{
-      font-weight:900;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      font-size:28px;
-      color: rgba(255,255,255,.86);
-      white-space:nowrap;
+    .modal.open{ display:flex; }
+    .modal-panel{
+      width:min(1100px, 100%);
+      height:min(82vh, 900px);
+      border-radius: 22px;
       overflow:hidden;
-    }
-    .heroInner{
-      position:relative;
-      padding:54px 0 66px;
-      display:grid;
-      gap:20px;
-      grid-template-columns: 1.15fr .85fr;
-      align-items:start;
-    }
-    @media (max-width: 900px){
-      .hero{min-height:auto}
-      .heroInner{grid-template-columns: 1fr}
-    }
-    .heroTitle{
-      margin:14px 0 0;
-      font-size: clamp(34px, 4vw, 52px);
-      line-height:1.05;
-      color:#fff;
-      font-weight:900;
-      letter-spacing:-0.02em;
-    }
-    .heroDesc{
-      margin-top:12px;
-      color: rgba(255,255,255,.86);
-      font-size:16px;
-      line-height:1.55;
-      max-width: 62ch;
-    }
-    .heroActions{margin-top:16px; display:flex; gap:10px; flex-wrap:wrap}
-
-    .kpiGrid{
-      margin-top:16px;
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-    }
-    @media(max-width: 700px){ .kpiGrid{grid-template-columns:1fr} }
-    .darkCard{
-      border:1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.10);
-      border-radius:18px;
-      padding:14px;
-    }
-    .darkKpi{color:#fff; font-weight:900}
-    .darkText{color: rgba(255,255,255,.86); margin-top:6px; line-height:1.45; font-size:13px}
-
-    /* Cards */
-    .card{
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--card);
-      box-shadow: var(--soft);
-      padding:18px;
-      position:relative;
-    }
-    .mutedLabel{
-      font-size:12px;
-      font-weight:900;
-      color:#64748b;
-      letter-spacing:.04em;
-      text-transform:uppercase;
-    }
-    .divider{height:1px; background: var(--line); margin:14px 0}
-    .badge{
-      display:inline-flex;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:#f8fafc;
-      font-weight:900;
-      font-size:12px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 18px 80px rgba(0,0,0,.55);
     }
 
-    /* Logos */
-    .logoStrip{
-      display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:10px;
+    /* Before/After background swap */
+    .hero-bg{ position:absolute; inset:0; z-index:-20; }
+    .hero-bg::before{
+      content:""; position:absolute; inset:0;
+      background-image: var(--hero-bg);
+      background-size: cover; background-position:center;
+      opacity:.25;
+      transition: opacity .35s ease, filter .35s ease;
     }
-    .logoItem{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:16px;
-      padding:12px;
-      display:grid;
-      place-items:center;
-      min-width: 140px;
-    }
-    .logoItem img{max-width:130px; max-height:38px; opacity:.92}
-
-    /* Animated image blocks */
-    .mediaGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:12px;
-      margin-top:10px;
-    }
-    .mediaCard{
-      display:grid;
-      grid-template-columns: 120px 1fr;
-      gap:12px;
-      align-items:center;
-      padding:12px;
-      border:1px solid var(--line);
-      border-radius:16px;
-      background:#f8fafc;
-    }
-    .mediaThumb{
-      width:120px;
-      height:76px;
-      border-radius:14px;
-      overflow:hidden;
-      background: #0b1220;
-      position:relative;
-      box-shadow: 0 12px 30px rgba(2,6,23,.18);
-    }
-    .mediaThumb img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      transform: scale(1.02);
-      animation: floaty 4.8s ease-in-out infinite;
-    }
-    .mediaTitle{font-weight:900; font-size:13px}
-    .mediaDesc{color:var(--muted); font-size:12px; margin-top:2px; line-height:1.45}
-
-    /* Sections with texture background */
-    .section{
-      position:relative;
-      padding:52px 0;
-      overflow:hidden;
+    .hero-bg::after{
+      content:""; position:absolute; inset:0;
+      background: linear-gradient(to bottom, rgba(9,10,14,.70), rgba(9,10,14,.88), rgba(9,10,14,1));
     }
 
-    /* === EDIT THIS FILE IF YOU CHANGE TEXTURE IMAGE === */
-    .section::before{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.98)),
-        url("./assets/texture-grid.png");
-      background-size: 520px auto;
-      background-repeat: repeat;
-      opacity: .60;
-      pointer-events:none;
-    }
-    .sectionAlt::before{
-      background:
-        linear-gradient(180deg, rgba(248,250,252,.94), rgba(255,255,255,.98)),
-        url("./assets/texture-grid.png");
-      background-size: 520px auto;
-      background-repeat: repeat;
-      opacity: .70;
-    }
-
-    .sectionTextureText{
-      position:absolute; inset:0;
-      pointer-events:none;
-      opacity:0.06;
-      transform: rotate(-6deg);
-      display:flex; flex-direction:column;
-      gap:18px;
-      padding: 36px 0 0;
-    }
-    .sectionTextureText .line{
-      white-space:nowrap;
-      font-weight:900;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      font-size:28px;
-      color: #0b1220;
-      overflow:hidden;
-    }
-
-    .sectionInner{position:relative}
-    .sectionHead{max-width: 820px; margin-bottom: 16px}
-    .eyebrow{
-      font-size:12px; font-weight:900; color:#5b6b82;
-      text-transform:uppercase; letter-spacing:.08em;
-    }
-    .sectionTitle{margin:10px 0 0; font-size:28px; letter-spacing:-0.02em}
-    .sectionDesc{margin:10px 0 0; color:var(--muted); line-height:1.6}
-
-    /* Grids */
-    .cards3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
-    .cards2{display:grid; grid-template-columns: repeat(2, 1fr); gap:14px}
-    @media(max-width: 900px){
-      .cards3, .cards2{grid-template-columns: 1fr}
-    }
-    .bullets{margin:10px 0 0; padding-left:16px; color:#334155; line-height:1.7}
-    .miniBullets{margin:10px 0 0; padding-left:16px; color:#475569; line-height:1.6; font-size:13px}
-
-    /* Results */
-    .resultRow{margin-top:12px; display:flex; flex-wrap:wrap; gap:10px}
-    .resultPill{
-      border:1px solid var(--line);
-      background:#f8fafc;
-      border-radius:16px;
-      padding:10px 12px;
-      min-width: 170px;
-    }
-    .resultLabel{font-size:12px; color:#64748b; font-weight:900; text-transform:uppercase}
-    .resultValue{font-size:16px; font-weight:900}
-
-    /* Contact */
-    .contactGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
-    }
-    @media(max-width:900px){.contactGrid{grid-template-columns:1fr}}
-    .contactLine{
-      display:flex; justify-content:space-between; gap:10px;
-      padding:10px 0;
-      border-bottom:1px dashed var(--line);
-    }
-    .contactLine span{color:var(--muted); font-size:13px}
-
-    /* Footer */
-    .footer{
-      border-top:1px solid var(--line);
-      background:#f8fafc;
-      padding: 26px 0;
-    }
-    .footerInner{
-      display:grid;
-      gap:16px;
-      grid-template-columns: 1fr 1fr;
-    }
-    @media(max-width:900px){.footerInner{grid-template-columns:1fr}}
-    .footerTitle{font-weight:900}
-    .footerText{margin-top:6px; color:var(--muted); line-height:1.6}
-    .footerBottom{margin-top:12px; font-size:12px; color:var(--muted)}
-
-    /* Reveal animation */
-    .reveal{
-      opacity:0;
-      transform: translateY(16px);
-      transition: opacity .7s ease, transform .7s ease;
-      will-change: opacity, transform;
-    }
-    .reveal.show{
-      opacity:1;
-      transform: translateY(0);
-    }
-
-    /* Floating animation */
-    @keyframes floaty{
-      0%,100%{ transform: translateY(0) scale(1.02); }
-      50%{ transform: translateY(-4px) scale(1.03); }
-    }
-  </style>
+    @media (prefers-reduced-motion: reduce){
+      html { scroll-behavior: auto; }
+      .reveal { transition:none!important; }
+@@ -160,6 +140,8 @@
 </head>
 
-<body>
-  <!-- NAV -->
-  <header class="nav">
-    <div class="container navInner">
-      <a class="brand" href="#top">
-        <div class="brandMark">A</div>
-        <div>
-          <div class="brandName">Automtas</div>
-          <div class="brandSub">Industrial Consulting</div>
-        </div>
-      </a>
+<body class="bg-zinc-950 text-white antialiased">
+  <!-- Background -->
+  <div class="site-bg"></div>
 
-      <nav class="navLinks">
-        <a href="#services">Services</a>
-        <a href="#experience">Founder / Partner</a>
-        <a href="#case-studies">Case Studies</a>
-        <a href="#testimonials">Testimonials</a>
-        <a class="navCta" href="#contact">Book a Call</a>
-      </nav>
+  <!-- Header -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-zinc-950/75 backdrop-blur border-b border-white/10">
+@@ -176,17 +158,17 @@
+        <a class="hover:text-white transition" href="#services">Services</a>
+        <a class="hover:text-white transition" href="#work">Work</a>
+        <a class="hover:text-white transition" href="#industries">Industries</a>
+        <a class="hover:text-white transition" href="#brochure">Brochure</a>
+        <a class="hover:text-white transition" href="#contact">Contact</a>
 
-      <a class="navCta mobileOnly" href="#contact">Book</a>
+        <!-- NEW: open brochure in modal -->
+        <button id="openBrochure"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5 transition font-semibold">
+        <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5 transition font-semibold"
+           href="brochure.html">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
+            <path d="M6 4h9l3 3v13H6V4Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M9 12h6M9 16h6M9 8h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Brochure
+        </button>
+          Brochure (PDF)
+        </a>
+
+        <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition"
+           href="services.html">
+@@ -205,25 +187,18 @@
+  <section class="relative pt-24">
+    <div class="bg-layers -z-10"></div>
+
+    <!-- NEW: toggleable hero background -->
+    <div id="heroBg" class="hero-bg"></div>
+    <div class="absolute inset-0 -z-20">
+      <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581091215367-59ab6b405c0b?auto=format&fit=crop&w=2400&q=80')] bg-cover bg-center opacity-20"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-zinc-950/85 to-zinc-950"></div>
     </div>
-  </header>
 
-  <!-- HERO -->
-  <section id="top" class="hero">
-    <div class="heroBg" aria-hidden="true"></div>
-
-    <div class="heroTexture" aria-hidden="true">
-      <div class="textureLine">INDUSTRIAL • AI • AUTOMATION • INDUSTRIAL • AI • AUTOMATION •</div>
-      <div class="textureLine">WORKFLOWS • DOCUMENTATION • DELIVERY • WORKFLOWS • DOCUMENTATION •</div>
-      <div class="textureLine">SYSTEMS • KPI • EXECUTION • SYSTEMS • KPI • EXECUTION •</div>
-    </div>
-
-    <div class="container heroInner">
+    <div class="max-w-6xl mx-auto px-4 py-14">
       <div class="reveal">
-        <div class="pill">USA • Founder-led Industrial Consulting</div>
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-xs text-white/80">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
+              <path d="M13 2 3 14h8l-1 8 10-12h-8l1-8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+            <span id="modeLabel">Before: manual, fragmented, reactive</span>
+          </div>
 
-        <h1 class="heroTitle">Industrial Consulting for AI, Automation & Operations</h1>
+          <!-- NEW: Before/After toggle -->
+          <button id="toggleFactory"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border border-white/15 hover:bg-white/5 transition font-semibold text-sm">
+            <span class="w-2 h-2 rounded-full bg-white/70"></span>
+            Toggle Before / After
+          </button>
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-xs text-white/80">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
+            <path d="M13 2 3 14h8l-1 8 10-12h-8l1-8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          Execution • Manufacturing • Logistics • Delivery
+        </div>
 
-        <p class="heroDesc">
-          Helping businesses design workflows, prepare delivery documentation, and launch scalable systems.
+        <h1 class="mt-5 text-4xl md:text-5xl font-extrabold tracking-tight max-w-3xl">
+@@ -252,15 +227,14 @@ <h1 class="mt-5 text-4xl md:text-5xl font-extrabold tracking-tight max-w-3xl">
+            View work
+          </a>
+
+          <!-- NEW: brochure opens modal -->
+          <button id="openBrochureHero"
+          <a href="#brochure"
+             class="inline-flex items-center gap-2 justify-center px-5 py-3 rounded-2xl border border-white/15 hover:bg-white/5 transition font-semibold">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
+              <path d="M6 4h9l3 3v13H6V4Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M9 12h6M9 16h6M9 8h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            View brochure (PDF)
+          </button>
+            Brochure
+          </a>
+        </div>
+      </div>
+
+@@ -307,129 +281,61 @@ <h1 class="mt-5 text-4xl md:text-5xl font-extrabold tracking-tight max-w-3xl">
+        </div>
+      </div>
+
+      <!-- NEW: Client logos (anonymized SVG, enterprise-style) -->
+      <!-- Marquee -->
+      <div class="reveal mt-10">
+        <div class="flex items-center justify-between gap-4 flex-col md:flex-row">
+        <div class="flex items-center justify-between">
+          <div class="text-sm text-white/65 flex items-center gap-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2 20 6v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6l8-4Z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            Enterprise environments (anonymized)
+            Partners & project environments (sample)
+          </div>
+          <div class="text-xs text-white/50">Logos shown are anonymized placeholders</div>
+          <a href="services.html" class="text-sm text-white/70 hover:text-white transition">See case studies →</a>
+        </div>
+
+        <div class="mt-4 rounded-3xl border border-white/10 bg-white/5 p-5">
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            <!-- LOGO 1 -->
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-4 flex items-center justify-center">
+              <svg viewBox="0 0 180 36" class="h-6 w-auto" aria-label="ApexWorks (anonymized)" role="img">
+                <defs>
+                  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                    <stop stop-color="rgba(255,255,255,.92)"/>
+                    <stop offset="1" stop-color="rgba(255,255,255,.55)"/>
+                  </linearGradient>
+                </defs>
+                <path d="M18 26 30 6l12 20" fill="none" stroke="url(#g1)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M60 26V10h6l6 7 6-7h6v16" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M122 26V10h18" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <!-- LOGO 2 -->
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-4 flex items-center justify-center">
+              <svg viewBox="0 0 180 36" class="h-6 w-auto" aria-label="NorthGate Systems (anonymized)" role="img">
+                <circle cx="18" cy="18" r="10" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="3"/>
+                <path d="M18 8v20M8 18h20" stroke="rgba(255,255,255,.45)" stroke-width="3" stroke-linecap="round"/>
+                <path d="M52 25V11h10c6 0 10 3 10 7s-4 7-10 7H52" fill="none" stroke="rgba(255,255,255,.65)" stroke-width="3" stroke-linecap="round"/>
+                <path d="M92 25V11h18" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <!-- LOGO 3 -->
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-4 flex items-center justify-center">
+              <svg viewBox="0 0 180 36" class="h-6 w-auto" aria-label="IronLeaf Logistics (anonymized)" role="img">
+                <path d="M16 26c6-10 12-14 18-16-2 8-4 12-10 16" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M50 25V11h9l7 9 7-9h9v14" fill="none" stroke="rgba(255,255,255,.62)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M120 25h18" stroke="rgba(255,255,255,.45)" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <!-- LOGO 4 -->
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-4 flex items-center justify-center">
+              <svg viewBox="0 0 180 36" class="h-6 w-auto" aria-label="BlueHarbor Manufacturing (anonymized)" role="img">
+                <path d="M10 23c6-5 12-7 18-7s12 2 18 7" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="3" stroke-linecap="round"/>
+                <path d="M58 25V11h12c4 0 7 2 7 5 0 2-1 3-3 4 2 1 3 2 3 4 0 3-3 5-7 5H58" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="3" stroke-linecap="round"/>
+                <path d="M110 25V11h18" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <!-- LOGO 5 -->
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-4 flex items-center justify-center">
+              <svg viewBox="0 0 180 36" class="h-6 w-auto" aria-label="Vertex Utilities (anonymized)" role="img">
+                <path d="M18 26 8 10h20L18 26Z" fill="none" stroke="rgba(255,255,255,.72)" stroke-width="3" stroke-linejoin="round"/>
+                <path d="M52 11l7 14 7-14" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M88 25V11h14" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="3" stroke-linecap="round"/>
+                <path d="M118 25V11h14" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <!-- LOGO 6 -->
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-4 flex items-center justify-center">
+              <svg viewBox="0 0 180 36" class="h-6 w-auto" aria-label="OmniPort (anonymized)" role="img">
+                <path d="M18 10v16M10 18h16" stroke="rgba(255,255,255,.7)" stroke-width="3" stroke-linecap="round"/>
+                <path d="M52 25V11h7c6 0 10 3 10 7s-4 7-10 7h-7" fill="none" stroke="rgba(255,255,255,.58)" stroke-width="3" stroke-linecap="round"/>
+                <path d="M92 25V11h18" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+        <div class="mt-4 marquee rounded-3xl border border-white/10 bg-white/5 p-3">
+          <div class="marquee-track">
+            <div class="flex items-center gap-3">
+              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-white/70"></span> Plant Ops
+              </div>
+              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-white/70"></span> Warehouse
+              </div>
+              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-white/70"></span> Quality
+              </div>
+              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-white/70"></span> PMO
+              </div>
+              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-white/70"></span> Vendors
+              </div>
+              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-white/70"></span> Compliance
+              </div>
+            </div>
+          </div>
+
+          <!-- Optional: keep your marquee too -->
+          <div class="mt-5 marquee rounded-3xl border border-white/10 bg-white/5 p-3">
+            <div class="marquee-track">
+              <div class="flex items-center gap-3">
+                <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-white/70"></span> Plant Ops
+                </div>
+                <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-white/70"></span> Warehouse
+                </div>
+                <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-white/70"></span> Quality
+                </div>
+                <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-white/70"></span> PMO
+                </div>
+                <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-white/70"></span> Vendors
+                </div>
+                <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-white/70"></span> Compliance
+                </div>
+            <div class="flex items-center gap-3">
+              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-white/70"></span> Plant Ops
+              </div>
+              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-white/70"></span> Warehouse
+              </div>
+              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-white/70"></span> Quality
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-white/70"></span> Plant Ops
+                </div>
+                <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-white/70"></span> Warehouse
+                </div>
+                <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-white/70"></span> Quality
+                </div>
+                <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-white/70"></span> PMO
+                </div>
+                <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-white/70"></span> Vendors
+                </div>
+                <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-white/70"></span> Compliance
+                </div>
+              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-white/70"></span> PMO
+              </div>
+              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-white/70"></span> Vendors
+              </div>
+              <div class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-sm flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-white/70"></span> Compliance
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+@@ -488,6 +394,52 @@ <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Services</h2>
+    </div>
+  </section>
+
+  <!-- Brochure Highlights (added) -->
+  <section id="brochure" class="py-16 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="reveal">
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Brochure highlights</h2>
+        <p class="mt-2 text-white/65 max-w-3xl">
+          A sales-ready overview: delivery approach, KPIs, and industrial case snapshots.
         </p>
+      </div>
 
-        <div class="heroActions">
-          <a class="btn btnPrimary" href="#contact">Book a Call</a>
-          <a class="btn btnSecondary" href="#services">Explore Services</a>
+      <div class="mt-8 grid md:grid-cols-3 gap-4 text-sm">
+        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
+          <div class="font-semibold mb-2">Delivery model</div>
+          <p class="text-white/65">
+            30–60–90 day plan, tier cadence, ownership, and visible KPI tracking.
+          </p>
         </div>
 
-        <div class="kpiGrid">
-          <div class="darkCard">
-            <div class="darkKpi">Founder & Partner</div>
-            <div class="darkText">Consulting + startup execution leadership</div>
-          </div>
-          <div class="darkCard">
-            <div class="darkKpi">15+ Projects</div>
-            <div class="darkText">AI, logistics, automation, operations</div>
-          </div>
-          <div class="darkCard">
-            <div class="darkKpi">Documentation Prepared</div>
-            <div class="darkText">Clear specs, stories, workflows, plans</div>
-          </div>
+        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
+          <div class="font-semibold mb-2">Programs that ship</div>
+          <p class="text-white/65">
+            Manufacturing stabilization, warehouse throughput resets, multi-site rollout playbooks.
+          </p>
+        </div>
+
+        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
+          <div class="font-semibold mb-2">Proof + outcomes</div>
+          <p class="text-white/65">
+            Before/after metrics, QC gates, rework reduction loops, and OTIF improvements.
+          </p>
         </div>
       </div>
 
+      <div class="mt-8 reveal flex flex-wrap gap-3">
+        <a href="brochure.html"
+           class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition">
+          View brochure (embedded PDF)
+        </a>
+        <a href="automatas_brochure.pdf"
+           class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-white/15 hover:bg-white/5 transition font-semibold">
+          Download PDF
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section id="work" class="py-16 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4">
+@@ -508,7 +460,10 @@ <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Previous case studies<
+      <div class="mt-8 grid md:grid-cols-3 gap-4">
+        <a href="services.html#cctv" class="reveal glow-card lift block rounded-3xl overflow-hidden border border-white/10 bg-white/5 transition">
+          <div class="p-6">
+            <div class="text-xs text-white/70">Manufacturing</div>
+            <div class="text-xs text-white/70 flex items-center gap-2">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7V7Z" stroke="currentColor" stroke-width="2"/><path d="M4 4h3M17 4h3M4 20h3M17 20h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Manufacturing
+            </div>
+            <div class="mt-2 font-semibold">CCTV Camera Ramp</div>
+            <div class="mt-1 text-sm text-white/65">QC gates + kitting + rework loop</div>
+            <div class="mt-4 text-xs text-white/70">Yield +11% • Rework -19%</div>
+@@ -517,7 +472,10 @@ <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Previous case studies<
+
+        <a href="services.html#warehouse" class="reveal glow-card lift block rounded-3xl overflow-hidden border border-white/10 bg-white/5 transition">
+          <div class="p-6">
+            <div class="text-xs text-white/70">Logistics</div>
+            <div class="text-xs text-white/70 flex items-center gap-2">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M3 7h11v10H3V7Z" stroke="currentColor" stroke-width="2"/><path d="M14 10h4l3 3v4h-7v-7Z" stroke="currentColor" stroke-width="2"/></svg>
+              Logistics
+            </div>
+            <div class="mt-2 font-semibold">Warehouse Throughput</div>
+            <div class="mt-1 text-sm text-white/65">Slotting + dock control + cadence</div>
+            <div class="mt-4 text-xs text-white/70">OTIF +10% • Cycle -13%</div>
+@@ -526,7 +484,10 @@ <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Previous case studies<
+
+        <a href="services.html#sop" class="reveal glow-card lift block rounded-3xl overflow-hidden border border-white/10 bg-white/5 transition">
+          <div class="p-6">
+            <div class="text-xs text-white/70">PMO</div>
+            <div class="text-xs text-white/70 flex items-center gap-2">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M4 7h16v14H4V7Z" stroke="currentColor" stroke-width="2"/><path d="M4 11h16" stroke="currentColor" stroke-width="2" opacity=".65"/></svg>
+              PMO
+            </div>
+            <div class="mt-2 font-semibold">Multi-site SOP Rollout</div>
+            <div class="mt-1 text-sm text-white/65">Governance + training kit + audit</div>
+            <div class="mt-4 text-xs text-white/70">Adoption +15% • Delays -12%</div>
+@@ -561,6 +522,48 @@ <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Industries</h2>
+    </div>
+  </section>
+
+  <!-- Testimonials (added) -->
+  <section id="testimonials" class="py-16 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4">
       <div class="reveal">
-        <div class="card">
-          <div class="mutedLabel">Partners / logos</div>
-
-          <!-- === REPLACE THESE LOGO FILES WHENEVER YOU WANT === -->
-          <div class="logoStrip">
-            <div class="logoItem"><img src="./assets/logo1.png" alt="Logo 1"></div>
-            <div class="logoItem"><img src="./assets/logo2.png" alt="Logo 2"></div>
-            <div class="logoItem"><img src="./assets/logo3.png" alt="Logo 3"></div>
-            <div class="logoItem"><img src="./assets/logo4.png" alt="Logo 4"></div>
-          </div>
-
-          <div class="divider"></div>
-
-          <div class="mutedLabel">Animated graphics</div>
-
-          <!-- === REPLACE THESE ANIMATED FILES ANYTIME (GIF/WEBP) === -->
-          <div class="mediaGrid">
-            <div class="mediaCard">
-              <div class="mediaThumb"><img src="./assets/anim-robot-arm.gif" alt="Automation animation"></div>
-              <div>
-                <div class="mediaTitle">Automation delivery</div>
-                <div class="mediaDesc">Execution plans + implementation support.</div>
-              </div>
-            </div>
-
-            <div class="mediaCard">
-              <div class="mediaThumb"><img src="./assets/anim-dashboard.gif" alt="KPI dashboard animation"></div>
-              <div>
-                <div class="mediaTitle">KPI dashboards</div>
-                <div class="mediaDesc">Simple metrics leadership can act on.</div>
-              </div>
-            </div>
-
-            <div class="mediaCard">
-              <div class="mediaThumb"><img src="./assets/anim-workflow.gif" alt="Workflow animation"></div>
-              <div>
-                <div class="mediaTitle">Workflow mapping</div>
-                <div class="mediaDesc">Clarity that reduces friction and rework.</div>
-              </div>
-            </div>
-
-            <div class="mediaCard">
-              <div class="mediaThumb"><img src="./assets/anim-logistics.gif" alt="Logistics animation"></div>
-              <div>
-                <div class="mediaTitle">Systems enablement</div>
-                <div class="mediaDesc">TMS/CRM planning for scale.</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section id="services" class="section sectionAlt">
-    <div class="sectionTextureText" aria-hidden="true">
-      <div class="line">SERVICES • AI • AUTOMATION • OPS • SERVICES • AI • AUTOMATION • OPS •</div>
-      <div class="line">SERVICES • AI • AUTOMATION • OPS • SERVICES • AI • AUTOMATION • OPS •</div>
-    </div>
-
-    <div class="container sectionInner">
-      <div class="sectionHead reveal">
-        <div class="eyebrow">Services</div>
-        <h2 class="sectionTitle">What I deliver</h2>
-        <p class="sectionDesc">Short, practical, execution-focused consulting.</p>
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Client feedback</h2>
+        <p class="mt-2 text-white/65">From industrial leadership teams.</p>
       </div>
 
-      <div class="cards3">
-        <div class="card reveal">
-          <div class="badge">Automation & AI Consulting</div>
-          <p class="sectionDesc" style="margin-top:10px">Turning ideas into buildable execution plans.</p>
-          <ul class="miniBullets">
-            <li>Use-case definition</li>
-            <li>Workflow mapping</li>
-            <li>Pilot plan + KPIs</li>
-          </ul>
-        </div>
-
-        <div class="card reveal">
-          <div class="badge">Documentation Prepared</div>
-          <p class="sectionDesc" style="margin-top:10px">Documents that teams can build from.</p>
-          <ul class="miniBullets">
-            <li>Project documentation</li>
-            <li>User stories + acceptance criteria</li>
-            <li>Execution-ready specs</li>
-          </ul>
-        </div>
-
-        <div class="card reveal">
-          <div class="badge">Operations & Systems</div>
-          <p class="sectionDesc" style="margin-top:10px">Systems designed for real operations.</p>
-          <ul class="miniBullets">
-            <li>TMS / CRM enablement</li>
-            <li>Dashboards & reporting</li>
-            <li>Rollout & adoption</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOUNDER / PARTNER -->
-  <section id="experience" class="section">
-    <div class="sectionTextureText" aria-hidden="true">
-      <div class="line">FOUNDER • PARTNER • DELIVERY • FOUNDER • PARTNER • DELIVERY •</div>
-      <div class="line">FOUNDER • PARTNER • DELIVERY • FOUNDER • PARTNER • DELIVERY •</div>
-    </div>
-
-    <div class="container sectionInner">
-      <div class="sectionHead reveal">
-        <div class="eyebrow">Founder / Partner</div>
-        <h2 class="sectionTitle">Founder & Partner experience</h2>
-        <p class="sectionDesc">Built, advised, and delivered across startups and consulting programs.</p>
-      </div>
-
-      <div class="cards2">
-        <div class="card reveal">
-          <div class="badge">Founder • Logistics Technology Startup</div>
-          <ul class="bullets">
-            <li>Built and launched a logistics platform</li>
-            <li>Led a cross-functional team (~35 members)</li>
-            <li>Prepared delivery documentation and workflow specs</li>
-            <li>Released product into market and supported adoption</li>
-          </ul>
-        </div>
-
-        <div class="card reveal">
-          <div class="badge">Partner • Consulting Programs</div>
-          <ul class="bullets">
-            <li>Partnered on multiple delivery programs across clients</li>
-            <li>Prepared project documentation and execution plans</li>
-            <li>Aligned business + tech + operations teams</li>
-            <li>Supported projects from discovery to completion</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CASE STUDIES -->
-  <section id="case-studies" class="section sectionAlt">
-    <div class="sectionTextureText" aria-hidden="true">
-      <div class="line">CASE STUDIES • OUTCOMES • DELIVERY • CASE STUDIES • OUTCOMES • DELIVERY •</div>
-      <div class="line">CASE STUDIES • OUTCOMES • DELIVERY • CASE STUDIES • OUTCOMES • DELIVERY •</div>
-    </div>
-
-    <div class="container sectionInner">
-      <div class="sectionHead reveal">
-        <div class="eyebrow">Case Studies</div>
-        <h2 class="sectionTitle">Selected outcomes</h2>
-        <p class="sectionDesc">Short examples — easy to tailor.</p>
-      </div>
-
-      <div class="cards2">
-        <div class="card reveal">
-          <div class="badge">Startup Product Launch</div>
-          <h3 style="margin:12px 0 8px; letter-spacing:-0.01em">From plan → build → release</h3>
-          <p class="sectionDesc">Designed workflows, prepared documentation, shipped a logistics system.</p>
-          <div class="resultRow">
-            <div class="resultPill"><div class="resultLabel">Delivery</div><div class="resultValue">End-to-end</div></div>
-            <div class="resultPill"><div class="resultLabel">Team</div><div class="resultValue">~35</div></div>
-            <div class="resultPill"><div class="resultLabel">Outcome</div><div class="resultValue">Live</div></div>
-          </div>
-        </div>
-
-        <div class="card reveal">
-          <div class="badge">Documentation → Completed Projects</div>
-          <h3 style="margin:12px 0 8px; letter-spacing:-0.01em">Prepared → delivered</h3>
-          <p class="sectionDesc">Multiple programs supported through documentation, mapping, and execution planning.</p>
-          <div class="resultRow">
-            <div class="resultPill"><div class="resultLabel">Projects</div><div class="resultValue">15+</div></div>
-            <div class="resultPill"><div class="resultLabel">Artifacts</div><div class="resultValue">Docs + maps</div></div>
-            <div class="resultPill"><div class="resultLabel">Outcome</div><div class="resultValue">Delivered</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section id="testimonials" class="section">
-    <div class="sectionTextureText" aria-hidden="true">
-      <div class="line">TESTIMONIALS • TRUST • EXECUTION • TESTIMONIALS • TRUST • EXECUTION •</div>
-      <div class="line">TESTIMONIALS • TRUST • EXECUTION • TESTIMONIALS • TRUST • EXECUTION •</div>
-    </div>
-
-    <div class="container sectionInner">
-      <div class="sectionHead reveal">
-        <div class="eyebrow">Testimonials</div>
-        <h2 class="sectionTitle">What partners say</h2>
-        <p class="sectionDesc">Replace anytime with real testimonials.</p>
-      </div>
-
-      <div class="cards3">
-        <div class="card reveal">
-          <div class="badge">Clarity</div>
-          <p style="margin-top:12px; color:#334155; line-height:1.7">
-            “Clear documentation and structured execution helped our team move fast.”
+      <div class="mt-8 grid md:grid-cols-3 gap-4">
+        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
+          <p class="text-white/80 leading-relaxed">
+            “Automatas brought structure to a chaotic operation. Within weeks, we had stable flow, clear ownership, and KPIs leadership could trust.”
           </p>
-          <p style="margin-top:10px; color:#64748b; font-size:12px"><strong>Program Sponsor</strong></p>
-        </div>
-
-        <div class="card reveal">
-          <div class="badge">Partner mindset</div>
-          <p style="margin-top:12px; color:#334155; line-height:1.7">
-            “Strong partner mindset — focused on delivery, not just planning.”
-          </p>
-          <p style="margin-top:10px; color:#64748b; font-size:12px"><strong>Operations Leader</strong></p>
-        </div>
-
-        <div class="card reveal">
-          <div class="badge">Execution</div>
-          <p style="margin-top:12px; color:#334155; line-height:1.7">
-            “Bridged business and technology with practical clarity.”
-          </p>
-          <p style="margin-top:10px; color:#64748b; font-size:12px"><strong>Product Partner</strong></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="section sectionAlt">
-    <div class="sectionTextureText" aria-hidden="true">
-      <div class="line">CONTACT • BOOK A CALL • CONTACT • BOOK A CALL • CONTACT • BOOK A CALL •</div>
-      <div class="line">CONTACT • BOOK A CALL • CONTACT • BOOK A CALL • CONTACT • BOOK A CALL •</div>
-    </div>
-
-    <div class="container sectionInner">
-      <div class="sectionHead reveal">
-        <div class="eyebrow">Contact</div>
-        <h2 class="sectionTitle">Let’s talk</h2>
-        <p class="sectionDesc">Email is fastest. I’ll reply with next steps.</p>
-      </div>
-
-      <div class="contactGrid">
-        <div class="card reveal">
-          <div class="mutedLabel">Direct</div>
-          <div class="contactLine"><span>Name</span><strong>Aprampar Singh</strong></div>
-          <div class="contactLine"><span>Email</span><strong>apsj726@gmail.com</strong></div>
-          <div class="contactLine"><span>Phone</span><strong>9196509271</strong></div>
-          <div class="contactLine"><span>Location</span><strong>Cary, NC</strong></div>
-          <div class="contactLine">
-            <span>LinkedIn</span>
-            <strong><a href="https://linkedin.com/in/apramaparsingh/" target="_blank" rel="noreferrer">Profile</a></strong>
+          <div class="mt-4 text-sm">
+            <div class="font-semibold">Rahul Mehta</div>
+            <div class="text-white/60">Head of Operations, Electronics Manufacturing</div>
           </div>
         </div>
 
-        <div class="card reveal">
-          <div class="mutedLabel">Quick action</div>
-          <p class="sectionDesc" style="margin-top:10px">Share: industry + current process + target outcome.</p>
-          <div class="divider"></div>
-          <a class="btn btnDark" href="mailto:apsj726@gmail.com?subject=Automtas%20Consulting%20Inquiry">Email now →</a>
+        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
+          <p class="text-white/80 leading-relaxed">
+            “Their SOP rollout kit and cadence reduced delays across sites and improved audit readiness without adding bureaucracy.”
+          </p>
+          <div class="mt-4 text-sm">
+            <div class="font-semibold">Sarah Coleman</div>
+            <div class="text-white/60">Program Manager, Multi-site Operations</div>
+          </div>
+        </div>
+
+        <div class="reveal rounded-3xl bg-white/5 border border-white/10 p-6">
+          <p class="text-white/80 leading-relaxed">
+            “Warehouse throughput improved fast—slotting changes, dock discipline, and daily tier meetings made performance visible.”
+          </p>
+          <div class="mt-4 text-sm">
+            <div class="font-semibold">David Kim</div>
+            <div class="text-white/60">Distribution Lead, Logistics & Warehousing</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container footerInner">
-      <div>
-        <div class="footerTitle">Automtas</div>
-        <div class="footerText">
-          Industrial consulting for AI, automation, and operations — with documentation prepared and measurable outcomes.
-        </div>
-      </div>
-      <div>
-        <div class="footerTitle">Contact</div>
-        <div class="footerText">apsj726@gmail.com</div>
-        <div class="footerText">9196509271</div>
-        <div class="footerText">Cary, NC</div>
-      </div>
-      <div class="footerBottom">© <span id="year"></span> Automtas. All rights reserved.</div>
-    </div>
+  <!-- Contact -->
+  <section id="contact" class="py-16 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4">
+@@ -587,46 +590,17 @@ <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Contact</h2>
+  </section>
+
+  <footer class="py-8 border-t border-white/10 text-center text-sm text-white/55">
+    © <span id="y"></span> Automatas •
+    <a class="hover:text-white" href="services.html">Case Studies</a> •
+    <a class="hover:text-white" href="brochure.html">Brochure</a>
+    © <span id="y"></span> Automatas • <a class="hover:text-white" href="services.html">Case Studies</a> • <a class="hover:text-white" href="brochure.html">Brochure</a>
   </footer>
+
+  <!-- NEW: Brochure PDF Modal -->
+  <div id="modalBackdrop" class="modal-backdrop" aria-hidden="true"></div>
+  <div id="brochureModal" class="modal" role="dialog" aria-modal="true" aria-label="Automatas Brochure">
+    <div class="modal-panel">
+      <div class="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-zinc-950/60">
+        <div class="font-semibold">Automatas Brochure (PDF)</div>
+        <div class="flex items-center gap-2">
+          <a href="automatas_brochure.pdf" class="text-sm px-3 py-1.5 rounded-xl border border-white/15 hover:bg-white/5 transition">
+            Download
+          </a>
+          <button id="closeBrochure" class="text-sm px-3 py-1.5 rounded-xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition">
+            Close
+          </button>
+        </div>
+      </div>
+      <iframe
+        id="brochureFrame"
+        title="Automatas brochure PDF"
+        src="automatas_brochure.pdf#view=FitH"
+        style="width:100%;height:calc(82vh - 52px);border:0;background:#0B0F19;">
+      </iframe>
+    </div>
+  </div>
 
   <script>
     // Year
-    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("y").textContent = new Date().getFullYear();
 
     // Reveal on scroll
-    const els = Array.from(document.querySelectorAll(".reveal"));
-    const io = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) e.target.classList.add("show");
-      }
-    }, { threshold: 0.12 });
+    const io = new IntersectionObserver((entries)=>entries.forEach(e=>{
+      if(e.isIntersecting) e.target.classList.add("in");
+    }), {threshold:0.12});
+    const io = new IntersectionObserver((entries)=>entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("in"); }), {threshold:0.12});
+    document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 
-    els.forEach(el => io.observe(el));
+    // Counters
+    // Animated counters (runs once when visible)
+    const counters = document.querySelectorAll(".count");
+    const runCounter = (el) => {
+      const to = parseInt(el.dataset.to || "0", 10);
+@@ -648,56 +622,6 @@ <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Contact</h2>
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(c => cIO.observe(c));
+
+    // === NEW: Before/After factory toggle ===
+    const heroBg = document.getElementById("heroBg");
+    const modeLabel = document.getElementById("modeLabel");
+    const toggleBtn = document.getElementById("toggleFactory");
+
+    // Use your own images here (or keep Unsplash)
+    const BEFORE_BG = "url('https://images.unsplash.com/photo-1581091215367-59ab6b405c0b?auto=format&fit=crop&w=2400&q=80')";
+    const AFTER_BG  = "url('https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=2400&q=80')";
+
+    let isAfter = false;
+    const applyMode = () => {
+      heroBg.style.setProperty("--hero-bg", isAfter ? AFTER_BG : BEFORE_BG);
+      modeLabel.textContent = isAfter
+        ? "After: standard work, visibility, predictable throughput"
+        : "Before: manual, fragmented, reactive";
+      toggleBtn.querySelector("span").style.opacity = isAfter ? "1" : ".65";
+    };
+    applyMode();
+
+    toggleBtn.addEventListener("click", () => {
+      isAfter = !isAfter;
+      applyMode();
+    });
+
+    // === NEW: Brochure modal (PDF in-site) ===
+    const openBtns = [document.getElementById("openBrochure"), document.getElementById("openBrochureHero")].filter(Boolean);
+    const modal = document.getElementById("brochureModal");
+    const backdrop = document.getElementById("modalBackdrop");
+    const closeBtn = document.getElementById("closeBrochure");
+
+    const openModal = () => {
+      backdrop.classList.add("open");
+      modal.classList.add("open");
+      backdrop.setAttribute("aria-hidden","false");
+      // trap focus minimal: focus close
+      closeBtn.focus();
+      document.body.style.overflow = "hidden";
+    };
+    const closeModal = () => {
+      backdrop.classList.remove("open");
+      modal.classList.remove("open");
+      backdrop.setAttribute("aria-hidden","true");
+      document.body.style.overflow = "";
+    };
+
+    openBtns.forEach(btn => btn.addEventListener("click", openModal));
+    closeBtn.addEventListener("click", closeModal);
+    backdrop.addEventListener("click", closeModal);
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
   </script>
 </body>
 </html>
