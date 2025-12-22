@@ -1,0 +1,60 @@
+<svg viewBox="0 0 320 210" role="img" aria-label="Conveyor with robotic arm scanning and sorting" xmlns="http://www.w3.org/2000/svg">
+  <!-- Status lights -->
+  <circle class="animate-pulse" cx="40" cy="44" r="6" fill="#22c55e"/>
+  <circle class="animate-pulse" cx="60" cy="44" r="6" fill="#f59e0b" style="animation-delay:.3s"/>
+  <circle class="animate-pulse" cx="80" cy="44" r="6" fill="#ef4444" style="animation-delay:.6s"/>
+
+  <!-- Conveyor base -->
+  <rect x="40" y="140" width="240" height="32" rx="10" fill="#cbd5e1"/>
+  <rect x="52" y="148" width="216" height="16" rx="8" fill="#0b1220" opacity=".9"/>
+
+  <!-- Belt pattern (moving) -->
+  <g class="animate-[beltMove_1.2s_linear_infinite]" opacity=".35">
+    <rect x="60" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+    <rect x="84" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+    <rect x="108" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+    <rect x="132" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+    <rect x="156" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+    <rect x="180" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+    <rect x="204" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+    <rect x="228" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+    <rect x="252" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+    <rect x="276" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
+  </g>
+
+  <!-- Moving box -->
+  <g class="animate-[boxMove_5.2s_linear_infinite]">
+    <rect x="70" y="122" width="34" height="22" rx="4" fill="#2563eb"/>
+    <rect x="74" y="126" width="26" height="4" rx="2" fill="#ffffff" opacity=".7"/>
+  </g>
+
+  <!-- Sensor post -->
+  <rect x="130" y="74" width="14" height="66" rx="7" fill="#334155"/>
+  <rect x="122" y="62" width="30" height="16" rx="8" fill="#0b1220"/>
+  <circle cx="137" cy="70" r="4" fill="#22c55e"/>
+
+  <!-- Scan beam -->
+  <g class="animate-[scanPulse_5.2s_ease_in_out_infinite]">
+    <polygon points="137,78 120,140 154,140" fill="#2563eb" opacity=".25"/>
+    <rect x="124" y="108" width="26" height="4" rx="2" fill="#2563eb" opacity=".8"/>
+  </g>
+
+  <!-- Robotic arm base -->
+  <rect x="214" y="70" width="74" height="16" rx="8" fill="#0b1220" opacity=".9"/>
+  <rect x="236" y="84" width="22" height="22" rx="8" fill="#334155"/>
+
+  <!-- Arm (animated pivot) -->
+  <g class="origin-[210px_70px] animate-[armPick_5.2s_ease_in_out_infinite]">
+    <rect x="208" y="92" width="78" height="12" rx="6" fill="#1e293b"/>
+    <rect x="200" y="104" width="56" height="12" rx="6" fill="#2563eb"/>
+    <!-- Gripper -->
+    <g class="animate-[grip_5.2s_ease_in_out_infinite]">
+      <rect x="192" y="112" width="18" height="12" rx="6" fill="#0b1220"/>
+      <rect x="190" y="124" width="6" height="14" rx="3" fill="#0b1220"/>
+      <rect x="204" y="124" width="6" height="14" rx="3" fill="#0b1220"/>
+    </g>
+  </g>
+
+  <!-- Ground line -->
+  <rect x="26" y="184" width="268" height="3" rx="2" fill="currentColor" opacity="0.1"/>
+</svg>

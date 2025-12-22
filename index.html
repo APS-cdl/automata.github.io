@@ -1,287 +1,373 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Automtas — Industrial Consulting</title>
-<meta name="description" content="Industrial consulting for AI, automation, and operations. Workflow design, documentation, and execution support.">
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: localStorage.getItem('theme') === 'dark' }" :class="{ 'dark': darkMode }">
 
-<link rel="stylesheet" href="/styles.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automtas — Industrial Consulting</title>
+  <meta name="description"
+    content="Industrial consulting for AI, automation, and operations. Workflow design, documentation, and execution support.">
+
+  <!-- Scripts & Styles -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#2563eb',
+              dark: '#1e40af'
+            },
+            ink: {
+              DEFAULT: '#0b1220',
+              light: '#1e293b'
+            }
+          },
+          animation: {
+            'beltMove': 'beltMove 1.2s linear infinite',
+            'boxMove': 'boxMove 5.2s linear infinite',
+            'armPick': 'armPick 5.2s ease-in-out infinite',
+            'grip': 'grip 5.2s ease-in-out infinite',
+            'scanPulse': 'scanPulse 5.2s ease-in-out infinite',
+          },
+          keyframes: {
+            beltMove: { 'to': { transform: 'translateX(-24px)' } },
+            boxMove: {
+              '0%': { transform: 'translateX(-30px)' },
+              '100%': { transform: 'translateX(240px)' }
+            },
+            armPick: {
+              '0%, 70%, 100%': { transform: 'rotate(0deg)' },
+              '20%, 35%': { transform: 'rotate(-12deg)' },
+              '55%': { transform: 'rotate(6deg)' }
+            },
+            grip: {
+              '0%, 18%, 100%': { transform: 'translateY(0)' },
+              '28%, 45%': { transform: 'translateY(6px)' }
+            },
+            scanPulse: {
+              '0%, 22%, 100%': { opacity: '0' },
+              '26%, 40%': { opacity: '0.75' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    [x-cloak] {
+      display: none !important;
+    }
+
+    .hero-pattern {
+      background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+  </style>
+  <script>
+    window.loadSVG = (path) => fetch(path).then(res => res.text());
+  </script>
 </head>
 
-<body>
+<body class="bg-slate-50 dark:bg-ink text-ink dark:text-slate-200 transition-colors duration-300" x-cloak>
 
-<header class="nav">
-  <div class="container navInner">
-    <a class="brand" href="#top" aria-label="Automtas">
-      <!-- Simple Industrial SVG Logo -->
-      <svg class="logo" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-        <rect x="8" y="8" width="84" height="84" rx="18" fill="#0b1220"/>
-        <path d="M50 18 L78 50 L50 82 L22 50 Z" fill="#2563eb"/>
-        <path d="M34 50h32" stroke="#ffffff" stroke-width="6" stroke-linecap="round" opacity=".9"/>
-      </svg>
-      <div>
-        <div class="brandName">Automtas</div>
-        <div class="brandSub">Industrial Consulting</div>
+  <!-- Navigation -->
+  <header
+    class="sticky top-0 z-50 bg-white/80 dark:bg-ink/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800"
+    x-data="{ mobileMenuOpen: false }">
+    <div class="container mx-auto px-4 max-w-6xl flex items-center justify-between py-4">
+      <a href="#top" class="flex items-center gap-3 no-underline group" x-data="{ logo: '' }"
+        x-init="logo = await loadSVG('assets/images/logos/logo.svg')">
+        <div x-html="logo" class="w-10 h-10 text-brand transition-transform group-hover:scale-110"></div>
+        <div>
+          <div class="font-black text-lg text-ink dark:text-white leading-tight">Automtas</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Industrial Consulting</div>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8 font-bold text-sm tracking-wide">
+        <a href="#services" class="hover:text-brand transition-colors">Services</a>
+        <a href="#how" class="hover:text-brand transition-colors">How it works</a>
+        <a href="#case" class="hover:text-brand transition-colors">Case studies</a>
+        <a href="#contact"
+          class="px-4 py-2 bg-brand text-white rounded-xl hover:bg-brand-dark transition-all hover:-translate-y-0.5 shadow-lg shadow-brand/20">Contact</a>
+
+        <!-- Dark Mode Toggle -->
+        <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')"
+          class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+          aria-label="Toggle items mode">
+          <svg x-show="!darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+          </svg>
+          <svg x-show="darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z">
+            </path>
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden flex items-center gap-4">
+        <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')"
+          class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800" aria-label="Toggle dark mode">
+          <svg x-show="!darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+          </svg>
+          <svg x-show="darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z">
+            </path>
+          </svg>
+        </button>
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="p-2 text-ink dark:text-white" aria-label="Toggle menu">
+          <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <svg x-show="mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
       </div>
-    </a>
+    </div>
 
-    <nav class="navLinks" aria-label="Primary">
-      <a href="#services">Services</a>
-      <a href="#how">How it works</a>
-      <a href="#case">Case studies</a>
-      <a href="#contact">Contact</a>
+    <!-- Mobile Nav -->
+    <nav x-show="mobileMenuOpen" x-transition
+      class="md:hidden bg-white dark:bg-ink border-b border-slate-200 dark:border-slate-800 px-4 py-6 space-y-4">
+      <a href="#services" @click="mobileMenuOpen = false" class="block font-bold">Services</a>
+      <a href="#how" @click="mobileMenuOpen = false" class="block font-bold">How it works</a>
+      <a href="#case" @click="mobileMenuOpen = false" class="block font-bold">Case studies</a>
+      <a href="#contact" @click="mobileMenuOpen = false"
+        class="block font-bold py-3 bg-brand text-white text-center rounded-xl shadow-lg shadow-brand/20">Contact</a>
     </nav>
-  </div>
-</header>
+  </header>
 
-<section id="top" class="hero">
-  <div class="heroGrid" aria-hidden="true"></div>
-  <div class="heroNoise" aria-hidden="true"></div>
-
-  <div class="container heroInner">
-    <div>
-      <span class="pill">USA • Founder led delivery</span>
-      <h1 class="heroTitle">Industrial consulting for AI and automation</h1>
-      <p class="heroDesc">
-        I help operations teams turn ideas into working systems. You get clear workflows, execution documentation,
-        and rollout support that sticks on the factory floor and in the field.
-      </p>
-
-      <div class="heroActions">
-        <a class="btn btnPrimary" href="#contact">Contact</a>
-        <a class="btn btnSecondary" href="#services">View services</a>
+  <main>
+    <!-- Hero Section -->
+    <section id="top" class="relative bg-ink text-white overflow-hidden py-24 md:py-32">
+      <div class="absolute inset-0 hero-pattern opacity-40"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-tr from-brand/20 via-transparent to-white/5 blur-3xl rounded-full scale-150 rotate-12">
       </div>
 
-      <div class="kpiRow">
-        <div class="kpi"><b>Execution first</b><span>Plan, document, deliver</span></div>
-        <div class="kpi"><b>Industrial focus</b><span>Logistics, plant ops, field work</span></div>
-        <div class="kpi"><b>Clear docs</b><span>Specs, workflows, rollout plans</span></div>
-      </div>
-    </div>
+      <div class="container mx-auto px-4 max-w-6xl relative z-10 grid md:grid-cols-2 gap-16 items-center">
+        <div class="space-y-8">
+          <span
+            class="inline-flex px-3 py-1 bg-white/10 border border-white/20 rounded-full text-xs font-black uppercase tracking-widest leading-none">USA
+            • Founder led delivery</span>
+          <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.1]">Transforming Industrial Operations
+            with AI & Automation</h1>
+          <p class="text-lg text-slate-300 leading-relaxed max-w-2xl">
+            We bridge the gap between complex technology and physical execution. From optimized production workflows to
+            end-to-end automation roadmaps, we deliver measurable industrial excellence.
+          </p>
 
-    <div class="panel" aria-label="Industrial animation panel">
-      <div class="panelHead">
-        <div style="font-weight:900;color:#0b1220">Industrial workflow animation</div>
-        <div class="tag">Conveyor • Scan • Pick</div>
-      </div>
+          <div class="flex flex-wrap gap-4 pt-4">
+            <a href="#contact"
+              class="px-8 py-4 bg-white text-ink font-black rounded-2xl hover:scale-105 transition-all shadow-xl shadow-white/10">Contact</a>
+            <a href="#services"
+              class="px-8 py-4 bg-white/10 border border-white/20 text-white font-black rounded-2xl hover:bg-white/20 transition-all">View
+              services</a>
+          </div>
 
-      <!-- Industrial Animated SVG -->
-      <svg class="machineSvg" viewBox="0 0 320 210" role="img" aria-label="Conveyor with robotic arm scanning and sorting">
-        <!-- Background -->
-        <rect x="10" y="16" width="300" height="176" rx="14" fill="#f8fafc" stroke="#e6eaf0"/>
-        <!-- Status lights -->
-        <circle class="lightDot" cx="40" cy="44" r="6" fill="#22c55e"/>
-        <circle class="lightDot" cx="60" cy="44" r="6" fill="#f59e0b" style="animation-delay:.3s"/>
-        <circle class="lightDot" cx="80" cy="44" r="6" fill="#ef4444" style="animation-delay:.6s"/>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8 border-t border-white/10">
+            <div class="p-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm">
+              <b class="block text-sm mb-1">Execution first</b>
+              <span class="text-xs text-slate-400">Plan, document, deliver</span>
+            </div>
+            <div class="p-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm">
+              <b class="block text-sm mb-1">Industrial focus</b>
+              <span class="text-xs text-slate-400">Logistics, plant ops, field work</span>
+            </div>
+            <div class="p-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm">
+              <b class="block text-sm mb-1">Clear docs</b>
+              <span class="text-xs text-slate-400">Specs, workflows, rollout plans</span>
+            </div>
+          </div>
+        </div>
 
-        <!-- Conveyor base -->
-        <rect x="40" y="140" width="240" height="32" rx="10" fill="#cbd5e1"/>
-        <rect x="52" y="148" width="216" height="16" rx="8" fill="#0b1220" opacity=".9"/>
-
-        <!-- Belt pattern (moving) -->
-        <g class="belt" opacity=".35">
-          <rect x="60" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
-          <rect x="84" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
-          <rect x="108" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
-          <rect x="132" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
-          <rect x="156" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
-          <rect x="180" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
-          <rect x="204" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
-          <rect x="228" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
-          <rect x="252" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
-          <rect x="276" y="151" width="18" height="10" rx="3" fill="#ffffff"/>
-        </g>
-
-        <!-- Moving box -->
-        <g class="box">
-          <rect x="70" y="122" width="34" height="22" rx="4" fill="#2563eb"/>
-          <rect x="74" y="126" width="26" height="4" rx="2" fill="#ffffff" opacity=".7"/>
-        </g>
-
-        <!-- Sensor post -->
-        <rect x="130" y="74" width="14" height="66" rx="7" fill="#334155"/>
-        <rect x="122" y="62" width="30" height="16" rx="8" fill="#0b1220"/>
-        <circle cx="137" cy="70" r="4" fill="#22c55e"/>
-
-        <!-- Scan beam -->
-        <g class="scan">
-          <polygon points="137,78 120,140 154,140" fill="#2563eb" opacity=".25"/>
-          <rect x="124" y="108" width="26" height="4" rx="2" fill="#2563eb" opacity=".8"/>
-        </g>
-
-        <!-- Robotic arm base -->
-        <rect x="214" y="70" width="74" height="16" rx="8" fill="#0b1220" opacity=".9"/>
-        <rect x="236" y="84" width="22" height="22" rx="8" fill="#334155"/>
-
-        <!-- Arm (animated pivot) -->
-        <g class="arm">
-          <rect x="208" y="92" width="78" height="12" rx="6" fill="#1e293b"/>
-          <rect x="200" y="104" width="56" height="12" rx="6" fill="#2563eb"/>
-          <!-- Gripper -->
-          <g class="gripper">
-            <rect x="192" y="112" width="18" height="12" rx="6" fill="#0b1220"/>
-            <rect x="190" y="124" width="6" height="14" rx="3" fill="#0b1220"/>
-            <rect x="204" y="124" width="6" height="14" rx="3" fill="#0b1220"/>
-          </g>
-        </g>
-
-        <!-- Ground line -->
-        <rect x="26" y="184" width="268" height="3" rx="2" fill="#e6eaf0"/>
-      </svg>
-
-      <div style="margin-top:10px;color:#556070;line-height:1.6;font-size:13px">
-        Example: sensor scan, workflow decision, and automated handoff. This is the type of system thinking I apply
-        to production, logistics, and field operations.
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="services" class="section sectionAlt">
-  <div class="container">
-    <h2 class="h2">Services</h2>
-    <p class="p">Small engagements with clear outputs: workflows, documentation, and delivery support.</p>
-
-    <div class="cards">
-      <div class="card">
-        <div class="cardTitle">Automation and AI programs</div>
-        <div class="cardText">Use case selection, pilot plan, rollout KPIs.</div>
-        <ul class="list">
-          <li>Use case mapping</li>
-          <li>Process definition</li>
-          <li>Pilot delivery plan</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="cardTitle">Documentation prepared</div>
-        <div class="cardText">Artifacts that teams can build from.</div>
-        <ul class="list">
-          <li>Workflow diagrams</li>
-          <li>Requirements and stories</li>
-          <li>Acceptance criteria</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="cardTitle">Operations enablement</div>
-        <div class="cardText">Systems, reporting, and adoption support.</div>
-        <ul class="list">
-          <li>Dashboards</li>
-          <li>Training and rollout</li>
-          <li>Continuous improvement</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="how" class="section">
-  <div class="container">
-    <h2 class="h2">How it works</h2>
-    <p class="p">A simple delivery approach that keeps teams aligned and moving.</p>
-
-    <div class="cards" style="grid-template-columns:repeat(3,1fr)">
-      <div class="card">
-        <div class="cardTitle">1) Discovery</div>
-        <div class="cardText">Understand the process, pain points, and constraints.</div>
-      </div>
-      <div class="card">
-        <div class="cardTitle">2) Documentation</div>
-        <div class="cardText">Create workflows, specs, and a clear plan.</div>
-      </div>
-      <div class="card">
-        <div class="cardTitle">3) Delivery support</div>
-        <div class="cardText">Help teams ship, measure, and stabilize.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="case" class="section sectionAlt">
-  <div class="container">
-    <h2 class="h2">Case studies</h2>
-    <p class="p">Short examples that can be tailored to your industry.</p>
-
-    <div class="cards" style="grid-template-columns:repeat(2,1fr)">
-      <div class="card">
-        <div class="cardTitle">Logistics system rollout</div>
-        <div class="cardText">
-          Defined workflows, wrote delivery documentation, and supported rollout adoption for an operations platform.
+        <div
+          class="bg-white dark:bg-slate-900/50 p-6 rounded-3xl border border-slate-200/20 dark:border-white/10 shadow-2xl backdrop-blur-md"
+          x-data="{ machineSVG: '' }" x-init="machineSVG = await loadSVG('assets/images/machine.svg')">
+          <div class="flex items-center justify-between mb-6">
+            <div class="font-black text-ink dark:text-white uppercase tracking-wider text-sm">Workflow Simulation</div>
+            <div
+              class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-bold text-slate-500 dark:text-slate-400">
+              System v2.4</div>
+          </div>
+          <div x-html="machineSVG" class="text-slate-800 dark:text-white"></div>
+          <p class="mt-6 text-sm text-slate-500 dark:text-slate-400 leading-relaxed italic">
+            Real-world complex handling logic including sensor scanning, robotic pathfinding, and automated handoffs.
+          </p>
         </div>
       </div>
-      <div class="card">
-        <div class="cardTitle">Industrial reporting and dashboards</div>
-        <div class="cardText">
-          Built reporting requirements and KPI dashboards to improve visibility, accountability, and decision speed.
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-white dark:bg-ink" x-data="{ services: [] }"
+      x-init="services = await (await fetch('data/services.json')).json()">
+      <div class="container mx-auto px-4 max-w-6xl">
+        <div class="max-w-3xl mb-16">
+          <h2 class="text-3xl md:text-4xl font-black mb-4 tracking-tight">Services</h2>
+          <p class="text-lg text-slate-500 dark:text-slate-400">Small engagements with clear outputs: workflows,
+            documentation, and delivery support.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <template x-for="service in services">
+            <div
+              class="group p-8 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl hover:bg-white dark:hover:bg-slate-800 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/5">
+              <h3 class="font-black text-xl mb-3 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-brand group-hover:scale-150 transition-transform"></span>
+                <span x-text="service.title"></span>
+              </h3>
+              <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed" x-text="service.description">
+              </p>
+              <ul class="space-y-3">
+                <template x-for="item in service.items">
+                  <li class="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-300">
+                    <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span x-text="item"></span>
+                  </li>
+                </template>
+              </ul>
+            </div>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how" class="py-24 bg-slate-50 dark:bg-slate-900/50" x-data="{ steps: [] }"
+      x-init="steps = await (await fetch('data/how-it-works.json')).json()">
+      <div class="container mx-auto px-4 max-w-6xl">
+        <div class="max-w-3xl mb-16">
+          <h2 class="text-3xl md:text-4xl font-black mb-4 tracking-tight">How it works</h2>
+          <p class="text-lg text-slate-500 dark:text-slate-400">A simple delivery approach that keeps teams aligned and
+            moving.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+          <!-- Connector line (Desktop) -->
+          <div class="hidden md:block absolute top-[60px] left-0 right-0 h-px bg-slate-200 dark:bg-slate-700 z-0"></div>
+
+          <template x-for="step in steps">
+            <div class="relative z-10 flex flex-col items-center md:items-start text-center md:text-left">
+              <div
+                class="w-12 h-12 bg-brand text-white font-black rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-brand/20"
+                x-text="step.step"></div>
+              <h3 class="font-black text-xl mb-3" x-text="step.title"></h3>
+              <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed" x-text="step.description"></p>
+            </div>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section id="case" class="py-24 bg-white dark:bg-ink" x-data="{ cases: [] }"
+      x-init="cases = await (await fetch('data/case-studies.json')).json()">
+      <div class="container mx-auto px-4 max-w-6xl">
+        <div class="max-w-3xl mb-16">
+          <h2 class="text-3xl md:text-4xl font-black mb-4 tracking-tight">Case studies</h2>
+          <p class="text-lg text-slate-500 dark:text-slate-400">Short examples that can be tailored to your industry.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <template x-for="c in cases">
+            <div
+              class="p-8 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-default group">
+              <h3 class="font-black text-xl mb-4 group-hover:text-brand transition-colors" x-text="c.title"></h3>
+              <p class="text-slate-700 dark:text-slate-300 leading-relaxed" x-text="c.description"></p>
+            </div>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-brand text-white" x-data="{ contact: {} }"
+      x-init="contact = await (await fetch('data/contact.json')).json()">
+      <div class="container mx-auto px-4 max-w-6xl grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-black mb-6 tracking-tight text-white">Strategic Industrial Partnership
+          </h2>
+          <p class="text-lg text-brand-100 mb-8 max-w-lg leading-relaxed">We respond promptly to all professional
+            inquiries. Please provide a brief overview of your operational goals and current challenges.</p>
+
+          <div class="space-y-6">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center">
+                <svg class="w-6 h-6 border-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                  </path>
+                </svg>
+              </div>
+              <div>
+                <div class="text-xs uppercase font-black text-white/60">Email</div>
+                <div class="font-bold text-lg" x-text="contact.email"></div>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                  </path>
+                </svg>
+              </div>
+              <div>
+                <div class="text-xs uppercase font-black text-white/60">Phone</div>
+                <div class="font-bold text-lg" x-text="contact.phone"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-2xl text-ink">
+          <h3 class="font-black text-2xl mb-6">Inquiry Details</h3>
+          <p class="text-slate-500 mb-8">To help us prepare for our initial discussion, please include your industry,
+            existing workflow summary, and target performance indicators.
+          </p>
+          <a :href="'mailto:' + contact.email + '?subject=' + encodeURIComponent(contact.subject)"
+            class="block w-full py-4 bg-brand text-white text-center font-black rounded-2xl hover:bg-brand-dark transition-all shadow-xl shadow-brand/20">Write
+            Email</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-ink py-16 text-slate-400">
+    <div class="container mx-auto px-4 max-w-6xl grid md:grid-cols-2 gap-12">
+      <div>
+        <div class="font-black text-white text-xl mb-4">Automtas</div>
+        <p class="max-w-xs leading-relaxed mb-6">Industrial consulting for AI, automation, and operations.</p>
+        <div class="text-xs">© <span id="year"></span> Automtas. All rights reserved.</div>
+      </div>
+      <div class="md:text-right">
+        <div class="font-black text-white uppercase tracking-widest text-xs mb-4">Contact</div>
+        <div class="space-y-2 font-medium">
+          <div x-text="contact.email"></div>
+          <div x-text="contact.location"></div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<section id="contact" class="section">
-  <div class="container">
-    <h2 class="h2">Contact</h2>
-    <p class="p">Email is fastest. Share your process and target outcome.</p>
-
-    <div class="cards" style="grid-template-columns:repeat(2,1fr)">
-      <div class="card">
-        <div class="cardTitle">Aprampar Singh</div>
-        <div class="cardText">Cary, NC</div>
-        <div class="cardText">Email: <b>apsj726@gmail.com</b></div>
-        <div class="cardText">Phone: <b>9196509271</b></div>
-      </div>
-
-      <div class="card">
-        <div class="cardTitle">Quick action</div>
-        <div class="cardText">Include: industry, current workflow, target KPI.</div>
-        <div style="height:1px;background:var(--line);margin:14px 0"></div>
-        <a class="btn btnPrimary" style="background:var(--ink);color:#fff" href="mailto:apsj726@gmail.com?subject=Automtas%20Consulting%20Inquiry">Email</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="container footerGrid">
-    <div>
-      <div class="footerTitle">Automtas</div>
-      <div style="margin-top:8px;line-height:1.6">
-        Industrial consulting for AI, automation, and operations.
-      </div>
-      <div class="small">© <span id="year"></span> Automtas</div>
-    </div>
-    <div>
-      <div class="footerTitle">Contact</div>
-      <div style="margin-top:8px;line-height:1.8">
-        apsj726@gmail.com<br>
-        Cary, NC
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

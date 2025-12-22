@@ -1,0 +1,29 @@
+[
+  {
+    "title": "AI & Automation Strategy",
+    "description": "Strategic advisory on identifying and implementing high-impact automation and AI solutions tailored for industrial environments.",
+    "items": [
+      "Strategic Use Case Mapping",
+      "End-to-End Process Redesign",
+      "Industrial Pilot Execution Framework"
+    ]
+  },
+  {
+    "title": "Technical Documentation",
+    "description": "Comprehensive technical artifacts and workflow specifications that provide a clear roadmap for engineering and operations teams.",
+    "items": [
+      "Advanced Workflow Architectures",
+      "Functional Specifications & USers Stories",
+      "Rigorous Acceptance Criteria"
+    ]
+  },
+  {
+    "title": "Operational Enablement",
+    "description": "Ensuring long-term success through robust reporting systems, team training, and continuous process optimization.",
+    "items": [
+      "Real-time KPI Dashboards",
+      "Operational Training & Change Management",
+      "Continuous Improvement Programs"
+    ]
+  }
+]

@@ -1,0 +1,17 @@
+[
+    {
+        "step": "1",
+        "title": "In-Depth Discovery",
+        "description": "We analyze your current operational landscape to identify core constraints, safety requirements, and peak performance opportunities."
+    },
+    {
+        "step": "2",
+        "title": "Strategic Architecture",
+        "description": "Developing detailed workflows and technical specifications that translate business objectives into executable industrial plans."
+    },
+    {
+        "step": "3",
+        "title": "Deployment Support",
+        "description": "Direct collaboration with your teams to ensure successful system rollout, stabilization, and measurable performance tracking."
+    }
+]

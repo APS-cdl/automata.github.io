@@ -1,0 +1,8 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 15L85 85H70L50 45L30 85H15L50 15Z" fill="#2563eb"/>
+  <circle cx="50" cy="65" r="8" fill="white"/>
+  <path d="M50 25L75 75H25L50 25Z" fill="white" opacity="0.2"/>
+  <!-- Subtle arrow indicator -->
+  <path d="M45 45L50 40L55 45" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M50 40V55" stroke="white" stroke-width="3" stroke-linecap="round"/>
+</svg>
