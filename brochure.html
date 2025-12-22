@@ -8,18 +8,7 @@
   <meta name="robots" content="index,follow">
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <style>
-    .site-bg {
-      position: fixed;
-      inset: 0;
-      z-index: -40;
-      background:
-        linear-gradient(to bottom, rgba(11,15,25,.90), rgba(11,15,25,.97)),
-        url("https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=2400&q=80");
-      background-size: cover;
-      background-position: center;
-    }
-  </style>
+  <link rel="stylesheet" href="/assets/styles.css">
 </head>
 
 <body class="bg-zinc-950 text-white">
@@ -43,13 +32,13 @@
 
     <div class="mt-8 rounded-3xl overflow-hidden border border-white/10 bg-white/5">
       <!-- Best compatibility: object + iframe fallback -->
-      <object data="automatas_brochure.pdf#view=FitH" type="application/pdf" class="w-full" style="height:80vh;">
-        <iframe src="automatas_brochure.pdf" class="w-full" style="height:80vh;"></iframe>
+      <object data="/assets/docs/automatas_brochure.pdf#view=FitH" type="application/pdf" class="w-full" style="height:80vh;">
+        <iframe src="/assets/docs/automatas_brochure.pdf" class="w-full" style="height:80vh;"></iframe>
       </object>
     </div>
 
     <div class="mt-6 flex flex-wrap gap-3">
-      <a href="automatas_brochure.pdf"
+      <a href="/assets/docs/automatas_brochure.pdf"
          class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition">
         Download PDF
       </a>
