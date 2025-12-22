@@ -4,9 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Automtas — Industrial Consulting</title>
+  <title>Automtas — Industrial Intelligence & Automation Consulting</title>
   <meta name="description"
-    content="Industrial consulting for AI, automation, and operations. Workflow design, documentation, and execution support.">
+    content="Strategic industrial consulting specializing in AI, automation, and operational intelligence. We bridge the gap between complex technology and physical execution.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
 
   <!-- Scripts & Styles -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -16,14 +23,25 @@
       darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['Lato', 'sans-serif'],
+            heading: ['Poppins', 'sans-serif'],
+          },
           colors: {
             brand: {
-              DEFAULT: '#2563eb',
-              dark: '#1e40af'
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
             },
-            ink: {
-              DEFAULT: '#0b1220',
-              light: '#1e293b'
+            slate: {
+              950: '#020617',
             }
           },
           animation: {
@@ -62,9 +80,34 @@
       display: none !important;
     }
 
-    .hero-pattern {
-      background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
-      background-size: 24px 24px;
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .dark .glass {
+      background: rgba(15, 23, 42, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .dark .glass-card {
+      background: rgba(30, 41, 59, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Poppins', sans-serif;
     }
   </style>
   <script>
@@ -72,34 +115,38 @@
   </script>
 </head>
 
-<body class="bg-slate-50 dark:bg-ink text-ink dark:text-slate-200 transition-colors duration-300" x-cloak>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 transition-colors duration-300 font-sans"
+  x-cloak>
 
   <!-- Navigation -->
-  <header
-    class="sticky top-0 z-50 bg-white/80 dark:bg-ink/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800"
-    x-data="{ mobileMenuOpen: false }">
+  <header class="sticky top-0 z-50 transition-all duration-300 border-b"
+    :class="scrollY > 50 ? 'bg-white/95 dark:bg-slate-950/95 border-slate-200 dark:border-slate-800 shadow-lg' : 'bg-transparent border-transparent'"
+    x-data="{ mobileMenuOpen: false, scrollY: 0 }"
+    x-init="window.addEventListener('scroll', () => scrollY = window.scrollY)">
     <div class="container mx-auto px-4 max-w-6xl flex items-center justify-between py-4">
       <a href="#top" class="flex items-center gap-3 no-underline group" x-data="{ logo: '' }"
         x-init="logo = await loadSVG('assets/images/logos/logo.svg')">
-        <div x-html="logo" class="w-10 h-10 text-brand transition-transform group-hover:scale-110"></div>
+        <div x-html="logo" class="w-10 h-10 transition-transform group-hover:scale-110"></div>
         <div>
-          <div class="font-black text-lg text-ink dark:text-white leading-tight">Automtas</div>
-          <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Industrial Consulting</div>
+          <div class="font-black text-xl text-slate-900 dark:text-white leading-tight font-heading">Automtas</div>
+          <div class="text-[10px] uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-black">Industrial
+            Intelligence</div>
         </div>
       </a>
 
       <!-- Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-8 font-bold text-sm tracking-wide">
-        <a href="#services" class="hover:text-brand transition-colors">Services</a>
-        <a href="#how" class="hover:text-brand transition-colors">How it works</a>
-        <a href="#case" class="hover:text-brand transition-colors">Case studies</a>
+      <nav class="hidden md:flex items-center gap-10 font-bold text-sm">
+        <a href="#services" class="hover:text-brand-600 transition-colors">Services</a>
+        <a href="#outcomes" class="hover:text-brand-600 transition-colors">Outcomes</a>
+        <a href="#how" class="hover:text-brand-600 transition-colors">How it works</a>
         <a href="#contact"
-          class="px-4 py-2 bg-brand text-white rounded-xl hover:bg-brand-dark transition-all hover:-translate-y-0.5 shadow-lg shadow-brand/20">Contact</a>
+          class="px-6 py-2.5 bg-brand-600 text-white rounded-full hover:bg-brand-700 transition-all hover:shadow-xl hover:shadow-brand-600/20 active:scale-95">Contact
+          Us</a>
 
         <!-- Dark Mode Toggle -->
         <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')"
-          class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-          aria-label="Toggle items mode">
+          class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
+          aria-label="Toggle dark mode">
           <svg x-show="!darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
@@ -112,21 +159,22 @@
         </button>
       </nav>
 
-      <!-- Mobile Menu Button -->
-      <div class="md:hidden flex items-center gap-4">
+      <!-- Mobile Buttons -->
+      <div class="md:hidden flex items-center gap-2">
         <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')"
-          class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800" aria-label="Toggle dark mode">
-          <svg x-show="!darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+          <svg x-show="!darkMode" class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
           </svg>
-          <svg x-show="darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg x-show="darkMode" class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z">
             </path>
           </svg>
         </button>
-        <button @click="mobileMenuOpen = !mobileMenuOpen" class="p-2 text-ink dark:text-white" aria-label="Toggle menu">
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="p-2 text-slate-900 dark:text-white"
+          aria-label="Toggle menu">
           <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
@@ -139,101 +187,125 @@
 
     <!-- Mobile Nav -->
     <nav x-show="mobileMenuOpen" x-transition
-      class="md:hidden bg-white dark:bg-ink border-b border-slate-200 dark:border-slate-800 px-4 py-6 space-y-4">
-      <a href="#services" @click="mobileMenuOpen = false" class="block font-bold">Services</a>
-      <a href="#how" @click="mobileMenuOpen = false" class="block font-bold">How it works</a>
-      <a href="#case" @click="mobileMenuOpen = false" class="block font-bold">Case studies</a>
+      class="md:hidden glass border-b border-slate-200 dark:border-slate-800 px-6 py-8 space-y-6">
+      <a href="#services" @click="mobileMenuOpen = false" class="block font-bold text-lg">Services</a>
+      <a href="#outcomes" @click="mobileMenuOpen = false" class="block font-bold text-lg">Outcomes</a>
+      <a href="#how" @click="mobileMenuOpen = false" class="block font-bold text-lg">How it works</a>
       <a href="#contact" @click="mobileMenuOpen = false"
-        class="block font-bold py-3 bg-brand text-white text-center rounded-xl shadow-lg shadow-brand/20">Contact</a>
+        class="block font-bold py-4 bg-brand-600 text-white text-center rounded-2xl">Contact Us</a>
     </nav>
   </header>
 
   <main>
     <!-- Hero Section -->
-    <section id="top" class="relative bg-ink text-white overflow-hidden py-24 md:py-32">
-      <div class="absolute inset-0 hero-pattern opacity-40"></div>
-      <div
-        class="absolute inset-0 bg-gradient-to-tr from-brand/20 via-transparent to-white/5 blur-3xl rounded-full scale-150 rotate-12">
+    <section id="top" class="relative bg-slate-950 text-white overflow-hidden py-28 md:py-40">
+      <!-- Animated Background -->
+      <div class="absolute inset-0 opacity-20 pointer-events-none">
+        <div
+          class="absolute top-0 -left-1/4 w-[500px] h-[500px] bg-brand-500 rounded-full mix-blend-screen filter blur-[120px] animate-pulse">
+        </div>
+        <div
+          class="absolute bottom-0 -right-1/4 w-[500px] h-[500px] bg-blue-600 rounded-full mix-blend-screen filter blur-[120px] animate-pulse"
+          style="animation-delay: 2s"></div>
       </div>
 
-      <div class="container mx-auto px-4 max-w-6xl relative z-10 grid md:grid-cols-2 gap-16 items-center">
-        <div class="space-y-8">
-          <span
-            class="inline-flex px-3 py-1 bg-white/10 border border-white/20 rounded-full text-xs font-black uppercase tracking-widest leading-none">USA
-            • Founder led delivery</span>
-          <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.1]">Transforming Industrial Operations
-            with AI & Automation</h1>
-          <p class="text-lg text-slate-300 leading-relaxed max-w-2xl">
-            We bridge the gap between complex technology and physical execution. From optimized production workflows to
-            end-to-end automation roadmaps, we deliver measurable industrial excellence.
+      <div class="container mx-auto px-4 max-w-6xl relative z-10 grid lg:grid-cols-2 gap-20 items-center">
+        <div class="space-y-10 text-center lg:text-left">
+          <div
+            class="inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full text-[11px] font-black uppercase tracking-widest text-brand-300">
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
+            USA • Founder-Led Strategy
+          </div>
+          <h1 class="text-5xl md:text-7xl font-black tracking-tight leading-[1.05] font-heading">
+            Accelerate Your <span
+              class="bg-gradient-to-r from-brand-400 to-blue-200 bg-clip-text text-transparent">Industrial ROI</span>
+            via AI
+          </h1>
+          <p class="text-xl text-slate-300 leading-relaxed max-w-2xl font-light">
+            We transform complex physical operations into high-performance digital ecosystems. From strategic automation
+            roadmaps to floor-ready execution, we deliver industrial intelligence that works.
           </p>
 
-          <div class="flex flex-wrap gap-4 pt-4">
+          <div class="flex flex-wrap justify-center lg:justify-start gap-6 pt-6">
             <a href="#contact"
-              class="px-8 py-4 bg-white text-ink font-black rounded-2xl hover:scale-105 transition-all shadow-xl shadow-white/10">Contact</a>
+              class="px-10 py-5 bg-white text-slate-950 font-black rounded-full hover:scale-105 transition-all shadow-2xl shadow-white/5 active:scale-95">Initiate
+              Partnership</a>
             <a href="#services"
-              class="px-8 py-4 bg-white/10 border border-white/20 text-white font-black rounded-2xl hover:bg-white/20 transition-all">View
-              services</a>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8 border-t border-white/10">
-            <div class="p-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm">
-              <b class="block text-sm mb-1">Execution first</b>
-              <span class="text-xs text-slate-400">Plan, document, deliver</span>
-            </div>
-            <div class="p-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm">
-              <b class="block text-sm mb-1">Industrial focus</b>
-              <span class="text-xs text-slate-400">Logistics, plant ops, field work</span>
-            </div>
-            <div class="p-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm">
-              <b class="block text-sm mb-1">Clear docs</b>
-              <span class="text-xs text-slate-400">Specs, workflows, rollout plans</span>
-            </div>
+              class="px-10 py-5 glass text-white font-black rounded-full hover:bg-white/10 transition-all">Explore
+              Services</a>
           </div>
         </div>
 
-        <div
-          class="bg-white dark:bg-slate-900/50 p-6 rounded-3xl border border-slate-200/20 dark:border-white/10 shadow-2xl backdrop-blur-md"
-          x-data="{ machineSVG: '' }" x-init="machineSVG = await loadSVG('assets/images/machine.svg')">
-          <div class="flex items-center justify-between mb-6">
-            <div class="font-black text-ink dark:text-white uppercase tracking-wider text-sm">Workflow Simulation</div>
-            <div
-              class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-bold text-slate-500 dark:text-slate-400">
-              System v2.4</div>
+        <!-- Simulation Panel (Glassmorphism) -->
+        <div class="glass p-1 rounded-[2.5rem] shadow-2xl backdrop-blur-xl">
+          <div class="bg-slate-900/40 p-8 md:p-10 rounded-[2.4rem] border border-white/5" x-data="{ machineSVG: '' }"
+            x-init="machineSVG = await loadSVG('assets/images/machine.svg')">
+            <div class="flex items-center justify-between mb-8">
+              <div class="flex items-center gap-3">
+                <span class="w-3 h-3 rounded-full bg-brand-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]"></span>
+                <div class="font-bold text-white uppercase tracking-widest text-xs">Live Workflow Logic</div>
+              </div>
+              <div class="text-[10px] font-black text-slate-500 px-3 py-1 border border-white/10 rounded-full">
+                v2.4.8-Stable</div>
+            </div>
+            <div x-html="machineSVG" class="text-slate-200 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"></div>
+            <p class="mt-10 text-xs text-slate-500 leading-relaxed italic text-center uppercase tracking-widest">
+              Simulated real-world pathfinding & automated handoff logic
+            </p>
           </div>
-          <div x-html="machineSVG" class="text-slate-800 dark:text-white"></div>
-          <p class="mt-6 text-sm text-slate-500 dark:text-slate-400 leading-relaxed italic">
-            Real-world complex handling logic including sensor scanning, robotic pathfinding, and automated handoffs.
-          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust Section (Outcomes) -->
+    <section id="outcomes" class="py-24 bg-white dark:bg-slate-950 border-y border-slate-200 dark:border-slate-800"
+      x-data="{ outcomes: [] }" x-init="outcomes = await (await fetch('data/outcomes.json')).json()">
+      <div class="container mx-auto px-4 max-w-6xl">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <template x-for="stat in outcomes">
+            <div class="text-center md:text-left space-y-2">
+              <div class="text-4xl font-black text-brand-600 dark:text-brand-400 font-heading" x-text="stat.value">
+              </div>
+              <div class="text-lg font-bold text-slate-900 dark:text-white leading-tight" x-text="stat.label"></div>
+              <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed" x-text="stat.description"></p>
+            </div>
+          </template>
         </div>
       </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-24 bg-white dark:bg-ink" x-data="{ services: [] }"
+    <section id="services" class="py-32 bg-slate-50 dark:bg-slate-900/20" x-data="{ services: [] }"
       x-init="services = await (await fetch('data/services.json')).json()">
       <div class="container mx-auto px-4 max-w-6xl">
-        <div class="max-w-3xl mb-16">
-          <h2 class="text-3xl md:text-4xl font-black mb-4 tracking-tight">Services</h2>
-          <p class="text-lg text-slate-500 dark:text-slate-400">Small engagements with clear outputs: workflows,
-            documentation, and delivery support.</p>
+        <div class="max-w-3xl mb-20">
+          <h2 class="text-4xl md:text-5xl font-black mb-6 tracking-tight font-heading">Strategic Services</h2>
+          <p class="text-xl text-slate-500 dark:text-slate-400 font-light">Targeted high-value engagements designed to
+            deliver measurable operational breakthroughs.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <template x-for="service in services">
             <div
-              class="group p-8 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl hover:bg-white dark:hover:bg-slate-800 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/5">
-              <h3 class="font-black text-xl mb-3 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-brand group-hover:scale-150 transition-transform"></span>
-                <span x-text="service.title"></span>
+              class="group p-10 glass-card rounded-[2.5rem] hover:shadow-3xl hover:shadow-brand-600/10 transition-all duration-500 hover:-translate-y-3 cursor-default">
+              <div
+                class="w-14 h-14 bg-brand-600 rounded-2xl flex items-center justify-center mb-8 shadow-xl shadow-brand-600/20 group-hover:scale-110 transition-transform">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z">
+                  </path>
+                </svg>
+              </div>
+              <h3 class="font-black text-2xl mb-4 group-hover:text-brand-600 transition-colors" x-text="service.title">
               </h3>
-              <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed" x-text="service.description">
-              </p>
-              <ul class="space-y-3">
+              <p class="text-slate-600 dark:text-slate-400 text-sm mb-8 leading-relaxed font-medium"
+                x-text="service.description"></p>
+              <ul class="space-y-4">
                 <template x-for="item in service.items">
-                  <li class="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-300">
-                    <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                  <li class="flex items-start gap-3 text-[13px] font-bold text-slate-700 dark:text-slate-300">
+                    <svg class="w-5 h-5 text-brand-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"></path>
                     </svg>
                     <span x-text="item"></span>
                   </li>
@@ -245,49 +317,99 @@
       </div>
     </section>
 
-    <!-- How it works -->
-    <section id="how" class="py-24 bg-slate-50 dark:bg-slate-900/50" x-data="{ steps: [] }"
+    <!-- How it works (Progressive Disclosure) -->
+    <section id="how" class="py-32 bg-white dark:bg-slate-950" x-data="{ steps: [], activeStep: 0 }"
       x-init="steps = await (await fetch('data/how-it-works.json')).json()">
       <div class="container mx-auto px-4 max-w-6xl">
-        <div class="max-w-3xl mb-16">
-          <h2 class="text-3xl md:text-4xl font-black mb-4 tracking-tight">How it works</h2>
-          <p class="text-lg text-slate-500 dark:text-slate-400">A simple delivery approach that keeps teams aligned and
-            moving.</p>
+        <div class="max-w-3xl mb-24">
+          <h2 class="text-4xl md:text-5xl font-black mb-6 tracking-tight font-heading">Our Delivery Methodology</h2>
+          <p class="text-xl text-slate-500 dark:text-slate-400 font-light">A precision-led approach to identifying,
+            architecting, and deploying industrial intelligence.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
-          <!-- Connector line (Desktop) -->
-          <div class="hidden md:block absolute top-[60px] left-0 right-0 h-px bg-slate-200 dark:bg-slate-700 z-0"></div>
+        <div class="grid lg:grid-cols-2 gap-20 items-start">
+          <!-- Step Selectors -->
+          <div class="space-y-6">
+            <template x-for="(step, index) in steps">
+              <button @click="activeStep = index"
+                :class="activeStep === index ? 'bg-brand-50 border-brand-200 dark:bg-brand-900/20 dark:border-brand-800' : 'bg-transparent border-transparent hover:bg-slate-50 dark:hover:bg-slate-900'"
+                class="w-full text-left p-8 border rounded-[2rem] transition-all group relative overflow-hidden">
+                <div class="relative z-10 flex items-center gap-6">
+                  <div
+                    :class="activeStep === index ? 'bg-brand-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'"
+                    class="w-14 h-14 rounded-2xl flex items-center justify-center font-black text-xl transition-colors group-hover:scale-110"
+                    x-text="step.step"></div>
+                  <div>
+                    <h3 class="font-black text-xl mb-1" x-text="step.title"></h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400" x-text="step.description"></p>
+                  </div>
+                </div>
+                <div x-show="activeStep === index" x-transition
+                  class="absolute bottom-0 left-0 h-1.5 bg-brand-600 transition-all w-full"></div>
+              </button>
+            </template>
+          </div>
 
-          <template x-for="step in steps">
-            <div class="relative z-10 flex flex-col items-center md:items-start text-center md:text-left">
-              <div
-                class="w-12 h-12 bg-brand text-white font-black rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-brand/20"
-                x-text="step.step"></div>
-              <h3 class="font-black text-xl mb-3" x-text="step.title"></h3>
-              <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed" x-text="step.description"></p>
-            </div>
-          </template>
+          <!-- Step Deep Dive (Progressive Disclosure) -->
+          <div class="lg:sticky lg:top-40 p-10 glass rounded-[2.5rem] border-brand-500/20">
+            <template x-for="(step, index) in steps">
+              <div x-show="activeStep === index" x-transition:enter="transition ease-out duration-500"
+                x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0"
+                class="space-y-8">
+                <div
+                  class="flex items-center gap-4 text-brand-600 dark:text-brand-400 font-black text-xs uppercase tracking-widest">
+                  <span class="w-10 h-[2px] bg-brand-600"></span>
+                  Deep Dive Step <span x-text="step.step"></span>
+                </div>
+                <h3 class="text-3xl font-black font-heading leading-tight" x-text="step.title"></h3>
+                <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed font-light" x-text="step.details">
+                </p>
+                <div class="pt-8 grid grid-cols-2 gap-4">
+                  <div
+                    class="p-6 bg-slate-100 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Key Output</div>
+                    <div class="font-bold text-sm">Technical Roadmap</div>
+                  </div>
+                  <div
+                    class="p-6 bg-slate-100 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Stakeholder</div>
+                    <div class="font-bold text-sm">C-Suite & Ops</div>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Case Studies -->
-    <section id="case" class="py-24 bg-white dark:bg-ink" x-data="{ cases: [] }"
+    <section id="case" class="py-32 bg-slate-950 text-white" x-data="{ cases: [] }"
       x-init="cases = await (await fetch('data/case-studies.json')).json()">
       <div class="container mx-auto px-4 max-w-6xl">
-        <div class="max-w-3xl mb-16">
-          <h2 class="text-3xl md:text-4xl font-black mb-4 tracking-tight">Case studies</h2>
-          <p class="text-lg text-slate-500 dark:text-slate-400">Short examples that can be tailored to your industry.
-          </p>
+        <div class="max-w-3xl mb-24">
+          <h2 class="text-4xl md:text-5xl font-black mb-6 tracking-tight font-heading">Success Stories</h2>
+          <p class="text-xl text-slate-400 font-light">Real-world examples of how we bridge high-level strategy with
+            physical industrial execution.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
           <template x-for="c in cases">
-            <div
-              class="p-8 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-default group">
-              <h3 class="font-black text-xl mb-4 group-hover:text-brand transition-colors" x-text="c.title"></h3>
-              <p class="text-slate-700 dark:text-slate-300 leading-relaxed" x-text="c.description"></p>
+            <div class="p-12 glass rounded-[3rem] hover:bg-white/5 transition-all group border-white/5">
+              <div class="text-brand-400 font-black text-[10px] uppercase tracking-widest mb-6">Case Study Archetype
+              </div>
+              <h3
+                class="font-black text-3xl mb-6 group-hover:text-brand-400 transition-colors leading-tight font-heading"
+                x-text="c.title"></h3>
+              <p class="text-slate-300 leading-relaxed font-light text-lg mb-8" x-text="c.description"></p>
+              <a href="#contact"
+                class="inline-flex items-center gap-2 font-black text-sm text-brand-400 hover:text-brand-300 transition-colors">
+                Discussion Request
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3">
+                  </path>
+                </svg>
+              </a>
             </div>
           </template>
         </div>
@@ -295,70 +417,72 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-24 bg-brand text-white" x-data="{ contact: {} }"
+    <section id="contact" class="py-32 bg-brand-600 relative overflow-hidden" x-data="{ contact: {} }"
       x-init="contact = await (await fetch('data/contact.json')).json()">
-      <div class="container mx-auto px-4 max-w-6xl grid md:grid-cols-2 gap-16 items-center">
-        <div>
-          <h2 class="text-3xl md:text-4xl font-black mb-6 tracking-tight text-white">Strategic Industrial Partnership
-          </h2>
-          <p class="text-lg text-brand-100 mb-8 max-w-lg leading-relaxed">We respond promptly to all professional
-            inquiries. Please provide a brief overview of your operational goals and current challenges.</p>
+      <!-- Decoration -->
+      <div
+        class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2">
+      </div>
 
-          <div class="space-y-6">
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center">
-                <svg class="w-6 h-6 border-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                  </path>
-                </svg>
-              </div>
-              <div>
-                <div class="text-xs uppercase font-black text-white/60">Email</div>
-                <div class="font-bold text-lg" x-text="contact.email"></div>
-              </div>
+      <div class="container mx-auto px-4 max-w-6xl grid lg:grid-cols-2 gap-20 items-center relative z-10">
+        <div class="text-white space-y-10">
+          <h2 class="text-4xl md:text-6xl font-black tracking-tight font-heading">Initiate Your Strategic <span
+              class="bg-blue-300/40 px-2 rounded-lg">Operational Shift</span></h2>
+          <p class="text-xl text-brand-100 leading-relaxed font-light">Join the ranks of industrial leaders optimizing
+            for the future. We respond to all professional inquiries within 24 hours.</p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div class="space-y-2">
+              <div class="text-[10px] uppercase font-black text-brand-200 tracking-widest">Office HQ</div>
+              <div class="font-bold text-lg" x-text="contact.location"></div>
             </div>
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
-                  </path>
-                </svg>
-              </div>
-              <div>
-                <div class="text-xs uppercase font-black text-white/60">Phone</div>
-                <div class="font-bold text-lg" x-text="contact.phone"></div>
-              </div>
+            <div class="space-y-2">
+              <div class="text-[10px] uppercase font-black text-brand-200 tracking-widest">Global Inquiries</div>
+              <div class="font-bold text-lg" x-text="contact.email"></div>
             </div>
           </div>
         </div>
 
-        <div class="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-2xl text-ink">
-          <h3 class="font-black text-2xl mb-6">Inquiry Details</h3>
-          <p class="text-slate-500 mb-8">To help us prepare for our initial discussion, please include your industry,
-            existing workflow summary, and target performance indicators.
-          </p>
+        <div class="bg-white p-12 md:p-16 rounded-[3.5rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] text-slate-900">
+          <div class="mb-10 flex items-center gap-4">
+            <div class="w-12 h-12 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+              </svg>
+            </div>
+            <h3 class="font-black text-3xl font-heading">Let's Connect</h3>
+          </div>
+          <p class="text-slate-500 mb-10 font-medium leading-relaxed">Briefly share your industry and current workflow
+            objective. Our strategic team will review and contact you to schedule a consultation.</p>
           <a :href="'mailto:' + contact.email + '?subject=' + encodeURIComponent(contact.subject)"
-            class="block w-full py-4 bg-brand text-white text-center font-black rounded-2xl hover:bg-brand-dark transition-all shadow-xl shadow-brand/20">Write
-            Email</a>
+            class="block w-full py-5 bg-brand-600 text-white text-center font-black rounded-2xl hover:bg-brand-700 transition-all shadow-2xl shadow-brand-600/30 active:scale-95 text-lg">Send
+            Professional Inquiry</a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="bg-ink py-16 text-slate-400">
-    <div class="container mx-auto px-4 max-w-6xl grid md:grid-cols-2 gap-12">
-      <div>
-        <div class="font-black text-white text-xl mb-4">Automtas</div>
-        <p class="max-w-xs leading-relaxed mb-6">Industrial consulting for AI, automation, and operations.</p>
-        <div class="text-xs">© <span id="year"></span> Automtas. All rights reserved.</div>
+  <footer class="bg-slate-950 py-20 border-t border-white/5 text-slate-500">
+    <div class="container mx-auto px-4 max-w-6xl grid md:grid-cols-2 gap-16">
+      <div class="space-y-8">
+        <div>
+          <div class="font-black text-white text-2xl mb-4 font-heading">Automtas</div>
+          <p class="max-w-xs leading-relaxed font-light">Bridge high-level strategy with physical industrial execution.
+          </p>
+        </div>
+        <div class="text-xs font-bold uppercase tracking-widest">© <span id="year"></span> Automtas. Industrial
+          Intelligence Council.</div>
       </div>
-      <div class="md:text-right">
-        <div class="font-black text-white uppercase tracking-widest text-xs mb-4">Contact</div>
-        <div class="space-y-2 font-medium">
-          <div x-text="contact.email"></div>
-          <div x-text="contact.location"></div>
+      <div class="md:text-right space-y-8">
+        <div>
+          <div class="font-black text-white uppercase tracking-widest text-xs mb-6 text-brand-500">Operational Regions
+          </div>
+          <div class="space-y-3 font-bold text-slate-300">
+            <div>North America / Global</div>
+            <div x-text="contact.location"></div>
+            <div x-text="contact.email" class="text-brand-400"></div>
+          </div>
         </div>
       </div>
     </div>

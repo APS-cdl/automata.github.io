@@ -1,29 +1,32 @@
 [
   {
-    "title": "AI & Automation Strategy",
-    "description": "Strategic advisory on identifying and implementing high-impact automation and AI solutions tailored for industrial environments.",
+    "title": "Industrial Intelligence Strategy",
+    "description": "We identify high-impact AI and automation opportunities that drive significant ROI and operational efficiency in complex industrial environments.",
+    "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80",
     "items": [
-      "Strategic Use Case Mapping",
-      "End-to-End Process Redesign",
-      "Industrial Pilot Execution Framework"
+      "Strategic Value Mapping & ROI Analysis",
+      "Process Architecture Redesign",
+      "Operational Readiness Assessment"
     ]
   },
   {
-    "title": "Technical Documentation",
-    "description": "Comprehensive technical artifacts and workflow specifications that provide a clear roadmap for engineering and operations teams.",
+    "title": "Technical Execution Frameworks",
+    "description": "Translating vision into reality with rigorous technical specifications and workflow designs that engineering teams can execute immediately.",
+    "image": "https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&w=800&q=80",
     "items": [
-      "Advanced Workflow Architectures",
-      "Functional Specifications & USers Stories",
-      "Rigorous Acceptance Criteria"
+      "Advanced System Architectures",
+      "Operational Deployment Roadmaps",
+      "Precision Performance Standards"
     ]
   },
   {
-    "title": "Operational Enablement",
-    "description": "Ensuring long-term success through robust reporting systems, team training, and continuous process optimization.",
+    "title": "Strategic Operational Scaling",
+    "description": "Building the systems and culture required for sustainable growth through advanced analytics, reporting, and change management.",
+    "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
     "items": [
-      "Real-time KPI Dashboards",
-      "Operational Training & Change Management",
-      "Continuous Improvement Programs"
+      "Enterprise Performance Dashboards",
+      "Strategic Change Management",
+      "Continuous Improvement Systems"
     ]
   }
 ]

@@ -1,10 +1,12 @@
 [
     {
         "title": "Enterprise Logistics Optimization",
-        "description": "Successfully defined core workflows and technical requirements for a multi-site logistics platform, resulting in improved adoption and operational transparency."
+        "description": "Successfully defined core workflows and technical requirements for a multi-site logistics platform, resulting in improved adoption and operational transparency.",
+        "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
     },
     {
         "title": "Industrial Analytics & KPI Frameworks",
-        "description": "Architected real-time performance dashboards and KPI structures for complex manufacturing environments, accelerating decision-making by 40%."
+        "description": "Architected real-time performance dashboards and KPI structures for complex manufacturing environments, accelerating decision-making by 40%.",
+        "image": "https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&w=800&q=80"
     }
 ]

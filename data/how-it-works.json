@@ -1,17 +1,20 @@
 [
     {
         "step": "1",
-        "title": "In-Depth Discovery",
-        "description": "We analyze your current operational landscape to identify core constraints, safety requirements, and peak performance opportunities."
+        "title": "Operational Deep Dive",
+        "description": "A comprehensive analysis of your existing ecosystem to identify core constraints and performance bottlenecks.",
+        "details": "We conduct on-site observations and data audits to map every touchpoint in your workflow, ensuring our strategy is grounded in your unique operational reality."
     },
     {
         "step": "2",
         "title": "Strategic Architecture",
-        "description": "Developing detailed workflows and technical specifications that translate business objectives into executable industrial plans."
+        "description": "Designing future-state workflows that bridge the gap between business objectives and floor-level execution.",
+        "details": "Our designs include detailed logic flows, hardware-software integration specs, and standard operating procedures (SOPs) ready for implementation."
     },
     {
         "step": "3",
-        "title": "Deployment Support",
-        "description": "Direct collaboration with your teams to ensure successful system rollout, stabilization, and measurable performance tracking."
+        "title": "Guided Implementation",
+        "description": "Direct support during the critical transition phase to ensure systems are stabilized and performance realized.",
+        "details": "We work alongside your management and frontline teams to manage the fallout of change, monitor real-time KPIs, and rapidly iterate on deployment strategies."
     }
 ]
