@@ -329,36 +329,25 @@
     </section>
 
     <!-- Trust Section (Outcomes) -->
-    <section id="outcomes" class="py-24 bg-white dark:bg-slate-950 border-y border-slate-200 dark:border-slate-800">
+    <section id="outcomes" class="py-24 bg-white dark:bg-slate-950 border-y border-slate-200 dark:border-slate-800"
+      x-data="{ outcomes: [] }" x-init="outcomes = await (await fetch('data/outcomes.json')).json()">
       <div class="container mx-auto px-4 max-w-6xl">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <!-- Outcome 1 -->
-          <div class="text-center md:text-left space-y-4">
-            <div class="text-6xl font-black text-brand-700 dark:text-brand-400 font-heading">40% Increase</div>
-            <div class="text-2xl font-bold text-slate-900 dark:text-white leading-tight">Operational Efficiency</div>
-            <p class="text-lg text-slate-700 dark:text-slate-300 leading-[1.7]">Achieved through workflow automation and
-              bottleneck elimination in manufacturing environments.</p>
-          </div>
-          <!-- Outcome 2 -->
-          <div class="text-center md:text-left space-y-4">
-            <div class="text-6xl font-black text-brand-700 dark:text-brand-400 font-heading">2X Faster</div>
-            <div class="text-2xl font-bold text-slate-900 dark:text-white leading-tight">Deployment Speed</div>
-            <p class="text-lg text-slate-700 dark:text-slate-300 leading-[1.7]">Reduction in time-to-value for new
-              enterprise logistics platform implementations.</p>
-          </div>
-          <!-- Outcome 3 -->
-          <div class="text-center md:text-left space-y-4">
-            <div class="text-6xl font-black text-brand-700 dark:text-brand-400 font-heading">Zero Defect</div>
-            <div class="text-2xl font-bold text-slate-900 dark:text-white leading-tight">Technical Precision</div>
-            <p class="text-lg text-slate-700 dark:text-slate-300 leading-[1.7]">Methodology-driven approach to system
-              requirements and technical specification design.</p>
-          </div>
+          <template x-for="stat in outcomes">
+            <div class="text-center md:text-left space-y-4">
+              <div class="text-6xl font-black text-brand-700 dark:text-brand-400 font-heading" x-text="stat.value">
+              </div>
+              <div class="text-2xl font-bold text-slate-900 dark:text-white leading-tight" x-text="stat.label"></div>
+              <p class="text-lg text-slate-700 dark:text-slate-300 leading-[1.7]" x-text="stat.description"></p>
+            </div>
+          </template>
         </div>
       </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-32 bg-slate-50 dark:bg-slate-900/20">
+    <section id="services" class="py-32 bg-slate-50 dark:bg-slate-900/20" x-data="{ services: [] }"
+      x-init="services = await (await fetch('data/services.json')).json()">
       <div class="container mx-auto px-4 max-w-6xl">
         <div class="max-w-3xl mb-24">
           <h2 class="text-4xl md:text-5xl font-black mb-8 tracking-tight font-heading">Strategic Services</h2>
@@ -367,159 +356,41 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Service 1 -->
-          <div
-            class="group h-full flex flex-col glass-card rounded-[2.5rem] hover:shadow-3xl hover:shadow-brand-600/10 transition-all duration-500 hover:-translate-y-3 overflow-hidden">
-            <div class="h-48 overflow-hidden relative">
-              <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80"
-                alt="Industrial Intelligence Strategy"
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                loading="lazy" width="800" height="400">
-              <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
-              <div
-                class="absolute bottom-6 left-6 w-12 h-12 bg-brand-600 rounded-xl flex items-center justify-center shadow-xl shadow-brand-600/20">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z">
-                  </path>
-                </svg>
+          <template x-for="service in services">
+            <div
+              class="group h-full flex flex-col glass-card rounded-[2.5rem] hover:shadow-3xl hover:shadow-brand-600/10 transition-all duration-500 hover:-translate-y-3 overflow-hidden">
+              <div class="h-48 overflow-hidden relative">
+                <img :src="service.image" :alt="service.title" loading="lazy" width="800" height="400"
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+                <div
+                  class="absolute bottom-6 left-6 w-12 h-12 bg-brand-600 rounded-xl flex items-center justify-center shadow-xl shadow-brand-600/20">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="p-8 flex-grow">
+                <h3 class="font-black text-2xl mb-5 group-hover:text-brand-600 transition-colors"
+                  x-text="service.title"></h3>
+                <p class="text-slate-700 dark:text-slate-300 text-base mb-10 leading-[1.7] font-normal"
+                  x-text="service.description"></p>
+                <ul class="space-y-4">
+                  <template x-for="item in service.items">
+                    <li class="flex items-start gap-3 text-[13px] font-bold text-slate-700 dark:text-slate-300">
+                      <svg class="w-5 h-5 text-brand-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                      <span x-text="item"></span>
+                    </li>
+                  </template>
+                </ul>
               </div>
             </div>
-            <div class="p-8 flex-grow">
-              <h3 class="font-black text-2xl mb-5 group-hover:text-brand-600 transition-colors">Industrial Intelligence
-                Strategy</h3>
-              <p class="text-slate-700 dark:text-slate-300 text-base mb-10 leading-[1.7] font-normal">We identify
-                high-impact AI and automation opportunities that drive significant ROI and operational efficiency in
-                complex industrial environments.</p>
-              <ul class="space-y-4">
-                <li class="flex items-start gap-3 text-[13px] font-bold text-slate-700 dark:text-slate-300">
-                  <svg class="w-5 h-5 text-brand-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                  <span>Strategic Value Mapping & ROI Analysis</span>
-                </li>
-                <li class="flex items-start gap-3 text-[13px] font-bold text-slate-700 dark:text-slate-300">
-                  <svg class="w-5 h-5 text-brand-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                  <span>Process Architecture Redesign</span>
-                </li>
-                <li class="flex items-start gap-3 text-[13px] font-bold text-slate-700 dark:text-slate-300">
-                  <svg class="w-5 h-5 text-brand-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                  <span>Operational Readiness Assessment</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!-- Service 2 -->
-          <div
-            class="group h-full flex flex-col glass-card rounded-[2.5rem] hover:shadow-3xl hover:shadow-brand-600/10 transition-all duration-500 hover:-translate-y-3 overflow-hidden">
-            <div class="h-48 overflow-hidden relative">
-              <img src="https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&w=800&q=80"
-                alt="Technical Execution Frameworks"
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                loading="lazy" width="800" height="400">
-              <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
-              <div
-                class="absolute bottom-6 left-6 w-12 h-12 bg-brand-600 rounded-xl flex items-center justify-center shadow-xl shadow-brand-600/20">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z">
-                  </path>
-                </svg>
-              </div>
-            </div>
-            <div class="p-8 flex-grow">
-              <h3 class="font-black text-2xl mb-5 group-hover:text-brand-600 transition-colors">Technical Execution
-                Frameworks</h3>
-              <p class="text-slate-700 dark:text-slate-300 text-base mb-10 leading-[1.7] font-normal">Translating vision
-                into reality with rigorous technical specifications and workflow designs that engineering teams can
-                execute immediately.</p>
-              <ul class="space-y-4">
-                <li class="flex items-start gap-3 text-[13px] font-bold text-slate-700 dark:text-slate-300">
-                  <svg class="w-5 h-5 text-brand-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                  <span>Advanced System Architectures</span>
-                </li>
-                <li class="flex items-start gap-3 text-[13px] font-bold text-slate-700 dark:text-slate-300">
-                  <svg class="w-5 h-5 text-brand-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                  <span>Operational Deployment Roadmaps</span>
-                </li>
-                <li class="flex items-start gap-3 text-[13px] font-bold text-slate-700 dark:text-slate-300">
-                  <svg class="w-5 h-5 text-brand-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                  <span>Precision Performance Standards</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!-- Service 3 -->
-          <div
-            class="group h-full flex flex-col glass-card rounded-[2.5rem] hover:shadow-3xl hover:shadow-brand-600/10 transition-all duration-500 hover:-translate-y-3 overflow-hidden">
-            <div class="h-48 overflow-hidden relative">
-              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
-                alt="Strategic Operational Scaling"
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                loading="lazy" width="800" height="400">
-              <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
-              <div
-                class="absolute bottom-6 left-6 w-12 h-12 bg-brand-600 rounded-xl flex items-center justify-center shadow-xl shadow-brand-600/20">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z">
-                  </path>
-                </svg>
-              </div>
-            </div>
-            <div class="p-8 flex-grow">
-              <h3 class="font-black text-2xl mb-5 group-hover:text-brand-600 transition-colors">Strategic Operational
-                Scaling</h3>
-              <p class="text-slate-700 dark:text-slate-300 text-base mb-10 leading-[1.7] font-normal">Building the
-                systems and culture required for sustainable growth through advanced analytics, reporting, and change
-                management.</p>
-              <ul class="space-y-4">
-                <li class="flex items-start gap-3 text-[13px] font-bold text-slate-700 dark:text-slate-300">
-                  <svg class="w-5 h-5 text-brand-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                  <span>Enterprise Performance Dashboards</span>
-                </li>
-                <li class="flex items-start gap-3 text-[13px] font-bold text-slate-700 dark:text-slate-300">
-                  <svg class="w-5 h-5 text-brand-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                  <span>Strategic Change Management</span>
-                </li>
-                <li class="flex items-start gap-3 text-[13px] font-bold text-slate-700 dark:text-slate-300">
-                  <svg class="w-5 h-5 text-brand-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                  <span>Continuous Improvement Systems</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+          </template>
         </div>
       </div>
     </section>
