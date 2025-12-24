@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" x-data="{ darkMode: localStorage.getItem('theme') === 'dark' }" :class="{ 'dark': darkMode }">
+<html lang="en" x-data="{ darkMode: localStorage.getItem('theme') === 'dark', contact: {} }"
+  :class="{ 'dark': darkMode }" x-init="contact = await (await fetch('data/contact.json')).json()">
 
 <head>
   <!-- Google tag (gtag.js) -->
@@ -141,7 +142,8 @@
           </svg>
         </div>
         <div>
-          <div class="font-black text-xl text-slate-900 dark:text-white leading-tight font-heading">Automtas</div>
+          <div class="font-black text-xl text-slate-900 dark:text-white leading-tight font-heading"
+            x-text="contact.name || 'Automtas'"></div>
           <div class="text-[10px] uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-black">Industrial
             Intelligence</div>
         </div>
@@ -396,290 +398,134 @@
     </section>
 
     <!-- How it works (Progressive Disclosure) -->
-    <section id="how" class="py-32 bg-white dark:bg-slate-950" x-data="{ activeStep: 0 }">
+    <section id="how" class="py-32 bg-white dark:bg-slate-950" x-data="{ steps: [], activeStep: 0 }"
+      x-init="steps = await (await fetch('data/how-it-works.json')).json()">
       <div class="container mx-auto px-4 max-w-6xl">
         <div class="max-w-3xl mb-24">
           <h2 class="text-4xl md:text-5xl font-black mb-8 tracking-tight font-heading">Our Delivery Methodology</h2>
           <p class="text-xl text-slate-700 dark:text-slate-300 font-light leading-[1.7]">A precision-led approach to
-            identifying, architecting, and deploying industrial intelligence.</p>
+            identifying,
+            architecting, and deploying industrial intelligence.</p>
         </div>
 
         <div class="grid lg:grid-cols-2 gap-20 items-start">
           <!-- Step Selectors & Mobile Deep Dives -->
           <div class="space-y-6">
-            <!-- Step 1 -->
-            <div class="space-y-4">
-              <button @click="activeStep = 0"
-                :class="activeStep === 0 ? 'bg-brand-50 border-brand-200 dark:bg-brand-900/20 dark:border-brand-800' : 'bg-transparent border-transparent hover:bg-slate-50 dark:hover:bg-slate-900'"
-                class="w-full text-left p-6 md:p-8 border rounded-[2rem] transition-all group relative overflow-hidden">
-                <div class="relative z-10 flex items-center gap-6">
-                  <div
-                    :class="activeStep === 0 ? 'bg-brand-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'"
-                    class="w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center font-black text-lg md:text-xl transition-colors group-hover:scale-110">
-                    1</div>
-                  <div>
-                    <h3 class="font-black text-lg md:text-xl mb-1">Operational Deep Dive</h3>
-                    <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400">A comprehensive analysis of your
-                      existing ecosystem to identify core constraints and performance bottlenecks.</p>
+            <template x-for="(step, index) in steps">
+              <div class="space-y-4">
+                <button @click="activeStep = index"
+                  :class="activeStep === index ? 'bg-brand-50 border-brand-200 dark:bg-brand-900/20 dark:border-brand-800' : 'bg-transparent border-transparent hover:bg-slate-50 dark:hover:bg-slate-900'"
+                  class="w-full text-left p-6 md:p-8 border rounded-[2rem] transition-all group relative overflow-hidden">
+                  <div class="relative z-10 flex items-center gap-6">
+                    <div
+                      :class="activeStep === index ? 'bg-brand-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'"
+                      class="w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center font-black text-lg md:text-xl transition-colors group-hover:scale-110"
+                      x-text="step.step"></div>
+                    <div>
+                      <h3 class="font-black text-lg md:text-xl mb-1" x-text="step.title"></h3>
+                      <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400" x-text="step.description"></p>
+                    </div>
                   </div>
-                </div>
-                <div x-show="activeStep === 0" x-transition
-                  class="absolute bottom-0 left-0 h-1.5 bg-brand-600 transition-all w-full"></div>
-              </button>
-              <div x-show="activeStep === 0" x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
-                class="lg:hidden p-8 glass rounded-[2rem] border-brand-500/20 space-y-6 mx-2">
-                <h4 class="text-xl font-black font-heading leading-tight">Operational Deep Dive</h4>
-                <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed font-light">We conduct on-site
-                  observations and data audits to map every touchpoint in your workflow, ensuring our strategy is
-                  grounded in your unique operational reality.</p>
-                <div class="grid grid-cols-2 gap-3">
-                  <div
-                    class="p-4 bg-slate-100/50 dark:bg-slate-900/50 rounded-xl border border-slate-200/50 dark:border-slate-800/50">
-                    <div class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Key Output</div>
-                    <div class="font-bold text-xs">Constraint Map</div>
-                  </div>
-                  <div
-                    class="p-4 bg-slate-100/50 dark:bg-slate-900/50 rounded-xl border border-slate-200/50 dark:border-slate-800/50">
-                    <div class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Stakeholder</div>
-                    <div class="font-bold text-xs">Operations Leadership</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Step 2 -->
-            <div class="space-y-4">
-              <button @click="activeStep = 1"
-                :class="activeStep === 1 ? 'bg-brand-50 border-brand-200 dark:bg-brand-900/20 dark:border-brand-800' : 'bg-transparent border-transparent hover:bg-slate-50 dark:hover:bg-slate-900'"
-                class="w-full text-left p-6 md:p-8 border rounded-[2rem] transition-all group relative overflow-hidden">
-                <div class="relative z-10 flex items-center gap-6">
-                  <div
-                    :class="activeStep === 1 ? 'bg-brand-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'"
-                    class="w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center font-black text-lg md:text-xl transition-colors group-hover:scale-110">
-                    2</div>
-                  <div>
-                    <h3 class="font-black text-lg md:text-xl mb-1">Strategic Architecture</h3>
-                    <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400">Designing future-state workflows
-                      that bridge the gap between business objectives and floor-level execution.</p>
-                  </div>
-                </div>
-                <div x-show="activeStep === 1" x-transition
-                  class="absolute bottom-0 left-0 h-1.5 bg-brand-600 transition-all w-full"></div>
-              </button>
-              <div x-show="activeStep === 1" x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
-                class="lg:hidden p-8 glass rounded-[2rem] border-brand-500/20 space-y-6 mx-2">
-                <h4 class="text-xl font-black font-heading leading-tight">Strategic Architecture</h4>
-                <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed font-light">Our designs include
-                  detailed logic flows, hardware-software integration specs, and standard operating procedures (SOPs)
-                  ready for implementation.</p>
-                <div class="grid grid-cols-2 gap-3">
-                  <div
-                    class="p-4 bg-slate-100/50 dark:bg-slate-900/50 rounded-xl border border-slate-200/50 dark:border-slate-800/50">
-                    <div class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Key Output</div>
-                    <div class="font-bold text-xs">Technical Roadmap</div>
-                  </div>
-                  <div
-                    class="p-4 bg-slate-100/50 dark:bg-slate-900/50 rounded-xl border border-slate-200/50 dark:border-slate-800/50">
-                    <div class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Stakeholder</div>
-                    <div class="font-bold text-xs">Engineering & IT</div>
+                  <div x-show="activeStep === index" x-transition
+                    class="absolute bottom-0 left-0 h-1.5 bg-brand-600 transition-all w-full"></div>
+                </button>
+
+                <!-- Mobile Detail (Visible only on mobile when active) -->
+                <div x-show="activeStep === index" x-transition:enter="transition ease-out duration-300"
+                  x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+                  class="lg:hidden p-8 glass rounded-[2rem] border-brand-500/20 space-y-6 mx-2">
+                  <h4 class="text-xl font-black font-heading leading-tight" x-text="step.title"></h4>
+                  <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed font-light"
+                    x-text="step.details"></p>
+                  <div class="grid grid-cols-2 gap-3">
+                    <div
+                      class="p-4 bg-slate-100/50 dark:bg-slate-900/50 rounded-xl border border-slate-200/50 dark:border-slate-800/50">
+                      <div class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Key Output</div>
+                      <div class="font-bold text-xs" x-text="step.output"></div>
+                    </div>
+                    <div
+                      class="p-4 bg-slate-100/50 dark:bg-slate-900/50 rounded-xl border border-slate-200/50 dark:border-slate-800/50">
+                      <div class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Stakeholder</div>
+                      <div class="font-bold text-xs" x-text="step.stakeholder"></div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- Step 3 -->
-            <div class="space-y-4">
-              <button @click="activeStep = 2"
-                :class="activeStep === 2 ? 'bg-brand-50 border-brand-200 dark:bg-brand-900/20 dark:border-brand-800' : 'bg-transparent border-transparent hover:bg-slate-50 dark:hover:bg-slate-900'"
-                class="w-full text-left p-6 md:p-8 border rounded-[2rem] transition-all group relative overflow-hidden">
-                <div class="relative z-10 flex items-center gap-6">
-                  <div
-                    :class="activeStep === 2 ? 'bg-brand-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'"
-                    class="w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center font-black text-lg md:text-xl transition-colors group-hover:scale-110">
-                    3</div>
-                  <div>
-                    <h3 class="font-black text-lg md:text-xl mb-1">Guided Implementation</h3>
-                    <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400">Direct support during the critical
-                      transition phase to ensure systems are stabilized and performance realized.</p>
-                  </div>
-                </div>
-                <div x-show="activeStep === 2" x-transition
-                  class="absolute bottom-0 left-0 h-1.5 bg-brand-600 transition-all w-full"></div>
-              </button>
-              <div x-show="activeStep === 2" x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
-                class="lg:hidden p-8 glass rounded-[2rem] border-brand-500/20 space-y-6 mx-2">
-                <h4 class="text-xl font-black font-heading leading-tight">Guided Implementation</h4>
-                <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed font-light">We work alongside
-                  your management and frontline teams to manage the fallout of change, monitor real-time KPIs, and
-                  rapidly iterate on deployment strategies.</p>
-                <div class="grid grid-cols-2 gap-3">
-                  <div
-                    class="p-4 bg-slate-100/50 dark:bg-slate-900/50 rounded-xl border border-slate-200/50 dark:border-slate-800/50">
-                    <div class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Key Output</div>
-                    <div class="font-bold text-xs">Performance Dashboard</div>
-                  </div>
-                  <div
-                    class="p-4 bg-slate-100/50 dark:bg-slate-900/50 rounded-xl border border-slate-200/50 dark:border-slate-800/50">
-                    <div class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Stakeholder</div>
-                    <div class="font-bold text-xs">C-Suite & Field Ops</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </template>
           </div>
 
           <!-- Step Deep Dive (Visible only on Desktop) -->
           <div class="hidden lg:block lg:sticky lg:top-40 p-10 glass rounded-[2.5rem] border-brand-500/20">
-            <!-- Detail 1 -->
-            <div x-show="activeStep === 0" x-transition:enter="transition ease-out duration-500"
-              x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0"
-              class="space-y-8">
-              <div
-                class="flex items-center gap-4 text-brand-600 dark:text-brand-400 font-black text-xs uppercase tracking-widest">
-                <span class="w-10 h-[2px] bg-brand-600"></span> Deep Dive Step 1
-              </div>
-              <h3 class="text-3xl font-black font-heading leading-tight">Operational Deep Dive</h3>
-              <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed font-light">We conduct on-site
-                observations and data audits to map every touchpoint in your workflow, ensuring our strategy is grounded
-                in your unique operational reality.</p>
-              <div class="pt-8 grid grid-cols-2 gap-4">
+            <template x-for="(step, index) in steps">
+              <div x-show="activeStep === index" x-transition:enter="transition ease-out duration-500"
+                x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0"
+                class="space-y-8">
                 <div
-                  class="p-6 bg-slate-100 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-                  <div class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Key Output</div>
-                  <div class="font-bold text-sm">Constraint Map</div>
+                  class="flex items-center gap-4 text-brand-600 dark:text-brand-400 font-black text-xs uppercase tracking-widest">
+                  <span class="w-10 h-[2px] bg-brand-600"></span>
+                  Deep Dive Step <span x-text="step.step"></span>
                 </div>
-                <div
-                  class="p-6 bg-slate-100 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-                  <div class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Stakeholder</div>
-                  <div class="font-bold text-sm">Operations Leadership</div>
-                </div>
-              </div>
-            </div>
-            <!-- Detail 2 -->
-            <div x-show="activeStep === 1" x-transition:enter="transition ease-out duration-500"
-              x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0"
-              class="space-y-8" x-cloak>
-              <div
-                class="flex items-center gap-4 text-brand-600 dark:text-brand-400 font-black text-xs uppercase tracking-widest">
-                <span class="w-10 h-[2px] bg-brand-600"></span> Deep Dive Step 2
-              </div>
-              <h3 class="text-3xl font-black font-heading leading-tight">Strategic Architecture</h3>
-              <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed font-light">Our designs include
-                detailed logic flows, hardware-software integration specs, and standard operating procedures (SOPs)
-                ready for implementation.</p>
-              <div class="pt-8 grid grid-cols-2 gap-4">
-                <div
-                  class="p-6 bg-slate-100 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-                  <div class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Key Output</div>
-                  <div class="font-bold text-sm">Technical Roadmap</div>
-                </div>
-                <div
-                  class="p-6 bg-slate-100 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-                  <div class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Stakeholder</div>
-                  <div class="font-bold text-sm">Engineering & IT</div>
+                <h3 class="text-3xl font-black font-heading leading-tight" x-text="step.title"></h3>
+                <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed font-light" x-text="step.details">
+                </p>
+                <div class="pt-8 grid grid-cols-2 gap-4">
+                  <div
+                    class="p-6 bg-slate-100 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Key Output</div>
+                    <div class="font-bold text-sm" x-text="step.output"></div>
+                  </div>
+                  <div
+                    class="p-6 bg-slate-100 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Stakeholder</div>
+                    <div class="font-bold text-sm" x-text="step.stakeholder"></div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <!-- Detail 3 -->
-            <div x-show="activeStep === 2" x-transition:enter="transition ease-out duration-500"
-              x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0"
-              class="space-y-8" x-cloak>
-              <div
-                class="flex items-center gap-4 text-brand-600 dark:text-brand-400 font-black text-xs uppercase tracking-widest">
-                <span class="w-10 h-[2px] bg-brand-600"></span> Deep Dive Step 3
-              </div>
-              <h3 class="text-3xl font-black font-heading leading-tight">Guided Implementation</h3>
-              <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed font-light">We work alongside your
-                management and frontline teams to manage the fallout of change, monitor real-time KPIs, and rapidly
-                iterate on deployment strategies.</p>
-              <div class="pt-8 grid grid-cols-2 gap-4">
-                <div
-                  class="p-6 bg-slate-100 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-                  <div class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Key Output</div>
-                  <div class="font-bold text-sm">Performance Dashboard</div>
-                </div>
-                <div
-                  class="p-6 bg-slate-100 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-                  <div class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Stakeholder</div>
-                  <div class="font-bold text-sm">C-Suite & Field Ops</div>
-                </div>
-              </div>
-            </div>
+            </template>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Case Studies -->
-    <section id="case" class="py-32 bg-slate-950 text-white">
+    <section id="case" class="py-32 bg-slate-950 text-white" x-data="{ cases: [] }"
+      x-init="cases = await (await fetch('data/case-studies.json')).json()">
       <div class="container mx-auto px-4 max-w-6xl">
         <div class="max-w-3xl mb-24">
           <h2 class="text-4xl md:text-5xl font-black mb-8 tracking-tight font-heading">Case Studies</h2>
           <p class="text-xl text-slate-300 font-light leading-[1.7]">Real-world examples of how we bridge high-level
-            strategy with physical industrial execution.</p>
+            strategy with
+            physical industrial execution.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-          <!-- Case 1 -->
-          <div
-            class="flex flex-col glass rounded-[3rem] hover:bg-white/5 transition-all group border-white/5 overflow-hidden">
-            <div class="h-64 overflow-hidden relative">
-              <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
-                alt="Enterprise Logistics Optimization"
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60"
-                loading="lazy" width="800" height="600">
-              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
-              <div
-                class="absolute top-6 left-6 text-brand-400 font-black text-[10px] uppercase tracking-widest px-3 py-1 glass rounded-full">
-                Strategic Deployment</div>
+          <template x-for="c in cases">
+            <div
+              class="flex flex-col glass rounded-[3rem] hover:bg-white/5 transition-all group border-white/5 overflow-hidden">
+              <div class="h-64 overflow-hidden relative">
+                <img :src="c.image" :alt="c.title" loading="lazy" width="800" height="600"
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                <div
+                  class="absolute top-6 left-6 text-brand-400 font-black text-[10px] uppercase tracking-widest px-3 py-1 glass rounded-full">
+                  Strategic Deployment</div>
+              </div>
+              <div class="p-10 -mt-20 relative z-10">
+                <h3
+                  class="font-black text-3xl mb-6 group-hover:text-brand-400 transition-colors leading-tight font-heading"
+                  x-text="c.title"></h3>
+                <p class="text-slate-200 leading-[1.7] font-light text-lg mb-10" x-text="c.description"></p>
+                <a href="#contact"
+                  class="inline-flex items-center gap-2 font-black text-sm text-brand-400 hover:text-brand-300 transition-colors focus-visible:ring-2 focus-visible:ring-brand-400 rounded-lg outline-none">
+                  Request In-Depth Briefing
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3">
+                    </path>
+                  </svg>
+                </a>
+              </div>
             </div>
-            <div class="p-10 -mt-20 relative z-10">
-              <h3
-                class="font-black text-3xl mb-6 group-hover:text-brand-400 transition-colors leading-tight font-heading">
-                Enterprise Logistics Optimization</h3>
-              <p class="text-slate-200 leading-[1.7] font-light text-lg mb-10">Successfully defined core workflows and
-                technical requirements for a multi-site logistics platform, resulting in improved adoption and
-                operational transparency.</p>
-              <a href="#contact"
-                class="inline-flex items-center gap-2 font-black text-sm text-brand-400 hover:text-brand-300 transition-colors focus-visible:ring-2 focus-visible:ring-brand-400 rounded-lg outline-none">
-                Request In-Depth Briefing
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3">
-                  </path>
-                </svg>
-              </a>
-            </div>
-          </div>
-          <!-- Case 2 -->
-          <div
-            class="flex flex-col glass rounded-[3rem] hover:bg-white/5 transition-all group border-white/5 overflow-hidden">
-            <div class="h-64 overflow-hidden relative">
-              <img src="assets/images/analytics.jpg" alt="Industrial Analytics & KPI Frameworks"
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60"
-                loading="lazy" width="800" height="600">
-              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
-              <div
-                class="absolute top-6 left-6 text-brand-400 font-black text-[10px] uppercase tracking-widest px-3 py-1 glass rounded-full">
-                Strategic Deployment</div>
-            </div>
-            <div class="p-10 -mt-20 relative z-10">
-              <h3
-                class="font-black text-3xl mb-6 group-hover:text-brand-400 transition-colors leading-tight font-heading">
-                Industrial Analytics & KPI Frameworks</h3>
-              <p class="text-slate-200 leading-[1.7] font-light text-lg mb-10">Architected real-time performance
-                dashboards and KPI structures for complex manufacturing environments, accelerating decision-making by
-                40%.</p>
-              <a href="#contact"
-                class="inline-flex items-center gap-2 font-black text-sm text-brand-400 hover:text-brand-300 transition-colors focus-visible:ring-2 focus-visible:ring-brand-400 rounded-lg outline-none">
-                Request In-Depth Briefing
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3">
-                  </path>
-                </svg>
-              </a>
-            </div>
-          </div>
+          </template>
         </div>
       </div>
     </section>
@@ -701,11 +547,11 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div class="space-y-2">
               <div class="text-[10px] uppercase font-black text-brand-200 tracking-widest">Office HQ</div>
-              <div class="font-bold text-lg">Cary, NC</div>
+              <div class="font-bold text-lg" x-text="contact.location"></div>
             </div>
             <div class="space-y-2">
               <div class="text-[10px] uppercase font-black text-brand-200 tracking-widest">Global Inquiries</div>
-              <div class="font-bold text-lg">apsj726@gmail.com</div>
+              <div class="font-bold text-lg" x-text="contact.email"></div>
             </div>
           </div>
         </div>
@@ -723,7 +569,7 @@
           </div>
           <p class="text-slate-700 mb-10 font-medium leading-[1.7]">Briefly share your industry and current workflow
             objective. Our strategic team will review and contact you to schedule a consultation.</p>
-          <a href="mailto:apsj726@gmail.com?subject=Automtas%20Consulting%20Inquiry"
+          <a :href="'mailto:' + contact.email + '?subject=' + encodeURIComponent(contact.subject || 'Automtas Consulting Inquiry')"
             class="block w-full py-5 bg-brand-600 text-white text-center font-black rounded-2xl hover:bg-brand-700 transition-all shadow-2xl shadow-brand-600/30 active:scale-95 text-lg focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-brand-600 outline-none">Send
             Professional Inquiry</a>
         </div>
@@ -735,12 +581,13 @@
     <div class="container mx-auto px-4 max-w-6xl grid md:grid-cols-2 gap-16">
       <div class="space-y-8">
         <div>
-          <div class="font-black text-white text-2xl mb-4 font-heading">Automtas</div>
+          <div class="font-black text-white text-2xl mb-4 font-heading" x-text="contact.name || 'Automtas'"></div>
           <p class="max-w-xs leading-[1.7] font-light text-slate-400">Bridge high-level strategy with physical
             industrial execution.
           </p>
         </div>
-        <div class="text-xs font-bold uppercase tracking-widest">© <span id="year"></span> Automtas. Industrial
+        <div class="text-xs font-bold uppercase tracking-widest">© <span id="year"></span> <span
+            x-text="contact.name || 'Automtas'"></span>. Industrial
           Intelligence Council.</div>
       </div>
       <div class="md:text-right space-y-8">
@@ -749,8 +596,8 @@
           </div>
           <div class="space-y-3 font-bold text-slate-300">
             <div>North America / Global</div>
-            <div>Cary, NC</div>
-            <div class="text-brand-400">apsj726@gmail.com</div>
+            <div x-text="contact.location"></div>
+            <div class="text-brand-400" x-text="contact.email"></div>
           </div>
         </div>
       </div>
