@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automtas — AI/ML & IoT Product Engineering</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --bg: #0A0F1A;
+    --surface: #121A2A;
+    --surface-2: #182238;
+    --line: #263248;
+    --text: #E9EEF5;
+    --text-muted: #8593AB;
+    --accent: #3FE0D8;
+    --accent-dim: #1F7A76;
+    --warn: #FFB020;
+
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a{ color: inherit; text-decoration: none; }
+  .wrap{ max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+
+  ::selection{ background: var(--accent-dim); color: var(--bg); }
+
+  /* ---------- NAV ---------- */
+  header{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(10,15,26,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content: space-between;
+    padding: 18px 32px;
+    max-width: 1180px; margin: 0 auto;
+  }
+  .logo{
+    font-family: var(--display); font-weight: 700; font-size: 1.15rem;
+    letter-spacing: 0.02em;
+    display:flex; align-items:center; gap:8px;
+  }
+  .logo .dot{
+    width:8px; height:8px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+  }
+  .navlinks{ display:flex; gap: 36px; font-size: 0.9rem; color: var(--text-muted); }
+  .navlinks a:hover{ color: var(--text); }
+  .navcta{
+    font-family: var(--mono); font-size: 0.8rem; color: var(--accent);
+    border: 1px solid var(--accent-dim); padding: 8px 16px; border-radius: 3px;
+    transition: all .2s ease;
+  }
+  .navcta:hover{ background: var(--accent); color: var(--bg); }
+  @media (max-width: 720px){ .navlinks{ display:none; } }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+  }
+  #signal-canvas{
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    opacity: 0.55;
+  }
+  .hero-inner{
+    position: relative; z-index: 2;
+    padding: 130px 32px 110px;
+    max-width: 1180px; margin: 0 auto;
+  }
+  .eyebrow{
+    font-family: var(--mono); font-size: 0.78rem; color: var(--accent);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    display:flex; align-items:center; gap: 10px; margin-bottom: 28px;
+  }
+  .eyebrow::before{
+    content:''; width: 22px; height:1px; background: var(--accent);
+  }
+  h1{
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(2.4rem, 5.2vw, 4.3rem);
+    line-height: 1.05; letter-spacing: -0.01em;
+    max-width: 15ch;
+    margin-bottom: 26px;
+  }
+  h1 .accent-text{ color: var(--accent); }
+  .hero p.sub{
+    font-size: 1.15rem; color: var(--text-muted); max-width: 46ch;
+    margin-bottom: 40px;
+  }
+  .hero-ctas{ display:flex; gap: 18px; flex-wrap: wrap; }
+  .btn-primary{
+    background: var(--accent); color: #06181A; font-weight: 600;
+    padding: 14px 28px; border-radius: 4px; font-size: 0.95rem;
+    display:inline-block; transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 8px 24px rgba(63,224,216,0.25); }
+  .btn-ghost{
+    border: 1px solid var(--line); padding: 14px 28px; border-radius: 4px;
+    font-size: 0.95rem; color: var(--text);
+    display:inline-block; transition: border-color .15s ease;
+  }
+  .btn-ghost:hover{ border-color: var(--text-muted); }
+
+  /* ---------- TELEMETRY STRIP ---------- */
+  .telemetry{
+    border-bottom: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .telemetry .wrap{
+    display:grid; grid-template-columns: repeat(4,1fr);
+    padding: 26px 32px;
+  }
+  .tel-item{
+    padding: 0 24px; border-left: 1px solid var(--line);
+  }
+  .tel-item:first-child{ border-left: none; padding-left: 0; }
+  .tel-num{
+    font-family: var(--mono); font-size: 1.6rem; color: var(--accent);
+    display:block; margin-bottom: 4px;
+  }
+  .tel-label{
+    font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.03em;
+  }
+  @media (max-width: 780px){
+    .telemetry .wrap{ grid-template-columns: repeat(2,1fr); row-gap: 24px; }
+    .tel-item:nth-child(3){ border-left: none; }
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding: 100px 0; }
+  .section-head{ max-width: 640px; margin-bottom: 64px; }
+  .section-tag{
+    font-family: var(--mono); font-size: 0.78rem; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;
+  }
+  h2{
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+    line-height: 1.15; margin-bottom: 18px;
+  }
+  .section-head p{ color: var(--text-muted); font-size: 1.05rem; }
+
+  /* ---------- PROCESS (numbered — real sequence) ---------- */
+  .process{ background: var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .process-grid{
+    display:grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .process-step{
+    background: var(--surface); padding: 40px 32px;
+    position: relative;
+  }
+  .step-num{
+    font-family: var(--mono); font-size: 0.85rem; color: var(--accent);
+    margin-bottom: 24px; display:block;
+  }
+  .step-title{
+    font-family: var(--display); font-weight: 600; font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+  .step-desc{ color: var(--text-muted); font-size: 0.92rem; }
+  @media (max-width: 900px){ .process-grid{ grid-template-columns: 1fr; } }
+
+  /* ---------- CAPABILITIES (unordered — tag grid, not a sequence) ---------- */
+  .cap-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .cap-card{
+    border: 1px solid var(--line); border-radius: 6px; padding: 28px;
+    background: var(--surface); transition: border-color .2s ease, transform .2s ease;
+  }
+  .cap-card:hover{ border-color: var(--accent-dim); transform: translateY(-3px); }
+  .cap-icon{
+    width: 36px; height: 36px; margin-bottom: 20px;
+    color: var(--accent);
+  }
+  .cap-title{ font-family: var(--display); font-weight: 600; font-size: 1.05rem; margin-bottom: 10px; }
+  .cap-desc{ color: var(--text-muted); font-size: 0.9rem; }
+  @media (max-width: 900px){ .cap-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 600px){ .cap-grid{ grid-template-columns: 1fr; } }
+
+  /* ---------- STACK / DEVICE READOUT ---------- */
+  .stack-section{ background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .stack-layout{
+    display:grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items:center;
+  }
+  @media (max-width: 900px){ .stack-layout{ grid-template-columns: 1fr; } }
+  .stack-list{ list-style:none; }
+  .stack-list li{
+    display:flex; align-items:baseline; gap: 16px;
+    padding: 18px 0; border-bottom: 1px solid var(--line);
+    font-family: var(--mono); font-size: 0.9rem;
+  }
+  .stack-list li:last-child{ border-bottom: none; }
+  .stack-list .k{ color: var(--accent); min-width: 130px; }
+  .stack-list .v{ color: var(--text-muted); }
+
+  .readout{
+    background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
+    padding: 28px; font-family: var(--mono); font-size: 0.82rem;
+    color: var(--text-muted); position: relative; overflow:hidden;
+  }
+  .readout-title{
+    display:flex; justify-content: space-between; color: var(--text);
+    margin-bottom: 20px; font-size: 0.78rem; letter-spacing: 0.05em;
+  }
+  .readout-title .live{ color: var(--accent); display:flex; align-items:center; gap:6px; }
+  .live::before{ content:''; width:6px; height:6px; border-radius:50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); animation: pulse 1.6s infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+  .readout-row{ display:flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed var(--line); }
+  .readout-row span:last-child{ color: var(--text); }
+
+  /* ---------- CTA ---------- */
+  .cta-section{ text-align:center; padding: 120px 0; }
+  .cta-section h2{ max-width: 20ch; margin: 0 auto 20px; }
+  .cta-section p{ color: var(--text-muted); max-width: 46ch; margin: 0 auto 40px; font-size: 1.05rem; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ border-top: 1px solid var(--line); padding: 48px 0; }
+  .foot-row{ display:flex; justify-content: space-between; align-items:center; flex-wrap: wrap; gap: 20px; }
+  .foot-links{ display:flex; gap: 28px; font-size: 0.85rem; color: var(--text-muted); }
+  .foot-links a:hover{ color: var(--text); }
+  .foot-copy{ font-size: 0.8rem; color: var(--text-muted); font-family: var(--mono); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  :focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo"><span class="dot"></span>AUTOMTAS</div>
+    <div class="navlinks">
+      <a href="#team">Team</a>
+      <a href="#services">Services</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#stack">Stack</a>
+    </div>
+    <a class="navcta" href="#contact">Start a project →</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <canvas id="signal-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="eyebrow">AI/ML &amp; IoT Product Engineering</div>
+    <h1>AI/ML and IoT devices, built into <span class="accent-text">systems that decide.</span></h1>
+    <p class="sub">Automtas is a consulting company that designs, builds, and ships AI/ML and IoT products — from the edge device reading the signal to the model acting on it.</p>
+    <div class="hero-ctas">
+      <a class="btn-primary" href="#contact">Start a project</a>
+      <a class="btn-ghost" href="#services">See how we work</a>
+    </div>
+  </div>
+</section>
+
+<div class="telemetry">
+  <div class="wrap">
+    <div class="tel-item">
+      <span class="tel-num">40+</span>
+      <span class="tel-label">AI/ML &amp; IoT products shipped</span>
+    </div>
+    <div class="tel-item">
+      <span class="tel-num">12k</span>
+      <span class="tel-label">Edge devices in production</span>
+    </div>
+    <div class="tel-item">
+      <span class="tel-num">6</span>
+      <span class="tel-label">Industries served</span>
+    </div>
+    <div class="tel-item">
+      <span class="tel-num">99.2%</span>
+      <span class="tel-label">Median fleet uptime</span>
+    </div>
+  </div>
+</div>
+
+<section id="team">
+  <div class="wrap">
+    <div class="stack-layout">
+      <div>
+        <div class="section-tag">Who you'll work with</div>
+        <h2>Apram Singh</h2>
+        <p style="color:var(--text-muted); font-size:1.02rem; margin-bottom:24px;">Sales Engineer &amp; Solutions Consultant — the person who scopes your engagement and stays on it through delivery.</p>
+        <p style="color:var(--text-muted); font-size:0.98rem; margin-bottom:24px;">5+ years in consultative technical sales and solution discovery across manufacturing, logistics, transportation, telecom, SaaS, and industrial automation. Scopes and sells custom software, AI/IoT, drone/LiDAR, CCTV/ML, TMS/CRM, and process-automation engagements — translating what a customer needs into a solution architecture, ROI case, and delivery roadmap before anyone writes a line of code.</p>
+        <ul class="stack-list">
+          <li><span class="k">PIPELINE</span><span class="v">$4.5M+ qualified pipeline built across AI, IoT, drones, LiDAR, and CCTV/ML</span></li>
+          <li><span class="k">DELIVERY</span><span class="v">Engagements scoped from $50K to $300K+, from discovery through implementation handoff</span></li>
+          <li><span class="k">DOMAINS</span><span class="v">Manufacturing, logistics, transportation, telecom, SaaS, public sector, industrial automation</span></li>
+          <li><span class="k">CONTACT</span><span class="v"><a href="mailto:apram.singh@automtas.com" style="color:var(--accent);">apram.singh@automtas.com</a></span></li>
+          <li><span class="k">LINKEDIN</span><span class="v"><a href="https://www.linkedin.com/in/apramaparsingh/" target="_blank" rel="noopener" style="color:var(--accent);">linkedin.com/in/apramaparsingh</a></span></li>
+        </ul>
+      </div>
+      <div class="readout">
+        <div class="readout-title">
+          <span>PROFILE.LOG</span>
+          <span class="live">ACTIVE</span>
+        </div>
+        <div class="readout-row"><span>role</span><span>Sales Engineer / Solutions Consultant</span></div>
+        <div class="readout-row"><span>experience</span><span>5+ years technical sales</span></div>
+        <div class="readout-row"><span>qualified_pipeline</span><span>$4.5M+</span></div>
+        <div class="readout-row"><span>revenue_growth</span><span>$1.5M+</span></div>
+        <div class="readout-row"><span>engagement_range</span><span>$50K – $300K+</span></div>
+        <div class="readout-row"><span>education</span><span>MBA (Liverpool John Moores) · B.Eng Mechanical</span></div>
+        <div class="readout-row" style="border-bottom:none;"><span>certification</span><span>Six Sigma Green Belt</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="process">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">How an engagement runs</div>
+      <h2>Four stages, one team, from first sensor to full rollout.</h2>
+      <p>Each stage has a clear owner and a clear output — no separate "strategy" team handing off to a separate "build" team.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="process-grid">
+      <div class="process-step">
+        <span class="step-num">01 / Discover</span>
+        <div class="step-title">Frame the problem</div>
+        <div class="step-desc">We map your data sources, device constraints, and the decision you actually need the system to make — before any model gets built.</div>
+      </div>
+      <div class="process-step">
+        <span class="step-num">02 / Prototype</span>
+        <div class="step-title">Prove it on real data</div>
+        <div class="step-desc">A working model and a working device talking to each other, tested against your data — not a slide deck.</div>
+      </div>
+      <div class="process-step">
+        <span class="step-num">03 / Deploy</span>
+        <div class="step-title">Ship to the field</div>
+        <div class="step-desc">Edge inference, device provisioning, and the pipelines that keep models fresh once they leave the lab.</div>
+      </div>
+      <div class="process-step">
+        <span class="step-num">04 / Scale</span>
+        <div class="step-title">Run the fleet</div>
+        <div class="step-desc">Monitoring, retraining, and fleet management so accuracy holds at 10 devices and at 10,000.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="capabilities">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">What we build</div>
+      <h2>Capabilities across the AI/ML and IoT stack</h2>
+      <p>Pick one, or bring us the whole product.</p>
+    </div>
+    <div class="cap-grid">
+      <div class="cap-card">
+        <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"/></svg>
+        <div class="cap-title">Predictive maintenance</div>
+        <div class="cap-desc">Vibration, temperature, and current signals turned into early failure warnings for machinery and fleets.</div>
+      </div>
+      <div class="cap-card">
+        <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <div class="cap-title">Computer vision at the edge</div>
+        <div class="cap-desc">Inspection, counting, and defect detection running on-device, without shipping every frame to the cloud.</div>
+      </div>
+      <div class="cap-card">
+        <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h4l2-7 4 14 2-7h4"/></svg>
+        <div class="cap-title">Time-series &amp; forecasting</div>
+        <div class="cap-desc">Demand, load, and consumption models built on the sensor history you already have.</div>
+      </div>
+      <div class="cap-card">
+        <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4"/></svg>
+        <div class="cap-title">Digital twins</div>
+        <div class="cap-desc">Live models of physical assets that mirror sensor state, for simulation and what-if planning.</div>
+      </div>
+      <div class="cap-card">
+        <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M6 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/></svg>
+        <div class="cap-title">Device &amp; fleet management</div>
+        <div class="cap-desc">Provisioning, OTA updates, and health monitoring for devices once they're out of your hands.</div>
+      </div>
+      <div class="cap-card">
+        <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4v16h16"/><path d="M4 15l5-5 4 4 7-7"/></svg>
+        <div class="cap-title">MLOps &amp; retraining pipelines</div>
+        <div class="cap-desc">Automated retraining and rollback so a model degrades gracefully instead of silently.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack" class="stack-section">
+  <div class="wrap">
+    <div class="stack-layout">
+      <div>
+        <div class="section-tag">Under the hood</div>
+        <h2>One stack, tuned to your constraints</h2>
+        <p style="color:var(--text-muted); margin-bottom:32px; font-size:1.02rem;">We don't sell a fixed platform. We choose the stack that fits your device budget, your latency needs, and your team's ability to maintain it after we leave.</p>
+        <ul class="stack-list">
+          <li><span class="k">EDGE</span><span class="v">ARM Cortex-M/A, Jetson, ESP32, custom PCB bring-up</span></li>
+          <li><span class="k">INFERENCE</span><span class="v">TensorFlow Lite, ONNX Runtime, quantized on-device models</span></li>
+          <li><span class="k">CONNECTIVITY</span><span class="v">MQTT, LoRaWAN, cellular IoT, mesh fallback</span></li>
+          <li><span class="k">PIPELINE</span><span class="v">Kafka/streaming ingest, feature stores, retraining jobs</span></li>
+          <li><span class="k">CLOUD</span><span class="v">AWS IoT Core, Azure IoT Hub, or self-hosted, by requirement</span></li>
+        </ul>
+      </div>
+      <div class="readout">
+        <div class="readout-title">
+          <span>FLEET_STATUS.LOG</span>
+          <span class="live">LIVE</span>
+        </div>
+        <div class="readout-row"><span>node_0417 // vibration_sensor</span><span>nominal</span></div>
+        <div class="readout-row"><span>node_0418 // temp_probe</span><span>nominal</span></div>
+        <div class="readout-row"><span>node_0422 // current_clamp</span><span>flagged — drift +2.1%</span></div>
+        <div class="readout-row"><span>model_v14 // inference_latency</span><span>38ms</span></div>
+        <div class="readout-row"><span>model_v14 // accuracy (rolling 7d)</span><span>96.4%</span></div>
+        <div class="readout-row"><span>retrain_job // next scheduled</span><span>02:00 UTC</span></div>
+        <div class="readout-row" style="border-bottom:none;"><span>gateway_cluster // devices online</span><span>1,842 / 1,850</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contact">
+  <div class="wrap">
+    <div class="section-tag" style="text-align:center;">Get started</div>
+    <h2>Bring us the sensor, the signal, or just the problem.</h2>
+    <p>We'll tell you honestly whether it needs a model, a device, or just better instrumentation — before we tell you it needs Automtas.</p>
+    <div class="hero-ctas" style="justify-content:center;">
+      <a class="btn-primary" href="mailto:apram.singh@automtas.com">apram.singh@automtas.com</a>
+      <a class="btn-ghost" href="https://www.linkedin.com/in/apramaparsingh" target="_blank" rel="noopener">Connect on LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <div class="logo"><span class="dot"></span>AUTOMTAS</div>
+    <div class="foot-links">
+      <a href="#services">Services</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#stack">Stack</a>
+      <a href="#contact">Contact</a>
+      <a href="https://www.linkedin.com/in/apramaparsingh" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="foot-copy">© 2026 AUTOMTAS — AI/ML &amp; IoT PRODUCT ENGINEERING</div>
+  </div>
+</footer>
+
+<script>
+  // Signature hero element: a sensor-network signal graph.
+  // Nodes represent IoT devices; pulses travel along edges toward a central "model" node.
+  (function(){
+    const canvas = document.getElementById('signal-canvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, nodes, edges, pulses;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function resize(){
+      w = canvas.parentElement.offsetWidth;
+      h = canvas.parentElement.offsetHeight;
+      canvas.width = w * devicePixelRatio;
+      canvas.height = h * devicePixelRatio;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+      buildGraph();
+    }
+
+    function buildGraph(){
+      const cx = w * 0.72, cy = h * 0.42;
+      nodes = [{x: cx, y: cy, r: 5, core: true}];
+      const count = Math.max(10, Math.floor(w / 90));
+      for(let i=0;i<count;i++){
+        const angle = (i / count) * Math.PI * 2 + Math.sin(i)*0.3;
+        const dist = 140 + Math.random()*220;
+        nodes.push({
+          x: cx + Math.cos(angle)*dist,
+          y: cy + Math.sin(angle)*dist*0.6,
+          r: 2 + Math.random()*1.5,
+          core: false
+        });
+      }
+      edges = [];
+      for(let i=1;i<nodes.length;i++){
+        edges.push({a:0, b:i, phase: Math.random()*1});
+      }
+      pulses = edges.map(e => ({edge: e, t: Math.random()}));
+    }
+
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      ctx.strokeStyle = 'rgba(63,224,216,0.14)';
+      ctx.lineWidth = 1;
+      edges.forEach(e=>{
+        const a = nodes[e.a], b = nodes[e.b];
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y);
+        ctx.lineTo(b.x,b.y);
+        ctx.stroke();
+      });
+
+      nodes.forEach(n=>{
+        ctx.beginPath();
+        ctx.fillStyle = n.core ? '#3FE0D8' : 'rgba(133,147,171,0.55)';
+        ctx.arc(n.x, n.y, n.core ? 5 : n.r, 0, Math.PI*2);
+        ctx.fill();
+        if(n.core){
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgba(63,224,216,0.35)';
+          ctx.arc(n.x, n.y, 14, 0, Math.PI*2);
+          ctx.stroke();
+        }
+      });
+
+      if(!reduceMotion){
+        pulses.forEach(p=>{
+          p.t += 0.006;
+          if(p.t > 1) p.t = 0;
+          const a = nodes[p.edge.a], b = nodes[p.edge.b];
+          const x = b.x + (a.x-b.x)*p.t;
+          const y = b.y + (a.y-b.y)*p.t;
+          ctx.beginPath();
+          ctx.fillStyle = 'rgba(255,176,32,0.9)';
+          ctx.arc(x,y,2,0,Math.PI*2);
+          ctx.fill();
+        });
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    draw();
+  })();
+</script>
+
+</body>
+</html>
